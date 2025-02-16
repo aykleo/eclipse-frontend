@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../../hooks/user-hooks/useUser";
-import { Exercise } from "../../utils/exercise-types";
+import { Exercise } from "../../utils/types/exercise-types";
 import {
   getColorBackgroundForTagCategory,
   getColorClassForTagCategory,
 } from "../../utils/tag-colors";
+import { fetchExercises } from "../../utils/fetch-functions/fetch-exercises";
 
 type ExerciseCategory =
   | ""
@@ -15,7 +16,7 @@ type ExerciseCategory =
 
 export const ListAllExercises = () => {
   const { user } = useUser();
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExercises] = useState<Exercise[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,45 +25,27 @@ export const ListAllExercises = () => {
     useState<ExerciseCategory>("");
 
   useEffect(() => {
-    setIsLoading(true);
+    const fetchData = async () => {
+      console.log(user);
+      if (user) {
+        setIsLoading(true);
+
+        const { exercises, totalPages } = await fetchExercises(
+          currentPage,
+          pageSize,
+          selectedCategory,
+          user
+        );
+        console.log("aaa", exercises);
+        setExercises(exercises);
+        setTotalPages(totalPages);
+      }
+
+      setIsLoading(false);
+    };
+
     if (user) {
-      const controller = new AbortController();
-      const signal = controller.signal;
-
-      const fetchExercises = async (page: number, muscleGroup?: string) => {
-        try {
-          const queryParams = new URLSearchParams({
-            page: page.toString(),
-            pageSize: pageSize.toString(),
-            muscleGroup: muscleGroup || "",
-            tagCategory: selectedCategory !== "" ? selectedCategory : "",
-          });
-
-          const response = await fetch(
-            `${import.meta.env.VITE_ECLIPSE_DEV_API_URL}/user/${
-              user?.id
-            }/exercises?${queryParams.toString()}`,
-            {
-              method: "GET",
-              credentials: "include",
-              signal,
-            }
-          );
-          const data = await response.json();
-          setExercises(data.exercises);
-          setTotalPages(data.totalPages);
-        } catch (error) {
-          console.error("Failed to fetch exercises:", error);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-
-      fetchExercises(currentPage);
-
-      return () => {
-        controller.abort();
-      };
+      fetchData();
     }
   }, [user, currentPage, selectedCategory]);
 
