@@ -1,36 +1,19 @@
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/user-hooks/useUser";
 import AnimatedGradientBorderBtn from "./gradient/animated-gradient-border-btn";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { AnimateTextGradient } from "./gradient/animate-text-gradient";
+import { logOutUser } from "../utils/fetch-functions/log-out-user";
 
 export const Navbar = () => {
-  const { user, clearUser } = useUser();
-  const navigate = useNavigate();
+  const { user, setUser } = useUser();
 
   const handleSignOut = async () => {
-    const controller = new AbortController();
-    const signal = controller.signal;
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_ECLIPSE_DEV_API_URL}/user/log-out`,
-        {
-          method: "POST",
-          credentials: "include",
-          signal,
-        }
-      );
-
-      if (response.ok) {
-        navigate("/");
-        clearUser();
-      } else {
-        console.error("Failed to log out");
-      }
+      await logOutUser();
+      setUser(null);
+      window.location.reload();
     } catch (error) {
-      console.error("Error logging out:", error);
-    } finally {
-      controller.abort();
+      console.error("Logout failed:", error);
     }
   };
 
