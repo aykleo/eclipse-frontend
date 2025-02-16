@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 
 import { SpiningModal } from "../spining-modal";
 import { loginSchema } from "../../../lib/validation/auth-schemas";
+import { logIn } from "../../../utils/fetch-functions/log-in";
 
 export const LogInModal = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -30,65 +31,7 @@ export const LogInModal = () => {
         }
       }
 
-      const controller = new AbortController();
-      const signal = controller.signal;
-
-      try {
-        setIsLoading(true);
-        const response = await fetch(
-          `${import.meta.env.VITE_ECLIPSE_DEV_API_URL}/authenticate?email=${
-            emailRef.current
-          }`,
-          {
-            method: "POST",
-            signal,
-          }
-        );
-
-        if (!response.ok) {
-          const errorResponse = await response.text();
-          const errorJson = JSON.parse(errorResponse);
-
-          if (!errorJson) {
-            console.log("Error parsing");
-            return;
-          }
-
-          setStatusText(errorJson.message);
-
-          setTimeout(() => {
-            setStatusText(null);
-          }, 2000);
-
-          return;
-        }
-
-        setStatusText("Sign in link sent to your email");
-
-        setTimeout(() => {
-          setStatusText(null);
-          const modal = document.getElementById(
-            "login_modal"
-          ) as HTMLDialogElement;
-          modal?.close();
-        }, 2000);
-
-        emailRef.current = null;
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          setStatusText("Server error. Please try again later.");
-        } else {
-          setStatusText(
-            "An unexpected error occurred. Please try again later."
-          );
-        }
-        setTimeout(() => {
-          setStatusText(null);
-        }, 1000);
-      } finally {
-        controller.abort();
-        setIsLoading(false);
-      }
+      logIn(emailRef.current, setIsLoading, setStatusText);
     }
   };
 

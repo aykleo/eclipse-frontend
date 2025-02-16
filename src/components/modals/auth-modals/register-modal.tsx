@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 
 import { SpiningModal } from "../spining-modal";
 import { registerSchema } from "../../../lib/validation/auth-schemas";
+import { registerUser } from "../../../utils/fetch-functions/register";
 
 export const RegisterModal = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -32,67 +33,12 @@ export const RegisterModal = () => {
         }
       }
 
-      const controller = new AbortController();
-      const signal = controller.signal;
-
-      try {
-        setIsLoading(true);
-        const response = await fetch(
-          `${import.meta.env.VITE_ECLIPSE_DEV_API_URL}/register?email=${
-            emailRef.current
-          }&username=${usernameRef.current}`,
-          {
-            method: "POST",
-            signal,
-          }
-        );
-
-        if (!response.ok) {
-          const errorResponse = await response.text();
-
-          const errorJson = JSON.parse(errorResponse);
-
-          if (!errorJson) {
-            console.log("Error parsing");
-            return;
-          }
-
-          setStatusText(errorJson.message);
-
-          setTimeout(() => {
-            setStatusText(null);
-          }, 2000);
-
-          return;
-        }
-
-        setStatusText("Please check your email to validate your account.");
-
-        setTimeout(() => {
-          setStatusText(null);
-          const modal = document.getElementById(
-            "register_modal"
-          ) as HTMLDialogElement;
-          modal?.close();
-        }, 3000);
-
-        emailRef.current = null;
-        usernameRef.current = null;
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          setStatusText("Server error. Please try again later.");
-        } else {
-          setStatusText(
-            "An unexpected error occurred. Please try again later."
-          );
-        }
-        setTimeout(() => {
-          setStatusText(null);
-        }, 1000);
-      } finally {
-        controller.abort();
-        setIsLoading(false);
-      }
+      registerUser(
+        emailRef.current,
+        usernameRef.current,
+        setIsLoading,
+        setStatusText
+      );
     }
   };
 
