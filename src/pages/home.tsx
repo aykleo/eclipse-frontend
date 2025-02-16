@@ -2,50 +2,34 @@ import { ArrowRightIcon, WandSparklesIcon } from "lucide-react";
 import { RegisterModal } from "../components/modals/auth-modals/register-modal";
 import { LogInModal } from "../components/modals/auth-modals/logIn-modal";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { AnimateTextGradient } from "../components/gradient/animate-text-gradient";
+import { fetchUser } from "../utils/fetch-functions/fetch-user";
+import { useQuery } from "@tanstack/react-query";
 import { useUser } from "../hooks/user-hooks/useUser";
+import { useEffect } from "react";
 
 export default function HomePage() {
   const navigate = useNavigate();
   const { user } = useUser();
 
+  const { data: userData, error } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => fetchUser(),
+  });
+
   useEffect(() => {
-    if (user && user.username) {
-      navigate(`/${user.username}`);
-    } else {
-      const checkUser = async () => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-
-        try {
-          const response = await fetch(
-            `${import.meta.env.VITE_ECLIPSE_DEV_API_URL}/user/me`,
-            {
-              method: "GET",
-              credentials: "include",
-              signal,
-            }
-          );
-
-          if (response.ok) {
-            const fetchedUser = await response.json();
-            if (fetchedUser && fetchedUser.username) {
-              navigate(`/${fetchedUser.username}`);
-            }
-          } else {
-            console.error("Failed to fetch user profile:", response.statusText);
-          }
-        } catch (error) {
-          console.error("Error fetching user profile:", error);
-        } finally {
-          controller.abort();
-        }
-      };
-
-      checkUser();
+    if (error) {
+      console.log(error);
     }
-  }, [navigate, user]);
+
+    if (userData) {
+      if (user && user.username === userData.name) {
+        navigate(`/${userData.username}`);
+      } else {
+        navigate(`/${userData.username}`);
+      }
+    }
+  }, [user, userData, error, navigate]);
 
   return (
     <>

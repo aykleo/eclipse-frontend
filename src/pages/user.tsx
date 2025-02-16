@@ -1,57 +1,40 @@
-import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../hooks/user-hooks/useUser";
 import { ListAllExercises } from "../components/execises/list-all-exercises";
+import { useQuery } from "@tanstack/react-query";
+import { fetchUser } from "../utils/fetch-functions/fetch-user";
+import { useEffect } from "react";
 
 export const UserPage = () => {
   const { username } = useParams<{ username: string }>();
   const navigate = useNavigate();
-  const { user, setUser } = useUser();
+  const { setUser } = useUser();
+
+  const {
+    data: userData,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: () => fetchUser(),
+  });
 
   useEffect(() => {
-    const verifyUser = async () => {
-      const controller = new AbortController();
-      const signal = controller.signal;
-
-      if (user && user.username) {
-        navigate(`/${user.username}`);
+    if (error) {
+      navigate("/");
+    } else if (userData) {
+      if (userData.username !== username) {
+        navigate("/");
       } else {
-        try {
-          const response = await fetch(
-            `${import.meta.env.VITE_ECLIPSE_DEV_API_URL}/user/me`,
-            {
-              method: "GET",
-              credentials: "include",
-              signal,
-            }
-          );
-
-          if (response.ok) {
-            const contentType = response.headers.get("content-type");
-
-            if (contentType && contentType.includes("application/json")) {
-              const userFromServer = await response.json();
-              console.log(userFromServer);
-              if (userFromServer && userFromServer.username !== username) {
-                navigate("/");
-              } else {
-                setUser(userFromServer);
-              }
-            }
-          } else {
-            navigate("/");
-          }
-        } catch (error) {
-          console.error("Failed to verify user:", error);
-          navigate("/");
-        } finally {
-          controller.abort();
-        }
+        setUser(userData);
       }
-    };
+    }
+  }, [userData, error, username, navigate, setUser]);
 
-    verifyUser();
-  }, [username, navigate]); // eslint-disable-line react-hooks/exhaustive-deps
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="grid grid-cols-5 size-full z-1 p-4 gap-x-3">
       <div className="mt-16 col-start-1 col-span-2 size-screen flex flex-col relative p-[2px] rounded-lg overflow-hidden">
