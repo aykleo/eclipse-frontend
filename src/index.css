@@ -1,2 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Orbitron:wght@400..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Orbitron:wght@400..900&family=Permanent+Marker&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* styles.css */
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+@theme {
+  --font-orbitron: "Orbitron", serif;
+  --font-marker: "Permanent Marker", cursive;
+}
+
+.text-gradient {
+  background: linear-gradient(
+    to right,
+    #e28c8c,
+    #f06969,
+    #f1e7e7,
+    #f06969,
+    #e28c8c,
+    #f06969,
+    #f1e7e7
+  );
+  background-clip: text;
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+.animte-gradient {
+  animation: "gradient 6s linear infinite";
+}
