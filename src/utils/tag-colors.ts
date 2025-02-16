@@ -1,4 +1,4 @@
-import { TagCategory } from "./exercise-types";
+import { TagCategory } from "./types/exercise-types";
 
 export const getColorClassForTagCategory = (category: TagCategory): string => {
   switch (category) {
