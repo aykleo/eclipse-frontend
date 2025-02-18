@@ -1,4 +1,4 @@
-export const EclipseCircle = () => {
+export const BgEclipseCircle = () => {
   return (
     <div className="absolute h-full w-full py-10 overflow-hidden flex items-center justify-center">
       <div className="relative flex opacity-2 h-full">

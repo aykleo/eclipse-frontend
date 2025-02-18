@@ -1,5 +1,5 @@
-import { Exercise } from "../types/exercise-types";
-import { User } from "../types/user-types";
+import { Exercise } from "../../types/exercise-types";
+import { User } from "../../types/user-types";
 
 export async function fetchExercises(
   page: number,

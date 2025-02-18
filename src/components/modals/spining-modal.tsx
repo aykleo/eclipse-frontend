@@ -1,3 +1,6 @@
+import { SpinSlowStyle } from "../styles/spin-slow-style";
+import { ToastProgress } from "../styles/toast-progress";
+
 export const SpiningModal = ({
   children,
   id,
@@ -34,9 +37,19 @@ export const SpiningModal = ({
           </div>
         </div>
         {statusText && (
-          <div className="toast  transition-opacity duration-500 mr-10 bg-transparent">
-            <div className="alert bg-neutral-800/25 font-medium border-gray-600/50">
-              <span>{statusText}</span>
+          <div className="toast toast-top mt-20 transition-opacity duration-500 bg-transparent w-max">
+            <div className="alert flex flex-col p-2 font-medium text-stone-900 h-max border-error/50 border-2 bg-stone-950 w-72">
+              {statusText.split(",").map((textPart, index) => (
+                <span
+                  key={index}
+                  className="size-full break-words whitespace-normal block text-gray-100"
+                >
+                  {textPart.trim()}
+                </span>
+              ))}
+              <div className="progress-bar bg-gray-300 h-1 mt-2 animate-progress-animation progress-bar rounded-full">
+                <div className="progress bg-error h-full"></div>
+              </div>
             </div>
           </div>
         )}
@@ -47,18 +60,8 @@ export const SpiningModal = ({
           <button>close</button>
         </form>
       </dialog>
-      <style>
-        {`
-      @keyframes spinSlow {
-        0% { transform: translate(-50%, -50%) rotate(0deg); }
-        100% { transform: translate(-50%, -50%) rotate(360deg); }
-      }
-      .animate-spin-slow {
-        animation: spinSlow 5s linear infinite;
-      }
-      
-   `}
-      </style>
+      <ToastProgress />
+      <SpinSlowStyle />
       <style>
         {`
       @keyframes fadeIn {

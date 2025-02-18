@@ -55,6 +55,11 @@ export type Exercise = {
   deletedAt?: Date;
 };
 
+export type MuscleGroupData = {
+  id: string;
+  name: MuscleGroupName;
+};
+
 export type ExerciseMuscleGroup = {
   exerciseId: string;
   muscleGroupId: string;

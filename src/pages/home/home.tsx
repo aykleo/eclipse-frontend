@@ -1,12 +1,12 @@
 import { ArrowRightIcon, WandSparklesIcon } from "lucide-react";
-import { RegisterModal } from "../components/modals/auth-modals/register-modal";
-import { LogInModal } from "../components/modals/auth-modals/logIn-modal";
 import { useNavigate } from "react-router-dom";
-import { AnimateTextGradient } from "../components/gradient/animate-text-gradient";
-import { fetchUser } from "../utils/fetch-functions/fetch-user";
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "../hooks/user-hooks/useUser";
 import { useEffect } from "react";
+import { useUser } from "../../hooks/user-hooks/useUser";
+import { fetchUser } from "../../utils/fetch-functions/user/fetch-user";
+import { RegisterModal } from "./components/auth-modals/register-modal";
+import { LogInModal } from "./components/auth-modals/logIn-modal";
+import { AnimateTextGradient } from "../../components/modals/animate-text-gradient";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export default function HomePage() {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      return;
     }
 
     if (userData) {

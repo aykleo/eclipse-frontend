@@ -1,5 +1,6 @@
-export const logIn = async (
+export const registerUser = async (
   emailRef: string | null,
+  usernameRef: string | null,
   setIsLoading: (isLoading: boolean) => void,
   setStatusText: (statusText: string | null) => void
 ) => {
@@ -11,7 +12,7 @@ export const logIn = async (
     const response = await fetch(
       `${
         import.meta.env.VITE_ECLIPSE_DEV_API_URL
-      }/authenticate?email=${emailRef}`,
+      }/register?email=${emailRef}&username=${usernameRef}`,
       {
         method: "POST",
         signal,
@@ -20,11 +21,11 @@ export const logIn = async (
 
     if (!response.ok) {
       const errorResponse = await response.text();
+
       const errorJson = JSON.parse(errorResponse);
 
       if (!errorJson) {
-        console.log("Error parsing");
-        return;
+        return "Error parsing";
       }
 
       setStatusText(errorJson.message);
@@ -36,15 +37,18 @@ export const logIn = async (
       return;
     }
 
-    setStatusText("Sign in link sent to your email");
+    setStatusText("Please check your email to validate your account.");
 
     setTimeout(() => {
       setStatusText(null);
-      const modal = document.getElementById("login_modal") as HTMLDialogElement;
+      const modal = document.getElementById(
+        "register_modal"
+      ) as HTMLDialogElement;
       modal?.close();
-    }, 2000);
+    }, 3000);
 
     emailRef = null;
+    usernameRef = null;
   } catch (error: unknown) {
     if (error instanceof Error) {
       setStatusText("Server error. Please try again later.");

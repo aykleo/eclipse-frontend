@@ -12,7 +12,7 @@ export const logOutUser = async () => {
     );
 
     if (response.ok) {
-      return console.log("Logged out");
+      return "Logged out";
     } else {
       console.error("Failed to log out");
     }

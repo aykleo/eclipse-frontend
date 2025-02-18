@@ -1,9 +1,9 @@
 import { z } from "zod";
 import React, { useRef, useState } from "react";
 
-import { SpiningModal } from "../spining-modal";
-import { registerSchema } from "../../../lib/validation/auth-schemas";
-import { registerUser } from "../../../utils/fetch-functions/register";
+import { SpiningModal } from "../../../../components/modals/spining-modal";
+import { registerSchema } from "../../../../lib/validation/auth-schemas";
+import { registerUser } from "../../../../utils/fetch-functions/user/register";
 
 export const RegisterModal = () => {
   const formRef = useRef<HTMLFormElement>(null);

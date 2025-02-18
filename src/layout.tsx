@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar } from "./components/navbar";
-import { EclipseCircle } from "./components/eclipse-circle";
+import { BgEclipseCircle } from "./components/bg-eclipse-circle";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="bg-gradient-to-tl bg-black h-screen w-screen font-orbitron  ">
       <Navbar />
       <div className="absolute h-full w-full items-center justify-center flex">
-        <EclipseCircle />
+        <BgEclipseCircle />
         {children}
       </div>
     </div>

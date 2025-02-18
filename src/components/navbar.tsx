@@ -1,8 +1,8 @@
 import { useUser } from "../hooks/user-hooks/useUser";
 import AnimatedGradientBorderBtn from "./gradient/animated-gradient-border-btn";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import { AnimateTextGradient } from "./gradient/animate-text-gradient";
-import { logOutUser } from "../utils/fetch-functions/log-out-user";
+import { AnimateTextGradient } from "./modals/animate-text-gradient";
+import { logOutUser } from "../utils/fetch-functions/user/log-out-user";
 
 export const Navbar = () => {
   const { user, setUser } = useUser();
