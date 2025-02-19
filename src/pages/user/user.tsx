@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchUser } from "../../utils/fetch-functions/user/fetch-user";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../../hooks/user-hooks/useUser";
 import { Exercise } from "../../utils/types/exercise-types";
 import { ListAllExercises } from "./components/execises/list-all-exercises";
-import { CreateOrUpdateExercises } from "./components/execises/create-update-exercises";
 import { SpinSlowStyle } from "../../components/styles/spin-slow-style";
+
+const CreateOrUpdateExercises = lazy(
+  () => import("./components/execises/create-update-exercises")
+);
 
 export const UserPage = () => {
   const { username } = useParams<{ username: string }>();
@@ -62,32 +65,40 @@ export const UserPage = () => {
         </div>
       </div>
       <div className="mt-16 col-start-3 gap-y-6 col-span-3 p-1 size-screen flex flex-col items-center justify-center bg-stone-950 rounded-lg">
-        {isCreatingExercise && !exerciseForUpdate ? (
-          <CreateOrUpdateExercises
-            setIsCreatingExercise={setIsCreatingExercise}
-          />
-        ) : (
-          <>
-            {exerciseForUpdate ? (
-              <>
-                <CreateOrUpdateExercises
-                  exerciseForUpdate={exerciseForUpdate}
-                  setExerciseForUpdate={setExerciseForUpdate}
-                />
-              </>
-            ) : (
-              <>
-                <div className="w-full h-32 flex justify-evenly gap-x-8">
-                  <span className="h-32 w-full border">tag 1</span>
-                  <span className="h-32 w-full border">tag 2</span>
-                  <span className="h-32 w-full border">tag 3</span>
-                  <span className="h-32 w-full border">tag 4</span>
-                </div>
-                <div className="w-full h-full border">charts</div>
-              </>
-            )}
-          </>
-        )}
+        <Suspense
+          fallback={
+            <div>
+              <span className="loading loading-dots loading-xl"></span>
+            </div>
+          }
+        >
+          {isCreatingExercise && !exerciseForUpdate ? (
+            <CreateOrUpdateExercises
+              setIsCreatingExercise={setIsCreatingExercise}
+            />
+          ) : (
+            <>
+              {exerciseForUpdate ? (
+                <>
+                  <CreateOrUpdateExercises
+                    exerciseForUpdate={exerciseForUpdate}
+                    setExerciseForUpdate={setExerciseForUpdate}
+                  />
+                </>
+              ) : (
+                <>
+                  <div className="w-full h-32 flex justify-evenly gap-x-8">
+                    <span className="h-32 w-full border">tag 1</span>
+                    <span className="h-32 w-full border">tag 2</span>
+                    <span className="h-32 w-full border">tag 3</span>
+                    <span className="h-32 w-full border">tag 4</span>
+                  </div>
+                  <div className="w-full h-full border">charts</div>
+                </>
+              )}
+            </>
+          )}
+        </Suspense>
       </div>
       <SpinSlowStyle />
     </div>

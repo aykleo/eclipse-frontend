@@ -15,9 +15,11 @@ interface CreateOrUpdateExercisesProps {
   setExerciseForUpdate?: (exercise: Exercise | null) => void;
 }
 
-export const CreateOrUpdateExercises: React.FC<
-  CreateOrUpdateExercisesProps
-> = ({ exerciseForUpdate, setIsCreatingExercise, setExerciseForUpdate }) => {
+const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> = ({
+  exerciseForUpdate,
+  setIsCreatingExercise,
+  setExerciseForUpdate,
+}) => {
   const queryClient = useQueryClient();
   const formRef = useRef<HTMLFormElement | null>(null);
   const exerciseNameRef = useRef<string | null>(
@@ -178,7 +180,13 @@ export const CreateOrUpdateExercises: React.FC<
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="size-full flex items-center justify-center">
+          <span className="loading loading-dots loading-lg"></span>
+        </div>
+      }
+    >
       <ExerciseForm
         exerciseForUpdate={exerciseForUpdate ? exerciseForUpdate : null}
         muscleGroupData={muscleGroupData}
@@ -198,3 +206,5 @@ export const CreateOrUpdateExercises: React.FC<
     </Suspense>
   );
 };
+
+export default CreateOrUpdateExercises;

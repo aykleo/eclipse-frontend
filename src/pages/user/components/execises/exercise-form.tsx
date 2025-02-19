@@ -55,7 +55,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
             : "Update" + " " + exerciseForUpdate.name}
           <div className="h-[1px] rounded-full bg-gray-600/25 w-full" />
         </div>
-        <div className="flex flex-col gap-y-2 px-1 h-full overflow-y-auto">
+        <div className="flex flex-col gap-y-2 px-1 h-full overflow-y-auto no-scrollbar">
           <div className="grid grid-cols-2 gap-x-6">
             <div className="gap-y-1 flex flex-col">
               <label className="label">
@@ -83,14 +83,11 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
                 defaultValue={
                   exerciseForUpdate
                     ? exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup.name
-                        .replace(/_/g, " ")
-                        .toLowerCase()
-                        .replace(/\b\w/g, (char: string) => char.toUpperCase())
                     : "Primary mover"
                 }
                 className="select select-error w-full"
                 onChange={handlePrimaryMuscleGroup}
-                name="primaryMuscleGroupname"
+                name="primaryMuscleGroupId"
                 required
               >
                 {exerciseForUpdate ? (
@@ -245,8 +242,8 @@ const ExerciseForm: React.FC<ExerciseFormProps> = ({
           </button>
         </div>
         {statusText && (
-          <div className="toast toast-top mt-20 transition-opacity duration-500 bg-transparent w-max">
-            <div className="alert flex flex-col p-2 font-medium text-stone-900 h-max border-error/50 border-2 bg-stone-950 w-72">
+          <div className="toast toast-bottom transition-opacity duration-500 bg-transparent w-max">
+            <div className="alert flex flex-col p-2 font-medium text-stone-900 h-max border-transparent bg-stone-800 w-72">
               {statusText.split(",").map((textPart, index) => (
                 <span
                   key={index}

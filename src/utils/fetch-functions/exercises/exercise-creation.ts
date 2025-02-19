@@ -15,15 +15,6 @@ export const handleExerciseCreation = async (
   setStatusText: (statusText: string | null) => void,
   setIsCreatingExercise?: (isCreatingExercise: boolean) => void
 ) => {
-  if (
-    formData.primaryMuscleGroupId === "Primary mover" ||
-    formData.primaryMuscleGroupId === null ||
-    formData.primaryMuscleGroupId === ""
-  ) {
-    setStatusText("Please select a primary mover");
-  }
-  setTimeout(() => setStatusText(null), 3000);
-
   try {
     exerciseSchema.parse(formData);
   } catch (e) {
@@ -35,9 +26,11 @@ export const handleExerciseCreation = async (
       );
 
       if (specificError) {
+        setTimeout(() => setStatusText(null), 3000);
         throw new Error("Please select a valid category from the list.");
       } else {
         const errorMessage = e.errors.map((error) => error.message).join(", ");
+        setTimeout(() => setStatusText(null), 3000);
         throw new Error(errorMessage);
       }
     }
