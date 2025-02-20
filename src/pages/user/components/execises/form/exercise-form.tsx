@@ -33,7 +33,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     exerciseForUpdate,
     muscleGroupData,
     primaryMuscleGroupId,
-    muscleGroupIds, //eslint-disable-line
+    muscleGroupIds,
     isLoading,
     statusText,
     handleSubmit,
@@ -51,7 +51,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
       if (formRef.current) {
         formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-    }, []);
+    }, [formRef]);
 
     return (
       <div className="form-control relative w-full flex flex-col px-2 justify-between h-full">

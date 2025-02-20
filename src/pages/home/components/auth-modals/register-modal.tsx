@@ -4,12 +4,13 @@ import React, { useRef, useState } from "react";
 import { SpiningModal } from "../../../../components/modals/spining-modal";
 import { registerSchema } from "../../../../lib/validation/auth-schemas";
 import { registerUser } from "../../../../utils/fetch-functions/user/register";
+import { useStatus } from "../../../../hooks/status/status-context";
 
-export const RegisterModal = () => {
+export const RegisterModal = React.memo(() => {
   const formRef = useRef<HTMLFormElement>(null);
   const usernameRef = useRef<string | null>(null);
   const emailRef = useRef<string | null>(null);
-  const [statusText, setStatusText] = useState<string | null>(null);
+  const { statusText, setStatusText } = useStatus();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -119,4 +120,4 @@ export const RegisterModal = () => {
       </div>
     </SpiningModal>
   );
-};
+});

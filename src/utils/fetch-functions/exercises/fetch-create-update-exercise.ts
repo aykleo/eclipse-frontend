@@ -14,7 +14,6 @@ export const createOrUpdateExercise = async (
   setIsLoading: (isLoading: boolean) => void,
   setPrimaryMuscleGroupId: (primaryMuscleGroupId: string | "") => void,
   setMuscleGroupIds: (muscleGroupIds: string[]) => void,
-  setStatusText: (statusText: string | null) => void,
   exerciseForUpdateId?: string
 ): Promise<string> => {
   const controller = new AbortController();
@@ -43,18 +42,16 @@ export const createOrUpdateExercise = async (
       const errorJson = JSON.parse(errorResponse);
 
       if (!errorJson) {
-        setTimeout(() => setStatusText(null), 3000);
+        setIsLoading(false);
         throw new Error("Unexpected error");
       }
-      setTimeout(() => setStatusText(null), 3000);
+
+      setIsLoading(false);
       throw new Error(errorJson.message);
     }
-    setStatusText(
-      exerciseForUpdateId ? "Exercise updated" : "Exercise created"
-    );
-    setTimeout(() => setStatusText(null), 3000);
     setPrimaryMuscleGroupId("");
     setMuscleGroupIds([]);
+    return exerciseForUpdateId ? "Exercise updated" : "Exercise created";
 
     return exerciseForUpdateId ? "Exercise updated" : "Exercise created";
   } catch (error: unknown) {

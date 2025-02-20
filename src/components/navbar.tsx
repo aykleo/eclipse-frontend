@@ -1,4 +1,4 @@
-import { useUser } from "../hooks/user-hooks/useUser";
+import { useUser } from "../hooks/user/use-context";
 import AnimatedGradientBorderBtn from "./gradient/animated-gradient-border-btn";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { AnimateTextGradient } from "./modals/animate-text-gradient";

@@ -4,17 +4,15 @@ import {
   createOrUpdateExercise,
   ExerciseFormData,
 } from "./fetch-create-update-exercise";
-import { QueryClient } from "@tanstack/react-query";
-
 export const handleExerciseCreation = async (
   formData: ExerciseFormData,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setPrimaryMuscleGroupId: React.Dispatch<React.SetStateAction<string | null>>,
   setMuscleGroupIds: React.Dispatch<React.SetStateAction<string[]>>,
-  queryClient: QueryClient,
-  setStatusText: (statusText: string | null) => void,
   setIsCreatingExercise?: (isCreatingExercise: boolean) => void
 ) => {
+  setIsLoading(true);
+
   try {
     exerciseSchema.parse(formData);
   } catch (e) {
@@ -26,11 +24,11 @@ export const handleExerciseCreation = async (
       );
 
       if (specificError) {
-        setTimeout(() => setStatusText(null), 3000);
+        setIsLoading(false);
         throw new Error("Please select a valid category from the list.");
       } else {
         const errorMessage = e.errors.map((error) => error.message).join(", ");
-        setTimeout(() => setStatusText(null), 3000);
+        setIsLoading(false);
         throw new Error(errorMessage);
       }
     }
@@ -40,20 +38,14 @@ export const handleExerciseCreation = async (
     formData,
     setIsLoading,
     setPrimaryMuscleGroupId,
-    setMuscleGroupIds,
-    setStatusText
+    setMuscleGroupIds
   );
 
   if (createdExercise) {
-    queryClient.invalidateQueries({
-      queryKey: ["exercises"],
-    });
     if (setIsCreatingExercise) {
       setIsCreatingExercise(false);
     }
-    setStatusText("Exercise created successfully.");
-    setTimeout(() => setStatusText(null), 3000);
   }
-
+  setIsLoading(false);
   return createdExercise;
 };

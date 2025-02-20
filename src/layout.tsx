@@ -8,9 +8,9 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="bg-gradient-to-tl bg-black h-screen w-screen font-orbitron  ">
+    <div className="bg-gradient-to-tl bg-black min-h-screen font-orbitron">
       <Navbar />
-      <div className="absolute h-full w-full items-center justify-center flex">
+      <div className="relative flex items-center justify-center min-h-screen">
         <BgEclipseCircle />
         {children}
       </div>
