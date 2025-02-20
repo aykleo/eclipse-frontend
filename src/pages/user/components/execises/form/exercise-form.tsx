@@ -97,7 +97,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   onChange={useCallback(
                     (e: React.ChangeEvent<HTMLInputElement>) => {
                       exerciseNameRef.current = e.target.value;
-                      if (e.target.value.length > 5) {
+                      if (e.target.value.length >= 5) {
                         setStep(!step);
                       } else {
                         setStep(!step);
