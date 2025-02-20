@@ -28,31 +28,35 @@ export const logIn = async (
 
       setStatusText(errorJson.message);
 
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         setStatusText(null);
       }, 2000);
 
-      return;
+      return () => clearTimeout(timeout);
     }
 
     setStatusText("Sign in link sent to your email");
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setStatusText(null);
       const modal = document.getElementById("login_modal") as HTMLDialogElement;
       modal?.close();
     }, 2000);
 
     emailRef = null;
+
+    return () => clearTimeout(timeout);
   } catch (error: unknown) {
     if (error instanceof Error) {
       setStatusText("Server error. Please try again later.");
     } else {
       setStatusText("An unexpected error occurred. Please try again later.");
     }
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setStatusText(null);
     }, 1000);
+
+    return () => clearTimeout(timeout);
   } finally {
     controller.abort();
     setIsLoading(false);

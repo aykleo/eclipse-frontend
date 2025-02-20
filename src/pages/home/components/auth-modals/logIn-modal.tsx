@@ -25,10 +25,10 @@ export const LogInModal = React.memo(() => {
       } catch (e) {
         if (e instanceof z.ZodError) {
           setStatusText(e.errors.map((error) => error.message).join(", "));
-          setTimeout(() => {
+          const timeout = setTimeout(() => {
             setStatusText(null);
           }, 1000);
-          return;
+          return () => clearTimeout(timeout);
         }
       }
 

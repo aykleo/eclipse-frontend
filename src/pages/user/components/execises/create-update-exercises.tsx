@@ -113,15 +113,17 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
             setExerciseForUpdate(null);
           }
           setStatusText("Exercise updated successfully");
-          setTimeout(() => {
+          const timeout = setTimeout(() => {
             setStatusText(null);
           }, 3000);
+          return () => clearTimeout(timeout);
         },
         onError: (error: Error) => {
           setStatusText(`${error.message}`);
-          setTimeout(() => {
+          const timeout = setTimeout(() => {
             setStatusText(null);
           }, 3000);
+          return () => clearTimeout(timeout);
         },
       });
 
@@ -148,15 +150,17 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
             setIsCreatingExercise(false);
           }
           setStatusText("Exercise created successfully");
-          setTimeout(() => {
+          const timeout = setTimeout(() => {
             setStatusText(null);
           }, 3000);
+          return () => clearTimeout(timeout);
         },
         onError: (error: Error) => {
           setStatusText(`${error.message}`);
-          setTimeout(() => {
+          const timeout = setTimeout(() => {
             setStatusText(null);
           }, 3000);
+          return () => clearTimeout(timeout);
         },
       });
 

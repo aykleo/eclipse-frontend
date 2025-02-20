@@ -26,15 +26,17 @@ export const DeleteExerciseModal = React.memo(() => {
       queryClient.invalidateQueries({ queryKey: ["exercises"] });
       setSearchParams({}, { replace: true });
       setStatusText("Exercise deleted successfully");
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         setStatusText(null);
       }, 3000);
+      return () => clearTimeout(timeout);
     },
     onError: (error: Error) => {
       setStatusText(`${error.message}`);
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         setStatusText(null);
       }, 3000);
+      return () => clearTimeout(timeout);
     },
   });
 

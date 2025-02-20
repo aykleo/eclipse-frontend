@@ -30,16 +30,16 @@ export const registerUser = async (
 
       setStatusText(errorJson.message);
 
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         setStatusText(null);
       }, 2000);
 
-      return;
+      return () => clearTimeout(timeout);
     }
 
     setStatusText("Please check your email to validate your account.");
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setStatusText(null);
       const modal = document.getElementById(
         "register_modal"
@@ -49,15 +49,19 @@ export const registerUser = async (
 
     emailRef = null;
     usernameRef = null;
+
+    return () => clearTimeout(timeout);
   } catch (error: unknown) {
     if (error instanceof Error) {
       setStatusText("Server error. Please try again later.");
     } else {
       setStatusText("An unexpected error occurred. Please try again later.");
     }
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setStatusText(null);
     }, 1000);
+
+    return () => clearTimeout(timeout);
   } finally {
     controller.abort();
     setIsLoading(false);
