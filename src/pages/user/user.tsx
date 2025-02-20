@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchUser } from "../../utils/fetch-functions/user/fetch-user";
 import { useEffect, useState, lazy, Suspense } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useUser } from "../../hooks/user-hooks/useUser";
+import { useUser } from "../../hooks/user/use-context";
 import { Exercise } from "../../utils/types/exercise-types";
-import { ListAllExercises } from "./components/execises/list-all-exercises";
+import { ListAllExercises } from "./components/execises/list-of-exercises/list-all-exercises";
 import { SpinSlowStyle } from "../../components/styles/spin-slow-style";
 
 const CreateOrUpdateExercises = lazy(
@@ -46,8 +46,8 @@ export const UserPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-5 size-full z-1 p-4 gap-x-3">
-      <div className="mt-16 col-start-1 col-span-2 size-screen flex flex-col relative p-[2px] rounded-lg overflow-hidden">
+    <div className="grid lg:grid-cols-5 grid-cols-1 size-full z-1 p-4 gap-x-3">
+      <div className="mt-16 h-144 col-start-1 lg:col-span-2 size-screen flex flex-col relative p-[2px] rounded-lg overflow-hidden">
         <div
           style={{
             background:
@@ -64,7 +64,7 @@ export const UserPage = () => {
           />
         </div>
       </div>
-      <div className="mt-16 col-start-3 gap-y-6 col-span-3 p-1 size-screen flex flex-col items-center justify-center bg-stone-950 rounded-lg">
+      <div className="mt-16 max-h-144 lg:col-start-3 gap-y-6 col-span-3 p-1 size-screen flex flex-col items-center justify-center bg-stone-950 rounded-lg">
         <Suspense
           fallback={
             <div>
