@@ -52,8 +52,6 @@ export const createOrUpdateExercise = async (
     setPrimaryMuscleGroupId("");
     setMuscleGroupIds([]);
     return exerciseForUpdateId ? "Exercise updated" : "Exercise created";
-
-    return exerciseForUpdateId ? "Exercise updated" : "Exercise created";
   } catch (error: unknown) {
     console.error(error);
     throw new Error("Server error. Please try again later.");

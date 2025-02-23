@@ -62,12 +62,4 @@ const ExercisePaginationComponent: React.FC<ExercisePaginationProps> = ({
   );
 };
 
-export const ExercisePagination = React.memo(
-  ExercisePaginationComponent,
-  (prevProps, nextProps) => {
-    return (
-      prevProps.currentPage === nextProps.currentPage &&
-      prevProps.totalPages === nextProps.totalPages
-    );
-  }
-);
+export const ExercisePagination = ExercisePaginationComponent;

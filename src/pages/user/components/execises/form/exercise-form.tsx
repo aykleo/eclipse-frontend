@@ -8,6 +8,7 @@ import { ToastProgress } from "../../../../../components/styles/toast-progress";
 import { getColorClassForTagCategory } from "../../../../../utils/tag-colors";
 import { FormSteps } from "./form-steps";
 import { StatusToast } from "../../../../../components/status-toast";
+import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;
@@ -46,6 +47,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     exerciseTagCategoryRef,
   }) => {
     const [step, setStep] = useState<boolean>(false);
+    const [isVisible, setIsVisible] = useState<boolean>(false);
 
     useEffect(() => {
       if (formRef.current) {
@@ -151,11 +153,28 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
 
             {primaryMuscleGroupId && (
               <div className="gap-y-1 flex flex-col">
-                <label className="label">
+                <label className="label w-full justify-between">
                   <span className="label-text text-sm">Secondary movers</span>
+                  <button
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setIsVisible(!isVisible);
+                    }}
+                  >
+                    {isVisible ? (
+                      <ArrowBigUp className="text-error cursor-pointer" />
+                    ) : (
+                      <ArrowBigDown className="text-error cursor-pointer" />
+                    )}
+                  </button>
                 </label>
+                <div className="w-full h-[1px] rounded-full bg-gray-600/25" />
 
-                <div className="text-sm grid-cols-5 gap-y-2 grid p-2 opacity-75 rounded-md">
+                <div
+                  className={`${
+                    isVisible ? "block" : "hidden"
+                  } text-sm grid-cols-5 gap-y-2 grid p-2 opacity-75 rounded-md`}
+                >
                   {muscleGroupData &&
                     muscleGroupData.map(
                       (muscleGroup: MuscleGroupData, index: number) => (
@@ -274,7 +293,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   onChange={useCallback(
                     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
                       exerciseDescriptionRef.current = e.target.value;
-                      if (e.target.value.length > 5) {
+                      if (e.target.value.length >= 5) {
                         setStep(!step);
                       } else {
                         setStep(!step);
@@ -296,7 +315,6 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               exerciseTagNameRef={exerciseTagNameRef}
               exerciseTagCategoryRef={exerciseTagCategoryRef}
               exerciseDescriptionRef={exerciseDescriptionRef}
-              step={step}
             />
           </div>
 

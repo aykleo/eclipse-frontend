@@ -7,7 +7,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { Exercise } from "../../../../../utils/types/exercise-types";
 import { useUser } from "../../../../../hooks/user/use-context";
-import { fetchExercises } from "../../../../../utils/fetch-functions/exercises/fetch-exercises";
+import { fetchExercises } from "../../../../../api/exercises/fetch-exercises";
 import {
   getColorBackgroundForTagCategory,
   getColorClassForTagCategory,
@@ -19,9 +19,8 @@ import { ToastProgress } from "../../../../../components/styles/toast-progress";
 import { StatusToast } from "../../../../../components/status-toast";
 import { ExercisePagination } from "./exercise-pagination";
 import { CategorySelector, ExerciseCategory } from "./category-selector";
-import React from "react";
 
-const ListAllExercisesComponent = ({
+export const ListAllExercises = ({
   setIsCreatingExercise,
   isCreatingExercise,
   exerciseForUpdate,
@@ -106,7 +105,7 @@ const ListAllExercisesComponent = ({
         {exercises ? (
           <>
             {!isLoading ? (
-              <div className="h-full overflow-y-auto overflow-x-hidden no-scrollbar gap-y-0.5 py-1 flex flex-col w-full">
+              <div className="h-full overflow-y-auto overflow-x-hidden no-scrollbar gap-y-1.5 py-1 flex flex-col w-full">
                 {exercises &&
                   exercises.map((exercise: Exercise) => (
                     <div
@@ -114,10 +113,10 @@ const ListAllExercisesComponent = ({
                       className={`${
                         exerciseForUpdate
                           ? exerciseForUpdate.id === exercise.id
-                            ? "bg-stone-950 border-gray-400 border"
-                            : "bg-stone-900 opacity-30"
-                          : "bg-stone-900"
-                      } flex-col w-full py-1.5 px-2  rounded-lg`}
+                            ? "bg-black border-error/100"
+                            : "bg-gray-900 opacity-30"
+                          : "bg-black/25"
+                      } flex-col w-full py-1.5 px-2 border-error/25 border rounded-lg`}
                     >
                       <div className="flex flex-row gap-x-4 items-center w-full">
                         <img
@@ -258,5 +257,3 @@ const ListAllExercisesComponent = ({
     </div>
   );
 };
-
-export const ListAllExercises = React.memo(ListAllExercisesComponent);

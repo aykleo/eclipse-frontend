@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { exerciseSchema } from "../../../lib/validation/exercise-schema";
+import { exerciseSchema } from "../../lib/validation/exercise-schema";
 import {
   createOrUpdateExercise,
   ExerciseFormData,
 } from "./fetch-create-update-exercise";
-import { Exercise } from "../../types/exercise-types";
+import { Exercise } from "../../utils/types/exercise-types";
 
 export const handleExerciseUpdate = async (
   formData: ExerciseFormData,

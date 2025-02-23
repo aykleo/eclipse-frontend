@@ -1,5 +1,5 @@
-import { Exercise } from "../../types/exercise-types";
-import { User } from "../../types/user-types";
+import { Exercise } from "../../utils/types/exercise-types";
+import { User } from "../../utils/types/user-types";
 
 export async function fetchExercises(
   page: number,
@@ -34,7 +34,7 @@ export async function fetchExercises(
     );
 
     if (!response.ok) {
-      throw new Error("Failed to fetch exercises");
+      throw new Error("Server error. Please try again later.");
     }
 
     const data = await response.json();
@@ -46,7 +46,6 @@ export async function fetchExercises(
     return { exercises: data.exercises, totalPages: data.totalPages };
   } catch (error) {
     console.error("Error fetching exercises:", error);
-
     return { exercises: [], totalPages: 0 };
   } finally {
     controller.abort();

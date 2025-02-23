@@ -12,15 +12,9 @@ export const fetchMuscleGroups = async () => {
       }
     );
 
-    if (response.ok) {
-      const contentType = response.headers.get("content-type");
+    const muscleGroups = await response.json();
 
-      if (contentType && contentType.includes("application/json")) {
-        const muscleGroups = await response.json();
-
-        return muscleGroups;
-      }
-    }
+    return muscleGroups;
   } catch (error) {
     console.error("Failed to verify user:", error);
   } finally {

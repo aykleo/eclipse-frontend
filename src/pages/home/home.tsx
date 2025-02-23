@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useUser } from "../../hooks/user/use-context";
-import { fetchUser } from "../../utils/fetch-functions/user/fetch-user";
+import { fetchUser } from "../../api/user/fetch-user";
 import { RegisterModal } from "./components/auth-modals/register-modal";
 import { LogInModal } from "./components/auth-modals/logIn-modal";
 import { AnimateTextGradient } from "../../components/modals/animate-text-gradient";

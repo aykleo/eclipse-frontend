@@ -3,10 +3,10 @@ import React, { useRef, useState } from "react";
 
 import { SpiningModal } from "../../../../components/modals/spining-modal";
 import { registerSchema } from "../../../../lib/validation/auth-schemas";
-import { registerUser } from "../../../../utils/fetch-functions/user/register";
+import { registerUser } from "../../../../api/user/register";
 import { useStatus } from "../../../../hooks/status/status-context";
 
-export const RegisterModal = React.memo(() => {
+export const RegisterModal = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const usernameRef = useRef<string | null>(null);
   const emailRef = useRef<string | null>(null);
@@ -120,4 +120,4 @@ export const RegisterModal = React.memo(() => {
       </div>
     </SpiningModal>
   );
-});
+};

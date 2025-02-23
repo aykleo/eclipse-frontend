@@ -2,10 +2,13 @@ import { useUser } from "../hooks/user/use-context";
 import AnimatedGradientBorderBtn from "./gradient/animated-gradient-border-btn";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { AnimateTextGradient } from "./modals/animate-text-gradient";
-import { logOutUser } from "../utils/fetch-functions/user/log-out-user";
+import { logOutUser } from "../api/user/log-out-user";
+import GradientBorderBtn from "./gradient/gradient-btn";
+import { useNavBar } from "../hooks/navbar-choices/navbar-context";
 
 export const Navbar = () => {
   const { user, setUser } = useUser();
+  const { setNavBarChoices } = useNavBar();
 
   const handleSignOut = async () => {
     try {
@@ -18,13 +21,26 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="fixed z-99 flex items-center px-10 py-4 background-none justify-between h-16 w-full backdrop-blur-sm">
-      <AnimatedGradientBorderBtn
-        className="from-red-300 to-red-800"
-        borderSize="p-[5px] cursor-default"
-      >
-        <div className="rounded-full size-4"></div>
-      </AnimatedGradientBorderBtn>
+    <div className="fixed z-99 bg-black flex items-center px-10 py-4 background-none justify-between h-16 w-full backdrop-blur-xs opacity-90">
+      <div className="flex flex-row gap-x-4 md:gap-x-10 lg:gap-x-16">
+        <AnimatedGradientBorderBtn
+          className="from-red-300 to-red-800"
+          borderSize="p-[5px] cursor-default"
+        >
+          <div className="rounded-full size-4"></div>
+        </AnimatedGradientBorderBtn>
+        <div className="flex flex-row gap-x-1 md:gap-x-6 lg:gap-x-10 text-red-400">
+          <GradientBorderBtn onClick={() => setNavBarChoices("exercises")}>
+            Exercises
+          </GradientBorderBtn>
+          <GradientBorderBtn onClick={() => setNavBarChoices("workouts")}>
+            Workouts
+          </GradientBorderBtn>
+          <GradientBorderBtn onClick={() => setNavBarChoices("statistics")}>
+            Statistics
+          </GradientBorderBtn>
+        </div>
+      </div>
       {!user ? (
         <AnimatedGradientBorderBtn
           onClick={() => {

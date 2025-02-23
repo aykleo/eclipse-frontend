@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { exerciseSchema } from "../../../lib/validation/exercise-schema";
+import { exerciseSchema } from "../../lib/validation/exercise-schema";
 import {
   createOrUpdateExercise,
   ExerciseFormData,

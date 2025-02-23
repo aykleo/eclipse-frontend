@@ -3,10 +3,10 @@ import { SpiningModal } from "../../../../components/modals/spining-modal";
 import { useRef } from "react";
 import { useStatus } from "../../../../hooks/status/status-context";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { handleExerciseDeletion } from "../../../../utils/fetch-functions/exercises/exercise-deletion";
+import { handleExerciseDeletion } from "../../../../api/exercises/exercise-deletion";
 import { useSearchParams } from "react-router-dom";
 
-export const DeleteExerciseModal = React.memo(() => {
+export const DeleteExerciseModal = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const { statusText, setStatusText } = useStatus();
   const queryClient = useQueryClient();
@@ -23,7 +23,15 @@ export const DeleteExerciseModal = React.memo(() => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["exercises"] });
+      queryClient.invalidateQueries({
+        queryKey: ["exercises"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["exerciseByTag"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["exerciseByMuscleGroup"],
+      });
       setSearchParams({}, { replace: true });
       setStatusText("Exercise deleted successfully");
       const timeout = setTimeout(() => {
@@ -45,8 +53,14 @@ export const DeleteExerciseModal = React.memo(() => {
       <SpiningModal
         id="delete_exercise_modal"
         formRef={formRef as React.RefObject<HTMLFormElement>}
-        handleSubmit={async () => {
+        handleSubmit={async (event) => {
+          event.preventDefault();
           await deleteMutation.mutate();
+          setSearchParams({}, { replace: true });
+          const modal = document.getElementById(
+            "delete_exercise_modal"
+          ) as HTMLDialogElement;
+          modal?.close();
         }}
         statusText={statusText ?? ""}
       >
@@ -70,4 +84,4 @@ export const DeleteExerciseModal = React.memo(() => {
       </SpiningModal>
     </>
   );
-});
+};
