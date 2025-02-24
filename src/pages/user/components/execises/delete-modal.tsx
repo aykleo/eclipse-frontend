@@ -79,7 +79,19 @@ export const DeleteExerciseModal = () => {
               Delete
             </button>
           </div>
-          <button className="btn btn-outline btn-ghost">Cancel</button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              const modal = document.getElementById(
+                "delete_exercise_modal"
+              ) as HTMLDialogElement;
+              modal?.close();
+              setSearchParams({}, { replace: true });
+            }}
+            className="btn btn-outline btn-ghost"
+          >
+            Cancel
+          </button>
         </div>
       </SpiningModal>
     </>

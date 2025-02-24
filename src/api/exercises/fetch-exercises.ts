@@ -2,20 +2,22 @@ import { Exercise } from "../../utils/types/exercise-types";
 import { User } from "../../utils/types/user-types";
 
 export async function fetchExercises(
-  page: number,
+  currentPage: number,
   pageSize: number,
   selectedCategory: string | "",
   user: User,
-  muscleGroup?: string | ""
+  // muscleGroup?: string | "",
+  exerciseName?: string | ""
 ): Promise<{ exercises: Exercise[]; totalPages: number }> {
   const controller = new AbortController();
   const signal = controller.signal;
 
   const queryParams = new URLSearchParams({
-    page: page.toString(),
+    page: currentPage.toString(),
     pageSize: pageSize.toString(),
-    muscleGroup: muscleGroup || "",
+    // muscleGroup: muscleGroup || "",
     tagCategory: selectedCategory !== "" ? selectedCategory : "",
+    exerciseName: exerciseName || "",
   });
 
   try {
@@ -33,8 +35,9 @@ export async function fetchExercises(
       }
     );
 
+    console.log(exerciseName);
     if (!response.ok) {
-      throw new Error("Server error. Please try again later.");
+      console.log("Server error. Please try again later.");
     }
 
     const data = await response.json();

@@ -12,7 +12,7 @@ const ExercisePaginationComponent: React.FC<ExercisePaginationProps> = ({
   setCurrentPage,
 }) => {
   return (
-    <div className="join w-full px-2 flex items-center text-lg absolute bottom-1.5 opacity-100 backdrop-blur-3xl">
+    <div className="join w-full px-2 h-10 flex items-center text-lg absolute bottom-1.5 opacity-100">
       <button
         className="join-item btn w-1/5"
         onClick={() => {

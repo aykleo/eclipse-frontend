@@ -56,7 +56,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     }, [formRef]);
 
     return (
-      <div className="form-control relative w-full flex flex-col px-2 justify-between h-full">
+      <div className="form-control relative w-full flex flex-col px-2 bg-gradient-to-l from-black to-zinc-950 rounded-lg justify-between h-full">
         <form
           action="create_exercise"
           className="size-full flex flex-col"
@@ -85,9 +85,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
             <div className="grid grid-cols-2 gap-x-6">
               <div className="gap-y-1 flex flex-col">
                 <label className="label">
-                  <span className="label-text text-sm">
-                    Name of the exercise
-                  </span>
+                  <span className="label-text text-sm">Name</span>
                 </label>
                 <input
                   type="text"
@@ -111,9 +109,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               </div>
               <div className="gap-y-1 flex flex-col">
                 <label className="label">
-                  <span className="label-text text-sm">
-                    Select the main muscle
-                  </span>
+                  <span className="label-text text-sm">Main muscle</span>
                 </label>
                 <select
                   defaultValue={
@@ -217,7 +213,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
             <div className="grid grid-cols-3 gap-x-6 mt-4">
               <div className="gap-y-1 flex flex-col col-span-2">
                 <label className="label">
-                  <span className="label-text text-sm">Type of exercise</span>
+                  <span className="label-text text-sm">Type</span>
                 </label>
                 <input
                   type="text"
@@ -243,9 +239,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               </div>
               <div className="gap-y-1 flex flex-col col-start-3 col-span-1">
                 <label className="label">
-                  <span className="label-text text-sm">
-                    Category of exercise
-                  </span>
+                  <span className="label-text text-sm">Category</span>
                 </label>
                 <select
                   defaultValue={

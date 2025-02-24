@@ -1,11 +1,35 @@
 import { lazy, Suspense, useState } from "react";
 import { Exercise } from "../../../../utils/types/exercise-types";
 import { ListAllExercises } from "./list-of-exercises/list-all-exercises";
-import { ExerciseByTag } from "./statistics/exercise-by-tag";
+import { ExerciseByTagBar } from "./statistics/exercise-by-tag-bars";
 import { SpinSlowStyle } from "../../../../components/styles/spin-slow-style";
-import { ExerciseByMuscleGroup } from "./statistics/exercise-by-muscle-group";
+
+import { handleExerciseByTag } from "../../../../api/statistics/exercises/exercise-by-tag";
+import { useQuery } from "@tanstack/react-query";
+import { ExerciseByTagPie } from "./statistics/exercise-by-tag-pie";
+import ExerciseByMuscleGroup from "./statistics/exercise-by-muscle-group";
 
 const CreateOrUpdateExercises = lazy(() => import("./create-update-exercises"));
+
+export type ExerciseByTagData = {
+  exerciseCountsByCategory: Record<
+    string,
+    { count: number; percentage: number }
+  >;
+  numberOfExercises: number;
+};
+
+type ApiResponse = ExerciseByTagData | { error: string };
+
+function isExerciseByTagData(data: ApiResponse): data is ExerciseByTagData {
+  return (
+    data &&
+    "numberOfExercises" in data &&
+    "exerciseCountsByCategory" in data &&
+    typeof data.numberOfExercises === "number" &&
+    typeof data.exerciseCountsByCategory === "object"
+  );
+}
 
 export const ExercisePage = () => {
   const [isCreatingExercise, setIsCreatingExercise] = useState(false);
@@ -13,9 +37,14 @@ export const ExercisePage = () => {
     null
   );
 
+  const { data, isLoading } = useQuery({
+    queryKey: ["exerciseByTag"],
+    queryFn: () => handleExerciseByTag(),
+  });
+
   return (
     <div className="grid lg:grid-cols-5 grid-cols-1 size-full z-1 p-4 gap-x-3 pb-4">
-      <div className="mt-16 h-144 col-start-1 size-screen lg:col-span-2 flex flex-col relative p-[2px] rounded-lg overflow-hidden">
+      <div className="mt-16 h-144 col-start-1 size-screen lg:col-span-3 flex flex-col relative p-[2px] rounded-lg overflow-hidden">
         <div
           style={{
             background:
@@ -23,7 +52,7 @@ export const ExercisePage = () => {
           }}
           className="absolute -z-1 top-1/2 left-1/2 w-full h-full animate-spin-slow"
         />
-        <div className="h-full w-full flex flex-col rounded-lg bg-stone-950">
+        <div className="h-full w-full flex flex-col rounded-lg bg-gradient-to-r from-black to-zinc-950">
           <ListAllExercises
             isCreatingExercise={isCreatingExercise}
             setIsCreatingExercise={setIsCreatingExercise}
@@ -32,7 +61,7 @@ export const ExercisePage = () => {
           />
         </div>
       </div>
-      <div className="mt-16 h-144 lg:col-start-3 lg:col-span-3 p-1 size-screen flex flex-col items-center justify-center bg-stone-950 rounded-lg">
+      <div className="mt-16 h-144 lg:col-start-4 lg:col-span-2 p-1 size-screen flex flex-col items-center justify-center rounded-lg">
         <Suspense
           fallback={
             <div>
@@ -54,14 +83,19 @@ export const ExercisePage = () => {
                   />
                 </>
               ) : (
-                <>
-                  <div className="w-full h-max">
-                    <ExerciseByTag />
+                <div className="w-full h-full flex flex-col gap-y-3">
+                  <div className="w-full flex flex-row gap-x-3 h-max">
+                    {data && isExerciseByTagData(data) && (
+                      <>
+                        <ExerciseByTagBar data={data} isLoading={isLoading} />
+                        <ExerciseByTagPie data={data} isLoading={isLoading} />
+                      </>
+                    )}
                   </div>
-                  <div className="w-full h-full p-1">
+                  <div className="w-full h-full">
                     <ExerciseByMuscleGroup />
                   </div>
-                </>
+                </div>
               )}
             </>
           )}
