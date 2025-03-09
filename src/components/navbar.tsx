@@ -30,7 +30,7 @@ export const Navbar = () => {
           <div className="rounded-full size-4"></div>
         </AnimatedGradientBorderBtn>
         {user ? (
-          <div className="flex flex-row gap-x-1 md:gap-x-6 lg:gap-x-10 text-red-400">
+          <div className="hidden md:flex flex-row gap-x-1 md:gap-x-6 lg:gap-x-10 text-red-400">
             <GradientBorderBtn onClick={() => setNavBarChoices("exercises")}>
               Exercises
             </GradientBorderBtn>
@@ -73,9 +73,24 @@ export const Navbar = () => {
             className="dropdown-content menu bg-base-300 opacity-100 rounded-box z-1 w-36 p-2 shadow-sm"
           >
             <li>
-              <span>aaa</span>
-              <span>vvv</span>
-              <span>aaa</span>
+              <button
+                className="md:hidden"
+                onClick={() => setNavBarChoices("exercises")}
+              >
+                Exercises
+              </button>
+              <button
+                onClick={() => setNavBarChoices("workouts")}
+                className="md:hidden"
+              >
+                Workouts
+              </button>
+              <button
+                onClick={() => setNavBarChoices("statistics")}
+                className="md:hidden"
+              >
+                Statistics
+              </button>
               <button onClick={handleSignOut} className="pl-3 py-1 gap-y-1.5">
                 Sign Out
                 <ArrowLeftIcon className="size-4" />
