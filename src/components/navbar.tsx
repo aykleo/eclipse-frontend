@@ -29,17 +29,21 @@ export const Navbar = () => {
         >
           <div className="rounded-full size-4"></div>
         </AnimatedGradientBorderBtn>
-        <div className="flex flex-row gap-x-1 md:gap-x-6 lg:gap-x-10 text-red-400">
-          <GradientBorderBtn onClick={() => setNavBarChoices("exercises")}>
-            Exercises
-          </GradientBorderBtn>
-          <GradientBorderBtn onClick={() => setNavBarChoices("workouts")}>
-            Workouts
-          </GradientBorderBtn>
-          <GradientBorderBtn onClick={() => setNavBarChoices("statistics")}>
-            Statistics
-          </GradientBorderBtn>
-        </div>
+        {user ? (
+          <div className="flex flex-row gap-x-1 md:gap-x-6 lg:gap-x-10 text-red-400">
+            <GradientBorderBtn onClick={() => setNavBarChoices("exercises")}>
+              Exercises
+            </GradientBorderBtn>
+            <GradientBorderBtn onClick={() => setNavBarChoices("workouts")}>
+              Workouts
+            </GradientBorderBtn>
+            <GradientBorderBtn onClick={() => setNavBarChoices("statistics")}>
+              Statistics
+            </GradientBorderBtn>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
       {!user ? (
         <AnimatedGradientBorderBtn

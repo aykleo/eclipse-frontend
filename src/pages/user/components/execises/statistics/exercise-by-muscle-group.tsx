@@ -1,12 +1,35 @@
 import { useQuery } from "@tanstack/react-query";
 import { handleExerciseByMuscleGroup } from "../../../../../api/statistics/exercises/exercise-by-msucle-group";
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useEffect, useState } from "react";
 import * as echarts from "echarts";
+import { useDebounce } from "use-debounce";
+import { useSearchParams } from "react-router-dom";
+import { MessageCircleQuestionIcon } from "lucide-react";
 
 export default function ExerciseByMuscleGroup() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const weightParam = searchParams.get("weight") || "0";
+
+  const [sliderValue, setSliderValue] = useState(parseInt(weightParam, 10));
+
+  const [debouncedWeight] = useDebounce(sliderValue, 500);
+
+  useEffect(() => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("weight", debouncedWeight.toString());
+    setSearchParams(newParams, { replace: true });
+  }, [debouncedWeight, setSearchParams, searchParams]);
+
+  useEffect(() => {
+    const urlWeight = parseInt(weightParam, 10);
+    if (urlWeight !== sliderValue) {
+      setSliderValue(urlWeight);
+    }
+  }, [weightParam]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const { data: exerciseByMuscleGroupData, isLoading } = useQuery({
-    queryKey: ["exerciseByMuscleGroup"],
-    queryFn: () => handleExerciseByMuscleGroup(100),
+    queryKey: ["exerciseByMuscleGroup", { weight: debouncedWeight }],
+    queryFn: () => handleExerciseByMuscleGroup(debouncedWeight),
   });
 
   const chartRef = useRef<HTMLDivElement>(null);
@@ -34,15 +57,6 @@ export default function ExerciseByMuscleGroup() {
 
     const option = {
       color: ["#FF917C"],
-      // title: {
-      //   text: "Exercise by Muscle Group",
-      //   textStyle: {
-      //     color: "#F4F4F5",
-      //     fontSize: 14,
-      //     fontWeight: "bold",
-      //     fontFamily: "orbitron",
-      //   },
-      // },
       legend: { show: false },
       radar: [
         {
@@ -71,7 +85,7 @@ export default function ExerciseByMuscleGroup() {
               const item = sourceData.find((data) => data.name === name);
               const value = item ? item.value : 0;
 
-              return `${truncatedName}\n${value}`;
+              return `${truncatedName}\n${value.toFixed(2)}`;
             },
             color: "#f7afd0",
             fontSize: 12,
@@ -143,7 +157,35 @@ export default function ExerciseByMuscleGroup() {
           <span className="loading loading-dots loading-xl"></span>
         </div>
       ) : (
-        <div ref={chartRef} className="size-full" />
+        <div className="relative size-full">
+          <div className="absolute px-2 z-2 py-0.5 w-full text-xs text-red-300 gap-x-2 flex justify-between">
+            <div className="flex items-center gap-x-2">
+              <span>Weight</span>
+              <span>{sliderValue}</span>
+              <div
+                className="tooltip tooltip-bottom cursor-help"
+                data-tip="This determines how the secondary muscles of each exercise will be counted. 0 means that only the primary muscle will be counted, 100 means that all muscles will be counted fully."
+              >
+                <MessageCircleQuestionIcon className="size-5 text-gray-400 hover:text-white" />
+              </div>
+            </div>
+            <div className="flex items-center gap-x-2 w-1/2">
+              <span>0</span>
+              <input
+                type="range"
+                min={0}
+                max="100"
+                value={sliderValue}
+                onChange={(e) => {
+                  setSliderValue(Number(e.target.value));
+                }}
+                className="range range-error range-xs full"
+              />
+              <span>100</span>
+            </div>
+          </div>
+          <div ref={chartRef} className="size-full" />
+        </div>
       )}
     </div>
   );
