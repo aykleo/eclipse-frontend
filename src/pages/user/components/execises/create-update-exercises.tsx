@@ -217,8 +217,7 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> = ({
   };
 
   return (
-    // <dialog id="create-update-exercise-modal" className="modal">
-    <div className="size-full overflow-y-auto no-scrollbar">
+    <div className="size-full">
       <Suspense
         fallback={
           <div className="size-full flex items-center justify-center">
@@ -247,7 +246,6 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> = ({
         />
       </Suspense>
     </div>
-    // </dialog>
   );
 };
 export default CreateOrUpdateExercises;

@@ -1,4 +1,4 @@
-import React, { RefObject, useCallback, useEffect, useState } from "react";
+import React, { RefObject, useCallback, useState } from "react";
 import {
   Exercise,
   MuscleGroupData,
@@ -55,14 +55,8 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     const [step, setStep] = useState<boolean>(false);
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
-    useEffect(() => {
-      if (formRef.current) {
-        formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, [formRef]);
-
     return (
-      <div className="form-control relative w-full flex flex-col px-2 bg-gradient-to-l from-black to-zinc-950 rounded-lg justify-between h-full">
+      <div className="form-control relative w-full flex flex-col px-2  rounded-lg justify-between h-full">
         <form
           action="create_exercise"
           className="size-full flex flex-col"

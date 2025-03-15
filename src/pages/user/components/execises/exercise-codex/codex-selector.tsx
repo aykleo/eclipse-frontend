@@ -1,4 +1,7 @@
-import { TagCategory } from "../../../../../utils/types/exercise-types";
+import {
+  Exercise,
+  TagCategory,
+} from "../../../../../utils/types/exercise-types";
 import { getColorBackgroundForTagCategory } from "../../../../../utils/tag-colors";
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
@@ -17,6 +20,8 @@ interface CategorySelectorProps {
   setSearchParams: (params: URLSearchParams) => void;
   isStatistics: boolean;
   setIsStatistics: (isStatistics: boolean) => void;
+  isCreatingExercise: boolean;
+  exerciseForUpdate: Exercise | null;
 }
 
 export const CodexSelector: React.FC<CategorySelectorProps> = ({
@@ -25,6 +30,8 @@ export const CodexSelector: React.FC<CategorySelectorProps> = ({
   setSearchParams,
   isStatistics,
   setIsStatistics,
+  isCreatingExercise,
+  exerciseForUpdate,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchTerm, 300);
@@ -98,7 +105,11 @@ export const CodexSelector: React.FC<CategorySelectorProps> = ({
   return (
     <div
       role="tablist"
-      className="tabs relative tabs-box w-full gap-y-2 py-2 flex flex-col md:flex-row items-center justify-between bg-transparent rounded-none"
+      className={`${
+        isCreatingExercise || exerciseForUpdate
+          ? "hidden"
+          : "tabs relative tabs-box w-full gap-y-2 py-2 flex flex-col md:flex-row items-center justify-between bg-transparent rounded-none"
+      } `}
     >
       <div className="flex w-full flex-row gap-x-2 lg:gap-x-4 md:w-1/2 lg:w-2/3 px-1">
         <a
@@ -125,7 +136,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = ({
               }
               className={`${getColorBackgroundForTagCategory(
                 category.category as TagCategory
-              )} lg:bg-transparent flex items-center justify-center px-2 w-10 lg:w-max lg:w-max rounded-full cursor-pointer ${
+              )} lg:bg-transparent flex items-center justify-center px-2 w-10 lg:w-max rounded-full cursor-pointer ${
                 selectedCategory === category.category && !isStatistics
                   ? "opacity-100"
                   : "opacity-50"

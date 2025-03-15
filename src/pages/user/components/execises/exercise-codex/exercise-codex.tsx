@@ -140,6 +140,8 @@ export const ExerciseCodex = React.memo(
           setSearchParams={setSearchParams}
           isStatistics={isStatistics}
           setIsStatistics={setIsStatistics}
+          isCreatingExercise={isCreatingExercise}
+          exerciseForUpdate={exerciseForUpdate}
         />
         <ul className="rounded-box shadow-md gap-1 w-full h-full overflow-hidden">
           {exerciseData &&
@@ -160,12 +162,15 @@ export const ExerciseCodex = React.memo(
                     isCreatingExercise={isCreatingExercise}
                     setExerciseForUpdate={setExerciseForUpdate}
                   />
-                  <ExerciseCard
-                    exerciseForUpdate={exerciseForUpdate}
-                    setExerciseForUpdate={setExerciseForUpdate}
-                    exercises={exerciseData.exercises}
-                    setSearchParams={setSearchParams}
-                  />
+                  {exerciseData.exercises &&
+                    exerciseData.exercises.map((exercise: Exercise) => (
+                      <ExerciseCard
+                        exerciseForUpdate={exerciseForUpdate}
+                        setExerciseForUpdate={setExerciseForUpdate}
+                        exercise={exercise}
+                        setSearchParams={setSearchParams}
+                      />
+                    ))}
                 </div>
               ) : (
                 <div>load</div>
@@ -221,7 +226,7 @@ export const ExerciseCodex = React.memo(
             />
           )}
         </ul>
-        {!isStatistics && (
+        {!isStatistics && !isCreatingExercise && !exerciseForUpdate && (
           <CodexPagination
             currentPage={currentPage}
             totalPages={totalPages}
