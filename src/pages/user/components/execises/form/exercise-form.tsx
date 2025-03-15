@@ -3,12 +3,13 @@ import {
   Exercise,
   MuscleGroupData,
   TagCategory,
+  MuscleGroupName,
 } from "../../../../../utils/types/exercise-types";
 import { ToastProgress } from "../../../../../components/styles/toast-progress";
 import { getColorClassForTagCategory } from "../../../../../utils/tag-colors";
-import { FormSteps } from "./form-steps";
 import { StatusToast } from "../../../../../components/status-toast";
 import { ArrowBigDown, ArrowBigUp } from "lucide-react";
+import { ExerciseCard } from "../exercise-codex/exercise-card";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;
@@ -55,6 +56,37 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     const [step, setStep] = useState<boolean>(false);
     const [isVisible, setIsVisible] = useState<boolean>(false);
 
+    const exercise = {
+      id: exerciseForUpdate?.id || "new-id",
+      name: exerciseNameRef.current || "",
+      description: exerciseDescriptionRef.current || "",
+      tag: {
+        id: exerciseForUpdate?.tag.id || "new-tag-id",
+        name: exerciseTagNameRef.current || "",
+        category:
+          (exerciseTagCategoryRef.current as TagCategory) ||
+          TagCategory.STRENGTH,
+      },
+      createdAt: exerciseForUpdate?.createdAt || new Date(),
+      updatedAt: new Date(),
+      userId: exerciseForUpdate?.userId || "default-user-id",
+      exerciseMuscleGroups: muscleGroupIds.map((id) => {
+        const muscleGroup = muscleGroupData.find((group) => group.id === id);
+        return {
+          exerciseId: exerciseForUpdate?.id || "new-exercise-id",
+          muscleGroupId: id,
+          isPrimary: id === primaryMuscleGroupId,
+          muscleGroup: muscleGroup || {
+            id: "unknown-id",
+            name: MuscleGroupName.CORE,
+          },
+        };
+      }),
+      templateExercises: exerciseForUpdate?.templateExercises || [],
+      workouts: exerciseForUpdate?.workouts || [],
+      deletedAt: exerciseForUpdate?.deletedAt || undefined,
+    };
+
     return (
       <div className="form-control relative w-full flex flex-col px-2  rounded-lg justify-between h-full">
         <form
@@ -75,7 +107,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                 } w-full truncate`}
               >
                 {!exerciseForUpdate || exerciseForUpdate === null
-                  ? "Creation"
+                  ? "New exercise"
                   : exerciseForUpdate.name}
               </h1>
               <button
@@ -96,8 +128,9 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
             <div className="h-[1px] rounded-full bg-gray-600/25 w-full" />
           </div>
           <div className="flex flex-col gap-y-2 px-1 h-full overflow-y-auto no-scrollbar">
-            <div className="grid grid-cols-2 gap-x-6">
-              <div className="gap-y-1 flex flex-col">
+            <div className="grid grid-cols-3 gap-x-6">
+              {/* name */}
+              <div className="gap-y-1 flex flex-col col-start-1 col-span-1">
                 <label className="label">
                   <span className="label-text text-sm">Name</span>
                 </label>
@@ -120,8 +153,102 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                     [exerciseNameRef, step]
                   )}
                 />
+                <div className="gap-y-1 flex flex-col">
+                  <label className="label">
+                    <span className="label-text text-sm">Category</span>
+                  </label>
+                  <select
+                    defaultValue={
+                      exerciseForUpdate
+                        ? exerciseForUpdate.tag.category
+                        : "Select a category"
+                    }
+                    className="select select-error w-full"
+                    name="category"
+                    required
+                    onChange={useCallback(
+                      (e: React.ChangeEvent<HTMLSelectElement>) => {
+                        exerciseTagCategoryRef.current = e.target.value;
+                        if (e.target.value.length > 2) {
+                          setStep(!step);
+                        } else {
+                          setStep(!step);
+                        }
+                      },
+                      [exerciseTagCategoryRef, step]
+                    )}
+                  >
+                    {" "}
+                    <option disabled={true}>Select a category</option>
+                    {Object.values(TagCategory).map((tag) => (
+                      <option key={tag} value={tag}>
+                        {tag.charAt(0) + tag.slice(1).toLowerCase()}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="gap-y-1 flex flex-col col-span-2">
+                  <label className="label">
+                    <span className="label-text text-sm">Type</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Bodyweight, weighted, cardio, yoga, etc"
+                    className="input input-error w-full "
+                    name="tagName"
+                    defaultValue={
+                      exerciseForUpdate ? exerciseForUpdate.tag.name : ""
+                    }
+                    required
+                    onChange={useCallback(
+                      (e: React.ChangeEvent<HTMLInputElement>) => {
+                        exerciseTagNameRef.current = e.target.value;
+                        if (e.target.value.length > 3) {
+                          setStep(!step);
+                        } else {
+                          setStep(!step);
+                        }
+                      },
+                      [exerciseTagNameRef, step]
+                    )}
+                  />
+                </div>
+
+                <div className="gap-y-1 flex flex-col col-start-3 col-span-1">
+                  <label className="label">
+                    <span className="label-text text-sm">
+                      Optional description
+                    </span>
+                  </label>
+                  <fieldset className="fieldset">
+                    <textarea
+                      className="textarea textarea-error size-full"
+                      placeholder="..."
+                      defaultValue={
+                        exerciseForUpdate ? exerciseForUpdate.description : ""
+                      }
+                      name="description"
+                      onChange={useCallback(
+                        (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                          exerciseDescriptionRef.current = e.target.value;
+                          if (e.target.value.length >= 5) {
+                            setStep(!step);
+                          } else {
+                            setStep(!step);
+                          }
+                        },
+                        [exerciseDescriptionRef, step]
+                      )}
+                    />
+                  </fieldset>
+                </div>
               </div>
-              <div className="gap-y-1 flex flex-col">
+
+              <div className="col-start-2 col-span-1 flex size-full items-center justify-center">
+                <ExerciseCard exercise={exercise} />
+              </div>
+
+              <div className="gap-y-1 flex flex-col col-start-3 col-span-1">
                 <label className="label">
                   <span className="label-text text-sm">Main muscle</span>
                 </label>
@@ -158,172 +285,69 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                       </option>
                     ))}
                 </select>
-              </div>
-            </div>
 
-            {primaryMuscleGroupId && (
-              <div className="gap-y-1 flex flex-col">
-                <label className="label w-full justify-between">
-                  <span className="label-text text-sm">Secondary movers</span>
-                  <button
-                    onClick={(event) => {
-                      event.preventDefault();
-                      setIsVisible(!isVisible);
-                    }}
+                <div className="gap-y-1 flex flex-col">
+                  <label className="label w-full justify-between">
+                    <span className="label-text text-sm">Secondary movers</span>
+                    <button
+                      onClick={(event) => {
+                        event.preventDefault();
+                        setIsVisible(!isVisible);
+                      }}
+                    >
+                      {isVisible ? (
+                        <ArrowBigUp className="text-error cursor-pointer" />
+                      ) : (
+                        <ArrowBigDown className="text-error cursor-pointer" />
+                      )}
+                    </button>
+                  </label>
+                  <div className="w-full h-[1px] rounded-full bg-gray-600/25" />
+
+                  <div
+                    className={`${
+                      isVisible ? "block" : "hidden"
+                    } text-sm grid-cols-5 gap-y-2 grid p-2 opacity-75 rounded-md`}
                   >
-                    {isVisible ? (
-                      <ArrowBigUp className="text-error cursor-pointer" />
-                    ) : (
-                      <ArrowBigDown className="text-error cursor-pointer" />
-                    )}
-                  </button>
-                </label>
-                <div className="w-full h-[1px] rounded-full bg-gray-600/25" />
-
-                <div
-                  className={`${
-                    isVisible ? "block" : "hidden"
-                  } text-sm grid-cols-5 gap-y-2 grid p-2 opacity-75 rounded-md`}
-                >
-                  {muscleGroupData &&
-                    muscleGroupData.map(
-                      (muscleGroup: MuscleGroupData, index: number) => (
-                        <div
-                          key={index}
-                          className={`${
-                            muscleGroup.id === primaryMuscleGroupId
-                              ? "hidden"
-                              : ""
-                          } flex flex-col items-center justify-end`}
-                        >
-                          <span className="text-xs text-center">
-                            {muscleGroup.name
-                              .replace(/_/g, " ")
-                              .toLowerCase()
-                              .replace(/\b\w/g, (char) => char.toUpperCase())}
-                          </span>
-                          <input
-                            type="checkbox"
-                            className="toggle toggle-error"
-                            defaultChecked={
-                              exerciseForUpdate
-                                ? exerciseForUpdate?.exerciseMuscleGroups.some(
-                                    (group) =>
-                                      group.muscleGroup.id === muscleGroup.id
-                                  )
-                                : undefined
-                            }
-                            onChange={() => {
-                              handleMuscleGroupIds(muscleGroup.id);
-                            }}
-                          />
-                        </div>
-                      )
-                    )}
+                    {muscleGroupData &&
+                      muscleGroupData.map(
+                        (muscleGroup: MuscleGroupData, index: number) => (
+                          <div
+                            key={index}
+                            className={`${
+                              muscleGroup.id === primaryMuscleGroupId
+                                ? "hidden"
+                                : ""
+                            } flex flex-col items-center justify-end`}
+                          >
+                            <span className="text-xs text-center">
+                              {muscleGroup.name
+                                .replace(/_/g, " ")
+                                .toLowerCase()
+                                .replace(/\b\w/g, (char) => char.toUpperCase())}
+                            </span>
+                            <input
+                              type="checkbox"
+                              className="toggle toggle-error"
+                              defaultChecked={
+                                exerciseForUpdate
+                                  ? exerciseForUpdate?.exerciseMuscleGroups.some(
+                                      (group) =>
+                                        group.muscleGroup.id === muscleGroup.id
+                                    )
+                                  : undefined
+                              }
+                              onChange={() => {
+                                handleMuscleGroupIds(muscleGroup.id);
+                              }}
+                            />
+                          </div>
+                        )
+                      )}
+                  </div>
                 </div>
               </div>
-            )}
-
-            <div className="grid grid-cols-3 gap-x-6 mt-4">
-              <div className="gap-y-1 flex flex-col col-span-2">
-                <label className="label">
-                  <span className="label-text text-sm">Type</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Bodyweight, weighted, cardio, yoga, etc"
-                  className="input input-error w-full "
-                  name="tagName"
-                  defaultValue={
-                    exerciseForUpdate ? exerciseForUpdate.tag.name : ""
-                  }
-                  required
-                  onChange={useCallback(
-                    (e: React.ChangeEvent<HTMLInputElement>) => {
-                      exerciseTagNameRef.current = e.target.value;
-                      if (e.target.value.length > 3) {
-                        setStep(!step);
-                      } else {
-                        setStep(!step);
-                      }
-                    },
-                    [exerciseTagNameRef, step]
-                  )}
-                />
-              </div>
-              <div className="gap-y-1 flex flex-col col-start-3 col-span-1">
-                <label className="label">
-                  <span className="label-text text-sm">Category</span>
-                </label>
-                <select
-                  defaultValue={
-                    exerciseForUpdate
-                      ? exerciseForUpdate.tag.category
-                      : "Select a category"
-                  }
-                  className="select select-error w-full"
-                  name="category"
-                  required
-                  onChange={useCallback(
-                    (e: React.ChangeEvent<HTMLSelectElement>) => {
-                      exerciseTagCategoryRef.current = e.target.value;
-                      if (e.target.value.length > 2) {
-                        setStep(!step);
-                      } else {
-                        setStep(!step);
-                      }
-                    },
-                    [exerciseTagCategoryRef, step]
-                  )}
-                >
-                  {" "}
-                  <option disabled={true}>Select a category</option>
-                  {Object.values(TagCategory).map((tag) => (
-                    <option key={tag} value={tag}>
-                      {tag.charAt(0) + tag.slice(1).toLowerCase()}
-                    </option>
-                  ))}
-                </select>
-              </div>
             </div>
-            <div className="gap-y-1 flex flex-col col-start-3 col-span-1">
-              <label className="label">
-                <span className="label-text text-sm">Optional description</span>
-              </label>
-              <fieldset className="fieldset">
-                <textarea
-                  className="textarea textarea-error size-full"
-                  placeholder="..."
-                  defaultValue={
-                    exerciseForUpdate ? exerciseForUpdate.description : ""
-                  }
-                  name="description"
-                  onChange={useCallback(
-                    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                      exerciseDescriptionRef.current = e.target.value;
-                      if (e.target.value.length >= 5) {
-                        setStep(!step);
-                      } else {
-                        setStep(!step);
-                      }
-                    },
-                    [exerciseDescriptionRef, step]
-                  )}
-                />
-              </fieldset>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-y-2 h-12 w-full">
-            <div className="h-[1px] rounded-full bg-gray-600/25 w-full" />
-            <FormSteps
-              exerciseNameRef={exerciseNameRef}
-              primaryMuscleGroupId={primaryMuscleGroupId}
-              muscleGroupIds={muscleGroupIds}
-              exerciseTagNameRef={exerciseTagNameRef}
-              exerciseTagCategoryRef={exerciseTagCategoryRef}
-              exerciseDescriptionRef={exerciseDescriptionRef}
-            />
           </div>
 
           <div className="form-control w-full flex flex-col gap-y-2 h-24 pb-1 justify-end">
