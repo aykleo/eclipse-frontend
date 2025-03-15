@@ -107,7 +107,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   : exerciseForUpdate.name}
               </h1>
               <button
-                className="btn btn-sm btn-error"
+                className="text-sm cursor-pointer text-neutral-500 hover:text-error"
                 onClick={(event) => {
                   event.preventDefault();
                   if (exerciseForUpdate) {
@@ -118,14 +118,13 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   }
                 }}
               >
-                fechar
+                Close
               </button>
             </div>
             <div className="h-[1px] rounded-full bg-gray-600/25 w-full" />
           </div>
           <div className="flex flex-col gap-y-2 px-1 h-full overflow-y-auto no-scrollbar">
             <div className="grid grid-cols-3 gap-x-6">
-              {/* name */}
               <div className="gap-y-1 flex flex-col col-start-1 col-span-1">
                 <div className="gap-y-1 flex flex-col">
                   <label className="label">
@@ -349,7 +348,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
             <div className="h-[1px] rounded-full bg-gray-600/25" />
             <button
               disabled={isLoading}
-              className={`text-gray-400 btn bg-zinc-900 border border-gray-600/25 shadow-none w-full rounded-lg`}
+              className={` btn btn-error  border shadow-none w-full rounded-lg`}
             >
               {isLoading ? (
                 <span className="loading loading-dots loading-lg"></span>
