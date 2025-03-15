@@ -62,12 +62,21 @@ export default function ExerciseByMuscleGroup() {
         : screenWidth > 1600
         ? 180
         : screenWidth > 1200
-        ? 140
+        ? 160
         : 120;
 
     const option = {
       color: ["#FF917C"],
-      legend: { show: false },
+      legend: {
+        show: false,
+
+        bottom: 0,
+        left: 0,
+        textStyle: {
+          fontSize: 12,
+          fontWeight: "bold",
+        },
+      },
       radar: [
         {
           indicator: sourceData.map((item) => ({
@@ -161,14 +170,14 @@ export default function ExerciseByMuscleGroup() {
   }, [exerciseByMuscleGroupData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="flex items-center p-2 justify-center h-full w-full">
+    <div className="flex items-center p-2 justify-center h-96 lg:h-full w-full">
       {isLoading ? (
         <div className="flex items-center justify-center h-full w-full">
           <span className="loading loading-dots loading-xl"></span>
         </div>
       ) : (
         <div className="relative size-full flex">
-          <div className="absolute right-0 top-0 px-2 z-2 gap-y-2 py-0.5 w-full lg:w-1/2 items-end text-xs text-red-300 gap-x-2 flex flex-col">
+          <div className="absolute right-0 top-0 px-2 z-2 gap-y-2 py-0.5 w-full sm:w-1/2 items-end text-xs text-red-300 gap-x-2 flex flex-col">
             <div className="flex items-center gap-x-2 w-full">
               <span>0</span>
               <input

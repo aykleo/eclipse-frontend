@@ -13,7 +13,7 @@ export const StatusContext = createContext<StatusContextType>({
 export function useStatus() {
   const context = useContext(StatusContext);
   if (context === undefined) {
-    throw new Error("useStatus must be used within a StatusProvider");
+    console.log("useStatus must be used within a StatusProvider");
   }
   return context;
 }

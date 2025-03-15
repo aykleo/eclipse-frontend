@@ -1,24 +1,26 @@
+import { ToastProgress } from "./styles/toast-progress";
+
 interface StatusToastProps {
   statusText: string;
   children?: React.ReactNode;
 }
 
-export const StatusToast: React.FC<StatusToastProps> = ({
-  statusText,
-  children,
-}) => {
+export const StatusToast: React.FC<StatusToastProps> = ({ statusText }) => {
   return (
-    <div className="toast toast-bottom transition-opacity duration-500 bg-transparent w-max z-99">
-      <div className="alert flex flex-col p-2 font-medium text-stone-900 h-max border-transparent bg-gray-950 w-72">
+    <div className="toast toast-top transition-opacity duration-500 bg-transparent w-max z-99">
+      <div className="alert flex flex-col p-2 rounded-xs  font-medium h-max border-transparent bg-neutral-100 w-72">
         {statusText.split(",").map((textPart, index) => (
           <span
             key={index}
-            className="size-full break-words whitespace-normal block text-gray-100"
+            className="size-full break-words whitespace-normal block text-neutral-700"
           >
             {textPart.trim()}
           </span>
         ))}
-        {children}
+        <div className="progress-bar bg-gray-300 h-1 mt-2 animate-progress-animation progress-bar rounded-full">
+          <div className="progress bg-error h-full"></div>
+        </div>
+        <ToastProgress />
       </div>
     </div>
   );

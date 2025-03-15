@@ -16,7 +16,6 @@ import {
 import { useSearchParams } from "react-router-dom";
 import { useStatus } from "../../../../../hooks/status/status-context";
 import { DeleteExerciseModal } from "../delete-modal";
-import { ToastProgress } from "../../../../../components/styles/toast-progress";
 import { StatusToast } from "../../../../../components/status-toast";
 import { ExercisePagination } from "./exercise-pagination";
 import { CategorySelector, ExerciseCategory } from "./category-selector";
@@ -96,14 +95,7 @@ export const ListAllExercises = ({
 
   return (
     <div className="relative w-full h-full flex-col flex items-center gap-y-0.5 justify-start p-3 ">
-      {statusText && (
-        <StatusToast statusText={statusText}>
-          <div className="progress-bar bg-gray-300 h-1 mt-2 animate-progress-animation progress-bar rounded-full">
-            <div className="progress bg-error h-full"></div>
-          </div>
-          <ToastProgress />
-        </StatusToast>
-      )}
+      {statusText && <StatusToast statusText={statusText} />}
       <CategorySelector
         selectedCategory={selectedCategory}
         handleTabClick={handleTabClick}

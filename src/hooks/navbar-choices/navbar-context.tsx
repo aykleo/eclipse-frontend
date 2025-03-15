@@ -15,7 +15,7 @@ export const NavBarContext = createContext<NavBarContextType>({
 export function useNavBar() {
   const context = useContext(NavBarContext);
   if (context === undefined) {
-    throw new Error("useNavBar must be used within a NavBarProvider");
+    console.log("useNavBar must be used within a NavBarProvider");
   }
   return context;
 }

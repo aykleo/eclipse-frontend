@@ -34,7 +34,7 @@ export const ExerciseCard = ({
             : "relative"
         } ${getColorBackgroundForTagCategory(
           exercise.tag.category
-        )} flex-col w-48 h-72 p-[1px] rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300`}
+        )} flex-col w-36 lg:w-48 h-64 lg:h-72 p-[1px] rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300`}
       >
         <div
           className={`${
@@ -70,7 +70,7 @@ export const ExerciseCard = ({
             )}
           </span>
           <div className="flex w-full items-center justify-center py-2">
-            <div className="size-24 flex overflow-hidden items-center justify-center opacity-50 rounded-full bg-black shadow-[1px_0px_10px_7px_rgba(255,255,255,1),-6px_-5px_5px_7px_rgba(255,255,255,0.1),0px_0px_50px_10px_rgba(255,0,0,0.8),0px_0px_15px_15px_rgba(255,0,0,1),inset_0px_0px_35px_2px_rgba(255,0,0,0.5)]">
+            <div className="size-18 lg:size-24 flex overflow-hidden items-center justify-center opacity-50 rounded-full bg-black shadow-[1px_0px_10px_7px_rgba(255,255,255,1),-6px_-5px_5px_7px_rgba(255,255,255,0.1),0px_0px_50px_10px_rgba(255,0,0,0.8),0px_0px_15px_15px_rgba(255,0,0,1),inset_0px_0px_35px_2px_rgba(255,0,0,0.5)]">
               {exercise.exerciseMuscleGroups
                 .filter((muscleGroup) => muscleGroup.isPrimary)
                 .map((muscleGroup) => (
@@ -118,7 +118,7 @@ export const ExerciseCard = ({
                   exercise.tag.category
                     ? getColorBackgroundForTagCategory(exercise.tag.category)
                     : "bg-neutral-700"
-                } w-full truncate text-center px-3`}
+                } w-full truncate text-center px-3 text-xs lg:text-sm`}
                 style={{
                   clipPath:
                     "polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%)",

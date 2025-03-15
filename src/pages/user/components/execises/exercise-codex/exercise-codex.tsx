@@ -6,7 +6,6 @@ import { fetchExercises } from "../../../../../api/exercises/fetch-exercises";
 import { useSearchParams } from "react-router-dom";
 import { useStatus } from "../../../../../hooks/status/status-context";
 import { DeleteExerciseModal } from "../delete-modal";
-import { ToastProgress } from "../../../../../components/styles/toast-progress";
 import { StatusToast } from "../../../../../components/status-toast";
 import { ExerciseCard } from "./exercise-card";
 import { CodexSelector, ExerciseCategory } from "./codex-selector";
@@ -125,14 +124,7 @@ export const ExerciseCodex = React.memo(
 
     return (
       <div className="relative w-full h-full flex-col flex items-center gap-y-0.5 justify-start p-3">
-        {statusText && (
-          <StatusToast statusText={statusText}>
-            <div className="progress-bar bg-gray-300 h-1 mt-2 animate-progress-animation progress-bar rounded-full">
-              <div className="progress bg-error h-full"></div>
-            </div>
-            <ToastProgress />
-          </StatusToast>
-        )}
+        {statusText && <StatusToast statusText={statusText} />}
 
         <CodexSelector
           selectedCategory={selectedCategory}
@@ -154,7 +146,7 @@ export const ExerciseCodex = React.memo(
                 <div
                   className={` ${
                     exerciseForUpdate ? "overflow-hidden" : "overflow-y-auto "
-                  } h-full no-scrollbar grid gap-y-8 pt-7 px-4 w-full justify-items-center items-start xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8`}
+                  } h-full no-scrollbar grid gap-y-8 pt-7 px-1 w-full justify-items-center items-start grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8`}
                 >
                   <NewExerciseBtn
                     exerciseForUpdate={exerciseForUpdate}

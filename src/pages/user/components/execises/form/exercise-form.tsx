@@ -5,7 +5,6 @@ import {
   TagCategory,
   MuscleGroupName,
 } from "../../../../../utils/types/exercise-types";
-import { ToastProgress } from "../../../../../components/styles/toast-progress";
 import { getColorClassForTagCategory } from "../../../../../utils/tag-colors";
 import { StatusToast } from "../../../../../components/status-toast";
 import { ExerciseCard } from "../exercise-codex/exercise-card";
@@ -373,14 +372,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               )}
             </button>
           </div>
-          {statusText && (
-            <StatusToast statusText={statusText}>
-              <div className="progress-bar bg-gray-300 h-1 mt-2 animate-progress-animation progress-bar rounded-full">
-                <div className="progress bg-error h-full"></div>
-              </div>
-              <ToastProgress />
-            </StatusToast>
-          )}
+          {statusText && <StatusToast statusText={statusText} />}
         </form>
       </div>
     );
