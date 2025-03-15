@@ -8,7 +8,6 @@ import {
 import { ToastProgress } from "../../../../../components/styles/toast-progress";
 import { getColorClassForTagCategory } from "../../../../../utils/tag-colors";
 import { StatusToast } from "../../../../../components/status-toast";
-import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 import { ExerciseCard } from "../exercise-codex/exercise-card";
 
 interface ExerciseFormProps {
@@ -54,7 +53,6 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     setIsCreatingExercise,
   }) => {
     const [step, setStep] = useState<boolean>(false);
-    const [isVisible, setIsVisible] = useState<boolean>(false);
 
     const exercise = {
       id: exerciseForUpdate?.id || "new-id",
@@ -63,9 +61,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
       tag: {
         id: exerciseForUpdate?.tag.id || "new-tag-id",
         name: exerciseTagNameRef.current || "",
-        category:
-          (exerciseTagCategoryRef.current as TagCategory) ||
-          TagCategory.STRENGTH,
+        category: (exerciseTagCategoryRef.current as TagCategory) || undefined,
       },
       createdAt: exerciseForUpdate?.createdAt || new Date(),
       updatedAt: new Date(),
@@ -131,28 +127,32 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
             <div className="grid grid-cols-3 gap-x-6">
               {/* name */}
               <div className="gap-y-1 flex flex-col col-start-1 col-span-1">
-                <label className="label">
-                  <span className="label-text text-sm">Name</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  className="input input-error w-full"
-                  name="name"
-                  defaultValue={exerciseForUpdate ? exerciseForUpdate.name : ""}
-                  required
-                  onChange={useCallback(
-                    (e: React.ChangeEvent<HTMLInputElement>) => {
-                      exerciseNameRef.current = e.target.value;
-                      if (e.target.value.length >= 5) {
-                        setStep(!step);
-                      } else {
-                        setStep(!step);
-                      }
-                    },
-                    [exerciseNameRef, step]
-                  )}
-                />
+                <div className="gap-y-1 flex flex-col">
+                  <label className="label">
+                    <span className="label-text text-sm">Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    className="input input-error w-full"
+                    name="name"
+                    defaultValue={
+                      exerciseForUpdate ? exerciseForUpdate.name : ""
+                    }
+                    required
+                    onChange={useCallback(
+                      (e: React.ChangeEvent<HTMLInputElement>) => {
+                        exerciseNameRef.current = e.target.value;
+                        if (e.target.value.length >= 5) {
+                          setStep(!step);
+                        } else {
+                          setStep(!step);
+                        }
+                      },
+                      [exerciseNameRef, step]
+                    )}
+                  />
+                </div>
                 <div className="gap-y-1 flex flex-col">
                   <label className="label">
                     <span className="label-text text-sm">Category</span>
@@ -187,7 +187,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                     ))}
                   </select>
                 </div>
-                <div className="gap-y-1 flex flex-col col-span-2">
+                <div className="gap-y-1 flex flex-col">
                   <label className="label">
                     <span className="label-text text-sm">Type</span>
                   </label>
@@ -214,7 +214,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   />
                 </div>
 
-                <div className="gap-y-1 flex flex-col col-start-3 col-span-1">
+                <div className="gap-y-1 flex flex-col h-full">
                   <label className="label">
                     <span className="label-text text-sm">
                       Optional description
@@ -222,7 +222,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   </label>
                   <fieldset className="fieldset">
                     <textarea
-                      className="textarea textarea-error size-full"
+                      className="textarea textarea-error w-full h-full min-h-32"
                       placeholder="..."
                       defaultValue={
                         exerciseForUpdate ? exerciseForUpdate.description : ""
@@ -248,101 +248,96 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                 <ExerciseCard exercise={exercise} />
               </div>
 
-              <div className="gap-y-1 flex flex-col col-start-3 col-span-1">
-                <label className="label">
-                  <span className="label-text text-sm">Main muscle</span>
-                </label>
-                <select
-                  defaultValue={
-                    exerciseForUpdate
-                      ? exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup
-                          .name
-                      : "Primary mover"
-                  }
-                  className="select select-error w-full"
-                  onChange={handlePrimaryMuscleGroup}
-                  name="primaryMuscleGroupId"
-                  required
-                >
-                  {exerciseForUpdate ? (
-                    <option disabled={true} className="hidden">
-                      {exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup.name
-                        .replace(/_/g, " ")
-                        .toLowerCase()
-                        .replace(/\b\w/g, (char: string) => char.toUpperCase())}
-                    </option>
-                  ) : (
-                    <></>
-                  )}
-                  <option disabled={true}>Primary mover</option>
-                  {muscleGroupData &&
-                    muscleGroupData.map((muscleGroup: MuscleGroupData) => (
-                      <option key={muscleGroup.id} value={muscleGroup.id}>
-                        {muscleGroup.name
+              <div className="gap-y-3 flex flex-col col-start-3 col-span-1">
+                <div>
+                  <label className="label">
+                    <span className="label-text text-sm">Main muscle</span>
+                  </label>
+                  <select
+                    defaultValue={
+                      exerciseForUpdate
+                        ? exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup
+                            .name
+                        : "Primary mover"
+                    }
+                    className="select select-error w-full"
+                    onChange={handlePrimaryMuscleGroup}
+                    name="primaryMuscleGroupId"
+                    required
+                  >
+                    {exerciseForUpdate ? (
+                      <option disabled={true} className="hidden">
+                        {exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup.name
                           .replace(/_/g, " ")
                           .toLowerCase()
-                          .replace(/\b\w/g, (char) => char.toUpperCase())}
+                          .replace(/\b\w/g, (char: string) =>
+                            char.toUpperCase()
+                          )}
                       </option>
-                    ))}
-                </select>
+                    ) : (
+                      <></>
+                    )}
+                    <option disabled={true}>Primary mover</option>
+                    {muscleGroupData &&
+                      muscleGroupData.map((muscleGroup: MuscleGroupData) => (
+                        <option key={muscleGroup.id} value={muscleGroup.id}>
+                          {muscleGroup.name
+                            .replace(/_/g, " ")
+                            .toLowerCase()
+                            .replace(/\b\w/g, (char) => char.toUpperCase())}
+                        </option>
+                      ))}
+                  </select>
+                </div>
 
-                <div className="gap-y-1 flex flex-col">
+                <div className="gap-y-1 flex flex-col h-full">
                   <label className="label w-full justify-between">
                     <span className="label-text text-sm">Secondary movers</span>
-                    <button
-                      onClick={(event) => {
-                        event.preventDefault();
-                        setIsVisible(!isVisible);
-                      }}
-                    >
-                      {isVisible ? (
-                        <ArrowBigUp className="text-error cursor-pointer" />
-                      ) : (
-                        <ArrowBigDown className="text-error cursor-pointer" />
-                      )}
-                    </button>
                   </label>
-                  <div className="w-full h-[1px] rounded-full bg-gray-600/25" />
 
                   <div
-                    className={`${
-                      isVisible ? "block" : "hidden"
-                    } text-sm grid-cols-5 gap-y-2 grid p-2 opacity-75 rounded-md`}
+                    className={`text-sm flex flex-wrap gap-2 py-2 opacity-75 `}
                   >
                     {muscleGroupData &&
                       muscleGroupData.map(
-                        (muscleGroup: MuscleGroupData, index: number) => (
-                          <div
-                            key={index}
-                            className={`${
-                              muscleGroup.id === primaryMuscleGroupId
-                                ? "hidden"
-                                : ""
-                            } flex flex-col items-center justify-end`}
-                          >
-                            <span className="text-xs text-center">
-                              {muscleGroup.name
-                                .replace(/_/g, " ")
-                                .toLowerCase()
-                                .replace(/\b\w/g, (char) => char.toUpperCase())}
-                            </span>
-                            <input
-                              type="checkbox"
-                              className="toggle toggle-error"
-                              defaultChecked={
-                                exerciseForUpdate
-                                  ? exerciseForUpdate?.exerciseMuscleGroups.some(
-                                      (group) =>
-                                        group.muscleGroup.id === muscleGroup.id
-                                    )
-                                  : undefined
-                              }
-                              onChange={() => {
+                        (muscleGroup: MuscleGroupData, index: number) => {
+                          const isSelected = muscleGroupIds.includes(
+                            muscleGroup.id
+                          );
+
+                          return (
+                            <button
+                              key={index}
+                              disabled={!primaryMuscleGroupId}
+                              className={`${
+                                muscleGroup.id === primaryMuscleGroupId
+                                  ? "hidden"
+                                  : ""
+                              } ${
+                                !primaryMuscleGroupId
+                                  ? "cursor-default"
+                                  : "cursor-pointer"
+                              } flex items-center justify-center py-1 px-2 rounded-xs transition-all duration-300 ${
+                                isSelected
+                                  ? "opacity-100 border border-error text-error"
+                                  : "opacity-35 border border-white"
+                              }`}
+                              onClick={(e) => {
+                                e.preventDefault();
                                 handleMuscleGroupIds(muscleGroup.id);
                               }}
-                            />
-                          </div>
-                        )
+                            >
+                              <span className="text-xs text-center text-white">
+                                {muscleGroup.name
+                                  .replace(/_/g, " ")
+                                  .toLowerCase()
+                                  .replace(/\b\w/g, (char) =>
+                                    char.toUpperCase()
+                                  )}
+                              </span>
+                            </button>
+                          );
+                        }
                       )}
                   </div>
                 </div>

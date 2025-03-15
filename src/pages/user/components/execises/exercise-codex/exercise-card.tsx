@@ -84,21 +84,37 @@ export const ExerciseCard = ({
                 ))}
             </div>
           </div>
-          <img
-            src={`src/assets/icons/category/${exercise.tag.category}.png`}
-            alt={`${exercise.tag.category} icon`}
-            style={{
-              clipPath:
-                "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
-            }}
-            className={`${getColorBackgroundForTagCategory(
-              exercise.tag.category
-            )} icon-class size-7 rounded-lg p-1 absolute -top-3.5 -right-3`}
-          />
+          {exercise.tag.category ? (
+            <img
+              src={`src/assets/icons/category/${exercise.tag.category}.png`}
+              alt={`${exercise.tag.category} icon`}
+              style={{
+                clipPath:
+                  "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
+              }}
+              className={`${
+                exercise.tag.category
+                  ? getColorBackgroundForTagCategory(exercise.tag.category)
+                  : "bg-neutral-700"
+              } icon-class size-7 rounded-lg p-1 absolute -top-3.5 -right-3`}
+            />
+          ) : (
+            <div
+              style={{
+                clipPath:
+                  "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
+              }}
+              className="size-7 rounded-lg p-1 absolute -top-3.5 -right-3 bg-neutral-700"
+            />
+          )}
           <div className="w-full flex flex-col gap-y-1 h-full relative">
             <span className={`w-full px-1`}>
               <div
-                className="w-full truncate bg-red-500/50 text-center px-3"
+                className={`${
+                  exercise.tag.category
+                    ? getColorBackgroundForTagCategory(exercise.tag.category)
+                    : "bg-neutral-700"
+                } w-full truncate text-center px-3`}
                 style={{
                   clipPath:
                     "polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%)",
