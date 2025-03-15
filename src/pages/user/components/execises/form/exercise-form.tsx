@@ -9,6 +9,7 @@ import { ToastProgress } from "../../../../../components/styles/toast-progress";
 import { getColorClassForTagCategory } from "../../../../../utils/tag-colors";
 import { StatusToast } from "../../../../../components/status-toast";
 import { ExerciseCard } from "../exercise-codex/exercise-card";
+import { EyeIcon } from "lucide-react";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;
@@ -54,6 +55,11 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
   }) => {
     const initialMuscleGroupIds = muscleGroupIds;
     const [cardRender, setCardRender] = useState(false);
+    const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+
+    const toggleTooltip = () => {
+      setIsTooltipVisible(!isTooltipVisible);
+    };
 
     const exercise = {
       id: exerciseForUpdate?.id || "",
@@ -93,7 +99,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
           ref={formRef}
         >
           <div className="text-4xl py-2 font-bold flex flex-col gap-y-1 h-24 w-full px-2">
-            <div className="flex w-full flex-row items-center justify-between">
+            <div className="flex w-full flex-row items-center justify-between relative">
               <h1
                 className={`${
                   exerciseForUpdate
@@ -121,9 +127,23 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               >
                 Close
               </button>
+              <div
+                onClick={toggleTooltip}
+                className="cursor-pointer md:hidden absolute right-0 -bottom-6 z-4"
+              >
+                <EyeIcon className="size-5 text-gray-400 hover:text-gray-200 transition-all duration-300" />
+              </div>
             </div>
             <div className="h-[1px] rounded-full bg-gray-600/25 w-full" />
           </div>
+          {isTooltipVisible && (
+            <div
+              className="absolute inset-0 z-99 flex items-center cursor-pointer justify-center backdrop-blur-xs bg-neutral-950/50"
+              onClick={toggleTooltip}
+            >
+              <ExerciseCard exercise={exercise} />
+            </div>
+          )}
           <div className="flex flex-col gap-y-2 px-1 h-full overflow-y-auto no-scrollbar">
             <div className="grid grid-cols-3 gap-x-6">
               <div className="gap-y-1 flex flex-col col-start-1 col-span-3 md:col-span-1">
