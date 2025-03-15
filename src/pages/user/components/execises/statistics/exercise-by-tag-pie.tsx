@@ -101,13 +101,16 @@ export const ExerciseByTagPie = memo(
     }, [exerciseByTagData]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-      <div className="flex pt-2.5 w-1/2 h-32 items-center justify-center overflow-x-hidden bg-zinc-950 rounded-lg">
+      <div className="flex py-3 w-full h-40 lg:h-2/3 px-2">
         {isLoading ? (
           <div className="flex items-center justify-center h-full w-full">
             <span className="loading loading-dots loading-xl"></span>
           </div>
         ) : (
-          <div ref={chartRef} className="size-full"></div>
+          <div
+            ref={chartRef}
+            className="size-full flex items-center justify-center"
+          ></div>
         )}
       </div>
     );

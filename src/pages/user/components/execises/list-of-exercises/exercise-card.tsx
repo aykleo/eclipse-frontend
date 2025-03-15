@@ -35,7 +35,7 @@ export const ExerciseCard = ({
                 : "relative"
             } ${getColorBackgroundForTagCategory(
               exercise.tag.category
-            )}  flex-col w-48 h-72 p-[1px] rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300`}
+            )} flex-col w-48 h-72 p-[1px] rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300`}
           >
             <div
               className={`${
@@ -48,6 +48,7 @@ export const ExerciseCard = ({
                 .filter((muscleGroup) => !muscleGroup.isPrimary)
                 .map((muscleGroup) => (
                   <div
+                    key={muscleGroup.muscleGroup.name}
                     className={`${getColorBackgroundForTagCategory(
                       exercise.tag.category
                     )} rounded-md rounded-b-none p-[1.5px] tooltip tooltip-left cursor-help`}
@@ -71,6 +72,7 @@ export const ExerciseCard = ({
                     .filter((muscleGroup) => muscleGroup.isPrimary)
                     .map((muscleGroup) => (
                       <div
+                        key={muscleGroup.muscleGroup.name}
                         className="tooltip tooltip-bottom"
                         data-tip={muscleGroup.muscleGroup.name}
                       >
@@ -115,7 +117,7 @@ export const ExerciseCard = ({
                       <CircleFadingArrowUp className="size-4 hover:text-white" />
                     </button>
                   )}
-                  {setSearchParams && (
+                  {setSearchParams && exercise.id !== exerciseForUpdate?.id && (
                     <button
                       className="cursor-pointer absolute left-2 -top-4"
                       disabled={exercise.id === exerciseForUpdate?.id}
@@ -153,48 +155,6 @@ export const ExerciseCard = ({
                     : "There is no description"}
                 </div>
               </div>
-
-              {/* <div className="flex flex-col items-end gap-y-0.5">
-            
-          </div>
-          <div className="flex flex-row item-center justify-between">
-            <div className="flex flex-row gap-x-6 items-end justify-end w-max">
-              {exercise.id === exerciseForUpdate?.id ? (
-                <span
-                  className={`text-lg ${
-                    exercise.id === exerciseForUpdate?.id
-                      ? getColorClassForTagCategory(
-                          exercise.tag.category
-                        )
-                      : ""
-                  }`}
-                >
-                  <p className="text-xs">Updating...</p>
-                </span>
-              ) : (
-                <button
-                  className="cursor-pointer"
-                  disabled={exercise.id === exerciseForUpdate?.id}
-                  onClick={async () => {
-                    setSearchParams(
-                      (prev) => {
-                        prev.set("exerciseId", exercise.id);
-                        prev.set("exerciseName", exercise.name);
-                        return prev;
-                      },
-                      { replace: true }
-                    );
-                    const modal = document.getElementById(
-                      "delete_exercise_modal"
-                    ) as HTMLDialogElement;
-                    modal?.showModal();
-                  }}
-                >
-                  <Trash2Icon className="size-5 text-gray-400 hover:text-white" />
-                </button>
-              )}
-            </div>
-          </div> */}
             </div>
           </div>
         ))}
