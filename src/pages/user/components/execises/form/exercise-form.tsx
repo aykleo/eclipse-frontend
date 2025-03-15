@@ -1,4 +1,4 @@
-import React, { RefObject, useCallback, useState } from "react";
+import React, { RefObject, useState } from "react";
 import {
   Exercise,
   MuscleGroupData,
@@ -52,10 +52,11 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     setExerciseForUpdate,
     setIsCreatingExercise,
   }) => {
-    const [step, setStep] = useState<boolean>(false);
+    const initialMuscleGroupIds = muscleGroupIds;
+    const [cardRender, setCardRender] = useState(false);
 
     const exercise = {
-      id: exerciseForUpdate?.id || "new-id",
+      id: exerciseForUpdate?.id || "",
       name: exerciseNameRef.current || "",
       description: exerciseDescriptionRef.current || "",
       tag: {
@@ -139,17 +140,14 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                       exerciseForUpdate ? exerciseForUpdate.name : ""
                     }
                     required
-                    onChange={useCallback(
-                      (e: React.ChangeEvent<HTMLInputElement>) => {
-                        exerciseNameRef.current = e.target.value;
-                        if (e.target.value.length >= 5) {
-                          setStep(!step);
-                        } else {
-                          setStep(!step);
-                        }
-                      },
-                      [exerciseNameRef, step]
-                    )}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      exerciseNameRef.current = e.target.value;
+                      if (e.target.value.length > 2) {
+                        setCardRender(!cardRender);
+                      } else {
+                        setCardRender(!cardRender);
+                      }
+                    }}
                   />
                 </div>
                 <div className="gap-y-1 flex flex-col">
@@ -165,19 +163,15 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                     className="select select-error w-full"
                     name="category"
                     required
-                    onChange={useCallback(
-                      (e: React.ChangeEvent<HTMLSelectElement>) => {
-                        exerciseTagCategoryRef.current = e.target.value;
-                        if (e.target.value.length > 2) {
-                          setStep(!step);
-                        } else {
-                          setStep(!step);
-                        }
-                      },
-                      [exerciseTagCategoryRef, step]
-                    )}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                      exerciseTagCategoryRef.current = e.target.value;
+                      if (e.target.value.length > 2) {
+                        setCardRender(!cardRender);
+                      } else {
+                        setCardRender(!cardRender);
+                      }
+                    }}
                   >
-                    {" "}
                     <option disabled={true}>Select a category</option>
                     {Object.values(TagCategory).map((tag) => (
                       <option key={tag} value={tag}>
@@ -199,17 +193,14 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                       exerciseForUpdate ? exerciseForUpdate.tag.name : ""
                     }
                     required
-                    onChange={useCallback(
-                      (e: React.ChangeEvent<HTMLInputElement>) => {
-                        exerciseTagNameRef.current = e.target.value;
-                        if (e.target.value.length > 3) {
-                          setStep(!step);
-                        } else {
-                          setStep(!step);
-                        }
-                      },
-                      [exerciseTagNameRef, step]
-                    )}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      exerciseTagNameRef.current = e.target.value;
+                      if (e.target.value.length > 2) {
+                        setCardRender(!cardRender);
+                      } else {
+                        setCardRender(!cardRender);
+                      }
+                    }}
                   />
                 </div>
 
@@ -227,17 +218,14 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                         exerciseForUpdate ? exerciseForUpdate.description : ""
                       }
                       name="description"
-                      onChange={useCallback(
-                        (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                          exerciseDescriptionRef.current = e.target.value;
-                          if (e.target.value.length >= 5) {
-                            setStep(!step);
-                          } else {
-                            setStep(!step);
-                          }
-                        },
-                        [exerciseDescriptionRef, step]
-                      )}
+                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                        exerciseDescriptionRef.current = e.target.value;
+                        if (e.target.value.length >= 5) {
+                          setCardRender(!cardRender);
+                        } else {
+                          setCardRender(!cardRender);
+                        }
+                      }}
                     />
                   </fieldset>
                 </div>
@@ -255,8 +243,12 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   <select
                     defaultValue={
                       exerciseForUpdate
-                        ? exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup
-                            .name
+                        ? exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup.name
+                            .replace(/_/g, " ")
+                            .toLowerCase()
+                            .replace(/\b\w/g, (char: string) =>
+                              char.toUpperCase()
+                            )
                         : "Primary mover"
                     }
                     className="select select-error w-full"
@@ -300,7 +292,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                     {muscleGroupData &&
                       muscleGroupData.map(
                         (muscleGroup: MuscleGroupData, index: number) => {
-                          const isSelected = muscleGroupIds.includes(
+                          const isSelected = initialMuscleGroupIds.includes(
                             muscleGroup.id
                           );
 

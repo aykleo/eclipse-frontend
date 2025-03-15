@@ -46,7 +46,13 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> = ({
       ? exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup.id
       : null
   );
-  const [muscleGroupIds, setMuscleGroupIds] = useState<string[]>([]);
+  const [muscleGroupIds, setMuscleGroupIds] = useState<string[]>(
+    exerciseForUpdate
+      ? exerciseForUpdate.exerciseMuscleGroups.map(
+          (muscleGroup) => muscleGroup.muscleGroup.id
+        )
+      : []
+  );
 
   const { data: muscleGroupData } = useQuery({
     queryKey: ["muscleGroup"],
