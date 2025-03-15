@@ -85,7 +85,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     };
 
     return (
-      <div className="form-control relative w-full flex flex-col px-2  rounded-lg justify-between h-full">
+      <div className="form-control relative w-full flex flex-col px-2  rounded-md justify-between h-full">
         <form
           action="create_exercise"
           className="size-full flex flex-col"
@@ -108,7 +108,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   : exerciseForUpdate.name}
               </h1>
               <button
-                className="text-sm cursor-pointer text-neutral-500 hover:text-error"
+                className="text-sm cursor-pointer px-1 text-neutral-500 hover:text-error"
                 onClick={(event) => {
                   event.preventDefault();
                   if (exerciseForUpdate) {
@@ -126,7 +126,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
           </div>
           <div className="flex flex-col gap-y-2 px-1 h-full overflow-y-auto no-scrollbar">
             <div className="grid grid-cols-3 gap-x-6">
-              <div className="gap-y-1 flex flex-col col-start-1 col-span-1">
+              <div className="gap-y-1 flex flex-col col-start-1 col-span-3 md:col-span-1">
                 <div className="gap-y-1 flex flex-col">
                   <label className="label">
                     <span className="label-text text-sm">Name</span>
@@ -231,11 +231,11 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                 </div>
               </div>
 
-              <div className="col-start-2 col-span-1 flex size-full items-center justify-center">
+              <div className="hidden md:col-start-2 col-span-1 md:flex size-full items-center justify-center">
                 <ExerciseCard exercise={exercise} />
               </div>
 
-              <div className="gap-y-3 flex flex-col col-start-3 col-span-1">
+              <div className="gap-y-3 flex flex-col md:col-start-3 col-span-3 md:col-span-1">
                 <div>
                   <label className="label">
                     <span className="label-text text-sm">Main muscle</span>
@@ -340,10 +340,10 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
             <div className="h-[1px] rounded-full bg-gray-600/25" />
             <button
               disabled={isLoading}
-              className={` btn btn-error  border shadow-none w-full rounded-lg`}
+              className={` btn btn-error  border shadow-none w-full rounded-md`}
             >
               {isLoading ? (
-                <span className="loading loading-dots loading-lg"></span>
+                <span className="loading loading-dots loading-md"></span>
               ) : (
                 <>
                   {!exerciseForUpdate || exerciseForUpdate === null
