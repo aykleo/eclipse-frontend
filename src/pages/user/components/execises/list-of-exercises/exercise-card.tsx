@@ -122,8 +122,8 @@ export const ExerciseCard = ({
                       onClick={async () => {
                         setSearchParams(
                           (prev) => {
-                            prev.set("exerciseId", exercise.id);
-                            prev.set("exerciseName", exercise.name);
+                            prev.set("exerciseToDeleteId", exercise.id);
+                            prev.set("exerciseToDeleteName", exercise.name);
                             return prev;
                           },
                           { replace: true }

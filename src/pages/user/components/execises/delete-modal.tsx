@@ -12,9 +12,9 @@ export const DeleteExerciseModal = () => {
   const queryClient = useQueryClient();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedExerciseIdForDeletion =
-    (searchParams.get("exerciseId") as string) || "";
+    (searchParams.get("exerciseToDeleteId") as string) || "";
   const selectedExerciseNameForDeletion =
-    (searchParams.get("exerciseName") as string) || "";
+    (searchParams.get("exerciseToDeleteName") as string) || "";
 
   const deleteMutation = useMutation({
     mutationFn: async () => {
