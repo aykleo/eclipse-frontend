@@ -62,7 +62,7 @@ export const ExerciseCard = ({
                   </div>
                 ))}
             </div>
-            <div className="flex flex-col w-full gap-y-3 bg-gradient-to-b from-neutral-900 to-black rounded-md h-full relative p-1.5">
+            <div className="flex flex-col w-full gap-y-2 bg-gradient-to-b from-neutral-900 to-black rounded-md h-full relative p-1.5">
               <span className="truncate w-full h-14 flex items-center">
                 {exercise.name}
               </span>
@@ -96,49 +96,8 @@ export const ExerciseCard = ({
                   exercise.tag.category
                 )} icon-class size-7 rounded-lg p-1 absolute -top-3.5 -right-3`}
               />
-              <div className="w-full flex flex-col gap-y-1 h-full">
-                <span className={`w-full px-1 relative`}>
-                  {setExerciseForUpdate && (
-                    <button
-                      className={`cursor-pointer absolute right-2 -top-4 ${
-                        exercise.id === exerciseForUpdate?.id
-                          ? `${getColorClassForTagCategory(
-                              exercise.tag.category
-                            )} animate-pulse `
-                          : "text-gray-400"
-                      }`}
-                      onClick={() => {
-                        setExerciseForUpdate(exercise);
-                        if (exercise.id === exerciseForUpdate?.id) {
-                          setExerciseForUpdate(null);
-                        }
-                      }}
-                    >
-                      <CircleFadingArrowUp className="size-4 hover:text-white" />
-                    </button>
-                  )}
-                  {setSearchParams && exercise.id !== exerciseForUpdate?.id && (
-                    <button
-                      className="cursor-pointer absolute left-2 -top-4"
-                      disabled={exercise.id === exerciseForUpdate?.id}
-                      onClick={async () => {
-                        setSearchParams(
-                          (prev) => {
-                            prev.set("exerciseToDeleteId", exercise.id);
-                            prev.set("exerciseToDeleteName", exercise.name);
-                            return prev;
-                          },
-                          { replace: true }
-                        );
-                        const modal = document.getElementById(
-                          "delete_exercise_modal"
-                        ) as HTMLDialogElement;
-                        modal?.showModal();
-                      }}
-                    >
-                      <Trash2Icon className="size-4 text-gray-400 hover:text-white" />
-                    </button>
-                  )}
+              <div className="w-full flex flex-col gap-y-1 h-full relative">
+                <span className={`w-full px-1`}>
                   <div
                     className="w-full truncate bg-red-500/50 text-center px-3"
                     style={{
@@ -149,11 +108,52 @@ export const ExerciseCard = ({
                     {exercise.tag.name}
                   </div>
                 </span>
-                <div className="text-xs w-full overflow-y-auto h-full no-scrollbar">
+                <div className="text-xs w-full overflow-y-auto h-full no-scrollbar pb-1">
                   {exercise.description
                     ? exercise.description
                     : "There is no description"}
                 </div>
+                {setSearchParams && exercise.id !== exerciseForUpdate?.id && (
+                  <button
+                    className="cursor-pointer absolute left-0 -bottom-0"
+                    disabled={exercise.id === exerciseForUpdate?.id}
+                    onClick={async () => {
+                      setSearchParams(
+                        (prev) => {
+                          prev.set("exerciseToDeleteId", exercise.id);
+                          prev.set("exerciseToDeleteName", exercise.name);
+                          return prev;
+                        },
+                        { replace: true }
+                      );
+                      const modal = document.getElementById(
+                        "delete_exercise_modal"
+                      ) as HTMLDialogElement;
+                      modal?.showModal();
+                    }}
+                  >
+                    <Trash2Icon className="size-3.5 text-gray-400 hover:text-white" />
+                  </button>
+                )}
+                {setExerciseForUpdate && (
+                  <button
+                    className={`cursor-pointer absolute right-0 -bottom-0 ${
+                      exercise.id === exerciseForUpdate?.id
+                        ? `${getColorClassForTagCategory(
+                            exercise.tag.category
+                          )} animate-pulse `
+                        : "text-gray-400"
+                    }`}
+                    onClick={() => {
+                      setExerciseForUpdate(exercise);
+                      if (exercise.id === exerciseForUpdate?.id) {
+                        setExerciseForUpdate(null);
+                      }
+                    }}
+                  >
+                    <CircleFadingArrowUp className="size-3.5 hover:text-white" />
+                  </button>
+                )}
               </div>
             </div>
           </div>

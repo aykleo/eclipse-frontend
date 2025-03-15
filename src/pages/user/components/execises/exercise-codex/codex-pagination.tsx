@@ -15,7 +15,7 @@ const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
   return (
     <>
       <button
-        className="absolute -left-1 -bottom-2.5 size-max p-2 rounded-full bg-neutral-950 shadow-sm shadow-red-500 text-white flex items-center justify-center cursor-pointer"
+        className="absolute -left-1 -bottom-2.5 size-max p-2 rounded-full bg-neutral-950 border-b border-b-neutral-600/50 text-white flex items-center justify-center cursor-pointer"
         onClick={() => {
           if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
@@ -23,7 +23,7 @@ const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
         }}
         disabled={currentPage === 1}
       >
-        <ChevronLeftIcon className="size-4 text-red-300" />
+        <ChevronLeftIcon className="size-4 " />
       </button>
       <span
         style={{
@@ -35,7 +35,7 @@ const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
         {currentPage}
       </span>
       <button
-        className="absolute -right-1 -bottom-2.5 size-max p-2 rounded-full bg-neutral-950 shadow-sm shadow-red-500 text-white flex items-center justify-center cursor-pointer"
+        className="absolute -right-1 -bottom-2.5 size-max p-2 rounded-full bg-neutral-950 border-b border-b-neutral-600/50 text-white flex items-center justify-center cursor-pointer"
         onClick={() => {
           if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
@@ -43,7 +43,7 @@ const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
         }}
         disabled={currentPage === totalPages}
       >
-        <ChevronRightIcon className="size-4 text-red-300" />
+        <ChevronRightIcon className="size-4 " />
       </button>
     </>
   );
