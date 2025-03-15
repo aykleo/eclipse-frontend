@@ -27,6 +27,9 @@ interface ExerciseFormProps {
   exerciseDescriptionRef: RefObject<string | null | undefined>;
   exerciseTagNameRef: RefObject<string | null | undefined>;
   exerciseTagCategoryRef: RefObject<string | null | undefined>;
+  isCreatingExercise: boolean;
+  setExerciseForUpdate: (exercise: Exercise | null) => void;
+  setIsCreatingExercise: (isCreatingExercise: boolean) => void;
 }
 
 const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
@@ -45,6 +48,9 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     exerciseDescriptionRef,
     exerciseTagNameRef,
     exerciseTagCategoryRef,
+    isCreatingExercise,
+    setExerciseForUpdate,
+    setIsCreatingExercise,
   }) => {
     const [step, setStep] = useState<boolean>(false);
     const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -78,6 +84,20 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   ? "Creation"
                   : exerciseForUpdate.name}
               </h1>
+              <button
+                className="btn btn-sm btn-error"
+                onClick={(event) => {
+                  event.preventDefault();
+                  if (exerciseForUpdate) {
+                    setExerciseForUpdate(null);
+                  }
+                  if (isCreatingExercise) {
+                    setIsCreatingExercise(false);
+                  }
+                }}
+              >
+                fechar
+              </button>
             </div>
             <div className="h-[1px] rounded-full bg-gray-600/25 w-full" />
           </div>

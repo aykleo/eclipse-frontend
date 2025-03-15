@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { lazy, useCallback, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Exercise } from "../../../../../utils/types/exercise-types";
 import { useUser } from "../../../../../hooks/user/use-context";
@@ -8,7 +8,7 @@ import { useStatus } from "../../../../../hooks/status/status-context";
 import { DeleteExerciseModal } from "../delete-modal";
 import { ToastProgress } from "../../../../../components/styles/toast-progress";
 import { StatusToast } from "../../../../../components/status-toast";
-import { ExerciseCard } from "../list-of-exercises/exercise-card";
+import { ExerciseCard } from "./exercise-card";
 import { CodexSelector, ExerciseCategory } from "./codex-selector";
 import { CodexPagination } from "./codex-pagination";
 import React from "react";
@@ -17,7 +17,30 @@ import { ExerciseByTagBar } from "../statistics/exercise-by-tag-bars";
 import { ExerciseByTagPie } from "../statistics/exercise-by-tag-pie";
 import ExerciseByMuscleGroup from "../statistics/exercise-by-muscle-group";
 import { handleExerciseByTag } from "../../../../../api/statistics/exercises/exercise-by-tag";
-import { isExerciseByTagData } from "../exercise-page";
+
+const CreateOrUpdateExercises = lazy(
+  () => import("../create-update-exercises")
+);
+
+export type ExerciseByTagData = {
+  exerciseCountsByCategory: Record<
+    string,
+    { count: number; percentage: number }
+  >;
+  numberOfExercises: number;
+};
+
+type ApiResponse = ExerciseByTagData | { error: string };
+
+function isExerciseByTagData(data: ApiResponse): data is ExerciseByTagData {
+  return (
+    data &&
+    "numberOfExercises" in data &&
+    "exerciseCountsByCategory" in data &&
+    typeof data.numberOfExercises === "number" &&
+    typeof data.exerciseCountsByCategory === "object"
+  );
+}
 
 export const ExerciseCodex = React.memo(
   ({
@@ -99,6 +122,7 @@ export const ExerciseCodex = React.memo(
       queryKey: ["exerciseByTag"],
       queryFn: () => handleExerciseByTag(),
     });
+
     return (
       <div className="relative w-full h-full flex-col flex items-center gap-y-0.5 justify-start p-3">
         {statusText && (
@@ -120,7 +144,9 @@ export const ExerciseCodex = React.memo(
         <ul className="rounded-box shadow-md gap-1 w-full h-full overflow-hidden">
           {exerciseData &&
           exerciseData.exercises.length > 0 &&
-          !isStatistics ? (
+          !isStatistics &&
+          !isCreatingExercise &&
+          !exerciseForUpdate ? (
             <>
               {!isLoading ? (
                 <div
@@ -145,7 +171,7 @@ export const ExerciseCodex = React.memo(
                 <div>load</div>
               )}
             </>
-          ) : !isStatistics ? (
+          ) : !isStatistics && !isCreatingExercise && !exerciseForUpdate ? (
             <NewExerciseBtn
               exerciseForUpdate={exerciseForUpdate}
               setIsCreatingExercise={setIsCreatingExercise}
@@ -153,26 +179,46 @@ export const ExerciseCodex = React.memo(
               setExerciseForUpdate={setExerciseForUpdate}
             />
           ) : (
-            <div className="w-full h-full flex flex-col overflow-y-auto no-scrollbar lg:flex-row gap-y-3">
-              <div className="w-full lg:w-1/3 flex flex-col md:flex-row lg:flex-col gap-x-3 h-full">
-                {exerciseByTagData &&
-                  isExerciseByTagData(exerciseByTagData) && (
-                    <>
-                      <ExerciseByTagBar
-                        data={exerciseByTagData}
-                        isLoading={isLoading}
-                      />
-                      <ExerciseByTagPie
-                        data={exerciseByTagData}
-                        isLoading={isLoading}
-                      />
-                    </>
-                  )}
-              </div>
-              <div className="w-full lg:w-2/3 h-full">
-                <ExerciseByMuscleGroup />
-              </div>
-            </div>
+            <>
+              {!isCreatingExercise && !exerciseForUpdate && (
+                <div className="w-full h-full flex flex-col overflow-y-auto no-scrollbar lg:flex-row gap-y-3">
+                  <div className="w-full lg:w-1/3 flex flex-col md:flex-row lg:flex-col gap-x-3 h-full">
+                    {exerciseByTagData &&
+                      isExerciseByTagData(exerciseByTagData) && (
+                        <>
+                          <ExerciseByTagBar
+                            data={exerciseByTagData}
+                            isLoading={isLoading}
+                          />
+                          <ExerciseByTagPie
+                            data={exerciseByTagData}
+                            isLoading={isLoading}
+                          />
+                        </>
+                      )}
+                  </div>
+                  <div className="w-full lg:w-2/3 h-full">
+                    <ExerciseByMuscleGroup />
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+          {isCreatingExercise && !exerciseForUpdate && (
+            <CreateOrUpdateExercises
+              setIsCreatingExercise={setIsCreatingExercise}
+              setExerciseForUpdate={setExerciseForUpdate}
+              exerciseForUpdate={exerciseForUpdate}
+              isCreatingExercise={isCreatingExercise}
+            />
+          )}
+          {exerciseForUpdate && (
+            <CreateOrUpdateExercises
+              exerciseForUpdate={exerciseForUpdate}
+              setExerciseForUpdate={setExerciseForUpdate}
+              isCreatingExercise={isCreatingExercise}
+              setIsCreatingExercise={setIsCreatingExercise}
+            />
           )}
         </ul>
         {!isStatistics && (

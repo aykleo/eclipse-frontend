@@ -17,12 +17,13 @@ export const NewExerciseBtn = ({
   return (
     <div
       onClick={() => {
-        if (exerciseForUpdate) {
-          setIsCreatingExercise(true);
-        } else {
-          setIsCreatingExercise(!isCreatingExercise);
-        }
+        setIsCreatingExercise(true);
+
         setExerciseForUpdate(null);
+        const modal = document.getElementById(
+          "create-update-exercise-modal"
+        ) as HTMLDialogElement;
+        modal?.showModal();
       }}
       className={`${
         exerciseForUpdate ? "opacity-20" : "opacity-50 hover:opacity-100"

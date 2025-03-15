@@ -30,7 +30,8 @@ export const ExerciseCard = ({
             className={` ${
               exerciseForUpdate
                 ? exerciseForUpdate.id === exercise.id
-                  ? "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-125 z-50"
+                  ? // ? "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-125 z-50"
+                    ""
                   : " opacity-10 relative"
                 : "relative"
             } ${getColorBackgroundForTagCategory(
@@ -146,6 +147,7 @@ export const ExerciseCard = ({
                     }`}
                     onClick={() => {
                       setExerciseForUpdate(exercise);
+
                       if (exercise.id === exerciseForUpdate?.id) {
                         setExerciseForUpdate(null);
                       }

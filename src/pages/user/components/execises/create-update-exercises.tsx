@@ -12,12 +12,14 @@ const ExerciseForm = React.lazy(() => import("./form/exercise-form"));
 
 interface CreateOrUpdateExercisesProps {
   setIsCreatingExercise?: (isCreatingExercise: boolean) => void;
+  isCreatingExercise?: boolean;
   exerciseForUpdate?: Exercise | null;
   setExerciseForUpdate?: (exercise: Exercise | null) => void;
 }
 
 const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> = ({
   exerciseForUpdate,
+  isCreatingExercise,
   setIsCreatingExercise,
   setExerciseForUpdate,
 }) => {
@@ -215,30 +217,37 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> = ({
   };
 
   return (
-    <Suspense
-      fallback={
-        <div className="size-full flex items-center justify-center">
-          <span className="loading loading-dots loading-lg"></span>
-        </div>
-      }
-    >
-      <ExerciseForm
-        exerciseForUpdate={exerciseForUpdate ? exerciseForUpdate : null}
-        muscleGroupData={muscleGroupData}
-        primaryMuscleGroupId={primaryMuscleGroupId}
-        muscleGroupIds={muscleGroupIds}
-        isLoading={isLoading}
-        statusText={statusText}
-        handleSubmit={handleSubmit}
-        handlePrimaryMuscleGroup={handlePrimaryMuscleGroup}
-        handleMuscleGroupIds={handleMuscleGroupIds}
-        formRef={formRef}
-        exerciseNameRef={exerciseNameRef}
-        exerciseDescriptionRef={exerciseDescriptionRef}
-        exerciseTagNameRef={exerciseTagNameRef}
-        exerciseTagCategoryRef={exerciseTagCategoryRef}
-      />
-    </Suspense>
+    // <dialog id="create-update-exercise-modal" className="modal">
+    <div className="size-full overflow-y-auto no-scrollbar">
+      <Suspense
+        fallback={
+          <div className="size-full flex items-center justify-center">
+            <span className="loading loading-dots loading-lg"></span>
+          </div>
+        }
+      >
+        <ExerciseForm
+          exerciseForUpdate={exerciseForUpdate ? exerciseForUpdate : null}
+          muscleGroupData={muscleGroupData}
+          primaryMuscleGroupId={primaryMuscleGroupId}
+          muscleGroupIds={muscleGroupIds}
+          isLoading={isLoading}
+          statusText={statusText}
+          handleSubmit={handleSubmit}
+          handlePrimaryMuscleGroup={handlePrimaryMuscleGroup}
+          handleMuscleGroupIds={handleMuscleGroupIds}
+          formRef={formRef}
+          exerciseNameRef={exerciseNameRef}
+          isCreatingExercise={isCreatingExercise ? isCreatingExercise : false}
+          setExerciseForUpdate={setExerciseForUpdate || (() => {})}
+          setIsCreatingExercise={setIsCreatingExercise || (() => {})}
+          exerciseDescriptionRef={exerciseDescriptionRef}
+          exerciseTagNameRef={exerciseTagNameRef}
+          exerciseTagCategoryRef={exerciseTagCategoryRef}
+        />
+      </Suspense>
+    </div>
+    // </dialog>
   );
 };
 export default CreateOrUpdateExercises;
