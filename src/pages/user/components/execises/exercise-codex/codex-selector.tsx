@@ -114,10 +114,10 @@ export const CodexSelector: React.FC<CategorySelectorProps> = ({
       <div className="flex w-full flex-row gap-x-2 lg:gap-x-4 md:w-1/2 lg:w-2/3 px-1">
         <a
           role="tab"
-          className={`flex items-center px-4 py-1 md:px-2 lg:w-40 bg-neutral-950 lg:bg-transparent justify-center lg:text-xl rounded-full hover:text-error cursor-pointer ${
+          className={`flex items-center px-4 py-1 md:px-2 lg:w-40 bg-neutral-950 lg:bg-transparent justify-center lg:text-xl rounded-full ${
             selectedCategory === "" && !isStatistics
-              ? "text-white opacity-100"
-              : "text-gray-400"
+              ? "text-white opacity-100 cursor-default"
+              : "text-gray-400 hover:text-error cursor-pointer"
           }`}
           onClick={() => handleTabClick("")}
         >
@@ -136,15 +136,15 @@ export const CodexSelector: React.FC<CategorySelectorProps> = ({
               }
               className={`${getColorBackgroundForTagCategory(
                 category.category as TagCategory
-              )} lg:bg-transparent flex items-center justify-center px-2 w-10 lg:w-max rounded-full cursor-pointer ${
+              )} lg:bg-transparent flex items-center justify-center px-2 w-10 lg:w-max rounded-full ${
                 selectedCategory === category.category && !isStatistics
-                  ? "opacity-100"
-                  : "opacity-50"
+                  ? "opacity-100 cursor-default"
+                  : "opacity-50 hover:text-error cursor-pointer"
               }`}
             >
               <div className="flex flex-row items-center gap-x-1">
                 <div className="lg:hidden">{category.icon}</div>
-                <div className="text-xs lg:text-sm hidden lg:block text-white hover:text-error">
+                <div className="text-xs lg:text-sm hidden lg:block">
                   {category.category.charAt(0).toUpperCase() +
                     category.category.slice(1).toLowerCase()}
                 </div>
@@ -154,8 +154,10 @@ export const CodexSelector: React.FC<CategorySelectorProps> = ({
         </div>
         <a
           role="tab"
-          className={`flex items-center px-4 md:px-2 lg:w-36 bg-neutral-950 lg:bg-transparent justify-center lg:text-xl rounded-full hover:text-error cursor-pointer ${
-            isStatistics ? "text-white" : "text-gray-400"
+          className={`flex items-center px-4 md:px-2 lg:w-36 bg-neutral-950 lg:bg-transparent justify-center lg:text-xl rounded-full ${
+            isStatistics
+              ? "text-white cursor-default"
+              : "text-gray-400 hover:text-error cursor-pointer"
           }`}
           onClick={() => setIsStatistics(!isStatistics)}
         >
