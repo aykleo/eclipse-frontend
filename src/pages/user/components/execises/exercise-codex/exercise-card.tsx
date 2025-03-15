@@ -62,8 +62,12 @@ export const ExerciseCard = ({
             ))}
         </div>
         <div className="flex flex-col w-full gap-y-2 bg-gradient-to-b from-neutral-900 to-black rounded-md h-full relative p-1.5">
-          <span className="truncate w-full h-14 flex items-center">
-            {exercise.name ? exercise.name : "No name"}
+          <span className="w-full px-1 h-14 flex">
+            {exercise.name ? (
+              <p className="truncate">{exercise.name}</p>
+            ) : (
+              "No name"
+            )}
           </span>
           <div className="flex w-full items-center justify-center py-2">
             <div className="size-24 flex overflow-hidden items-center justify-center opacity-50 rounded-full bg-black shadow-[1px_0px_10px_7px_rgba(255,255,255,1),-6px_-5px_5px_7px_rgba(255,255,255,0.1),0px_0px_50px_10px_rgba(255,0,0,0.8),0px_0px_15px_15px_rgba(255,0,0,1),inset_0px_0px_35px_2px_rgba(255,0,0,0.5)]">
