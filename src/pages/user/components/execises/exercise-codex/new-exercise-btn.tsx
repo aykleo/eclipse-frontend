@@ -23,7 +23,7 @@ export const NewExerciseBtn = React.memo(
         }}
         className={`${
           exerciseForUpdate ? "opacity-20" : "opacity-50 hover:opacity-100"
-        } w-36 lg:w-48 h-64 lg:h-72 relative gap-y-2 px-1 cursor-pointer flex-grow-0 flex-shrink-0 rounded-md bg-gradient-to-b from-neutral-900 to-black border-neutral-600 border`}
+        } w-40 lg:w-48 h-64 lg:h-72 relative gap-y-2 px-1 cursor-pointer flex-grow-0 flex-shrink-0 rounded-md bg-gradient-to-b from-neutral-900 to-black border-neutral-600 border`}
       >
         <div
           style={{

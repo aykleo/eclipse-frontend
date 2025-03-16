@@ -3,7 +3,10 @@ import {
   getColorBackgroundForTagCategory,
   getColorClassForTagCategory,
 } from "../../../../../utils/tag-colors";
-import { Exercise } from "../../../../../utils/types/exercise-types";
+import {
+  Exercise,
+  TemplateExercise,
+} from "../../../../../utils/types/exercise-types";
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -13,6 +16,9 @@ interface ExerciseCardProps {
     params: URLSearchParams | ((prev: URLSearchParams) => URLSearchParams),
     options?: { replace: boolean }
   ) => void;
+  isCreatingTemplate?: boolean;
+  templateExercises?: TemplateExercise[];
+  setTemplateExercises?: (exercises: TemplateExercise[]) => void;
 }
 
 export const ExerciseCard = ({
@@ -20,11 +26,30 @@ export const ExerciseCard = ({
   exerciseForUpdate,
   setExerciseForUpdate,
   setSearchParams,
+  isCreatingTemplate,
+  templateExercises,
+  setTemplateExercises,
 }: ExerciseCardProps) => {
+  const handleAddExerciseToTemplate = () => {
+    if (isCreatingTemplate && setTemplateExercises && templateExercises) {
+      const isExerciseAlreadyAdded = templateExercises.some(
+        (templateExercise) => templateExercise.exerciseId === exercise.id
+      );
+
+      if (!isExerciseAlreadyAdded) {
+        setTemplateExercises([
+          ...templateExercises,
+          { exerciseId: exercise.id, notes: "", name: exercise.name },
+        ]);
+      }
+    }
+  };
   return (
     <>
-      <div
+      <button
         key={exercise.id}
+        disabled={!isCreatingTemplate}
+        onClick={handleAddExerciseToTemplate}
         className={` ${
           exerciseForUpdate
             ? exerciseForUpdate.id === exercise.id
@@ -32,9 +57,11 @@ export const ExerciseCard = ({
                 ""
               : " opacity-10 relative"
             : "relative"
-        } ${getColorBackgroundForTagCategory(
-          exercise.tag.category
-        )} flex-col w-36 lg:w-48 h-64 lg:h-72 p-[1px] rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300`}
+        } ${getColorBackgroundForTagCategory(exercise.tag.category)} ${
+          !isCreatingTemplate
+            ? "cursor-default"
+            : "cursor-pointer hover:scale-105 transition-all duration-300"
+        } flex-col w-40 lg:w-48 h-64 lg:h-72 p-[1px] rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300`}
       >
         <div
           className={`${
@@ -176,7 +203,7 @@ export const ExerciseCard = ({
             )}
           </div>
         </div>
-      </div>
+      </button>
     </>
   );
 };

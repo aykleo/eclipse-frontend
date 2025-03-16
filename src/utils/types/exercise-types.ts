@@ -59,13 +59,11 @@ export type ExerciseMuscleGroup = {
   muscleGroup: MuscleGroup;
 };
 
-export type TemplateExercise = {
-  id: string;
-  templateId: string;
+export interface TemplateExercise {
   exerciseId: string;
-  order: number;
-  notes?: string;
-};
+  notes: string;
+  name: string;
+}
 
 export type WorkoutExercise = {
   id: string;

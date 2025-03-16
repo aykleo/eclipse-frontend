@@ -1,6 +1,9 @@
 import { lazy, useCallback, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Exercise } from "../../../../../utils/types/exercise-types";
+import {
+  Exercise,
+  TemplateExercise,
+} from "../../../../../utils/types/exercise-types";
 import { useUser } from "../../../../../hooks/user/use-context";
 import { fetchExercises } from "../../../../../api/exercises/fetch-exercises";
 import { useSearchParams } from "react-router-dom";
@@ -16,30 +19,13 @@ import { ExerciseByTagBar } from "../statistics/exercise-by-tag-bars";
 import { ExerciseByTagPie } from "../statistics/exercise-by-tag-pie";
 import ExerciseByMuscleGroup from "../statistics/exercise-by-muscle-group";
 import { handleExerciseByTag } from "../../../../../api/statistics/exercises/exercise-by-tag";
+import { CardCounter } from "./card-counter";
+import { isExerciseByTagData } from "../../../../../utils/exercise-by-tag-data";
+import { TemplateCreationList } from "../../template/template-creation-list";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
 );
-
-export type ExerciseByTagData = {
-  exerciseCountsByCategory: Record<
-    string,
-    { count: number; percentage: number }
-  >;
-  numberOfExercises: number;
-};
-
-type ApiResponse = ExerciseByTagData | { error: string };
-
-function isExerciseByTagData(data: ApiResponse): data is ExerciseByTagData {
-  return (
-    data &&
-    "numberOfExercises" in data &&
-    "exerciseCountsByCategory" in data &&
-    typeof data.numberOfExercises === "number" &&
-    typeof data.exerciseCountsByCategory === "object"
-  );
-}
 
 export const ExerciseCodex = React.memo(
   ({
@@ -63,6 +49,10 @@ export const ExerciseCodex = React.memo(
     const { statusText } = useStatus();
     const exerciseName = searchParams.get("exerciseName") || "";
     const [isStatistics, setIsStatistics] = useState(false);
+    const [isCreatingTemplate, setIsCreatingTemplate] = useState(false);
+    const [templateExercises, setTemplateExercises] = useState<
+      TemplateExercise[]
+    >([]);
 
     const { data: exerciseData, isLoading } = useQuery({
       queryKey: [
@@ -124,10 +114,21 @@ export const ExerciseCodex = React.memo(
       enabled: !!user,
     });
 
+    const onRemoveExercise = useCallback(
+      (exerciseId: string) => {
+        if (templateExercises) {
+          setTemplateExercises(
+            templateExercises.filter(
+              (exercise) => exercise.exerciseId !== exerciseId
+            )
+          );
+        }
+      },
+      [templateExercises, setTemplateExercises]
+    );
     return (
       <div className="relative w-full h-full flex-col flex items-center gap-y-0.5 justify-start p-3">
         {statusText && <StatusToast statusText={statusText} />}
-
         <CodexSelector
           selectedCategory={selectedCategory}
           handleTabClick={handleTabClick}
@@ -137,7 +138,18 @@ export const ExerciseCodex = React.memo(
           isCreatingExercise={isCreatingExercise}
           exerciseForUpdate={exerciseForUpdate}
         />
-        <ul className="rounded-box shadow-md gap-1 w-full h-full overflow-hidden">
+        <ul className="rounded-box shadow-md relative gap-1 w-full h-full overflow-hidden">
+          <div
+            className={`${
+              isCreatingTemplate ? "top-1/3 lg:hidden" : "top-2"
+            } right-2 absolute z-99`}
+          >
+            <CardCounter
+              isCreatingTemplate={isCreatingTemplate}
+              setIsCreatingTemplate={setIsCreatingTemplate}
+              templateExercises={templateExercises}
+            />
+          </div>
           {exerciseData &&
           exerciseData.exercises.length > 0 &&
           !isStatistics &&
@@ -145,26 +157,53 @@ export const ExerciseCodex = React.memo(
           !exerciseForUpdate ? (
             <>
               {!isLoading ? (
-                <div
-                  className={` ${
-                    exerciseForUpdate ? "overflow-hidden" : "overflow-y-auto "
-                  } h-full no-scrollbar grid gap-y-8 pt-7 px-1 w-full justify-items-center items-start grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8`}
-                >
-                  <NewExerciseBtn
-                    exerciseForUpdate={exerciseForUpdate}
-                    setIsCreatingExercise={setIsCreatingExercise}
-                    isCreatingExercise={isCreatingExercise}
-                    setExerciseForUpdate={setExerciseForUpdate}
-                  />
-                  {exerciseData.exercises &&
-                    exerciseData.exercises.map((exercise: Exercise) => (
-                      <ExerciseCard
+                <div className="flex size-full">
+                  <div
+                    className={` ${
+                      exerciseForUpdate ? "overflow-hidden" : "overflow-y-auto "
+                    } ${
+                      isCreatingTemplate
+                        ? "grid-cols-2 md:grid-cols-3 px-10 w-full lg:w-3/4"
+                        : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 w-full"
+                    } h-full no-scrollbar grid gap-y-8 pt-7 px-8 justify-items-center items-start`}
+                  >
+                    {!isCreatingTemplate && (
+                      <NewExerciseBtn
                         exerciseForUpdate={exerciseForUpdate}
+                        setIsCreatingExercise={setIsCreatingExercise}
+                        isCreatingExercise={isCreatingExercise}
                         setExerciseForUpdate={setExerciseForUpdate}
-                        exercise={exercise}
-                        setSearchParams={setSearchParams}
                       />
-                    ))}
+                    )}
+                    {exerciseData.exercises &&
+                      exerciseData.exercises
+                        .filter(
+                          (exercise) =>
+                            !templateExercises?.some(
+                              (templateExercise) =>
+                                templateExercise.exerciseId === exercise.id
+                            )
+                        )
+                        .map((exercise: Exercise) => (
+                          <ExerciseCard
+                            exerciseForUpdate={exerciseForUpdate}
+                            setExerciseForUpdate={setExerciseForUpdate}
+                            exercise={exercise}
+                            setSearchParams={setSearchParams}
+                            isCreatingTemplate={isCreatingTemplate}
+                            templateExercises={templateExercises}
+                            setTemplateExercises={setTemplateExercises}
+                          />
+                        ))}
+                  </div>
+                  {isCreatingTemplate && (
+                    <TemplateCreationList
+                      exercises={templateExercises}
+                      onUpdateNotes={() => {}}
+                      onRemoveExercise={onRemoveExercise}
+                      setIsCreatingTemplate={setIsCreatingTemplate}
+                    />
+                  )}
                 </div>
               ) : (
                 <div>load</div>
