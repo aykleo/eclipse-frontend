@@ -10,7 +10,7 @@ interface TemplateExerciseItemProps {
 }
 
 export const TemplateExerciseItem: React.FC<TemplateExerciseItemProps> = ({
-  exerciseId,
+  //   exerciseId,
   notes,
   exerciseName,
   exerciseOrder,

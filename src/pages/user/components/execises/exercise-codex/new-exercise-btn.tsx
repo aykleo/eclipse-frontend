@@ -23,7 +23,7 @@ export const NewExerciseBtn = React.memo(
         }}
         className={`${
           exerciseForUpdate ? "opacity-20" : "opacity-50 hover:opacity-100"
-        } w-40 lg:w-48 h-64 lg:h-72 relative gap-y-2 px-1 cursor-pointer flex-grow-0 flex-shrink-0 rounded-md bg-gradient-to-b from-neutral-900 to-black border-neutral-600 border`}
+        } w-32 md:w-40 lg:w-48 md:h-64 h-56 lg:h-72 relative gap-y-2 px-1 cursor-pointer flex-grow-0 flex-shrink-0 rounded-md bg-gradient-to-b from-neutral-900 to-black border-neutral-600 border`}
       >
         <div
           style={{
@@ -38,7 +38,7 @@ export const NewExerciseBtn = React.memo(
         <a
           className={`flex items-center opacity-60 justify-center text-gray-400 py-5`}
         >
-          <CircleFadingPlusIcon className="size-16 lg:size-22" />
+          <CircleFadingPlusIcon className="size-12 lg:size-22" />
         </a>
         <div className="w-full flex flex-col gap-y-1">
           <span className={`w-full px-1 text-white`}>

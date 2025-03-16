@@ -22,6 +22,7 @@ import { handleExerciseByTag } from "../../../../../api/statistics/exercises/exe
 import { CardCounter } from "./card-counter";
 import { isExerciseByTagData } from "../../../../../utils/exercise-by-tag-data";
 import { TemplateCreationList } from "../../template/template-creation-list";
+import { TemplateCreationMobilePreview } from "../../template/template-creation-mobile-preview";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
@@ -141,6 +142,7 @@ export const ExerciseCodex = React.memo(
       },
       [templateExercises, setTemplateExercises]
     );
+
     return (
       <div className="relative w-full h-full flex-col flex items-center gap-y-0.5 justify-start p-3">
         {statusText && <StatusToast statusText={statusText} />}
@@ -157,7 +159,11 @@ export const ExerciseCodex = React.memo(
           <div
             className={`${
               isCreatingTemplate ? "top-1/3 lg:hidden" : "top-2"
-            } right-2 absolute z-99`}
+            } right-2 absolute z-99 ${
+              isStatistics || exerciseForUpdate || isCreatingExercise
+                ? "hidden"
+                : ""
+            }`}
           >
             <CardCounter
               isCreatingTemplate={isCreatingTemplate}
@@ -165,6 +171,26 @@ export const ExerciseCodex = React.memo(
               templateExercises={templateExercises}
             />
           </div>
+          {isCreatingTemplate &&
+            templateExercises &&
+            templateExercises.length > 0 &&
+            !isStatistics && (
+              <div className="absolute bottom-3 right-0 z-100 lg:hidden w-full flex items-center flex-row gap-x-4 overflow-x-auto no-scrollbar px-3 py-1.5 bg-gradient-to-r from-neutral-700/5 via-neutral-800 to-neutral-700/5 rounded-xs">
+                {templateExercises.map((exercise, index) => (
+                  <TemplateCreationMobilePreview
+                    key={exercise.exerciseId}
+                    exerciseId={exercise.exerciseId}
+                    notes={exercise.notes}
+                    exerciseName={exercise.name}
+                    exerciseOrder={index + 1}
+                    onUpdateNotes={(notes) =>
+                      onUpdateNotes(exercise.exerciseId, notes)
+                    }
+                    onRemoveExercise={onRemoveExercise}
+                  />
+                ))}
+              </div>
+            )}
           {exerciseData &&
           exerciseData.exercises.length > 0 &&
           !isStatistics &&
@@ -178,9 +204,9 @@ export const ExerciseCodex = React.memo(
                       exerciseForUpdate ? "overflow-hidden" : "overflow-y-auto "
                     } ${
                       isCreatingTemplate
-                        ? "grid-cols-2 md:grid-cols-3 px-10 w-full lg:w-3/4"
+                        ? "grid-cols-2 md:grid-cols-3 lg:px-10 w-full lg:w-3/4"
                         : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 w-full"
-                    } h-full no-scrollbar grid gap-y-8 pt-7 px-8 justify-items-center items-start`}
+                    } h-full no-scrollbar grid gap-y-8 pt-7 px-4 gap-x-3 justify-items-center items-start`}
                   >
                     {!isCreatingTemplate && (
                       <NewExerciseBtn

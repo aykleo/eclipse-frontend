@@ -60,7 +60,7 @@ export const ExerciseCard = ({
           !isCreatingTemplate
             ? "cursor-default"
             : "cursor-pointer hover:scale-105 transition-all duration-300"
-        } flex-col w-40 lg:w-48 h-64 lg:h-72 p-[1px] rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300`}
+        } flex-col w-32 md:w-40 lg:w-48 md:h-64 h-56 lg:h-72 p-[1px] rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300`}
       >
         <div
           className={`${
@@ -96,7 +96,7 @@ export const ExerciseCard = ({
             )}
           </span>
           <div className="flex w-full items-center justify-center py-2">
-            <div className="size-18 lg:size-24 flex overflow-hidden items-center justify-center opacity-50 rounded-full bg-black shadow-[1px_0px_10px_7px_rgba(255,255,255,1),-6px_-5px_5px_7px_rgba(255,255,255,0.1),0px_0px_50px_10px_rgba(255,0,0,0.8),0px_0px_15px_15px_rgba(255,0,0,1),inset_0px_0px_35px_2px_rgba(255,0,0,0.5)]">
+            <div className="size-14 lg:size-24 flex overflow-hidden items-center justify-center opacity-50 rounded-full bg-black shadow-[1px_0px_10px_7px_rgba(255,255,255,1),-6px_-5px_5px_7px_rgba(255,255,255,0.1),0px_0px_50px_10px_rgba(255,0,0,0.8),0px_0px_15px_15px_rgba(255,0,0,1),inset_0px_0px_35px_2px_rgba(255,0,0,0.5)]">
               {exercise.exerciseMuscleGroups
                 .filter((muscleGroup) => muscleGroup.isPrimary)
                 .map((muscleGroup) => (
