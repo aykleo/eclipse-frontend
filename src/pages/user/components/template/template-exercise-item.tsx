@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface TemplateExerciseItemProps {
   exerciseId: string;
@@ -18,9 +18,19 @@ export const TemplateExerciseItem: React.FC<TemplateExerciseItemProps> = ({
   onRemove,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [containerRef]);
 
   return (
-    <div className="card bg-gradient-to-r from-neutral-900 to-red-950/50 p-2">
+    <div
+      ref={containerRef}
+      className="card bg-gradient-to-r from-neutral-900 to-red-950/50 p-2"
+    >
       <div
         onClick={() => setIsEditing(!isEditing)}
         className="flex justify-between items-center cursor-pointer"
@@ -35,7 +45,7 @@ export const TemplateExerciseItem: React.FC<TemplateExerciseItemProps> = ({
         </div>
         <button
           onClick={onRemove}
-          className="btn btn-ghost btn-xs"
+          className="text-white px-1 cursor-pointer"
           aria-label="Remove exercise"
         >
           ×
