@@ -1,6 +1,6 @@
 import { useRef, useLayoutEffect, memo } from "react";
 import * as echarts from "echarts";
-import { ExerciseByTagData } from "../exercise-page";
+import { ExerciseByTagData } from "../exercise-codex/exercise-codex";
 
 export const ExerciseByTagBar = memo(
   ({ data, isLoading }: { data: ExerciseByTagData; isLoading: boolean }) => {
