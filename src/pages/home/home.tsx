@@ -1,35 +1,24 @@
 import { ArrowRightIcon, WandSparklesIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useUser } from "../../hooks/user/use-context";
-import { fetchUser } from "../../api/user/fetch-user";
 import { RegisterModal } from "./components/auth-modals/register-modal";
 import { LogInModal } from "./components/auth-modals/logIn-modal";
 import { AnimateTextGradient } from "../../components/modals/animate-text-gradient";
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { user } = useUser();
-
-  const { data: userData, error } = useQuery({
-    queryKey: ["user"],
-    queryFn: () => fetchUser(),
-  });
+  const { user } = useUser() || {};
 
   useEffect(() => {
-    if (error) {
-      return;
-    }
-
-    if (userData) {
-      if (user && user.username === userData.name) {
-        navigate(`/${userData.username}`);
+    if (user) {
+      if (user && user.username === user.username) {
+        navigate(`/${user.username}`);
       } else {
-        navigate(`/${userData.username}`);
+        navigate(`/`);
       }
     }
-  }, [user, userData, error, navigate]);
+  }, [user, navigate]);
 
   return (
     <>

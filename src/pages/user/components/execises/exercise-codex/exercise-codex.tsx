@@ -53,7 +53,7 @@ export const ExerciseCodex = React.memo(
     exerciseForUpdate: Exercise | null;
     setExerciseForUpdate: (exercise: Exercise | null) => void;
   }) => {
-    const { user } = useUser();
+    const { user } = useUser() || {};
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const pageSize = 30;
@@ -81,6 +81,7 @@ export const ExerciseCodex = React.memo(
         }
         return Promise.resolve({ exercises: [], totalPages: 0 });
       },
+      enabled: !!user,
     });
 
     useEffect(() => {
@@ -120,6 +121,7 @@ export const ExerciseCodex = React.memo(
     const { data: exerciseByTagData } = useQuery({
       queryKey: ["exerciseByTag"],
       queryFn: () => handleExerciseByTag(),
+      enabled: !!user,
     });
 
     return (

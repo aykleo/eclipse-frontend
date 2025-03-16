@@ -5,11 +5,12 @@ import * as echarts from "echarts";
 import { useDebounce } from "use-debounce";
 import { useSearchParams } from "react-router-dom";
 import { MessageCircleQuestionIcon } from "lucide-react";
+import { useUser } from "../../../../../hooks/user/use-context";
 
 export default function ExerciseByMuscleGroup() {
   const [searchParams, setSearchParams] = useSearchParams();
   const weightParam = searchParams.get("weight") || "0";
-
+  const { user } = useUser() || {};
   const [sliderValue, setSliderValue] = useState(parseInt(weightParam, 10));
 
   const [debouncedWeight] = useDebounce(sliderValue, 500);
@@ -30,6 +31,7 @@ export default function ExerciseByMuscleGroup() {
   const { data: exerciseByMuscleGroupData, isLoading } = useQuery({
     queryKey: ["exerciseByMuscleGroup", { weight: debouncedWeight }],
     queryFn: () => handleExerciseByMuscleGroup(debouncedWeight),
+    enabled: !!user,
   });
 
   const chartRef = useRef<HTMLDivElement>(null);

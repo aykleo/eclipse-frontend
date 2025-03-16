@@ -31,7 +31,7 @@ export const ListAllExercises = ({
   exerciseForUpdate: Exercise | null;
   setExerciseForUpdate: (exercise: Exercise | null) => void;
 }) => {
-  const { user } = useUser();
+  const { user } = useUser() || {};
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);

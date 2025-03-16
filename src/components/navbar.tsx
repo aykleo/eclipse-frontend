@@ -7,10 +7,13 @@ import GradientBorderBtn from "./gradient/gradient-btn";
 import { useNavBar } from "../hooks/navbar-choices/navbar-context";
 
 export const Navbar = () => {
-  const { user, setUser } = useUser();
+  const { user, setUser } = useUser() || {};
   const { setNavBarChoices } = useNavBar();
 
   const handleSignOut = async () => {
+    if (!setUser) {
+      return;
+    }
     try {
       await logOutUser();
       setUser(null);

@@ -1,41 +1,22 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchUser } from "../../api/user/fetch-user";
-import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUser } from "../../hooks/user/use-context";
 import { ExercisePage } from "./components/execises/exercise-page";
 import { useNavBar } from "../../hooks/navbar-choices/navbar-context";
+import { useEffect } from "react";
 
 export const UserPage = () => {
   const { username } = useParams<{ username: string }>();
   const navigate = useNavigate();
-  const { setUser } = useUser();
+  const { user } = useUser() || {};
   const { navbarChoices } = useNavBar();
 
-  const {
-    data: userData,
-    error,
-    isLoading,
-  } = useQuery({
-    queryKey: ["user"],
-    queryFn: () => fetchUser(),
-  });
-
   useEffect(() => {
-    if (error) {
+    if (!user) {
       navigate("/");
-    } else if (userData) {
-      if (userData.username !== username) {
-        navigate("/");
-      } else {
-        setUser(userData);
-      }
+    } else if (user.username !== username) {
+      navigate("/");
     }
-  }, [userData, error, username, navigate, setUser]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  }, [user, username, navigate]);
 
   return (
     <>

@@ -11,17 +11,19 @@ export const fetchUser = async () => {
         signal,
       }
     );
+    if (!response.ok) {
+      return null;
+    }
 
-    if (response.ok) {
-      const contentType = response.headers.get("content-type");
+    const contentType = response.headers.get("content-type");
 
-      if (contentType && contentType.includes("application/json")) {
-        const userFromServer = await response.json();
-        return userFromServer;
-      }
+    if (contentType && contentType.includes("application/json")) {
+      const userFromServer = await response.json();
+      return userFromServer;
     }
   } catch (error) {
     console.error("Failed to verify user:", error);
+    return null;
   } finally {
     controller.abort();
   }

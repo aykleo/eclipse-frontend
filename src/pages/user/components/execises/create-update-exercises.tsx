@@ -7,6 +7,7 @@ import { ExerciseFormData } from "../../../../api/exercises/fetch-create-update-
 import { handleExerciseUpdate } from "../../../../api/exercises/exercise-update";
 import { handleExerciseCreation } from "../../../../api/exercises/exercise-creation";
 import { useStatus } from "../../../../hooks/status/status-context";
+import { useUser } from "../../../../hooks/user/use-context";
 
 const ExerciseForm = React.lazy(() => import("./form/exercise-form"));
 
@@ -24,6 +25,7 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> = ({
   setExerciseForUpdate,
 }) => {
   const queryClient = useQueryClient();
+  const { user } = useUser() || {};
   const formRef = useRef<HTMLFormElement | null>(null);
   const exerciseNameRef = useRef<string | null>(
     exerciseForUpdate ? exerciseForUpdate.name : null
@@ -58,6 +60,7 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> = ({
     queryKey: ["muscleGroup"],
     queryFn: () => fetchMuscleGroups(),
     staleTime: Infinity,
+    enabled: !!user,
   });
 
   const handlePrimaryMuscleGroup = useCallback(
