@@ -1,23 +1,20 @@
 import { z } from "zod";
-import { exerciseSchema } from "../../lib/validation/exercise-schema";
 import {
   TemplateFormData,
   createOrUpdateTemplate,
 } from "./fetch-create-update-template";
 import { TemplateExercise } from "../../utils/types/exercise-types";
+import { templateSchema } from "../../lib/validation/template-schema";
 
 export const handleTemplateCreation = async (
   formData: TemplateFormData,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setTemplateExercises: React.Dispatch<
-    React.SetStateAction<TemplateExercise[]>
-  >,
-  setIsCreatingTemplate?: (isCreatingTemplate: boolean) => void
+  setTemplateExercises: React.Dispatch<React.SetStateAction<TemplateExercise[]>>
 ) => {
   setIsLoading(true);
 
   try {
-    exerciseSchema.parse(formData);
+    templateSchema.parse(formData);
   } catch (e) {
     if (e instanceof z.ZodError) {
       const errorMessage = e.errors.map((error) => error.message).join(", ");
@@ -32,11 +29,6 @@ export const handleTemplateCreation = async (
     setTemplateExercises
   );
 
-  if (createdTemplate) {
-    if (setIsCreatingTemplate) {
-      setIsCreatingTemplate(false);
-    }
-  }
   setIsLoading(false);
   return createdTemplate;
 };
