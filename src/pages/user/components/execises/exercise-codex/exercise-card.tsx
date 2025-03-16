@@ -46,9 +46,8 @@ export const ExerciseCard = ({
   };
   return (
     <>
-      <button
+      <div
         key={exercise.id}
-        disabled={!isCreatingTemplate}
         onClick={handleAddExerciseToTemplate}
         className={` ${
           exerciseForUpdate
@@ -203,7 +202,7 @@ export const ExerciseCard = ({
             )}
           </div>
         </div>
-      </button>
+      </div>
     </>
   );
 };

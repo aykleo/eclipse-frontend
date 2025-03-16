@@ -21,6 +21,7 @@ export const TemplateCreationList: React.FC<TemplateCreationListProps> = ({
   setIsCreatingTemplate,
 }) => {
   const [templateName, setTemplateName] = useState("New Template");
+  console.log(exercises);
 
   return (
     <div className="w-1/4 h-full border hidden lg:block p-4">
@@ -44,12 +45,13 @@ export const TemplateCreationList: React.FC<TemplateCreationListProps> = ({
         <div className="flex flex-col gap-2 overflow-y-auto">
           {exercises &&
             exercises.length > 0 &&
-            exercises.map((exercise) => (
+            exercises.map((exercise, index) => (
               <TemplateExerciseItem
                 key={exercise.exerciseId}
                 exerciseId={exercise.exerciseId}
                 notes={exercise.notes}
                 exerciseName={exercise.name}
+                exerciseOrder={index + 1}
                 onUpdateNotes={(notes) =>
                   onUpdateNotes(exercise.exerciseId, notes)
                 }

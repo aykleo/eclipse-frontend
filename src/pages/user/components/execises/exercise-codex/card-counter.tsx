@@ -34,10 +34,10 @@ export const CardCounter = ({
           isCreatingTemplate ? "mt-8 w-16 h-6" : "mt-6 w-12 h-5"
         } text-sm font-medium  border-error bg-neutral-950 border items-center justify-center flex`}
       >
-        {isCreatingTemplate
-          ? templateExercises.length > 0
-            ? templateExercises.length
-            : "0"
+        {templateExercises.length > 0
+          ? templateExercises.length
+          : isCreatingTemplate
+          ? "0"
           : "+"}
       </div>
     </button>

@@ -114,6 +114,21 @@ export const ExerciseCodex = React.memo(
       enabled: !!user,
     });
 
+    const onUpdateNotes = useCallback(
+      (exerciseId: string, notes: string) => {
+        if (templateExercises) {
+          setTemplateExercises(
+            templateExercises.map((exercise) =>
+              exercise.exerciseId === exerciseId
+                ? { ...exercise, notes }
+                : exercise
+            )
+          );
+        }
+      },
+      [templateExercises, setTemplateExercises]
+    );
+
     const onRemoveExercise = useCallback(
       (exerciseId: string) => {
         if (templateExercises) {
@@ -199,7 +214,7 @@ export const ExerciseCodex = React.memo(
                   {isCreatingTemplate && (
                     <TemplateCreationList
                       exercises={templateExercises}
-                      onUpdateNotes={() => {}}
+                      onUpdateNotes={onUpdateNotes}
                       onRemoveExercise={onRemoveExercise}
                       setIsCreatingTemplate={setIsCreatingTemplate}
                     />
