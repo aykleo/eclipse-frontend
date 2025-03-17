@@ -182,6 +182,7 @@ export const ExerciseCodex = React.memo(
                 setTemplateExercises={setTemplateExercises}
                 onUpdateNotes={onUpdateNotes}
                 onRemoveExercise={onRemoveExercise}
+                setIsCreatingTemplate={setIsCreatingTemplate}
               />
             </React.Suspense>
           )}

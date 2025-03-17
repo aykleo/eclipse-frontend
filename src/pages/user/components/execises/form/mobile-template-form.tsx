@@ -7,6 +7,21 @@ import React from "react";
 import { useStatus } from "../../../../../hooks/status/status-context";
 import { TemplateCreationMobilePreview } from "../../template/template-creation-mobile-preview";
 import { EraserIcon, NotebookPenIcon } from "lucide-react";
+import {
+  DndContext,
+  closestCenter,
+  DragEndEvent,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  horizontalListSortingStrategy,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/sortable";
 
 interface MobileTemplateFormProps {
   templateExercises: TemplateExercise[];
@@ -15,6 +30,7 @@ interface MobileTemplateFormProps {
   >;
   onUpdateNotes: (exerciseId: string, notes: string) => void;
   onRemoveExercise: (exerciseId: string) => void;
+  setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
 }
 
 const MobileTemplateForm = React.memo(
@@ -23,12 +39,39 @@ const MobileTemplateForm = React.memo(
     setTemplateExercises,
     onUpdateNotes,
     onRemoveExercise,
+    setIsCreatingTemplate,
   }: MobileTemplateFormProps) => {
     const [templateName, setTemplateName] = useState<string>("");
     const [showNameInput, setShowNameInput] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const { setStatusText } = useStatus();
+
+    const sensors = useSensors(
+      useSensor(PointerSensor),
+      useSensor(KeyboardSensor, {
+        coordinateGetter: sortableKeyboardCoordinates,
+      })
+    );
+
+    const handleDragEnd = (event: DragEndEvent) => {
+      const { active, over } = event;
+
+      if (over && active.id !== over.id) {
+        const oldIndex = templateExercises.findIndex(
+          (exercise) => exercise.exerciseId === active.id
+        );
+        const newIndex = templateExercises.findIndex(
+          (exercise) => exercise.exerciseId === over.id
+        );
+
+        if (oldIndex !== -1 && newIndex !== -1) {
+          setTemplateExercises(
+            arrayMove(templateExercises, oldIndex, newIndex)
+          );
+        }
+      }
+    };
 
     const createTemplateMutation = useMutation({
       mutationFn: async (formData: TemplateFormData) => {
@@ -41,6 +84,7 @@ const MobileTemplateForm = React.memo(
       onSuccess: () => {
         setTemplateName("");
         setTemplateExercises([]);
+        setShowNameInput(false);
         if (formRef.current) {
           formRef.current.reset();
         }
@@ -66,6 +110,13 @@ const MobileTemplateForm = React.memo(
       };
 
       await createTemplateMutation.mutateAsync(formData);
+      setIsCreatingTemplate(false);
+    };
+
+    const toggleNameInput = (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setShowNameInput((prev) => !prev);
     };
 
     return (
@@ -86,28 +137,38 @@ const MobileTemplateForm = React.memo(
               name="templateName"
               className="input input-bordered w-full bg-transparent"
               placeholder="Template name"
-              onChange={(e) => {
-                setTemplateName(e.target.value);
-              }}
+              value={templateName}
+              onChange={(e) => setTemplateName(e.target.value)}
             />
           </div>
 
           {!showNameInput && (
-            <div className="w-full flex items-center h-24 flex-row gap-x-4 overflow-x-auto no-scrollbar px-3 py-1.5 ">
-              {templateExercises.map((exercise, index) => (
-                <TemplateCreationMobilePreview
-                  key={exercise.exerciseId}
-                  exerciseId={exercise.exerciseId}
-                  notes={exercise.notes}
-                  exerciseName={exercise.name}
-                  exerciseOrder={index + 1}
-                  onUpdateNotes={(notes) =>
-                    onUpdateNotes(exercise.exerciseId, notes)
-                  }
-                  onRemoveExercise={onRemoveExercise}
-                />
-              ))}
-            </div>
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <div className="w-full flex items-center h-24 flex-row gap-x-4 overflow-auto no-scrollbar px-3 py-1.5">
+                <SortableContext
+                  items={templateExercises.map((e) => e.exerciseId)}
+                  strategy={horizontalListSortingStrategy}
+                >
+                  {templateExercises.map((exercise, index) => (
+                    <TemplateCreationMobilePreview
+                      key={exercise.exerciseId}
+                      exerciseId={exercise.exerciseId}
+                      notes={exercise.notes}
+                      exerciseName={exercise.name}
+                      exerciseOrder={index + 1}
+                      onUpdateNotes={(notes) =>
+                        onUpdateNotes(exercise.exerciseId, notes)
+                      }
+                      onRemoveExercise={onRemoveExercise}
+                    />
+                  ))}
+                </SortableContext>
+              </div>
+            </DndContext>
           )}
 
           <div
@@ -116,12 +177,10 @@ const MobileTemplateForm = React.memo(
             } flex items-center justify-center absolute left-0 transition-all duration-300`}
           >
             <button
+              type="button"
               className="btn btn-error py-0.5 px-2 size-max"
               disabled={isLoading}
-              onClick={(e) => {
-                e.preventDefault();
-                setShowNameInput(!showNameInput);
-              }}
+              onClick={toggleNameInput}
             >
               <NotebookPenIcon className="size-4 cursor-pointer" />
             </button>
@@ -132,8 +191,11 @@ const MobileTemplateForm = React.memo(
             } transition-all duration-300 flex items-center justify-center pt-2 absolute right-0`}
           >
             <button
+              type="submit"
               className={`${
-                !templateName || templateExercises.length === 0
+                !templateName ||
+                templateExercises.length === 0 ||
+                templateName.length < 5
                   ? "hidden"
                   : "block"
               } btn btn-error py-0.5 px-2 size-max`}
@@ -146,6 +208,7 @@ const MobileTemplateForm = React.memo(
             className={`-bottom-5 flex items-center justify-center absolute left-0 transition-all duration-300`}
           >
             <button
+              type="button"
               className="btn btn-error py-0.5 px-2 size-max"
               disabled={isLoading}
               onClick={(e) => {

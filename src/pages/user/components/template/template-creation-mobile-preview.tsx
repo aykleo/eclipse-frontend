@@ -1,5 +1,7 @@
 import { NotebookPenIcon, TrashIcon } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface TemplateCreationMobilePreviewProps {
   exerciseId: string;
@@ -21,30 +23,73 @@ export const TemplateCreationMobilePreview = React.memo(
   }: TemplateCreationMobilePreviewProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const [showNotes, setShowNotes] = useState(false);
+    const isFirstMount = useRef(true);
+
+    const {
+      attributes,
+      listeners,
+      setNodeRef,
+      transform,
+      transition,
+      isDragging,
+    } = useSortable({
+      id: exerciseId,
+    });
+
+    const setRefs = (element: HTMLDivElement | null) => {
+      setNodeRef(element);
+      ref.current = element;
+    };
+
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+    };
 
     useEffect(() => {
-      if (ref.current) {
-        ref.current.scrollIntoView({ behavior: "smooth" });
+      if (ref.current && isFirstMount.current) {
+        ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+        isFirstMount.current = false;
       }
-    }, [ref]);
+    }, []);
+
+    const handleNotesToggle = (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setShowNotes((prev) => !prev);
+    };
+
+    const handleClose = (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setShowNotes(false);
+    };
+
+    const handleRemove = (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onRemoveExercise(exerciseId);
+    };
 
     return (
       <div
-        ref={ref}
-        className="tooltip tooltip-top flex flex-col relative gap-2 h-20 w-16 max-w-16 bg-gradient-to-t from-neutral-950 to-neutral-950 text-xs rounded-sm"
-        data-tip={exerciseName}
+        ref={setRefs}
+        style={style}
+        className={`flex flex-col relative gap-2 h-20 min-w-26 max-w-26 bg-gradient-to-t from-neutral-950 to-neutral-950 text-xs rounded-sm hover:bg-neutral-800/50 transition-colors ${
+          isDragging ? "opacity-50 z-50" : ""
+        }`}
       >
         {showNotes && (
           <div className="fixed inset-0 bg-black/25 backdrop-blur-xs flex items-center justify-center z-50">
             <div className="bg-neutral-900 p-4 rounded-lg w-72 shadow-xl">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-medium">{exerciseName} notes</h3>
-                <button
-                  onClick={() => setShowNotes(false)}
-                  className="text-neutral-400 hover:text-white text-xl cursor-pointer"
+                <div
+                  onClick={handleClose}
+                  className="text-white hover:text-white text-xl cursor-pointer"
                 >
                   ×
-                </button>
+                </div>
               </div>
               <textarea
                 value={notes}
@@ -61,19 +106,23 @@ export const TemplateCreationMobilePreview = React.memo(
             {exerciseOrder}
           </span>
           <div className="flex flex-col gap-y-0.5 justify-between h-full">
-            <span className="truncate pl-1 pr-2 text-error">
+            <div className="truncate pl-1 pr-3.5 text-error">
               {exerciseName}
-            </span>
+            </div>
             {notes && (
-              <span className="h-11 text-xs px-1 text-error w-full text-center">
+              <span
+                {...attributes}
+                {...listeners}
+                className="h-11 text-xs px-1 text-error w-full text-center cursor-grab active:cursor-grabbing transition-colors"
+              >
                 Has notes
               </span>
             )}
             <div className="flex flex-row gap-1 items-end justify-between px-1.5 w-full pb-1">
-              <button onClick={() => onRemoveExercise(exerciseId)}>
+              <div onClick={handleRemove}>
                 <TrashIcon className="size-4 cursor-pointer text-red-500" />
-              </button>
-              <p onClick={() => setShowNotes(!showNotes)}>
+              </div>
+              <p onClick={handleNotesToggle}>
                 <NotebookPenIcon className="size-4 cursor-pointer text-warning" />
               </p>
             </div>

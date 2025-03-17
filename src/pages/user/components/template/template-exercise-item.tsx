@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { GripVertical } from "lucide-react";
 
 interface TemplateExerciseItemProps {
   exerciseId: string;
@@ -10,7 +13,7 @@ interface TemplateExerciseItemProps {
 }
 
 export const TemplateExerciseItem: React.FC<TemplateExerciseItemProps> = ({
-  //   exerciseId,
+  exerciseId,
   notes,
   exerciseName,
   exerciseOrder,
@@ -18,24 +21,57 @@ export const TemplateExerciseItem: React.FC<TemplateExerciseItemProps> = ({
   onRemove,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const isFirstMount = useRef(true);
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id: exerciseId,
+  });
+
+  const setRefs = (element: HTMLDivElement | null) => {
+    setNodeRef(element);
+    ref.current = element;
+  };
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
 
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollIntoView({ behavior: "smooth" });
+    if (ref.current && isFirstMount.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      isFirstMount.current = false;
     }
-  }, [containerRef]);
+  }, []);
 
   return (
     <div
-      ref={containerRef}
-      className="card bg-gradient-to-r from-neutral-900 to-red-950/50 p-2"
+      ref={setRefs}
+      style={style}
+      className={`card bg-gradient-to-r from-neutral-900 to-red-950/50 p-2 transition-opacity duration-200 ${
+        isDragging ? "opacity-75" : ""
+      }`}
     >
-      <div
-        onClick={() => setIsEditing(!isEditing)}
-        className="flex justify-between items-center cursor-pointer"
-      >
-        <div className="flex items-center justify-center gap-2 w-full">
+      <div className="flex justify-between items-center">
+        <div
+          {...attributes}
+          {...listeners}
+          className="cursor-grab p-1 hover:text-red-500 transition-colors"
+        >
+          <GripVertical className="size-4" />
+        </div>
+        <div
+          onClick={() => setIsEditing(!isEditing)}
+          className="flex items-center justify-center gap-2 w-full cursor-pointer"
+        >
           <div className="text-sm font-medium w-4 text-center text-error">
             {exerciseOrder}
           </div>
@@ -45,7 +81,7 @@ export const TemplateExerciseItem: React.FC<TemplateExerciseItemProps> = ({
         </div>
         <button
           onClick={onRemove}
-          className="text-white px-1 cursor-pointer"
+          className="text-white px-1 cursor-pointer hover:text-red-500 transition-colors"
           aria-label="Remove exercise"
         >
           ×

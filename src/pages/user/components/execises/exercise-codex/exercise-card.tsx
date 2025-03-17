@@ -158,29 +158,31 @@ export const ExerciseCard = ({
                 ? exercise.description
                 : "There is no description"}
             </div>
-            {setSearchParams && exercise.id !== exerciseForUpdate?.id && (
-              <button
-                className="cursor-pointer absolute left-0 -bottom-0"
-                disabled={exercise.id === exerciseForUpdate?.id}
-                onClick={async () => {
-                  setSearchParams(
-                    (prev) => {
-                      prev.set("exerciseToDeleteId", exercise.id);
-                      prev.set("exerciseToDeleteName", exercise.name);
-                      return prev;
-                    },
-                    { replace: true }
-                  );
-                  const modal = document.getElementById(
-                    "delete_exercise_modal"
-                  ) as HTMLDialogElement;
-                  modal?.showModal();
-                }}
-              >
-                <Trash2Icon className="size-3.5 text-gray-400 hover:text-white" />
-              </button>
-            )}
-            {setExerciseForUpdate && (
+            {setSearchParams &&
+              exercise.id !== exerciseForUpdate?.id &&
+              !isCreatingTemplate && (
+                <button
+                  className="cursor-pointer absolute left-0 -bottom-0"
+                  disabled={exercise.id === exerciseForUpdate?.id}
+                  onClick={async () => {
+                    setSearchParams(
+                      (prev) => {
+                        prev.set("exerciseToDeleteId", exercise.id);
+                        prev.set("exerciseToDeleteName", exercise.name);
+                        return prev;
+                      },
+                      { replace: true }
+                    );
+                    const modal = document.getElementById(
+                      "delete_exercise_modal"
+                    ) as HTMLDialogElement;
+                    modal?.showModal();
+                  }}
+                >
+                  <Trash2Icon className="size-3.5 text-gray-400 hover:text-white" />
+                </button>
+              )}
+            {setExerciseForUpdate && !isCreatingTemplate && (
               <button
                 className={`cursor-pointer absolute right-0 -bottom-0 ${
                   exercise.id === exerciseForUpdate?.id

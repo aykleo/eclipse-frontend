@@ -64,20 +64,18 @@ export const DeleteExerciseModal = () => {
         }}
         statusText={statusText ?? ""}
       >
-        <div className="flex flex-col w-full">
-          <h2 className="text-lg font-bold text-gray-200">
+        <div className="flex flex-col w-full text-lg">
+          <h2 className="text-gray-200 font-medium">
             Are you sure you want to delete
           </h2>
-          <p className="text-gray-300 text-4xl text-center">
+          <p className="text-gray-300 text-center font-bold">
             {selectedExerciseNameForDeletion} {"?"}
           </p>
         </div>
 
         <div className="flex flex-row w-full items-center justify-between p-2">
           <div className="form-control">
-            <button className="btn btn-error hover:bg-pink-400 hover:text-black">
-              Delete
-            </button>
+            <button className="btn btn-error  hover:text-black">Delete</button>
           </div>
           <button
             onClick={(e) => {
@@ -88,7 +86,7 @@ export const DeleteExerciseModal = () => {
               modal?.close();
               setSearchParams({}, { replace: true });
             }}
-            className="btn btn-outline btn-ghost"
+            className="btn btn-outline btn-ghost hover:bg-neutral-950"
           >
             Cancel
           </button>
