@@ -175,19 +175,16 @@ export const ExerciseCodex = React.memo(
               templateExercises={templateExercises}
             />
           </div>
-          {isCreatingTemplate &&
-            templateExercises &&
-            templateExercises.length > 0 &&
-            !isStatistics && (
-              <React.Suspense fallback={<div>Loading...</div>}>
-                <MobileTemplateForm
-                  templateExercises={templateExercises}
-                  setTemplateExercises={setTemplateExercises}
-                  onUpdateNotes={onUpdateNotes}
-                  onRemoveExercise={onRemoveExercise}
-                />
-              </React.Suspense>
-            )}
+          {isCreatingTemplate && templateExercises && !isStatistics && (
+            <React.Suspense fallback={<div>Loading...</div>}>
+              <MobileTemplateForm
+                templateExercises={templateExercises}
+                setTemplateExercises={setTemplateExercises}
+                onUpdateNotes={onUpdateNotes}
+                onRemoveExercise={onRemoveExercise}
+              />
+            </React.Suspense>
+          )}
           {exerciseData &&
           exerciseData.exercises.length > 0 &&
           !isStatistics &&
@@ -201,7 +198,7 @@ export const ExerciseCodex = React.memo(
                       exerciseForUpdate ? "overflow-hidden" : "overflow-y-auto "
                     } ${
                       isCreatingTemplate
-                        ? "grid-cols-2 md:grid-cols-3 lg:px-10 w-full lg:w-3/4"
+                        ? "grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:px-10 w-full lg:w-3/4"
                         : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 w-full"
                     } h-full no-scrollbar grid gap-y-8 pt-7 px-4 gap-x-3 justify-items-center items-start`}
                   >
@@ -251,12 +248,47 @@ export const ExerciseCodex = React.memo(
               )}
             </>
           ) : !isStatistics && !isCreatingExercise && !exerciseForUpdate ? (
-            <NewExerciseBtn
-              exerciseForUpdate={exerciseForUpdate}
-              setIsCreatingExercise={setIsCreatingExercise}
-              isCreatingExercise={isCreatingExercise}
-              setExerciseForUpdate={setExerciseForUpdate}
-            />
+            <div className="flex size-full relative">
+              <div
+                className={`${
+                  isCreatingTemplate ? "top-1/3 lg:hidden" : "top-2"
+                } right-2 absolute z-99 ${
+                  isStatistics || exerciseForUpdate || isCreatingExercise
+                    ? "hidden"
+                    : ""
+                }`}
+              >
+                <CardCounter
+                  isCreatingTemplate={isCreatingTemplate}
+                  setIsCreatingTemplate={setIsCreatingTemplate}
+                  templateExercises={templateExercises}
+                />
+              </div>
+              <div
+                className={` ${
+                  exerciseForUpdate ? "overflow-hidden" : "overflow-y-auto "
+                } w-full h-full lg:w-3/4 no-scrollbar grid gap-y-8 pt-7 px-4 gap-x-3 justify-items-start items-start`}
+              >
+                <NewExerciseBtn
+                  exerciseForUpdate={exerciseForUpdate}
+                  setIsCreatingExercise={setIsCreatingExercise}
+                  isCreatingExercise={isCreatingExercise}
+                  setExerciseForUpdate={setExerciseForUpdate}
+                />
+              </div>
+
+              {isCreatingTemplate && (
+                <React.Suspense fallback={<div>Loading...</div>}>
+                  <TemplateCreationList
+                    exercises={templateExercises}
+                    onUpdateNotes={onUpdateNotes}
+                    onRemoveExercise={onRemoveExercise}
+                    setIsCreatingTemplate={setIsCreatingTemplate}
+                    setTemplateExercises={setTemplateExercises}
+                  />
+                </React.Suspense>
+              )}
+            </div>
           ) : (
             <>
               {!isCreatingExercise && !exerciseForUpdate && (

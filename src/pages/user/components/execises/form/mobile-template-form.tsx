@@ -6,7 +6,7 @@ import { handleTemplateCreation } from "../../../../../api/templates/template-cr
 import React from "react";
 import { useStatus } from "../../../../../hooks/status/status-context";
 import { TemplateCreationMobilePreview } from "../../template/template-creation-mobile-preview";
-import { NotebookPenIcon } from "lucide-react";
+import { EraserIcon, NotebookPenIcon } from "lucide-react";
 
 interface MobileTemplateFormProps {
   templateExercises: TemplateExercise[];
@@ -93,7 +93,7 @@ const MobileTemplateForm = React.memo(
           </div>
 
           {!showNameInput && (
-            <div className="w-full flex items-center flex-row gap-x-4 overflow-x-auto no-scrollbar px-3 py-1.5 ">
+            <div className="w-full flex items-center h-24 flex-row gap-x-4 overflow-x-auto no-scrollbar px-3 py-1.5 ">
               {templateExercises.map((exercise, index) => (
                 <TemplateCreationMobilePreview
                   key={exercise.exerciseId}
@@ -112,7 +112,7 @@ const MobileTemplateForm = React.memo(
 
           <div
             className={`${
-              showNameInput ? "bottom-13" : "bottom-22"
+              showNameInput ? "bottom-13" : "bottom-23"
             } flex items-center justify-center absolute left-0 transition-all duration-300`}
           >
             <button
@@ -128,16 +128,32 @@ const MobileTemplateForm = React.memo(
           </div>
           <div
             className={`${
-              showNameInput ? "bottom-13" : "bottom-22"
+              showNameInput ? "bottom-13" : "bottom-23"
             } transition-all duration-300 flex items-center justify-center pt-2 absolute right-0`}
           >
             <button
               className={`${
-                !templateName ? "hidden" : "block"
+                !templateName || templateExercises.length === 0
+                  ? "hidden"
+                  : "block"
               } btn btn-error py-0.5 px-2 size-max`}
-              disabled={isLoading}
+              disabled={isLoading || templateExercises.length === 0}
             >
               {isLoading ? "Creating..." : "Create"}
+            </button>
+          </div>
+          <div
+            className={`-bottom-5 flex items-center justify-center absolute left-0 transition-all duration-300`}
+          >
+            <button
+              className="btn btn-error py-0.5 px-2 size-max"
+              disabled={isLoading}
+              onClick={(e) => {
+                e.preventDefault();
+                setTemplateExercises([]);
+              }}
+            >
+              <EraserIcon className="size-4 cursor-pointer" />
             </button>
           </div>
         </form>

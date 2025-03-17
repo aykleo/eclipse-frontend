@@ -137,7 +137,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
           </div>
           {isTooltipVisible && (
             <div
-              className="absolute inset-0 z-99 flex items-center cursor-pointer justify-center backdrop-blur-xs bg-neutral-950/50"
+              className="absolute inset-0 z-99 flex items-center cursor-pointer lg:hidden justify-center backdrop-blur-xs bg-neutral-950/50"
               onClick={toggleTooltip}
             >
               <ExerciseCard exercise={exercise} />
