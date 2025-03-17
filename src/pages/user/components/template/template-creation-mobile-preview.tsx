@@ -31,7 +31,7 @@ export const TemplateCreationMobilePreview = React.memo(
     return (
       <div
         ref={ref}
-        className="tooltip tooltip-top cursor-help flex flex-col relative gap-2 h-20 w-16 max-w-16 bg-gradient-to-t from-red-950 to-neutral-950 text-xs rounded-sm"
+        className="tooltip tooltip-top flex flex-col relative gap-2 h-20 w-16 max-w-16 bg-gradient-to-t from-neutral-950 to-neutral-950 text-xs rounded-sm"
         data-tip={exerciseName}
       >
         {showNotes && (
@@ -57,17 +57,26 @@ export const TemplateCreationMobilePreview = React.memo(
         )}
 
         <>
-          <span className="truncate pl-1 pr-2">{exerciseName}</span>
           <span className="text-xs size-4 flex items-center justify-center absolute -right-1 -top-1 rounded-full bg-red-950 p-0.5">
             {exerciseOrder}
           </span>
-          <div className="flex flex-row gap-1 items-end justify-between px-1.5 w-full h-full pb-1">
-            <button onClick={() => onRemoveExercise(exerciseId)}>
-              <TrashIcon className="size-4 cursor-pointer" />
-            </button>
-            <p onClick={() => setShowNotes(!showNotes)}>
-              <NotebookPenIcon className="size-4 cursor-pointer" />
-            </p>
+          <div className="flex flex-col gap-y-0.5 justify-between h-full">
+            <span className="truncate pl-1 pr-2 text-error">
+              {exerciseName}
+            </span>
+            {notes && (
+              <span className="h-11 text-xs px-1 text-error w-full text-center">
+                Has notes
+              </span>
+            )}
+            <div className="flex flex-row gap-1 items-end justify-between px-1.5 w-full pb-1">
+              <button onClick={() => onRemoveExercise(exerciseId)}>
+                <TrashIcon className="size-4 cursor-pointer text-red-500" />
+              </button>
+              <p onClick={() => setShowNotes(!showNotes)}>
+                <NotebookPenIcon className="size-4 cursor-pointer text-warning" />
+              </p>
+            </div>
           </div>
         </>
       </div>

@@ -21,11 +21,15 @@ import ExerciseByMuscleGroup from "../statistics/exercise-by-muscle-group";
 import { handleExerciseByTag } from "../../../../../api/statistics/exercises/exercise-by-tag";
 import { CardCounter } from "./card-counter";
 import { isExerciseByTagData } from "../../../../../utils/exercise-by-tag-data";
-import { TemplateCreationList } from "../../template/template-creation-list";
-import { TemplateCreationMobilePreview } from "../../template/template-creation-mobile-preview";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
+);
+
+const MobileTemplateForm = lazy(() => import("../form/mobile-template-form"));
+
+const TemplateCreationList = lazy(
+  () => import("../../template/template-creation-list")
 );
 
 export const ExerciseCodex = React.memo(
@@ -175,21 +179,14 @@ export const ExerciseCodex = React.memo(
             templateExercises &&
             templateExercises.length > 0 &&
             !isStatistics && (
-              <div className="absolute bottom-3 right-0 z-100 lg:hidden w-full flex items-center flex-row gap-x-4 overflow-x-auto no-scrollbar px-3 py-1.5 bg-gradient-to-r from-neutral-700/5 via-neutral-800 to-neutral-700/5 rounded-xs">
-                {templateExercises.map((exercise, index) => (
-                  <TemplateCreationMobilePreview
-                    key={exercise.exerciseId}
-                    exerciseId={exercise.exerciseId}
-                    notes={exercise.notes}
-                    exerciseName={exercise.name}
-                    exerciseOrder={index + 1}
-                    onUpdateNotes={(notes) =>
-                      onUpdateNotes(exercise.exerciseId, notes)
-                    }
-                    onRemoveExercise={onRemoveExercise}
-                  />
-                ))}
-              </div>
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <MobileTemplateForm
+                  templateExercises={templateExercises}
+                  setTemplateExercises={setTemplateExercises}
+                  onUpdateNotes={onUpdateNotes}
+                  onRemoveExercise={onRemoveExercise}
+                />
+              </React.Suspense>
             )}
           {exerciseData &&
           exerciseData.exercises.length > 0 &&
@@ -238,13 +235,15 @@ export const ExerciseCodex = React.memo(
                         ))}
                   </div>
                   {isCreatingTemplate && (
-                    <TemplateCreationList
-                      exercises={templateExercises}
-                      onUpdateNotes={onUpdateNotes}
-                      onRemoveExercise={onRemoveExercise}
-                      setIsCreatingTemplate={setIsCreatingTemplate}
-                      setTemplateExercises={setTemplateExercises}
-                    />
+                    <React.Suspense fallback={<div>Loading...</div>}>
+                      <TemplateCreationList
+                        exercises={templateExercises}
+                        onUpdateNotes={onUpdateNotes}
+                        onRemoveExercise={onRemoveExercise}
+                        setIsCreatingTemplate={setIsCreatingTemplate}
+                        setTemplateExercises={setTemplateExercises}
+                      />
+                    </React.Suspense>
                   )}
                 </div>
               ) : (

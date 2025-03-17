@@ -36,7 +36,7 @@ export const TemplateExerciseItem: React.FC<TemplateExerciseItemProps> = ({
         className="flex justify-between items-center cursor-pointer"
       >
         <div className="flex items-center justify-center gap-2 w-full">
-          <div className="text-sm font-medium w-4 text-center">
+          <div className="text-sm font-medium w-4 text-center text-error">
             {exerciseOrder}
           </div>
           <span className="text-sm font-medium w-full truncate pr-1">
@@ -55,12 +55,12 @@ export const TemplateExerciseItem: React.FC<TemplateExerciseItemProps> = ({
         <textarea
           value={notes}
           onChange={(e) => onUpdateNotes(e.target.value)}
-          className="textarea textarea-bordered bg-transparent max-h-20 textarea-xs mt-2 w-full"
+          className="textarea textarea-bordered bg-transparent max-h-36 textarea-xs mt-2 w-full"
           placeholder="Add notes..."
           rows={2}
         />
       ) : (
-        <div>{notes}</div>
+        <div className="text-xs pr-2 truncate text-neutral-400">{notes}</div>
       )}
     </div>
   );

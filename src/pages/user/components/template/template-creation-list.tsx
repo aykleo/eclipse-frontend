@@ -22,7 +22,7 @@ interface TemplateCreationListProps {
   >;
 }
 
-export const TemplateCreationList = React.memo(
+const TemplateCreationList = React.memo(
   ({
     exercises,
     onUpdateNotes,
@@ -30,7 +30,7 @@ export const TemplateCreationList = React.memo(
     setIsCreatingTemplate,
     setTemplateExercises,
   }: TemplateCreationListProps) => {
-    const [templateName, setTemplateName] = useState("New Template");
+    const templateNameRef = useRef<string>("");
     const [isLoading, setIsLoading] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const { setStatusText } = useStatus();
@@ -44,7 +44,7 @@ export const TemplateCreationList = React.memo(
         );
       },
       onSuccess: () => {
-        setTemplateName("New Template");
+        templateNameRef.current = "";
         setTemplateExercises([]);
         if (formRef.current) {
           formRef.current.reset();
@@ -63,7 +63,7 @@ export const TemplateCreationList = React.memo(
       event.preventDefault();
 
       const formData = {
-        name: templateName,
+        name: templateNameRef.current,
         exercises: exercises.map((exercise) => ({
           exerciseId: exercise.exerciseId,
           notes: exercise.notes || "",
@@ -74,24 +74,29 @@ export const TemplateCreationList = React.memo(
     };
 
     return (
-      <div className="w-1/4 h-full relative border hidden lg:block p-4">
+      <div className="w-1/4 h-full relative hidden lg:block p-2 rounded-l-md rounded-b-none bg-gradient-to-r from-neutral-950 to-red-950/50">
         <div
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             setIsCreatingTemplate(false);
           }}
-          className="absolute top-4 rounded-full bg-neutral-950 p-1 -left-5"
+          className="absolute rounded-l-md h-10 flex items-center justify-center bg-neutral-950 p-1 -left-6 top-0 cursor-pointer"
         >
-          <ArrowRightIcon className="size-6" />
+          <ArrowRightIcon className="size-5" />
         </div>
-        <form action="create_template" onSubmit={handleSubmit} ref={formRef}>
+        <form
+          action="create_template"
+          onSubmit={handleSubmit}
+          ref={formRef}
+          className="h-full"
+        >
           <div className="flex flex-col gap-y-2 justify-between h-full">
             <input
               type="text"
               name="templateName"
-              value={templateName}
-              onChange={(e) => setTemplateName(e.target.value)}
-              className="input input-bordered input-sm"
-              placeholder="Template Name"
+              onChange={(e) => (templateNameRef.current = e.target.value)}
+              className="input input-bordered input-sm bg-transparent"
+              placeholder="Template name"
             />
 
             <div className="flex flex-col gap-2 overflow-y-auto h-full no-scrollbar">
@@ -113,7 +118,7 @@ export const TemplateCreationList = React.memo(
             </div>
 
             <button
-              className="btn btn-primary btn-sm mt-2"
+              className="btn btn-error btn-sm mt-2"
               disabled={(exercises && exercises.length === 0) || isLoading}
             >
               {isLoading ? "Creating..." : "Create Template"}
@@ -125,4 +130,4 @@ export const TemplateCreationList = React.memo(
   }
 );
 
-TemplateCreationList.displayName = "TemplateCreationList";
+export default TemplateCreationList;
