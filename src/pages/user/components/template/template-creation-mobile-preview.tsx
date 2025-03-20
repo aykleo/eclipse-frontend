@@ -75,9 +75,9 @@ export const TemplateCreationMobilePreview = React.memo(
       <div
         ref={setRefs}
         style={style}
-        className={`flex flex-col relative gap-2 h-20 min-w-26 max-w-26 bg-gradient-to-t from-neutral-950 to-neutral-950 text-xs rounded-sm hover:bg-neutral-800/50 transition-colors ${
+        className={`flex flex-col relative gap-2 h-26 min-w-26 max-w-26 bg-gradient-to-t from-neutral-950 to-neutral-950 text-xs rounded-sm hover:bg-neutral-800/50 transition-colors ${
           isDragging ? "opacity-50 z-50" : ""
-        }`}
+        } touch-none`}
       >
         {showNotes && (
           <div className="fixed inset-0 bg-black/25 backdrop-blur-xs flex items-center justify-center z-50">
@@ -109,15 +109,17 @@ export const TemplateCreationMobilePreview = React.memo(
             <div className="truncate pl-1 pr-3.5 text-error">
               {exerciseName}
             </div>
-            {notes && (
-              <span
-                {...attributes}
-                {...listeners}
-                className="h-11 text-xs px-1 text-error w-full text-center cursor-grab active:cursor-grabbing transition-colors"
-              >
-                Has notes
-              </span>
-            )}
+            <div
+              {...attributes}
+              {...listeners}
+              className="h-11 w-full cursor-grab active:cursor-grabbing transition-colors"
+            >
+              {notes && (
+                <span className="h-full text-xs px-1 text-error w-full text-center">
+                  Has notes
+                </span>
+              )}
+            </div>
             <div className="flex flex-row gap-1 items-end justify-between px-1.5 w-full pb-1">
               <div onClick={handleRemove}>
                 <TrashIcon className="size-4 cursor-pointer text-red-500" />

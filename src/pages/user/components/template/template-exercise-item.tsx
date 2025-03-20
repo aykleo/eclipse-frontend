@@ -58,7 +58,7 @@ export const TemplateExerciseItem: React.FC<TemplateExerciseItemProps> = ({
       style={style}
       className={`card bg-gradient-to-r from-neutral-900 to-red-950/50 p-2 transition-opacity duration-200 ${
         isDragging ? "opacity-75" : ""
-      }`}
+      } touch-none`}
     >
       <div className="flex justify-between items-center">
         <div

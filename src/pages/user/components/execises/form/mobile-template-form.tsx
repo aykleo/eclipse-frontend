@@ -148,7 +148,7 @@ const MobileTemplateForm = React.memo(
               collisionDetection={closestCenter}
               onDragEnd={handleDragEnd}
             >
-              <div className="w-full flex items-center h-24 flex-row gap-x-4 overflow-auto no-scrollbar px-3 py-1.5">
+              <div className="w-full flex items-center h-32 flex-row gap-x-4 overflow-auto no-scrollbar px-3 py-1.5">
                 <SortableContext
                   items={templateExercises.map((e) => e.exerciseId)}
                   strategy={horizontalListSortingStrategy}
