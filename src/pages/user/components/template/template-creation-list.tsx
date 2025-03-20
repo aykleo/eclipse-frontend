@@ -113,7 +113,7 @@ const TemplateCreationList = React.memo(
     };
 
     return (
-      <div className="w-1/4 h-full relative hidden lg:block p-2 rounded-l-md rounded-b-none bg-gradient-to-r from-neutral-950 to-red-950/50">
+      <div className="w-full h-full">
         <div
           onClick={(e) => {
             e.preventDefault();
@@ -127,14 +127,14 @@ const TemplateCreationList = React.memo(
           action="create_template"
           onSubmit={handleSubmit}
           ref={formRef}
-          className="h-full"
+          className="h-full w-full"
         >
-          <div className="flex flex-col gap-y-2 justify-between h-full">
+          <div className="flex flex-col gap-y-2 justify-between h-full w-full">
             <input
               type="text"
               name="templateName"
               onChange={(e) => (templateNameRef.current = e.target.value)}
-              className="input input-bordered input-sm bg-transparent"
+              className="input input-bordered input-sm bg-transparent w-full"
               placeholder="Template name"
             />
 

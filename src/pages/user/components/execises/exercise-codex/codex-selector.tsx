@@ -107,8 +107,9 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
         className={`${
           isCreatingExercise || exerciseForUpdate
             ? "hidden"
-            : "tabs relative tabs-box w-full gap-y-2 py-2 flex flex-col md:flex-row items-center justify-between bg-transparent rounded-none"
+            : "tabs relative tabs-box w-full gap-y-2 py-2 flex flex-col md:flex-row items-center justify-between rounded-none"
         } `}
+        style={{ backgroundImage: "url(src/assets/test.svg)" }}
       >
         <div className="flex w-full flex-row gap-x-2 lg:gap-x-4 md:w-1/2 lg:w-2/3 px-1">
           <a
@@ -166,9 +167,9 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
             </span>
           </a>
         </div>
-        <label className="input bg-transparent input-sm w-full md:w-1/2 lg:w-1/3">
+        <label className="input bg-transparent border-none input-sm w-full md:w-1/2 lg:w-1/3">
           <svg
-            className="h-[1em] opacity-50"
+            className="h-[1rem] opacity-50"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >

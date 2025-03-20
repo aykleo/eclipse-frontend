@@ -47,7 +47,7 @@ export const ExerciseCodex = React.memo(
     const { user } = useUser() || {};
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const pageSize = 30;
+    const pageSize = 20;
     const [searchParams, setSearchParams] = useSearchParams();
     const selectedCategory =
       (searchParams.get("category") as ExerciseCategory) || "";
@@ -148,22 +148,25 @@ export const ExerciseCodex = React.memo(
     );
 
     return (
-      <div className="relative w-full h-full flex-col flex items-center gap-y-0.5 justify-start p-3">
+      <div className="relative w-full h-max flex-col flex items-center gap-y-0.5 justify-start">
         {statusText && <StatusToast statusText={statusText} />}
-        <CodexSelector
-          selectedCategory={selectedCategory}
-          handleTabClick={handleTabClick}
-          setSearchParams={setSearchParams}
-          isStatistics={isStatistics}
-          setIsStatistics={setIsStatistics}
-          isCreatingExercise={isCreatingExercise}
-          exerciseForUpdate={exerciseForUpdate}
-        />
-        <ul className="rounded-box shadow-md relative gap-1 w-full h-full overflow-hidden">
+        <div className="w-full fixed z-2">
+          <CodexSelector
+            selectedCategory={selectedCategory}
+            handleTabClick={handleTabClick}
+            setSearchParams={setSearchParams}
+            isStatistics={isStatistics}
+            setIsStatistics={setIsStatistics}
+            isCreatingExercise={isCreatingExercise}
+            exerciseForUpdate={exerciseForUpdate}
+          />
+        </div>
+
+        <ul className="relative gap-1 mt-12 w-full h-full overflow-hidden">
           <div
             className={`${
-              isCreatingTemplate ? "top-1/3 lg:hidden" : "top-2"
-            } right-2 absolute z-99 ${
+              isCreatingTemplate ? "top-1/3 lg:hidden" : "top-40"
+            } right-2 fixed z-99 ${
               isStatistics || exerciseForUpdate || isCreatingExercise
                 ? "hidden"
                 : ""
@@ -193,7 +196,7 @@ export const ExerciseCodex = React.memo(
           !exerciseForUpdate ? (
             <>
               {!isLoading ? (
-                <div className="flex size-full">
+                <div className="flex size-full relative">
                   <div
                     className={` ${
                       exerciseForUpdate ? "overflow-hidden" : "overflow-y-auto "
@@ -201,7 +204,7 @@ export const ExerciseCodex = React.memo(
                       isCreatingTemplate
                         ? "grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:px-10 w-full lg:w-3/4"
                         : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 w-full"
-                    } h-full no-scrollbar grid gap-y-8 pt-7 px-4 gap-x-3 justify-items-center items-start`}
+                    } h-full no-scrollbar grid gap-y-8 pt-7 px-4 gap-x-3 justify-items-center items-start pb-2 min-h-screen`}
                   >
                     {!isCreatingTemplate && (
                       <NewExerciseBtn
@@ -233,15 +236,17 @@ export const ExerciseCodex = React.memo(
                         ))}
                   </div>
                   {isCreatingTemplate && (
-                    <React.Suspense fallback={<div>Loading...</div>}>
-                      <TemplateCreationList
-                        exercises={templateExercises}
-                        onUpdateNotes={onUpdateNotes}
-                        onRemoveExercise={onRemoveExercise}
-                        setIsCreatingTemplate={setIsCreatingTemplate}
-                        setTemplateExercises={setTemplateExercises}
-                      />
-                    </React.Suspense>
+                    <div className="w-1/4 fixed h-[calc(100vh-7rem)] right-0 hidden lg:block p-2 rounded-l-md rounded-b-none bg-gradient-to-r from-neutral-950 to-red-950/50">
+                      <React.Suspense fallback={<div>Loading...</div>}>
+                        <TemplateCreationList
+                          exercises={templateExercises}
+                          onUpdateNotes={onUpdateNotes}
+                          onRemoveExercise={onRemoveExercise}
+                          setIsCreatingTemplate={setIsCreatingTemplate}
+                          setTemplateExercises={setTemplateExercises}
+                        />
+                      </React.Suspense>
+                    </div>
                   )}
                 </div>
               ) : (
@@ -250,10 +255,10 @@ export const ExerciseCodex = React.memo(
             </>
           ) : !isStatistics && !isCreatingExercise && !exerciseForUpdate ? (
             <div className="flex size-full relative">
-              <div
+              {/* <div
                 className={`${
-                  isCreatingTemplate ? "top-1/3 lg:hidden" : "top-2"
-                } right-2 absolute z-99 ${
+                  isCreatingTemplate ? "top-1/3 lg:hidden" : "top-40"
+                } right-2 fixed z-99 ${
                   isStatistics || exerciseForUpdate || isCreatingExercise
                     ? "hidden"
                     : ""
@@ -264,11 +269,11 @@ export const ExerciseCodex = React.memo(
                   setIsCreatingTemplate={setIsCreatingTemplate}
                   templateExercises={templateExercises}
                 />
-              </div>
+              </div> */}
               <div
                 className={` ${
                   exerciseForUpdate ? "overflow-hidden" : "overflow-y-auto "
-                } w-full h-full lg:w-3/4 no-scrollbar grid gap-y-8 pt-7 px-4 gap-x-3 justify-items-start items-start`}
+                } w-full h-full lg:w-3/4 no-scrollbar grid gap-y-8 pt-7 px-4 gap-x-3 justify-items-start items-start pb-2`}
               >
                 <NewExerciseBtn
                   exerciseForUpdate={exerciseForUpdate}
@@ -279,15 +284,17 @@ export const ExerciseCodex = React.memo(
               </div>
 
               {isCreatingTemplate && (
-                <React.Suspense fallback={<div>Loading...</div>}>
-                  <TemplateCreationList
-                    exercises={templateExercises}
-                    onUpdateNotes={onUpdateNotes}
-                    onRemoveExercise={onRemoveExercise}
-                    setIsCreatingTemplate={setIsCreatingTemplate}
-                    setTemplateExercises={setTemplateExercises}
-                  />
-                </React.Suspense>
+                <div className="w-1/4 fixed h-[calc(100vh-7rem)] right-0 hidden lg:block p-2 rounded-l-md rounded-b-none bg-gradient-to-r from-neutral-950 to-red-950/50">
+                  <React.Suspense fallback={<div>Loading...</div>}>
+                    <TemplateCreationList
+                      exercises={templateExercises}
+                      onUpdateNotes={onUpdateNotes}
+                      onRemoveExercise={onRemoveExercise}
+                      setIsCreatingTemplate={setIsCreatingTemplate}
+                      setTemplateExercises={setTemplateExercises}
+                    />
+                  </React.Suspense>
+                </div>
               )}
             </div>
           ) : (
@@ -333,13 +340,13 @@ export const ExerciseCodex = React.memo(
             />
           )}
         </ul>
-        {!isStatistics && !isCreatingExercise && !exerciseForUpdate && (
+        {/* {!isStatistics && !isCreatingExercise && !exerciseForUpdate && (
           <CodexPagination
             currentPage={currentPage}
             totalPages={totalPages}
             setCurrentPage={setCurrentPage}
           />
-        )}
+        )} */}
         <DeleteExerciseModal />
       </div>
     );

@@ -64,7 +64,7 @@ export const TemplateExerciseItem: React.FC<TemplateExerciseItemProps> = ({
         <div
           {...attributes}
           {...listeners}
-          className="cursor-grab p-1 hover:text-red-500 transition-colors"
+          className="cursor-grab p-1 hover:text-red-500 transition-colors w-20"
         >
           <GripVertical className="size-4" />
         </div>

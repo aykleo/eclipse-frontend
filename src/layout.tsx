@@ -10,7 +10,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="bg-gradient-to-tl bg-black min-h-screen font-orbitron">
       <Navbar />
-      <div className="relative flex items-center justify-center min-h-screen">
+      <div className="relative flex items-center justify-center h-full">
         <BgEclipseCircle />
         {children}
       </div>

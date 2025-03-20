@@ -35,7 +35,6 @@ export async function fetchExercises(
       }
     );
 
-    console.log(exerciseName);
     if (!response.ok) {
       console.log("Server error. Please try again later.");
     }

@@ -9,16 +9,14 @@ export const ExercisePage = () => {
   );
 
   return (
-    <div className="size-full h-screen pb-4 px-1.5 self-start py-4">
-      <div className="mt-16 h-[calc(100vh-7rem)] size-screen relative rounded-lg">
-        <div className="h-full w-full flex flex-col rounded-lg bg-gradient-to-r from-neutral-950 via-neutral-800 to-zinc-950">
-          <ExerciseCodex
-            isCreatingExercise={isCreatingExercise}
-            setIsCreatingExercise={setIsCreatingExercise}
-            exerciseForUpdate={exerciseForUpdate}
-            setExerciseForUpdate={setExerciseForUpdate}
-          />
-        </div>
+    <div className="size-full self-start">
+      <div className="h-full size-screen relative pt-16">
+        <ExerciseCodex
+          isCreatingExercise={isCreatingExercise}
+          setIsCreatingExercise={setIsCreatingExercise}
+          exerciseForUpdate={exerciseForUpdate}
+          setExerciseForUpdate={setExerciseForUpdate}
+        />
       </div>
     </div>
   );
