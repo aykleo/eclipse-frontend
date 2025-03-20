@@ -168,7 +168,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
         </div>
         <label className="input bg-transparent input-sm w-full md:w-1/2 lg:w-1/3">
           <svg
-            className="h-[1em] opacity-50"
+            className="h-[1rem] opacity-50"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >
