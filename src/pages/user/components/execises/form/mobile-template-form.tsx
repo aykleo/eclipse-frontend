@@ -123,7 +123,7 @@ const MobileTemplateForm = React.memo(
       <div
         className={`${
           showNameInput ? "bg-neutral-950" : ""
-        } absolute bottom-10 right-0 z-100 lg:hidden w-full bg-gradient-to-r from-neutral-700/25 via-neutral-800 to-neutral-700/25 rounded-xs`}
+        } fixed bottom-10 right-0 z-100 lg:hidden w-full bg-gradient-to-r from-neutral-700/25 via-neutral-800 to-neutral-700/25 rounded-xs`}
       >
         <form
           action="create_template"
