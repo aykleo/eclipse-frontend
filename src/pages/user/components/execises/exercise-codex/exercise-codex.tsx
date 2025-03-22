@@ -179,15 +179,17 @@ export const ExerciseCodex = React.memo(
             />
           </div>
           {isCreatingTemplate && templateExercises && !isStatistics && (
-            <React.Suspense fallback={<div>Loading...</div>}>
-              <MobileTemplateForm
-                templateExercises={templateExercises}
-                setTemplateExercises={setTemplateExercises}
-                onUpdateNotes={onUpdateNotes}
-                onRemoveExercise={onRemoveExercise}
-                setIsCreatingTemplate={setIsCreatingTemplate}
-              />
-            </React.Suspense>
+            <div className="fixed bottom-10  right-0 flex justify-center items-center z-100 lg:hidden w-full">
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <MobileTemplateForm
+                  templateExercises={templateExercises}
+                  setTemplateExercises={setTemplateExercises}
+                  onUpdateNotes={onUpdateNotes}
+                  onRemoveExercise={onRemoveExercise}
+                  setIsCreatingTemplate={setIsCreatingTemplate}
+                />
+              </React.Suspense>
+            </div>
           )}
           {exerciseData &&
           exerciseData.exercises.length > 0 &&

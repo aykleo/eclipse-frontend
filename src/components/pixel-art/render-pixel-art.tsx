@@ -11,6 +11,7 @@ interface RenderPixelArtProps {
   role?: string;
   ref?: React.RefObject<HTMLDivElement>;
   children?: React.ReactNode;
+  transform?: string;
 }
 
 export const RenderPixelArt = ({
@@ -22,6 +23,7 @@ export const RenderPixelArt = ({
   role,
   ref,
   children,
+  transform,
 }: RenderPixelArtProps) => {
   return (
     <div
@@ -34,6 +36,7 @@ export const RenderPixelArt = ({
         backgroundPosition: position,
         backgroundRepeat: repeat,
         imageRendering: "pixelated",
+        transform: transform,
       }}
     >
       {children}

@@ -1,5 +1,5 @@
-import { DumbbellIcon } from "lucide-react";
 import { TemplateExercise } from "../../../../../utils/types/exercise-types";
+import { RenderPixelArt } from "../../../../../components/pixel-art/render-pixel-art";
 
 interface CardCounterProps {
   isCreatingTemplate: boolean;
@@ -13,33 +13,27 @@ export const CardCounter = ({
   templateExercises,
 }: CardCounterProps) => {
   return (
-    <button
-      onClick={() => setIsCreatingTemplate(!isCreatingTemplate)}
+    <RenderPixelArt
+      src="url(src/assets/pixel-art/card-counter.svg)"
+      size={`${isCreatingTemplate ? "96px" : "48px"}`}
+      repeat="no-repeat"
+      position="center"
       className={`${
-        isCreatingTemplate ? "h-20 w-14" : " h-16 w-10"
-      } cursor-pointer flex items-center flex-col relative gap-x-1 border-error bg-gradient-to-br from-neutral-900 to-neutral-950 border rounded-sm`}
+        isCreatingTemplate ? "size-24" : "size-12"
+      } cursor-pointer flex items-center justify-center flex-col relative`}
     >
-      <div
-        className={`${
-          isCreatingTemplate ? "-top-4 right-2.5 p-2" : "-top-2 right-2 p-1"
-        } rounded-full bg-neutral-900 border-error  absolute border`}
+      <button
+        onClick={() => setIsCreatingTemplate(!isCreatingTemplate)}
+        className={`size-8/10 rounded-lg cursor-pointer flex items-center justify-center`}
       >
-        <DumbbellIcon
-          className={`${isCreatingTemplate ? "size-4" : "size-3"} text-error`}
-        />
-      </div>
-
-      <div
-        className={`${
-          isCreatingTemplate ? "mt-8 w-16 h-6" : "mt-6 w-12 h-5"
-        } text-sm font-medium  border-error bg-neutral-950 border items-center justify-center flex`}
-      >
-        {templateExercises.length > 0
-          ? templateExercises.length
-          : isCreatingTemplate
-          ? "0"
-          : "+"}
-      </div>
-    </button>
+        <div className={`mt-5.5 text-xs `}>
+          {templateExercises.length > 0
+            ? templateExercises.length
+            : isCreatingTemplate
+            ? "0"
+            : ""}
+        </div>
+      </button>
+    </RenderPixelArt>
   );
 };

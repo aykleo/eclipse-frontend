@@ -104,42 +104,27 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
 
     return (
       <div className="relative h-16">
-        {/* <div
-          className="absolute h-full z-99 w-1.5 left-[2px]"
-          style={{
-            backgroundImage: "url(src/assets/body-side.svg)",
-            backgroundSize: "auto",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            imageRendering: "pixelated",
-          }}
-        />
-        <div
-          className="absolute h-full z-99 w-1.5 right-[2px]"
-          style={{
-            backgroundImage: "url(src/assets/body-side.svg)",
-            backgroundSize: "auto",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            imageRendering: "pixelated",
-            transform: "rotate(180deg)",
-          }}
-        /> */}
-
-        {/* <div
-          className="h-6 w-full absolute -bottom-4 z-99 "
-          style={{
-            backgroundImage: "url(src/assets/teste-bg-bot2.svg)",
-            backgroundSize: "auto",
-            backgroundPosition: "50% 50%",
-            backgroundRepeat: "repeat",
-            imageRendering: "pixelated",
-            filter: "drop-shadow(2px 4px 6px rgba(20, 0, 0, 1))",
-          }}
-        /> */}
         <RenderPixelArt
-          src="url(src/assets/body.svg)"
-          size="64px"
+          src="url(src/assets/pixel-art/body-side-48.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          role="tablist"
+          className="absolute h-full z-3 w-5 -left-1"
+        />
+        <RenderPixelArt
+          src="url(src/assets/pixel-art/body-side-48.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          role="tablist"
+          className="absolute h-full z-3 w-5 -right-1"
+          transform="rotate(180deg)"
+        />
+
+        <RenderPixelArt
+          src="url(src/assets/pixel-art/body-48.svg)"
+          size="auto"
           repeat="repeat"
           position="center"
           role="tablist"

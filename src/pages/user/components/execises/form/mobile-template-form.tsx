@@ -22,6 +22,7 @@ import {
   horizontalListSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
+import { RenderPixelArt } from "../../../../../components/pixel-art/render-pixel-art";
 
 interface MobileTemplateFormProps {
   templateExercises: TemplateExercise[];
@@ -120,11 +121,30 @@ const MobileTemplateForm = React.memo(
     };
 
     return (
-      <div
+      <RenderPixelArt
+        src="url(src/assets/pixel-art/body-96-2.svg)"
+        size="auto"
+        repeat="repeat"
+        position="center"
         className={`${
           showNameInput ? "bg-neutral-950" : ""
-        } fixed bottom-10 right-0 z-100 lg:hidden w-full bg-gradient-to-r from-neutral-700/25 via-neutral-800 to-neutral-700/25 rounded-xs`}
+        }  relative w-9/10 p-1 h-24`}
       >
+        <RenderPixelArt
+          src="url(src/assets/pixel-art/body-side-96.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="absolute top-0 h-full -left-1.5 w-2"
+        />
+        <RenderPixelArt
+          src="url(src/assets/pixel-art/body-side-96.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="absolute top-0 h-full -right-1.5 w-2"
+          transform="rotate(180deg)"
+        />
         <form
           action="create_template"
           ref={formRef}
@@ -148,7 +168,7 @@ const MobileTemplateForm = React.memo(
               collisionDetection={closestCenter}
               onDragEnd={handleDragEnd}
             >
-              <div className="w-full flex items-center h-24 flex-row gap-x-4 overflow-auto no-scrollbar px-3 py-1.5">
+              <div className="w-full flex items-center h-22  flex-row gap-x-4 overflow-x-auto overflow-y-hidden no-scrollbar px-3 py-2">
                 <SortableContext
                   items={templateExercises.map((e) => e.exerciseId)}
                   strategy={horizontalListSortingStrategy}
@@ -220,7 +240,7 @@ const MobileTemplateForm = React.memo(
             </button>
           </div>
         </form>
-      </div>
+      </RenderPixelArt>
     );
   }
 );
