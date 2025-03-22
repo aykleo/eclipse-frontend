@@ -162,7 +162,7 @@ export const ExerciseCodex = React.memo(
           />
         </div>
 
-        <ul className="relative gap-1 mt-12 w-full h-full overflow-hidden">
+        <ul className="relative gap-1 mt-12 w-full h-full">
           <div
             className={`${
               isCreatingTemplate ? "top-1/3 lg:hidden" : "top-40"

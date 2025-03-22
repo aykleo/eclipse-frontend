@@ -102,95 +102,156 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
     ];
 
     return (
-      <div
-        role="tablist"
-        className={`${
-          isCreatingExercise || exerciseForUpdate
-            ? "hidden"
-            : "tabs relative tabs-box w-full gap-y-2 py-2 flex flex-col md:flex-row items-center justify-between rounded-none"
-        } `}
-        style={{ backgroundImage: "url(src/assets/test.svg)" }}
-      >
-        <div className="flex w-full flex-row gap-x-2 lg:gap-x-4 md:w-1/2 lg:w-2/3 px-1">
-          <a
-            role="tab"
-            className={`flex items-center px-4 py-1 md:px-2 lg:w-40 bg-neutral-950 lg:bg-transparent justify-center lg:text-xl rounded-full ${
-              selectedCategory === "" && !isStatistics
-                ? "text-white opacity-100 cursor-default"
-                : "text-gray-400 hover:text-error cursor-pointer"
-            }`}
-            onClick={() => handleTabClick("")}
-          >
-            <span className="text-xs lg:text-sm">
-              <span className="hidden lg:block">All exercises</span>
-              <span className="lg:hidden px-1">All</span>
-            </span>
-          </a>
-          <div className="gap-x-2 lg:gap-x-4 flex w-full justify-evenly">
-            {categoryIcons.map((category, index) => (
-              <a
-                key={index}
-                role="tab"
-                onClick={() =>
-                  handleTabClick(category.category as ExerciseCategory)
-                }
-                className={`${getColorBackgroundForTagCategory(
-                  category.category as TagCategory
-                )} lg:bg-transparent flex items-center justify-center px-2 w-10 lg:w-max rounded-full ${
-                  selectedCategory === category.category && !isStatistics
-                    ? "opacity-100 cursor-default"
-                    : "opacity-50 hover:text-error cursor-pointer"
-                }`}
-              >
-                <div className="flex flex-row items-center gap-x-1">
-                  <div className="lg:hidden">{category.icon}</div>
-                  <div className="text-xs lg:text-sm hidden lg:block">
-                    {category.category.charAt(0).toUpperCase() +
-                      category.category.slice(1).toLowerCase()}
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-          <a
-            role="tab"
-            className={`flex items-center px-4 md:px-2 lg:w-36 bg-neutral-950 lg:bg-transparent justify-center lg:text-xl rounded-full ${
-              isStatistics
-                ? "text-white cursor-default"
-                : "text-gray-400 hover:text-error cursor-pointer"
-            }`}
-            onClick={() => setIsStatistics(!isStatistics)}
-          >
-            <span className="text-xs lg:text-sm">
-              <span className="hidden lg:block">Statistics</span>
-              <ChartColumnIcon className="size-4 md:size-6 lg:hidden" />
-            </span>
-          </a>
-        </div>
-        <label className="input bg-transparent border-none input-sm w-full md:w-1/2 lg:w-1/3">
-          <svg
-            className="h-[1rem] opacity-50"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <g
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2.5"
-              fill="none"
-              stroke="currentColor"
+      <div className="relative">
+        <div
+          className="absolute h-9 -top-4 w-full z-99"
+          style={{
+            backgroundImage: "url(src/assets/teste-bg-top2.svg)",
+            backgroundSize: "auto",
+            backgroundPosition: "50% 50%",
+            backgroundRepeat: "repeat",
+            imageRendering: "pixelated",
+          }}
+        />
+        <div
+          className="h-6 w-full absolute -bottom-4 z-99 "
+          style={{
+            backgroundImage: "url(src/assets/teste-bg-bot2.svg)",
+            backgroundSize: "auto",
+            backgroundPosition: "50% 50%",
+            backgroundRepeat: "repeat",
+            imageRendering: "pixelated",
+            filter: "drop-shadow(2px 4px 6px rgba(20, 0, 0, 1))",
+          }}
+        />
+        <div
+          role="tablist"
+          className={`${
+            isCreatingExercise || exerciseForUpdate
+              ? "hidden"
+              : "tabs tabs-box w-full gap-y-2 py-2 flex flex-col   md:flex-row items-center justify-between rounded-none"
+          } relative bg-red-800 min-h-14`}
+          // style={{
+          //   backgroundImage: "url(src/assets/teste-bg.svg)",
+          //   backgroundSize: "cover",
+          //   backgroundRepeat: "repeat",
+          //   imageRendering: "pixelated",
+          // }}
+        >
+          <div className="flex w-full flex-row gap-x-2 lg:gap-x-4 md:w-1/2 lg:w-2/3 px-1">
+            <a
+              role="tab"
+              className={`flex items-center px-4 py-1 md:px-2 lg:w-40 bg-neutral-950 lg:bg-transparent justify-center lg:text-xl rounded-full ${
+                selectedCategory === "" && !isStatistics
+                  ? "text-white opacity-100 cursor-default"
+                  : "text-gray-400 hover:text-error cursor-pointer"
+              }`}
+              onClick={() => handleTabClick("")}
             >
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.3-4.3"></path>
-            </g>
-          </svg>
-          <input
-            type="search"
-            required
-            placeholder="Search"
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </label>
+              <span className="text-xs lg:text-sm">
+                <span className="hidden lg:block">All exercises</span>
+                <span className="lg:hidden px-1">All</span>
+              </span>
+            </a>
+            <div className="gap-x-2 lg:gap-x-4 flex w-full justify-evenly">
+              {categoryIcons.map((category, index) => (
+                <a
+                  key={index}
+                  role="tab"
+                  onClick={() =>
+                    handleTabClick(category.category as ExerciseCategory)
+                  }
+                  className={`${getColorBackgroundForTagCategory(
+                    category.category as TagCategory
+                  )} lg:bg-transparent flex items-center justify-center px-2 w-10 lg:w-max rounded-full ${
+                    selectedCategory === category.category && !isStatistics
+                      ? "opacity-100 cursor-default"
+                      : "opacity-50 hover:text-error cursor-pointer"
+                  }`}
+                >
+                  <div className="flex flex-row items-center gap-x-1">
+                    <div className="lg:hidden">{category.icon}</div>
+                    <div className="text-xs lg:text-sm hidden lg:block">
+                      {category.category.charAt(0).toUpperCase() +
+                        category.category.slice(1).toLowerCase()}
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+            <a
+              role="tab"
+              className={`flex items-center px-4 md:px-2 lg:w-36 bg-neutral-950 lg:bg-transparent justify-center lg:text-xl rounded-full ${
+                isStatistics
+                  ? "text-white cursor-default"
+                  : "text-gray-400 hover:text-error cursor-pointer"
+              }`}
+              onClick={() => setIsStatistics(!isStatistics)}
+            >
+              <span className="text-xs lg:text-sm">
+                <span className="hidden lg:block">Statistics</span>
+                <ChartColumnIcon className="size-4 md:size-6 lg:hidden" />
+              </span>
+            </a>
+          </div>
+          <label className="flex h-10 text-xs flex-row gap-0 bg-transparent w-full md:w-1/2 lg:w-1/3">
+            <div
+              className="w-4 h-full"
+              style={{
+                backgroundImage: "url(src/assets/lat-left.svg)",
+                backgroundSize: "auto",
+                backgroundPosition: " 100% 60%",
+                backgroundRepeat: "no-repeat",
+                imageRendering: "pixelated",
+              }}
+            />
+            <div
+              className="w-full h-full flex flex-row items-center py-2"
+              style={{
+                backgroundImage: "url(src/assets/corpo.svg)",
+                backgroundSize: "auto",
+                backgroundPosition: "50% 60%",
+                backgroundRepeat: "repeat",
+                imageRendering: "pixelated",
+              }}
+            >
+              <svg
+                className="h-[1rem] opacity-50"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+              >
+                <g
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  strokeWidth="2.5"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </g>
+              </svg>
+              <input
+                type="search"
+                required
+                placeholder="Search"
+                className="focus:outline-0 focus:ring-0 focus:border-none w-full h-full py-2"
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <div
+              className="w-4 h-full"
+              style={{
+                backgroundImage: "url(src/assets/lat-left.svg)",
+                backgroundSize: "auto",
+                backgroundPosition: " 100% 60%",
+                backgroundRepeat: "no-repeat",
+                imageRendering: "pixelated",
+                transform: "rotate(180deg)",
+              }}
+            />
+          </label>
+        </div>
       </div>
     );
   }

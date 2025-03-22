@@ -77,7 +77,7 @@ export const TemplateCreationMobilePreview = React.memo(
         style={style}
         className={`flex flex-col relative gap-2 h-20 min-w-26 max-w-26 bg-gradient-to-t from-neutral-950 to-neutral-950 text-xs rounded-sm hover:bg-neutral-800/50 transition-colors ${
           isDragging ? "opacity-50 z-50" : ""
-        }`}
+        } touch-none`}
       >
         {showNotes && (
           <div className="fixed inset-0 bg-black/25 backdrop-blur-xs flex items-center justify-center z-50">
