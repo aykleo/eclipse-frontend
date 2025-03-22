@@ -7,6 +7,7 @@ import { getColorBackgroundForTagCategory } from "../../../../../utils/tag-color
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
 import { ChartColumnIcon } from "lucide-react";
+import { RenderPixelArt } from "../../../../../components/pixel-art/render-pixel-art";
 
 export type ExerciseCategory =
   | ""
@@ -102,18 +103,30 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
     ];
 
     return (
-      <div className="relative">
-        <div
-          className="absolute h-9 -top-4 w-full z-99"
+      <div className="relative h-16">
+        {/* <div
+          className="absolute h-full z-99 w-1.5 left-[2px]"
           style={{
-            backgroundImage: "url(src/assets/teste-bg-top2.svg)",
+            backgroundImage: "url(src/assets/body-side.svg)",
             backgroundSize: "auto",
-            backgroundPosition: "50% 50%",
-            backgroundRepeat: "repeat",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
             imageRendering: "pixelated",
           }}
         />
         <div
+          className="absolute h-full z-99 w-1.5 right-[2px]"
+          style={{
+            backgroundImage: "url(src/assets/body-side.svg)",
+            backgroundSize: "auto",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            imageRendering: "pixelated",
+            transform: "rotate(180deg)",
+          }}
+        /> */}
+
+        {/* <div
           className="h-6 w-full absolute -bottom-4 z-99 "
           style={{
             backgroundImage: "url(src/assets/teste-bg-bot2.svg)",
@@ -123,20 +136,18 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
             imageRendering: "pixelated",
             filter: "drop-shadow(2px 4px 6px rgba(20, 0, 0, 1))",
           }}
-        />
-        <div
+        /> */}
+        <RenderPixelArt
+          src="url(src/assets/body.svg)"
+          size="64px"
+          repeat="repeat"
+          position="center"
           role="tablist"
           className={`${
             isCreatingExercise || exerciseForUpdate
               ? "hidden"
-              : "tabs tabs-box w-full gap-y-2 py-2 flex flex-col   md:flex-row items-center justify-between rounded-none"
-          } relative bg-red-800 min-h-14`}
-          // style={{
-          //   backgroundImage: "url(src/assets/teste-bg.svg)",
-          //   backgroundSize: "cover",
-          //   backgroundRepeat: "repeat",
-          //   imageRendering: "pixelated",
-          // }}
+              : "tabs tabs-box w-full gap-y-2 py-2 flex flex-col h-full md:flex-row items-center justify-between rounded-none"
+          } relative`}
         >
           <div className="flex w-full flex-row gap-x-2 lg:gap-x-4 md:w-1/2 lg:w-2/3 px-1">
             <a
@@ -251,7 +262,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
               }}
             />
           </label>
-        </div>
+        </RenderPixelArt>
       </div>
     );
   }
