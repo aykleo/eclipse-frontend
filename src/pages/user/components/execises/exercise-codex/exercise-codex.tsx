@@ -300,7 +300,7 @@ export const ExerciseCodex = React.memo(
           ) : (
             <>
               {!isCreatingExercise && !exerciseForUpdate && (
-                <div className="w-full h-full flex flex-col overflow-y-auto no-scrollbar lg:flex-row gap-y-3">
+                <div className="w-full h-fit mt-14 md:mt-8 flex flex-col overflow-y-auto no-scrollbar lg:flex-row gap-y-3">
                   <div className="w-full lg:w-1/3 flex flex-col md:flex-row lg:flex-col gap-x-3 h-full">
                     {exerciseByTagData &&
                       isExerciseByTagData(exerciseByTagData) && (
