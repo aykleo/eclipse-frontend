@@ -1,4 +1,4 @@
-import React, { RefObject, useState } from "react";
+import React, { RefObject, useEffect, useState } from "react";
 import {
   Exercise,
   MuscleGroupData,
@@ -89,6 +89,12 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
       deletedAt: exerciseForUpdate?.deletedAt || undefined,
     };
 
+    useEffect(() => {
+      if (formRef.current) {
+        formRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, []);
+
     return (
       <div className="form-control relative w-full flex flex-col px-2  rounded-md justify-between h-full">
         <form
@@ -128,7 +134,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               </button>
               <div
                 onClick={toggleTooltip}
-                className="cursor-pointer md:hidden absolute right-0 -bottom-6 z-4"
+                className="cursor-pointer md:hidden absolute right-0 -bottom-6"
               >
                 <EyeIcon className="size-5 text-gray-400 hover:text-gray-200 transition-all duration-300" />
               </div>
