@@ -60,7 +60,7 @@ export const ExerciseCard = ({
           !isCreatingTemplate
             ? "cursor-default"
             : "cursor-pointer hover:scale-105 transition-all duration-300"
-        } flex-col w-32 md:w-40 lg:w-48 md:h-64 h-56 lg:h-72 p-[1px] rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300`}
+        } flex-col w-36 md:w-40 lg:w-48 md:h-64 h-56 lg:h-72 p-[1px] rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300`}
       >
         <div
           className={`${

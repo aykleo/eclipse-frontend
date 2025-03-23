@@ -82,7 +82,7 @@ export const CardList = ({
           } h-full w-full no-scrollbar grid gap-y-8 pt-7 px-4 gap-x-3 justify-items-center items-start pb-2 min-h-screen`}
         >
           <NewExerciseBtn
-            exerciseForUpdate={exerciseForUpdate}
+            
             setIsCreatingExercise={setIsCreatingExercise}
             isCreatingExercise={isCreatingExercise}
             setExerciseForUpdate={setExerciseForUpdate}
