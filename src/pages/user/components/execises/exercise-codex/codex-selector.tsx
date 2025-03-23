@@ -61,70 +61,90 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
 
     const categoryIcons = [
       {
+        category: "",
+        icon: (
+          <RenderPixelArt
+            src={`url(src/assets/pixel-art/buttons/btn-all-24.svg)`}
+            size="auto"
+            repeat="no-repeat"
+            position="center"
+            className="size-6"
+          />
+        ),
+      },
+      {
         category: "ENDURANCE",
         icon: (
-          <img
-            src={`src/assets/icons/category/ENDURANCE.png`}
-            className="size-4 md:size-6"
-            alt="ENDURANCE"
+          <RenderPixelArt
+            src={`url(src/assets/pixel-art/buttons/btn-endurance-24.svg)`}
+            size="auto"
+            repeat="no-repeat"
+            position="center"
+            className="size-6"
           />
         ),
       },
       {
         category: "MOVEMENT",
         icon: (
-          <img
-            src={`src/assets/icons/category/MOVEMENT.png`}
-            className="size-4 md:size-6"
-            alt="MOVEMENT"
+          <RenderPixelArt
+            src={`url(src/assets/pixel-art/buttons/btn-movement-24.svg)`}
+            size="auto"
+            repeat="no-repeat"
+            position="center"
+            className="size-6"
           />
         ),
       },
       {
         category: "PLYOMETRICS",
         icon: (
-          <img
-            src={`src/assets/icons/category/PLYOMETRICS.png`}
-            className="size-4 md:size-6"
-            alt="PLYOMETRICS"
+          <RenderPixelArt
+            src={`url(src/assets/pixel-art/buttons/btn-plyometrics-24.svg)`}
+            size="auto"
+            repeat="no-repeat"
+            position="center"
+            className="size-6"
           />
         ),
       },
       {
         category: "STRENGTH",
         icon: (
-          <img
-            src={`src/assets/icons/category/STRENGTH.png`}
-            className="size-4 md:size-6"
-            alt="STRENGTH"
+          <RenderPixelArt
+            src={`url(src/assets/pixel-art/buttons/btn-strength-24.svg)`}
+            size="auto"
+            repeat="no-repeat"
+            position="center"
+            className="size-6"
           />
         ),
       },
     ];
 
     return (
-      <div className="relative h-16">
+      <div className="relative h-12">
         <RenderPixelArt
           src="url(src/assets/pixel-art/body-side-48.svg)"
-          size="auto"
+          size="15px"
           repeat="no-repeat"
           position="center"
           role="tablist"
-          className="absolute h-full z-3 w-5 -left-1"
+          className="absolute h-full z-3 w-12 -left-5"
         />
         <RenderPixelArt
           src="url(src/assets/pixel-art/body-side-48.svg)"
-          size="auto"
+          size="15px"
           repeat="no-repeat"
           position="center"
           role="tablist"
-          className="absolute h-full z-3 w-5 -right-1"
+          className="absolute h-full z-3 w-12 -right-5"
           transform="rotate(180deg)"
         />
 
         <RenderPixelArt
           src="url(src/assets/pixel-art/body-48.svg)"
-          size="auto"
+          size="48px"
           repeat="repeat"
           position="center"
           role="tablist"
@@ -134,21 +154,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
               : "tabs tabs-box w-full gap-y-2 py-2 flex flex-col h-full md:flex-row items-center justify-between rounded-none"
           } relative`}
         >
-          <div className="flex w-full flex-row gap-x-2 lg:gap-x-4 md:w-1/2 lg:w-2/3 px-1">
-            <a
-              role="tab"
-              className={`flex items-center px-4 py-1 md:px-2 lg:w-40 bg-neutral-950 lg:bg-transparent justify-center lg:text-xl rounded-full ${
-                selectedCategory === "" && !isStatistics
-                  ? "text-white opacity-100 cursor-default"
-                  : "text-gray-400 hover:text-error cursor-pointer"
-              }`}
-              onClick={() => handleTabClick("")}
-            >
-              <span className="text-xs lg:text-sm">
-                <span className="hidden lg:block">All exercises</span>
-                <span className="lg:hidden px-1">All</span>
-              </span>
-            </a>
+          <div className="flex items-center w-full h-full flex-row gap-x-2 lg:gap-x-4 md:w-1/2 lg:w-2/3 px-1">
             <div className="gap-x-2 lg:gap-x-4 flex w-full justify-evenly">
               {categoryIcons.map((category, index) => (
                 <a
@@ -157,19 +163,10 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
                   onClick={() =>
                     handleTabClick(category.category as ExerciseCategory)
                   }
-                  className={`${getColorBackgroundForTagCategory(
-                    category.category as TagCategory
-                  )} lg:bg-transparent flex items-center justify-center px-2 w-10 lg:w-max rounded-full ${
-                    selectedCategory === category.category && !isStatistics
-                      ? "opacity-100 cursor-default"
-                      : "opacity-50 hover:text-error cursor-pointer"
-                  }`}
                 >
                   <div className="flex flex-row items-center gap-x-1">
-                    <div className="lg:hidden">{category.icon}</div>
-                    <div className="text-xs lg:text-sm hidden lg:block">
-                      {category.category.charAt(0).toUpperCase() +
-                        category.category.slice(1).toLowerCase()}
+                    <div className="lg:hidde cursor-pointer">
+                      {category.icon}
                     </div>
                   </div>
                 </a>
@@ -190,7 +187,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
               </span>
             </a>
           </div>
-          <label className="flex h-10 text-xs flex-row gap-0 bg-transparent w-full md:w-1/2 lg:w-1/3">
+          {/* <label className="flex h-10 text-xs flex-row gap-0 bg-transparent w-full md:w-1/2 lg:w-1/3">
             <div
               className="w-4 h-full"
               style={{
@@ -246,7 +243,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
                 transform: "rotate(180deg)",
               }}
             />
-          </label>
+          </label> */}
         </RenderPixelArt>
       </div>
     );
