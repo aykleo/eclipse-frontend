@@ -6,7 +6,7 @@ interface SearchInputProps {
 
 export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
   return (
-    <div className="h-8 w-1/2 lg:w-1/3 flex">
+    <div className="h-8 w-1/2 lg:w-1/3 flex opacity-50">
       <RenderPixelArt
         src="url(src/assets/pixel-art/search-input-side-32.svg)"
         size="auto"
