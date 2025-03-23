@@ -46,21 +46,30 @@ export const CardList = ({
       } flex size-full relative`}
     >
       <div
-        className={` ${
-          exerciseForUpdate ? "overflow-hidden" : "overflow-y-auto "
-        } ${
-          isCreatingTemplate
-            ? "grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:px-10 w-full lg:w-3/4"
-            : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 w-full"
-        } h-full no-scrollbar grid gap-y-8 pt-7 px-4 gap-x-3 justify-items-center items-start pb-2 min-h-screen`}
+        className={`${
+          isCreatingTemplate ? "w-full lg:w-3/4" : "w-full"
+        }  h-full relative`}
       >
-        <NewExerciseBtn
-          exerciseForUpdate={exerciseForUpdate}
-          setIsCreatingExercise={setIsCreatingExercise}
-          isCreatingExercise={isCreatingExercise}
-          setExerciseForUpdate={setExerciseForUpdate}
-        />
-        {children}
+        <div className="w-[calc(100%-1.5rem)] h-10 z-2 sticky top-28 bg-gradient-to-r from-neutral-950 to-red-950">
+          oii
+        </div>
+        <div
+          className={` ${
+            exerciseForUpdate ? "overflow-hidden" : "overflow-y-auto "
+          } ${
+            isCreatingTemplate
+              ? "grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:px-10"
+              : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 "
+          } h-full w-full no-scrollbar grid gap-y-8 pt-7 px-4 gap-x-3 justify-items-center items-start pb-2 min-h-screen`}
+        >
+          <NewExerciseBtn
+            exerciseForUpdate={exerciseForUpdate}
+            setIsCreatingExercise={setIsCreatingExercise}
+            isCreatingExercise={isCreatingExercise}
+            setExerciseForUpdate={setExerciseForUpdate}
+          />
+          {children}
+        </div>
       </div>
 
       {isCreatingTemplate && (
