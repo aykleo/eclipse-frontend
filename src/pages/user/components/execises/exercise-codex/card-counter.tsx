@@ -14,13 +14,13 @@ export const CardCounter = ({
 }: CardCounterProps) => {
   const getImageSrc = (length: number) => {
     if (length > 5) {
-      return "url(src/assets/pixel-art/card-counter-3.svg)";
+      return "url(src/assets/pixel-art/card-counter/card-counter-3.svg)";
     } else if (length >= 3) {
-      return "url(src/assets/pixel-art/card-counter-2.svg)";
+      return "url(src/assets/pixel-art/card-counter/card-counter-2.svg)";
     } else if (length > 0) {
-      return "url(src/assets/pixel-art/card-counter-1.svg)";
+      return "url(src/assets/pixel-art/card-counter/card-counter-1.svg)";
     } else {
-      return "url(src/assets/pixel-art/card-counter.svg)";
+      return "url(src/assets/pixel-art/card-counter/card-counter.svg)";
     }
   };
 
