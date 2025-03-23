@@ -1,6 +1,6 @@
 import { CircleFadingPlusIcon } from "lucide-react";
 import { Exercise } from "../../../../../utils/types/exercise-types";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 interface NewExerciseBtnProps {
   exerciseForUpdate: Exercise | null;
@@ -15,8 +15,20 @@ export const NewExerciseBtn = React.memo(
     setIsCreatingExercise,
     setExerciseForUpdate,
   }: NewExerciseBtnProps) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      if (containerRef.current) {
+        containerRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+    }, [containerRef]);
+
     return (
       <div
+        ref={containerRef}
         onClick={() => {
           setIsCreatingExercise(true);
           setExerciseForUpdate(null);

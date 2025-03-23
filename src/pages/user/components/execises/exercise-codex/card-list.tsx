@@ -4,6 +4,7 @@ import {
   TemplateExercise,
 } from "../../../../../utils/types/exercise-types";
 import { NewExerciseBtn } from "./new-exercise-btn";
+import { CodexPagination } from "./codex-pagination";
 
 const TemplateCreationList = lazy(
   () => import("../../template/template-creation-list")
@@ -22,8 +23,11 @@ interface CardListProps {
   setTemplateExercises: React.Dispatch<
     React.SetStateAction<TemplateExercise[]>
   >;
-
+  exerciseNumber?: number;
+  currentPage?: number;
   children?: React.ReactNode;
+  totalPages?: number;
+  setCurrentPage?: (page: number) => void;
 }
 
 export const CardList = ({
@@ -37,7 +41,11 @@ export const CardList = ({
   onRemoveExercise,
   setIsCreatingTemplate,
   setTemplateExercises,
+  exerciseNumber,
+  currentPage,
   children,
+  totalPages,
+  setCurrentPage,
 }: CardListProps) => {
   return (
     <div
@@ -50,13 +58,24 @@ export const CardList = ({
           isCreatingTemplate ? "w-full lg:w-3/4" : "w-full"
         }  h-full relative`}
       >
-        <div className="w-[calc(100%-1.5rem)] h-10 z-2 sticky top-28 bg-gradient-to-r from-neutral-950 to-red-950">
-          oii
+        <div className="w-full lg:w-[calc(100%-1.5rem)] h-10 z-2 sticky top-28 bg-transparent flex items-center justify-center">
+          {exerciseNumber &&
+            currentPage &&
+            `${exerciseNumber} exercise were found in page ${currentPage}`}
+          {!isCreatingExercise &&
+            !exerciseForUpdate &&
+            setCurrentPage &&
+            totalPages &&
+            currentPage && (
+              <CodexPagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+              />
+            )}
         </div>
         <div
-          className={` ${
-            exerciseForUpdate ? "overflow-hidden" : "overflow-y-auto "
-          } ${
+          className={`overflow-y-auto ${
             isCreatingTemplate
               ? "grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:px-10"
               : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 "
@@ -68,6 +87,7 @@ export const CardList = ({
             isCreatingExercise={isCreatingExercise}
             setExerciseForUpdate={setExerciseForUpdate}
           />
+
           {children}
         </div>
       </div>

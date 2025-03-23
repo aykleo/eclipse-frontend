@@ -132,7 +132,7 @@ export const ExerciseCodex = React.memo(
     return (
       <div className="relative w-full h-max flex-col flex items-center gap-y-0.5 bg-transparent justify-start">
         {statusText && <StatusToast statusText={statusText} />}
-        <div className="w-full fixed z-2">
+        <div className="w-full fixed z-999">
           <CodexSelector
             handleTabClick={handleTabClick}
             setSearchParams={setSearchParams}
@@ -171,6 +171,10 @@ export const ExerciseCodex = React.memo(
             <>
               {!isLoading ? (
                 <CardList
+                  setCurrentPage={setCurrentPage}
+                  totalPages={totalPages}
+                  exerciseNumber={exerciseData.exercises.length}
+                  currentPage={currentPage}
                   exerciseForUpdate={exerciseForUpdate}
                   setIsCreatingExercise={setIsCreatingExercise}
                   isCreatingExercise={isCreatingExercise}
@@ -209,6 +213,8 @@ export const ExerciseCodex = React.memo(
             </>
           ) : (
             <CardList
+              exerciseNumber={exerciseData?.exercises.length}
+              currentPage={currentPage}
               exerciseForUpdate={exerciseForUpdate}
               setIsCreatingExercise={setIsCreatingExercise}
               isCreatingExercise={isCreatingExercise}
@@ -238,13 +244,7 @@ export const ExerciseCodex = React.memo(
             />
           )}
         </ul>
-        {/* {!isStatistics && !isCreatingExercise && !exerciseForUpdate && (
-          <CodexPagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            setCurrentPage={setCurrentPage}
-          />
-        )} */}
+
         <DeleteExerciseModal />
       </div>
     );
