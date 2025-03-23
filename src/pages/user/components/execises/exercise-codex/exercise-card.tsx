@@ -7,6 +7,7 @@ import {
   Exercise,
   TemplateExercise,
 } from "../../../../../utils/types/exercise-types";
+import { RenderPixelArt } from "../../../../../components/pixel-art/render-pixel-art";
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -46,23 +47,22 @@ export const ExerciseCard = ({
   };
   return (
     <>
-      <div
+      <RenderPixelArt
         key={exercise.id}
         onClick={handleAddExerciseToTemplate}
-        className={` ${
-          exerciseForUpdate
-            ? exerciseForUpdate.id === exercise.id
-              ? // ? "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 scale-125 z-50"
-                ""
-              : " opacity-10 relative"
-            : "relative"
-        } ${getColorBackgroundForTagCategory(exercise.tag.category)} ${
+        src={
+          "url(src/assets/pixel-art/exercise-cards/generic-exercise-card.svg)"
+        }
+        size="auto"
+        repeat="no-repeat"
+        position="center"
+        className={`${
           !isCreatingTemplate
             ? "cursor-default"
             : "cursor-pointer hover:scale-105 transition-all duration-300"
-        } flex-col w-36 md:w-40 lg:w-48 md:h-64 h-56 lg:h-72 p-[1px] rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300`}
+        } flex-col w-[192px] h-[256px] flex items-center justify-center rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300 relative`}
       >
-        <div
+        {/* <div
           className={`${
             exercise.exerciseMuscleGroups.length < 2
               ? "hidden"
@@ -82,63 +82,52 @@ export const ExerciseCard = ({
                 <img
                   src={`src/assets/icons/muscle-group/${muscleGroup.muscleGroup.name}.png`}
                   alt={`${muscleGroup.muscleGroup.name} icon`}
-                  className={`size-5 bg-neutral-900 rounded-md rounded-b-none`}
+                  className={`size-5  rounded-md rounded-b-none`}
                 />
               </div>
             ))}
-        </div>
-        <div className="flex flex-col w-full gap-y-2 bg-gradient-to-b from-neutral-900 to-black rounded-md h-full relative p-1.5">
-          <span className="w-full px-1 h-14 flex">
-            {exercise.name ? (
-              <p className="truncate">{exercise.name}</p>
-            ) : (
-              "No name"
-            )}
-          </span>
-          <div className="flex w-full items-center justify-center py-2">
-            <div className="size-14 lg:size-24 flex overflow-hidden items-center justify-center opacity-50 rounded-full bg-black shadow-[1px_0px_10px_7px_rgba(255,255,255,1),-6px_-5px_5px_7px_rgba(255,255,255,0.1),0px_0px_50px_10px_rgba(255,0,0,0.8),0px_0px_15px_15px_rgba(255,0,0,1),inset_0px_0px_35px_2px_rgba(255,0,0,0.5)]">
-              {exercise.exerciseMuscleGroups
-                .filter((muscleGroup) => muscleGroup.isPrimary)
-                .map((muscleGroup) => (
-                  <div
-                    key={muscleGroup.muscleGroup.name}
-                    className="tooltip tooltip-bottom"
-                    data-tip={muscleGroup.muscleGroup.name}
-                  >
-                    <img
-                      src={`src/assets/icons/muscle-group/${muscleGroup.muscleGroup.name}.png`}
-                      alt={`${muscleGroup.muscleGroup.name} icon`}
-                      className="size-max "
-                    />
-                  </div>
-                ))}
-            </div>
+        </div> */}
+
+        <span className="w-[170px] h-[32px] justify-center px-2.5 absolute top-31.5">
+          <div className="size-full pt-1.5 truncate text-center">
+            {exercise.name ? <>{exercise.name}</> : "No name"}
           </div>
-          {exercise.tag.category ? (
-            <img
-              src={`src/assets/icons/category/${exercise.tag.category}.png`}
-              alt={`${exercise.tag.category} icon`}
-              style={{
-                clipPath:
-                  "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
-              }}
-              className={`${
-                exercise.tag.category
-                  ? getColorBackgroundForTagCategory(exercise.tag.category)
-                  : "bg-neutral-700"
-              } icon-class size-7 rounded-lg p-1 absolute -top-3.5 -right-3`}
-            />
-          ) : (
-            <div
-              style={{
-                clipPath:
-                  "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
-              }}
-              className="size-7 rounded-lg p-1 absolute -top-3.5 -right-3 bg-neutral-700"
-            />
-          )}
-          <div className="w-full flex flex-col gap-y-1 h-full relative">
-            <span className={`w-full px-1`}>
+        </span>
+
+        <div className="flex w-full items-center justify-center py-2 absolute top-0">
+          <div
+            className="size-36 flex overflow-show absolute -top-3.5 pt-4 opacity-50 items-center justify-center"
+            style={{ clipPath: "ellipse(25% 40% at 50% 50%)" }}
+          >
+            {exercise.exerciseMuscleGroups
+              .filter((muscleGroup) => muscleGroup.isPrimary)
+              .map((muscleGroup) => (
+                <div
+                  key={muscleGroup.muscleGroup.name}
+                  className="tooltip tooltip-bottom"
+                  data-tip={muscleGroup.muscleGroup.name}
+                >
+                  <img
+                    src={`src/assets/icons/muscle-group/${muscleGroup.muscleGroup.name}.png`}
+                    alt={`${muscleGroup.muscleGroup.name} icon`}
+                    className="size-17"
+                    style={{ imageRendering: "pixelated" }}
+                  />
+                </div>
+              ))}
+          </div>
+        </div>
+        {exercise.tag.category && (
+          <RenderPixelArt
+            src={`url(src/assets/pixel-art/exercise-cards/category-indicator-${exercise.tag.category}.svg)`}
+            position="center"
+            size="auto"
+            repeat="no-repeat"
+            className={` size-7 rounded-lg p-1 absolute top-28`}
+          />
+        )}
+
+        {/* <span className={`w-full px-1`}>
               <div
                 className={`${
                   exercise.tag.category
@@ -152,13 +141,13 @@ export const ExerciseCard = ({
               >
                 {exercise.tag.name ? exercise.tag.name : "No tag"}
               </div>
-            </span>
-            <div className="text-xs w-full overflow-y-auto h-full no-scrollbar pb-1">
-              {exercise.description
-                ? exercise.description
-                : "There is no description"}
-            </div>
-            {setSearchParams &&
+            </span> */}
+        <div className="h-[72px] text-xs p-1 absolute w-[156px] bottom-4 overflow-y-auto no-scrollbar">
+          {exercise.description
+            ? exercise.description
+            : "There is no description"}
+        </div>
+        {/* {setSearchParams &&
               exercise.id !== exerciseForUpdate?.id &&
               !isCreatingTemplate && (
                 <button
@@ -201,10 +190,8 @@ export const ExerciseCard = ({
               >
                 <CircleFadingArrowUp className="size-3.5 hover:text-white" />
               </button>
-            )}
-          </div>
-        </div>
-      </div>
+            )} */}
+      </RenderPixelArt>
     </>
   );
 };

@@ -40,7 +40,7 @@ export const NewExerciseBtn = React.memo(
           </div>
         </span>
 
-        <div className="h-[72px] text-xs border p-1 absolute w-[156px] bottom-4 overflow-y-auto no-scrollbar ">
+        <div className="h-[72px] text-xs p-1 absolute w-[156px] bottom-4 overflow-y-auto no-scrollbar">
           Activate to create a new exercise
         </div>
       </RenderPixelArt>
