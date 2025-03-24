@@ -1,8 +1,3 @@
-import { CircleFadingArrowUp, Trash2Icon } from "lucide-react";
-import {
-  getColorBackgroundForTagCategory,
-  getColorClassForTagCategory,
-} from "../../../../../utils/tag-colors";
 import {
   Exercise,
   TemplateExercise,
@@ -88,35 +83,25 @@ export const ExerciseCard = ({
             ))}
         </div> */}
 
+        <div className="flex w-full items-center absolute top-6 justify-center pt-3">
+          {exercise.exerciseMuscleGroups
+            .filter((muscleGroup) => muscleGroup.isPrimary)
+            .map((muscleGroup) => (
+              <img
+                key={muscleGroup.muscleGroup.name}
+                src={`src/assets/pixel-art/muscles/${muscleGroup.muscleGroup.name}.svg`}
+                alt={`${muscleGroup.muscleGroup.name} icon`}
+                className="size-16"
+              />
+            ))}
+        </div>
+
         <span className="w-[170px] h-[32px] justify-center px-2.5 absolute top-31.5">
           <div className="size-full pt-1.5 truncate text-center">
             {exercise.name ? <>{exercise.name}</> : "No name"}
           </div>
         </span>
 
-        <div className="flex w-full items-center justify-center py-2 absolute top-0">
-          <div
-            className="size-36 flex overflow-show absolute -top-3.5 pt-4 opacity-50 items-center justify-center"
-            style={{ clipPath: "ellipse(25% 40% at 50% 50%)" }}
-          >
-            {exercise.exerciseMuscleGroups
-              .filter((muscleGroup) => muscleGroup.isPrimary)
-              .map((muscleGroup) => (
-                <div
-                  key={muscleGroup.muscleGroup.name}
-                  className="tooltip tooltip-bottom"
-                  data-tip={muscleGroup.muscleGroup.name}
-                >
-                  <img
-                    src={`src/assets/icons/muscle-group/${muscleGroup.muscleGroup.name}.png`}
-                    alt={`${muscleGroup.muscleGroup.name} icon`}
-                    className="size-17"
-                    style={{ imageRendering: "pixelated" }}
-                  />
-                </div>
-              ))}
-          </div>
-        </div>
         {exercise.tag.category && (
           <RenderPixelArt
             src={`url(src/assets/pixel-art/exercise-cards/category-indicator-${exercise.tag.category}.svg)`}
@@ -142,55 +127,58 @@ export const ExerciseCard = ({
                 {exercise.tag.name ? exercise.tag.name : "No tag"}
               </div>
             </span> */}
-        <div className="h-[72px] text-xs p-1 absolute w-[156px] bottom-4 overflow-y-auto no-scrollbar">
+        <div className="h-[72px] text-xs p-1 absolute w-[156px] break-words bottom-4 overflow-y-auto no-scrollbar">
           {exercise.description
             ? exercise.description
             : "There is no description"}
         </div>
-        {/* {setSearchParams &&
-              exercise.id !== exerciseForUpdate?.id &&
-              !isCreatingTemplate && (
-                <button
-                  className="cursor-pointer absolute left-0 -bottom-0"
-                  disabled={exercise.id === exerciseForUpdate?.id}
-                  onClick={async () => {
-                    setSearchParams(
-                      (prev) => {
-                        prev.set("exerciseToDeleteId", exercise.id);
-                        prev.set("exerciseToDeleteName", exercise.name);
-                        return prev;
-                      },
-                      { replace: true }
-                    );
-                    const modal = document.getElementById(
-                      "delete_exercise_modal"
-                    ) as HTMLDialogElement;
-                    modal?.showModal();
-                  }}
-                >
-                  <Trash2Icon className="size-3.5 text-gray-400 hover:text-white" />
-                </button>
-              )}
-            {setExerciseForUpdate && !isCreatingTemplate && (
-              <button
-                className={`cursor-pointer absolute right-0 -bottom-0 ${
-                  exercise.id === exerciseForUpdate?.id
-                    ? `${getColorClassForTagCategory(
-                        exercise.tag.category
-                      )} animate-pulse `
-                    : "text-gray-400"
-                }`}
-                onClick={() => {
-                  setExerciseForUpdate(exercise);
+        {setSearchParams && exercise.id !== exerciseForUpdate?.id && (
+          <button
+            className={`cursor-pointer absolute left-[47px] top-[5px] size-6 rounded-full ${
+              isCreatingTemplate && "bg-neutral-800/50"
+            }`}
+            disabled={
+              exercise.id === exerciseForUpdate?.id || isCreatingTemplate
+            }
+            onClick={async () => {
+              setSearchParams(
+                (prev) => {
+                  prev.set("exerciseToDeleteId", exercise.id);
+                  prev.set("exerciseToDeleteName", exercise.name);
+                  return prev;
+                },
+                { replace: true }
+              );
+              const modal = document.getElementById(
+                "delete_exercise_modal"
+              ) as HTMLDialogElement;
+              modal?.showModal();
+            }}
+          />
+        )}
+        <button
+          className={`cursor-pointer absolute top-[5px] size-6 rounded-full ${
+            isCreatingTemplate && "bg-neutral-800/50"
+          }`}
+          disabled={exercise.id === exerciseForUpdate?.id || isCreatingTemplate}
+        />
+        {setExerciseForUpdate && (
+          <button
+            className={`cursor-pointer absolute right-[47px] top-[5px] size-6 rounded-full ${
+              isCreatingTemplate && "bg-neutral-800/50"
+            }`}
+            disabled={
+              exercise.id === exerciseForUpdate?.id || isCreatingTemplate
+            }
+            onClick={() => {
+              setExerciseForUpdate(exercise);
 
-                  if (exercise.id === exerciseForUpdate?.id) {
-                    setExerciseForUpdate(null);
-                  }
-                }}
-              >
-                <CircleFadingArrowUp className="size-3.5 hover:text-white" />
-              </button>
-            )} */}
+              if (exercise.id === exerciseForUpdate?.id) {
+                setExerciseForUpdate(null);
+              }
+            }}
+          />
+        )}
       </RenderPixelArt>
     </>
   );

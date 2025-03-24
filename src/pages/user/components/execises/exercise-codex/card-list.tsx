@@ -58,7 +58,7 @@ export const CardList = ({
           isCreatingTemplate ? "w-full lg:w-3/4" : "w-full"
         }  h-full relative`}
       >
-        <div className="w-full lg:w-[calc(100%-1.5rem)] h-10 z-2 sticky top-28 bg-transparent flex items-center justify-center">
+        {/* <div className="w-full lg:w-[calc(100%-1.5rem)] h-10 z-2 sticky top-28 bg-transparent flex items-center justify-center">
           {exerciseNumber &&
             currentPage &&
             `${exerciseNumber} exercise were found in page ${currentPage}`}
@@ -73,7 +73,7 @@ export const CardList = ({
                 setCurrentPage={setCurrentPage}
               />
             )}
-        </div>
+        </div> */}
         <div
           className={`overflow-y-auto ${
             isCreatingTemplate
@@ -82,7 +82,6 @@ export const CardList = ({
           } h-full w-full no-scrollbar grid gap-y-8 pt-7 px-4 gap-x-3 justify-items-center items-start pb-2 min-h-screen`}
         >
           <NewExerciseBtn
-            
             setIsCreatingExercise={setIsCreatingExercise}
             isCreatingExercise={isCreatingExercise}
             setExerciseForUpdate={setExerciseForUpdate}
