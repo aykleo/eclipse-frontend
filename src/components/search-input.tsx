@@ -1,4 +1,4 @@
-import { RenderPixelArt } from "./pixel-art/render-pixel-art";
+import { RenderSvg } from "./pixel-art/render-svg";
 
 interface SearchInputProps {
   setSearchTerm: (searchTerm: string) => void;
@@ -7,7 +7,7 @@ interface SearchInputProps {
 export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
   return (
     <div className="h-8 w-1/2 lg:w-1/3 flex opacity-50">
-      <RenderPixelArt
+      <RenderSvg
         src="url(src/assets/pixel-art/search-input-side-32.svg)"
         size="auto"
         repeat="no-repeat"
@@ -15,7 +15,7 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
         className="size-8"
       />
 
-      <RenderPixelArt
+      <RenderSvg
         src="url(src/assets/pixel-art/body-32-input.svg)"
         size="auto"
         repeat="repeat"
@@ -29,8 +29,8 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
           className="focus:outline-0 focus:ring-0 border-none outline-none ring-0 focus:border-none w-full h-full py-2"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-      </RenderPixelArt>
-      <RenderPixelArt
+      </RenderSvg>
+      <RenderSvg
         src="url(src/assets/pixel-art/side-32-input.svg)"
         size="auto"
         repeat="no-repeat"

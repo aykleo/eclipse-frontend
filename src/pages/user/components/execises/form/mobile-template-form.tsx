@@ -22,7 +22,7 @@ import {
   horizontalListSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-import { RenderPixelArt } from "../../../../../components/pixel-art/render-pixel-art";
+import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 
 interface MobileTemplateFormProps {
   templateExercises: TemplateExercise[];
@@ -121,7 +121,7 @@ const MobileTemplateForm = React.memo(
     };
 
     return (
-      <RenderPixelArt
+      <RenderSvg
         src="url(src/assets/pixel-art/body-96-2.svg)"
         size="auto"
         repeat="repeat"
@@ -130,14 +130,14 @@ const MobileTemplateForm = React.memo(
           showNameInput ? "bg-neutral-950" : ""
         }  relative w-9/10 p-1 h-24`}
       >
-        <RenderPixelArt
+        <RenderSvg
           src="url(src/assets/pixel-art/body-side-96.svg)"
           size="auto"
           repeat="no-repeat"
           position="center"
           className="absolute top-0 h-full -left-1.5 w-2"
         />
-        <RenderPixelArt
+        <RenderSvg
           src="url(src/assets/pixel-art/body-side-96.svg)"
           size="auto"
           repeat="no-repeat"
@@ -240,7 +240,7 @@ const MobileTemplateForm = React.memo(
             </button>
           </div>
         </form>
-      </RenderPixelArt>
+      </RenderSvg>
     );
   }
 );

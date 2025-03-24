@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
-import { RenderPixelArt } from "../../../../../components/pixel-art/render-pixel-art";
+import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 import {
   categoryIcons,
   ExerciseCategory,
@@ -41,7 +41,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
 
     return (
       <div className="relative h-12">
-        <RenderPixelArt
+        <RenderSvg
           src="url(src/assets/pixel-art/body-side-48.svg)"
           size="15px"
           repeat="no-repeat"
@@ -49,7 +49,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
           role="tablist"
           className="absolute h-full z-3 w-12 -left-5"
         />
-        <RenderPixelArt
+        <RenderSvg
           src="url(src/assets/pixel-art/body-side-48.svg)"
           size="15px"
           repeat="no-repeat"
@@ -59,7 +59,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
           transform="rotate(180deg)"
         />
 
-        <RenderPixelArt
+        <RenderSvg
           src="url(src/assets/pixel-art/body-48.svg)"
           size="48px"
           repeat="repeat"
@@ -93,7 +93,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
             </div>
           </div>
           <SearchInput setSearchTerm={setSearchTerm} />
-        </RenderPixelArt>
+        </RenderSvg>
       </div>
     );
   }

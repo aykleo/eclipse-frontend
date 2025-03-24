@@ -4,7 +4,7 @@ type size = "auto" | "cover" | "contain" | string;
 type position = "center" | "top" | "bottom" | "left" | "right" | string;
 type repeat = "no-repeat" | "repeat" | "repeat-x" | "repeat-y";
 
-interface RenderPixelArtProps {
+interface RenderSvgProps {
   src: string;
   className: string;
   size: size;
@@ -16,10 +16,7 @@ interface RenderPixelArtProps {
   onClick?: () => void;
 }
 
-export const RenderPixelArt = React.forwardRef<
-  HTMLDivElement,
-  RenderPixelArtProps
->(
+export const RenderSvg = React.forwardRef<HTMLDivElement, RenderSvgProps>(
   (
     {
       src,

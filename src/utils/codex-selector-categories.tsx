@@ -1,4 +1,4 @@
-import { RenderPixelArt } from "../components/pixel-art/render-pixel-art";
+import { RenderSvg } from "../components/pixel-art/render-svg";
 
 export type ExerciseCategory =
   | ""
@@ -11,7 +11,7 @@ export const categoryIcons = [
   {
     category: "",
     openIcon: (
-      <RenderPixelArt
+      <RenderSvg
         src={`url(src/assets/pixel-art/buttons/btn-all-open.svg)`}
         size="auto"
         repeat="no-repeat"
@@ -20,7 +20,7 @@ export const categoryIcons = [
       />
     ),
     icon: (
-      <RenderPixelArt
+      <RenderSvg
         src={`url(src/assets/pixel-art/buttons/btn-all-24.svg)`}
         size="auto"
         repeat="no-repeat"
@@ -32,7 +32,7 @@ export const categoryIcons = [
   {
     category: "ENDURANCE",
     openIcon: (
-      <RenderPixelArt
+      <RenderSvg
         src={`url(src/assets/pixel-art/buttons/btn-endurance-open.svg)`}
         size="auto"
         repeat="no-repeat"
@@ -41,7 +41,7 @@ export const categoryIcons = [
       />
     ),
     icon: (
-      <RenderPixelArt
+      <RenderSvg
         src={`url(src/assets/pixel-art/buttons/btn-endurance-24.svg)`}
         size="auto"
         repeat="no-repeat"
@@ -53,7 +53,7 @@ export const categoryIcons = [
   {
     category: "MOVEMENT",
     openIcon: (
-      <RenderPixelArt
+      <RenderSvg
         src={`url(src/assets/pixel-art/buttons/btn-movement-open.svg)`}
         size="auto"
         repeat="no-repeat"
@@ -62,7 +62,7 @@ export const categoryIcons = [
       />
     ),
     icon: (
-      <RenderPixelArt
+      <RenderSvg
         src={`url(src/assets/pixel-art/buttons/btn-movement-24.svg)`}
         size="auto"
         repeat="no-repeat"
@@ -74,7 +74,7 @@ export const categoryIcons = [
   {
     category: "PLYOMETRICS",
     openIcon: (
-      <RenderPixelArt
+      <RenderSvg
         src={`url(src/assets/pixel-art/buttons/btn-plyometrics-open.svg)`}
         size="auto"
         repeat="no-repeat"
@@ -83,7 +83,7 @@ export const categoryIcons = [
       />
     ),
     icon: (
-      <RenderPixelArt
+      <RenderSvg
         src={`url(src/assets/pixel-art/buttons/btn-plyometrics-24.svg)`}
         size="auto"
         repeat="no-repeat"
@@ -95,7 +95,7 @@ export const categoryIcons = [
   {
     category: "STRENGTH",
     openIcon: (
-      <RenderPixelArt
+      <RenderSvg
         src={`url(src/assets/pixel-art/buttons/btn-strength-open.svg)`}
         size="auto"
         repeat="no-repeat"
@@ -104,7 +104,7 @@ export const categoryIcons = [
       />
     ),
     icon: (
-      <RenderPixelArt
+      <RenderSvg
         src={`url(src/assets/pixel-art/buttons/btn-strength-24.svg)`}
         size="auto"
         repeat="no-repeat"

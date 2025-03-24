@@ -1,5 +1,5 @@
 import { TemplateExercise } from "../../../../../utils/types/exercise-types";
-import { RenderPixelArt } from "../../../../../components/pixel-art/render-pixel-art";
+import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 
 interface CardCounterProps {
   isCreatingTemplate: boolean;
@@ -25,7 +25,7 @@ export const CardCounter = ({
   };
 
   return (
-    <RenderPixelArt
+    <RenderSvg
       src={getImageSrc(templateExercises.length)}
       size={`${isCreatingTemplate ? "96px" : "48px"}`}
       repeat="no-repeat"
@@ -38,7 +38,7 @@ export const CardCounter = ({
         onClick={() => setIsCreatingTemplate(!isCreatingTemplate)}
         className={`size-8/10 relative rounded-lg cursor-pointer flex items-center justify-center`}
       >
-        <RenderPixelArt
+        <RenderSvg
           src="url(src/assets/pixel-art/portrait-32.svg)"
           size="auto"
           repeat="no-repeat"
@@ -52,8 +52,8 @@ export const CardCounter = ({
             : isCreatingTemplate
             ? "0"
             : ""}
-        </RenderPixelArt>
+        </RenderSvg>
       </button>
-    </RenderPixelArt>
+    </RenderSvg>
   );
 };

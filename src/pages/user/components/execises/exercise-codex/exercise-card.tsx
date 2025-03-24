@@ -2,7 +2,8 @@ import {
   Exercise,
   TemplateExercise,
 } from "../../../../../utils/types/exercise-types";
-import { RenderPixelArt } from "../../../../../components/pixel-art/render-pixel-art";
+import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
+import { RenderPng } from "../../../../../components/pixel-art/render-png";
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -42,20 +43,17 @@ export const ExerciseCard = ({
   };
   return (
     <>
-      <RenderPixelArt
+      <RenderPng
         key={exercise.id}
         onClick={handleAddExerciseToTemplate}
-        src={
-          "url(src/assets/pixel-art/exercise-cards/generic-exercise-card.svg)"
-        }
-        size="auto"
-        repeat="no-repeat"
-        position="center"
         className={`${
           !isCreatingTemplate
             ? "cursor-default"
             : "cursor-pointer hover:scale-105 transition-all duration-300"
         } flex-col w-[192px] h-[256px] flex items-center justify-center rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300 relative`}
+        src="src/assets/pixel-art/exercise-cards/generic-exercise-card.png"
+        alt="exercise-card"
+        imgClassName="absolute top-0 left-0 w-full h-full"
       >
         {/* <div
           className={`${
@@ -103,7 +101,7 @@ export const ExerciseCard = ({
         </span>
 
         {exercise.tag.category && (
-          <RenderPixelArt
+          <RenderSvg
             src={`url(src/assets/pixel-art/exercise-cards/category-indicator-${exercise.tag.category}.svg)`}
             position="center"
             size="auto"
@@ -132,10 +130,12 @@ export const ExerciseCard = ({
             ? exercise.description
             : "There is no description"}
         </div>
-        {setSearchParams && exercise.id !== exerciseForUpdate?.id && (
+        {setSearchParams && (
           <button
             className={`cursor-pointer absolute left-[47px] top-[5px] size-6 rounded-full ${
-              isCreatingTemplate && "bg-neutral-800/50"
+              exercise.id === exerciseForUpdate?.id || isCreatingTemplate
+                ? "bg-neutral-800/50"
+                : ""
             }`}
             disabled={
               exercise.id === exerciseForUpdate?.id || isCreatingTemplate
@@ -158,14 +158,18 @@ export const ExerciseCard = ({
         )}
         <button
           className={`cursor-pointer absolute top-[5px] size-6 rounded-full ${
-            isCreatingTemplate && "bg-neutral-800/50"
+            exercise.id === exerciseForUpdate?.id || isCreatingTemplate
+              ? "bg-neutral-800/50"
+              : ""
           }`}
           disabled={exercise.id === exerciseForUpdate?.id || isCreatingTemplate}
         />
         {setExerciseForUpdate && (
           <button
             className={`cursor-pointer absolute right-[47px] top-[5px] size-6 rounded-full ${
-              isCreatingTemplate && "bg-neutral-800/50"
+              exercise.id === exerciseForUpdate?.id || isCreatingTemplate
+                ? "bg-neutral-800/50"
+                : ""
             }`}
             disabled={
               exercise.id === exerciseForUpdate?.id || isCreatingTemplate
@@ -179,7 +183,7 @@ export const ExerciseCard = ({
             }}
           />
         )}
-      </RenderPixelArt>
+      </RenderPng>
     </>
   );
 };

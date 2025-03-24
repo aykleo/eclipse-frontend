@@ -51,7 +51,7 @@ export const CardList = ({
     <div
       className={`${
         isCreatingExercise || exerciseForUpdate ? "hidden" : ""
-      } flex size-full relative`}
+      } flex size-full relative bg-red-950/50`}
     >
       <div
         className={`${
