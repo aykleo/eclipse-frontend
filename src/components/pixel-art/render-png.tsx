@@ -6,7 +6,10 @@ interface RenderPngProps {
   key?: string | number;
   onClick?: () => void;
   children?: React.ReactNode;
-  ref?: React.RefObject<HTMLDivElement>;
+  ref?:
+    | React.RefObject<HTMLDivElement>
+    | ((element: HTMLDivElement | null) => void);
+  style?: React.CSSProperties;
 }
 
 export const RenderPng = ({
@@ -18,9 +21,16 @@ export const RenderPng = ({
   onClick,
   children,
   ref,
+  style,
 }: RenderPngProps) => {
   return (
-    <div key={key} onClick={onClick} className={className} ref={ref}>
+    <div
+      key={key}
+      onClick={onClick}
+      className={className}
+      ref={ref}
+      style={style}
+    >
       <img src={src} alt={alt} className={imgClassName} />
       {children}
     </div>

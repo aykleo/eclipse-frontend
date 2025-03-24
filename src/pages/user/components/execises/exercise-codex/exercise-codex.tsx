@@ -155,7 +155,7 @@ export const ExerciseCodex = React.memo(
             />
           </div>
           {isCreatingTemplate && templateExercises && (
-            <div className="fixed bottom-10  right-0 flex justify-center items-center z-100 lg:hidden w-full">
+            <div className="fixed bottom-10 right-0 flex justify-center items-center z-100 lg:hidden w-full">
               <React.Suspense fallback={<div>Loading...</div>}>
                 <MobileTemplateForm
                   templateExercises={templateExercises}

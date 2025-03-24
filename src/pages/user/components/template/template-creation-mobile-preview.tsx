@@ -1,7 +1,7 @@
-import { NotebookPenIcon, TrashIcon } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { RenderPng } from "../../../../components/pixel-art/render-png";
 
 interface TemplateCreationMobilePreviewProps {
   exerciseId: string;
@@ -72,12 +72,14 @@ export const TemplateCreationMobilePreview = React.memo(
     };
 
     return (
-      <div
-        ref={setRefs}
+      <RenderPng
         style={style}
-        className={`flex flex-col relative gap-2 h-19 min-w-26 max-w-26 bg-gradient-to-t from-neutral-950 to-neutral-950 text-xs rounded-sm hover:bg-neutral-800/50 transition-colors ${
+        ref={setRefs}
+        src="/src/assets/pixel-art/exercise-cards/card-preview-mobile.png"
+        alt="Template creation mobile preview"
+        className={`flex h-[80px] min-w-[104px] max-w-[104px] text-xs ${
           isDragging ? "opacity-50 z-50" : ""
-        } touch-none`}
+        } touch-none relative`}
       >
         {showNotes && (
           <div className="fixed inset-0 bg-black/25 backdrop-blur-xs flex items-center justify-center z-50">
@@ -102,33 +104,38 @@ export const TemplateCreationMobilePreview = React.memo(
         )}
 
         <>
-          <span className="text-xs size-4 flex items-center justify-center absolute -right-1 -top-1 rounded-full bg-red-950 p-0.5">
+          <span className="text-xs size-4 flex items-center justify-center absolute right-1 top-[2px] rounded-full p-0.5">
             {exerciseOrder}
           </span>
-          <div className="flex flex-col gap-y-0.5 justify-between h-full">
-            <div className="truncate pl-1 pr-3.5 text-error">
-              {exerciseName}
-            </div>
-            {notes && (
-              <span
-                {...attributes}
-                {...listeners}
-                className="h-11 text-xs px-1 text-error w-full text-center cursor-grab active:cursor-grabbing transition-colors"
-              >
-                Has notes
-              </span>
-            )}
-            <div className="flex flex-row gap-1 items-end justify-between px-1.5 w-full pb-1">
-              <div onClick={handleRemove}>
-                <TrashIcon className="size-4 cursor-pointer text-red-500" />
-              </div>
-              <p onClick={handleNotesToggle}>
-                <NotebookPenIcon className="size-4 cursor-pointer text-warning" />
-              </p>
-            </div>
+
+          <div className="truncate absolute top-[18px] left-[16px] w-[74px] h-4 text-center">
+            {exerciseName}
           </div>
+
+          <span
+            className={`h-[14px] w-[80px] absolute top-[40px] right-3 text-xs px-1 text-center ${
+              notes ? "text-warning" : "text-gray-500"
+            }`}
+          >
+            {notes ? "Has notes" : "No notes"}
+          </span>
+
+          <div
+            {...attributes}
+            {...listeners}
+            className="absolute right-0 top-[34px] h-[22px] w-[14px] text-xs px-1 text-center cursor-grab active:cursor-grabbing transition-colors"
+          />
+
+          <div
+            onClick={handleRemove}
+            className="absolute top-[0px] left-[0px] border cursor-pointer rounded-full size-[22px]"
+          />
+          <div
+            onClick={handleNotesToggle}
+            className="absolute bottom-[0px] border left-[0px] cursor-pointer rounded-full size-[22px]"
+          />
         </>
-      </div>
+      </RenderPng>
     );
   }
 );
