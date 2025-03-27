@@ -13,6 +13,18 @@
   scrollbar-width: none;
 }
 
+.input-clean {
+  outline: none;
+  border: none;
+  ring: 0;
+}
+
+.input-clean:focus {
+  outline: none;
+  border: none;
+  ring: 0;
+}
+
 @theme {
   --font-orbitron: "Orbitron", serif;
   --font-marker: "Permanent Marker", cursive;

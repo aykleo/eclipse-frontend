@@ -16,7 +16,7 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
       />
 
       <RenderSvg
-        src="url(src/assets/pixel-art/body/body-32-input.svg)"
+        src="url(src/assets/pixel-art/body-32-input.svg)"
         size="auto"
         repeat="repeat"
         position="center"
@@ -26,7 +26,7 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
           type="search"
           required
           placeholder="Search"
-          className="focus:outline-0 focus:ring-0 border-none outline-none ring-0 focus:border-none w-full h-full py-2"
+          className="input-clean w-full h-full py-2"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </RenderSvg>

@@ -9,6 +9,7 @@ import { getColorClassForTagCategory } from "../../../../../utils/tag-colors";
 import { StatusToast } from "../../../../../components/status-toast";
 import { ExerciseCard } from "../../../../../components/exercise/exercise-card";
 import { EyeIcon } from "lucide-react";
+import { Input } from "../../../../../components/forms/input";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;
@@ -96,15 +97,15 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     }, []);
 
     return (
-      <div className="form-control relative w-full flex flex-col px-2  rounded-md justify-between h-full">
+      <div className="form-control relative w-full flex flex-col px-2 bg-stone-950 justify-between h-full">
         <form
           action="create_exercise"
           className="size-full flex flex-col"
           onSubmit={handleSubmit}
           ref={formRef}
         >
-          <div className="text-4xl py-2 font-bold flex flex-col gap-y-1 h-24 w-full px-2">
-            <div className="flex w-full flex-row items-center justify-between relative">
+          <div className="text-4xl py-2 font-bold flex flex-col gap-y-1 w-full px-2">
+            <div className="flex w-full flex-row items-center justify-between relative opacity-80">
               <h1
                 className={`${
                   exerciseForUpdate
@@ -152,29 +153,23 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
           <div className="flex flex-col gap-y-2 px-1 h-full overflow-y-auto no-scrollbar">
             <div className="grid grid-cols-3 gap-x-6">
               <div className="gap-y-1 flex flex-col col-start-1 col-span-3 md:col-span-1">
-                <div className="gap-y-1 flex flex-col">
-                  <label className="label">
-                    <span className="label-text text-sm">Name</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    className="input input-error w-full"
-                    name="name"
-                    defaultValue={
-                      exerciseForUpdate ? exerciseForUpdate.name : ""
+                <Input
+                  hasLabel={true}
+                  label="Name"
+                  type="text"
+                  placeholder="Name"
+                  name="name"
+                  required
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    exerciseNameRef.current = e.target.value;
+                    if (e.target.value.length > 2) {
+                      setCardRender(!cardRender);
+                    } else {
+                      setCardRender(!cardRender);
                     }
-                    required
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      exerciseNameRef.current = e.target.value;
-                      if (e.target.value.length > 2) {
-                        setCardRender(!cardRender);
-                      } else {
-                        setCardRender(!cardRender);
-                      }
-                    }}
-                  />
-                </div>
+                  }}
+                />
+
                 <div className="gap-y-1 flex flex-col">
                   <label className="label">
                     <span className="label-text text-sm">Category</span>
@@ -205,29 +200,25 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                     ))}
                   </select>
                 </div>
-                <div className="gap-y-1 flex flex-col">
-                  <label className="label">
-                    <span className="label-text text-sm">Type</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Bodyweight, weighted, cardio, yoga, etc"
-                    className="input input-error w-full "
-                    name="tagName"
-                    defaultValue={
-                      exerciseForUpdate ? exerciseForUpdate.tag.name : ""
+                <Input
+                  hasLabel={true}
+                  label="Type"
+                  type="text"
+                  placeholder="Bodyweight, weighted, cardio, yoga, etc"
+                  name="tagName"
+                  defaultValue={
+                    exerciseForUpdate ? exerciseForUpdate.tag.name : ""
+                  }
+                  required
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    exerciseTagNameRef.current = e.target.value;
+                    if (e.target.value.length > 2) {
+                      setCardRender(!cardRender);
+                    } else {
+                      setCardRender(!cardRender);
                     }
-                    required
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      exerciseTagNameRef.current = e.target.value;
-                      if (e.target.value.length > 2) {
-                        setCardRender(!cardRender);
-                      } else {
-                        setCardRender(!cardRender);
-                      }
-                    }}
-                  />
-                </div>
+                  }}
+                />
 
                 <div className="gap-y-1 flex flex-col h-full">
                   <label className="label">
