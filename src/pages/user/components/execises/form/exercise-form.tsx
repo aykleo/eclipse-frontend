@@ -7,7 +7,7 @@ import {
 } from "../../../../../utils/types/exercise-types";
 import { getColorClassForTagCategory } from "../../../../../utils/tag-colors";
 import { StatusToast } from "../../../../../components/status-toast";
-import { ExerciseCard } from "../exercise-codex/exercise-card";
+import { ExerciseCard } from "../../../../../components/exercise/exercise-card";
 import { EyeIcon } from "lucide-react";
 
 interface ExerciseFormProps {
