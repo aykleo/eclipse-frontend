@@ -1,17 +1,18 @@
 import { RenderSvg } from "../pixel-art/render-svg";
 import { useState, useRef, useEffect } from "react";
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
-interface SelectProps {
-  label: string;
+interface SelectProps
+  extends Omit<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    "onClick" | "onChange"
+  > {
+  label?: string;
   options: React.ReactNode | React.ReactNode[] | string[];
-  defaultValue: string;
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  name?: string;
   hasLabel?: boolean;
-  required?: boolean;
-  disabled?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   placeholder?: string;
+  required?: boolean;
 }
 
 export const Select = ({
@@ -23,6 +24,9 @@ export const Select = ({
   hasLabel,
   required,
   placeholder,
+  disabled,
+  className,
+  ...props
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(defaultValue);
@@ -112,7 +116,10 @@ export const Select = ({
 
   return (
     <>
-      <div className="gap-y-1 flex flex-col text" ref={dropdownRef}>
+      <div
+        className={`gap-y-1 flex flex-col text ${className || ""}`}
+        ref={dropdownRef}
+      >
         {hasLabel && (
           <div className="w-full pl-5">
             <label className="label">
@@ -134,7 +141,7 @@ export const Select = ({
             size="auto"
             repeat="repeat"
             position="center"
-            className="h-full w-7/10 sm:w-8/10 pl-1"
+            className="h-full w-full pl-1"
           >
             <button
               type="button"
@@ -142,8 +149,8 @@ export const Select = ({
                 required && !selectedValue ? "text-error" : ""
               }`}
               onClick={() => setIsOpen(!isOpen)}
-              aria-required={required}
-              aria-invalid={required && !selectedValue}
+              disabled={disabled}
+              {...props}
             >
               {selectedValue || placeholder}
               <RenderSvg
@@ -163,7 +170,7 @@ export const Select = ({
                     size="auto"
                     repeat="repeat"
                     position="center"
-                    className="h-full overflow-auto mx-[8px] pt-2"
+                    className="h-full overflow-auto no-scrollbar mx-[8px] py-2"
                   >
                     {renderOptions()}
                   </RenderSvg>

@@ -12,6 +12,7 @@ import { EyeIcon } from "lucide-react";
 import { Input } from "../../../../../components/forms/input";
 import { Select } from "../../../../../components/forms/select";
 import { MuscleGroupSelect } from "../../../../../components/forms/muscle-group-select";
+import { TextArea } from "../../../../../components/forms/text-area";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;
@@ -162,6 +163,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   placeholder="Name"
                   name="name"
                   required
+                  defaultValue={exerciseForUpdate ? exerciseForUpdate.name : ""}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     exerciseNameRef.current = e.target.value;
                     if (e.target.value.length > 2) {
@@ -217,31 +219,23 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   }}
                 />
 
-                <div className="gap-y-1 flex flex-col h-full">
-                  <label className="label">
-                    <span className="label-text text-sm">
-                      Optional description
-                    </span>
-                  </label>
-                  <fieldset className="fieldset">
-                    <textarea
-                      className="textarea textarea-error w-full h-full min-h-32"
-                      placeholder="..."
-                      defaultValue={
-                        exerciseForUpdate ? exerciseForUpdate.description : ""
-                      }
-                      name="description"
-                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                        exerciseDescriptionRef.current = e.target.value;
-                        if (e.target.value.length >= 5) {
-                          setCardRender(!cardRender);
-                        } else {
-                          setCardRender(!cardRender);
-                        }
-                      }}
-                    />
-                  </fieldset>
-                </div>
+                <TextArea
+                  hasLabel={true}
+                  label="Description"
+                  name="description"
+                  placeholder="..."
+                  defaultValue={
+                    exerciseForUpdate ? exerciseForUpdate.description : ""
+                  }
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                    exerciseDescriptionRef.current = e.target.value;
+                    if (e.target.value.length >= 5) {
+                      setCardRender(!cardRender);
+                    } else {
+                      setCardRender(!cardRender);
+                    }
+                  }}
+                />
               </div>
 
               <div className="hidden md:col-start-2 col-span-1 md:flex size-full items-center justify-center">

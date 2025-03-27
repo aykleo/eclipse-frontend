@@ -1,26 +1,12 @@
 import { RenderSvg } from "../pixel-art/render-svg";
+import { InputHTMLAttributes } from "react";
 
-interface InputProps {
-  label: string;
-  type: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  placeholder: string;
-  defaultValue?: string;
-  name?: string;
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
   hasLabel?: boolean;
-  required?: boolean;
 }
 
-export const Input = ({
-  label,
-  type,
-  defaultValue,
-  onChange,
-  placeholder,
-  name,
-  hasLabel,
-  required,
-}: InputProps) => {
+export const Input = ({ label, hasLabel, className, ...props }: InputProps) => {
   return (
     <div className="gap-y-1 flex flex-col">
       {hasLabel && (
@@ -45,16 +31,11 @@ export const Input = ({
           size="auto"
           repeat="repeat"
           position="center"
-          className="h-full w-7/10 sm:w-8/10 pl-1"
+          className="h-full w-full pl-1"
         >
           <input
-            type={type}
-            placeholder={placeholder}
-            className="clean w-full h-full py-2"
-            name={name}
-            defaultValue={defaultValue}
-            {...(required && { required: true })}
-            onChange={onChange}
+            className={`clean w-full h-full py-2 ${className || ""}`}
+            {...props}
           />
         </RenderSvg>
         <RenderSvg
