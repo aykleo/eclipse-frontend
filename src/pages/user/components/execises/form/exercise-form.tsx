@@ -11,6 +11,7 @@ import { ExerciseCard } from "../../../../../components/exercise/exercise-card";
 import { EyeIcon } from "lucide-react";
 import { Input } from "../../../../../components/forms/input";
 import { Select } from "../../../../../components/forms/select";
+import { MuscleGroupSelect } from "../../../../../components/forms/muscle-group-select";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;
@@ -248,50 +249,20 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               </div>
 
               <div className="gap-y-3 flex flex-col md:col-start-3 col-span-3 md:col-span-1">
-                <div>
-                  <label className="label">
-                    <span className="label-text text-sm">Main muscle</span>
-                  </label>
-                  <select
-                    defaultValue={
-                      exerciseForUpdate
-                        ? exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup.name
-                            .replace(/_/g, " ")
-                            .toLowerCase()
-                            .replace(/\b\w/g, (char: string) =>
-                              char.toUpperCase()
-                            )
-                        : "Primary mover"
-                    }
-                    className="select select-error w-full"
-                    onChange={handlePrimaryMuscleGroup}
-                    name="primaryMuscleGroupId"
-                    required
-                  >
-                    {exerciseForUpdate ? (
-                      <option disabled={true} className="hidden">
-                        {exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup.name
-                          .replace(/_/g, " ")
-                          .toLowerCase()
-                          .replace(/\b\w/g, (char: string) =>
-                            char.toUpperCase()
-                          )}
-                      </option>
-                    ) : (
-                      <></>
-                    )}
-                    <option disabled={true}>Primary mover</option>
-                    {muscleGroupData &&
-                      muscleGroupData.map((muscleGroup: MuscleGroupData) => (
-                        <option key={muscleGroup.id} value={muscleGroup.id}>
-                          {muscleGroup.name
-                            .replace(/_/g, " ")
-                            .toLowerCase()
-                            .replace(/\b\w/g, (char) => char.toUpperCase())}
-                        </option>
-                      ))}
-                  </select>
-                </div>
+                <MuscleGroupSelect
+                  label="Main muscle"
+                  muscleGroupData={muscleGroupData}
+                  defaultValue={
+                    exerciseForUpdate?.exerciseMuscleGroups[0].muscleGroup.name
+                      .replace(/_/g, " ")
+                      .toLowerCase()
+                      .replace(/\b\w/g, (char) => char.toUpperCase()) ||
+                    "Primary mover"
+                  }
+                  onChange={handlePrimaryMuscleGroup}
+                  name="primaryMuscleGroupId"
+                  required
+                />
 
                 <div className="gap-y-1 flex flex-col h-full">
                   <label className="label w-full justify-between">

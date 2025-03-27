@@ -89,12 +89,22 @@ export const Select = ({
       return (
         <div
           key={index}
-          className="px-4 py-2 cursor-pointer "
+          className="group px-4 py-2 h-10 flex flex-row items-center gap-x-2 cursor-pointer"
           onClick={() =>
             handleSelect(option?.toString() || "", option?.toString() || "")
           }
         >
-          {option}
+          <RenderSvg
+            src="url(src/assets/pixel-art/general/pointer-8.svg)"
+            size="auto"
+            repeat="no-repeat"
+            position="center"
+            className="size-8 group-hover:block hidden"
+            transform="rotate(180deg)"
+          />
+          <p className="text-md group-hover:text-neutral-100 text-neutral-400">
+            {option}
+          </p>
         </div>
       );
     });
@@ -128,7 +138,7 @@ export const Select = ({
           >
             <button
               type="button"
-              className={`clean w-full h-full flex flex-row items-center gap-x-2 justify-between text-neutral-400 ${
+              className={`clean w-full h-full flex flex-row items-center gap-x-2 justify-between text-neutral-300 ${
                 required && !selectedValue ? "text-error" : ""
               }`}
               onClick={() => setIsOpen(!isOpen)}
