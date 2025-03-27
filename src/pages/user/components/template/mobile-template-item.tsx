@@ -3,7 +3,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { RenderPng } from "../../../../components/pixel-art/render-png";
 
-interface TemplateCreationMobilePreviewProps {
+interface MobileTemplateItemProps {
   exerciseId: string;
   notes: string;
   exerciseName: string;
@@ -12,7 +12,7 @@ interface TemplateCreationMobilePreviewProps {
   onRemoveExercise: (exerciseId: string) => void;
 }
 
-export const TemplateCreationMobilePreview = React.memo(
+export const MobileTemplateItem = React.memo(
   ({
     exerciseId,
     notes,
@@ -20,7 +20,7 @@ export const TemplateCreationMobilePreview = React.memo(
     exerciseOrder,
     onUpdateNotes,
     onRemoveExercise,
-  }: TemplateCreationMobilePreviewProps) => {
+  }: MobileTemplateItemProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const [showNotes, setShowNotes] = useState(false);
     const isFirstMount = useRef(true);
@@ -140,4 +140,4 @@ export const TemplateCreationMobilePreview = React.memo(
   }
 );
 
-TemplateCreationMobilePreview.displayName = "TemplateCreationMobilePreview";
+MobileTemplateItem.displayName = "MobileTemplateItem";

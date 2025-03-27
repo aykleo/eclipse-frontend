@@ -10,7 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import { useStatus } from "../../../../../hooks/status/status-context";
 import { DeleteExerciseModal } from "../delete-modal";
 import { StatusToast } from "../../../../../components/status-toast";
-import { ExerciseCard } from "./exercise-card";
+import { ExerciseCard } from "../../../../../components/exercise/exercise-card";
 import { CodexSelector } from "./codex-selector";
 import React from "react";
 import { CardCounter } from "./card-counter";

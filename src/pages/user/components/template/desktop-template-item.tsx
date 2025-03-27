@@ -3,7 +3,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical } from "lucide-react";
 
-interface TemplateExerciseItemProps {
+interface DesktopTemplateItemProps {
   exerciseId: string;
   notes: string;
   exerciseName: string;
@@ -12,7 +12,7 @@ interface TemplateExerciseItemProps {
   onRemove: () => void;
 }
 
-export const TemplateExerciseItem: React.FC<TemplateExerciseItemProps> = ({
+export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
   exerciseId,
   notes,
   exerciseName,

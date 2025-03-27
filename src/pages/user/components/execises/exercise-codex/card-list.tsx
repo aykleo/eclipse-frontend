@@ -6,7 +6,7 @@ import {
 import { NewExerciseBtn } from "./new-exercise-btn";
 
 const TemplateCreationList = lazy(
-  () => import("../../template/template-creation-list")
+  () => import("../form/desktop-template-creation-list")
 );
 
 interface CardListProps {

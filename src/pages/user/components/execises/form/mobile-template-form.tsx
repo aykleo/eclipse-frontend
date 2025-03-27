@@ -5,7 +5,7 @@ import { TemplateFormData } from "../../../../../api/templates/fetch-create-upda
 import { handleTemplateCreation } from "../../../../../api/templates/template-creation";
 import React from "react";
 import { useStatus } from "../../../../../hooks/status/status-context";
-import { TemplateCreationMobilePreview } from "../../template/template-creation-mobile-preview";
+import { MobileTemplateItem } from "../../template/mobile-template-item";
 import { EraserIcon, NotebookPenIcon } from "lucide-react";
 import {
   DndContext,
@@ -174,7 +174,7 @@ const MobileTemplateForm = React.memo(
                   strategy={horizontalListSortingStrategy}
                 >
                   {templateExercises.map((exercise, index) => (
-                    <TemplateCreationMobilePreview
+                    <MobileTemplateItem
                       key={exercise.exerciseId}
                       exerciseId={exercise.exerciseId}
                       notes={exercise.notes}

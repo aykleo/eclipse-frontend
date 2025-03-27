@@ -14,12 +14,12 @@ import {
   arrayMove,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-import { TemplateExerciseItem } from "./template-exercise-item";
+import { DesktopTemplateItem } from "../../template/desktop-template-item";
 import { ArrowRightIcon } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
-import { handleTemplateCreation } from "../../../../api/templates/template-creation";
-import { TemplateFormData } from "../../../../api/templates/fetch-create-update-template";
-import { useStatus } from "../../../../hooks/status/status-context";
+import { handleTemplateCreation } from "../../../../../api/templates/template-creation";
+import { TemplateFormData } from "../../../../../api/templates/fetch-create-update-template";
+import { useStatus } from "../../../../../hooks/status/status-context";
 
 interface TemplateExercise {
   exerciseId: string;
@@ -151,7 +151,7 @@ const TemplateCreationList = React.memo(
                   {exercises &&
                     exercises.length > 0 &&
                     exercises.map((exercise, index) => (
-                      <TemplateExerciseItem
+                      <DesktopTemplateItem
                         key={exercise.exerciseId}
                         exerciseId={exercise.exerciseId}
                         notes={exercise.notes}
