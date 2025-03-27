@@ -1,9 +1,7 @@
-import {
-  Exercise,
-  TemplateExercise,
-} from "../../../../../utils/types/exercise-types";
-import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
-import { RenderPng } from "../../../../../components/pixel-art/render-png";
+import { TemplateExercise } from "../../utils/types/exercise-types";
+import { Exercise } from "../../utils/types/exercise-types";
+import { RenderPng } from "../pixel-art/render-png";
+import { RenderSvg } from "../pixel-art/render-svg";
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -132,11 +130,7 @@ export const ExerciseCard = ({
         </div>
         {setSearchParams && (
           <button
-            className={`cursor-pointer absolute left-[47px] top-[5px] size-6 rounded-full ${
-              exercise.id === exerciseForUpdate?.id || isCreatingTemplate
-                ? "bg-neutral-800/50"
-                : ""
-            }`}
+            className="cursor-pointer absolute left-[47px] top-[5px] size-6 rounded-full"
             disabled={
               exercise.id === exerciseForUpdate?.id || isCreatingTemplate
             }
@@ -157,20 +151,12 @@ export const ExerciseCard = ({
           />
         )}
         <button
-          className={`cursor-pointer absolute top-[5px] size-6 rounded-full ${
-            exercise.id === exerciseForUpdate?.id || isCreatingTemplate
-              ? "bg-neutral-800/50"
-              : ""
-          }`}
+          className="cursor-pointer absolute top-[5px] size-6 rounded-full"
           disabled={exercise.id === exerciseForUpdate?.id || isCreatingTemplate}
         />
         {setExerciseForUpdate && (
           <button
-            className={`cursor-pointer absolute right-[47px] top-[5px] size-6 rounded-full ${
-              exercise.id === exerciseForUpdate?.id || isCreatingTemplate
-                ? "bg-neutral-800/50"
-                : ""
-            }`}
+            className="cursor-pointer absolute right-[47px] top-[5px] size-6 rounded-full"
             disabled={
               exercise.id === exerciseForUpdate?.id || isCreatingTemplate
             }

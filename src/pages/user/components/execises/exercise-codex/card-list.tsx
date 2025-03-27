@@ -4,6 +4,7 @@ import {
   TemplateExercise,
 } from "../../../../../utils/types/exercise-types";
 import { NewExerciseBtn } from "./new-exercise-btn";
+import { CodexPagination } from "./codex-pagination";
 
 const TemplateCreationList = lazy(
   () => import("../form/desktop-template-creation-list")
@@ -51,7 +52,7 @@ export const CardList = memo(
       <div
         className={`${
           isCreatingExercise || exerciseForUpdate ? "hidden" : ""
-        } flex size-full relative bg-neutral-800`}
+        } flex size-full relative bg-stone-950`}
       >
         <div
           className={`${
@@ -74,36 +75,12 @@ export const CardList = memo(
             )}
           </div>
           {currentPage && totalPages && setCurrentPage && (
-            <>
-              <button
-                className={`sticky ${
-                  !isCreatingTemplate ? "left-2" : "left-2 lg:left-3"
-                } z-2 top-1/2 translate-y-1/2 size-6 p-2 rounded-full border text-white flex items-center justify-center cursor-pointer`}
-                onClick={() => {
-                  if (currentPage > 1) {
-                    setCurrentPage(currentPage - 1);
-                  }
-                }}
-                disabled={currentPage === 1}
-              >
-                aaaa
-              </button>
-              <button
-                className={`sticky ${
-                  !isCreatingTemplate
-                    ? "left-[calc(100%-2rem)]"
-                    : "left-[calc(100%-2rem)] lg:left-[calc(100%-23rem)]"
-                } z-2 top-1/2 translate-y-1/2 size-6 p-2 rounded-full border text-white flex items-center justify-center cursor-pointer`}
-                onClick={() => {
-                  if (currentPage < totalPages) {
-                    setCurrentPage(currentPage + 1);
-                  }
-                }}
-                disabled={currentPage === totalPages}
-              >
-                bbb
-              </button>
-            </>
+            <CodexPagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              setCurrentPage={setCurrentPage}
+              isCreatingTemplate={isCreatingTemplate}
+            />
           )}
 
           <div

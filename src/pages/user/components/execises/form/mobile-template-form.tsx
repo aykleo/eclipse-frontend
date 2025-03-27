@@ -122,23 +122,21 @@ const MobileTemplateForm = React.memo(
 
     return (
       <RenderSvg
-        src="url(src/assets/pixel-art/body-96-2.svg)"
+        src="url(src/assets/pixel-art/body/body-96-2.svg)"
         size="auto"
         repeat="repeat"
         position="center"
-        className={`${
-          showNameInput ? "bg-neutral-950" : ""
-        }  relative w-9/10 p-1 h-24`}
+        className="relative w-9/10 p-1 h-24"
       >
         <RenderSvg
-          src="url(src/assets/pixel-art/body-side-96.svg)"
+          src="url(src/assets/pixel-art/body/body-side-96.svg)"
           size="auto"
           repeat="no-repeat"
           position="center"
           className="absolute top-0 h-full -left-1.5 w-2"
         />
         <RenderSvg
-          src="url(src/assets/pixel-art/body-side-96.svg)"
+          src="url(src/assets/pixel-art/body/body-side-96.svg)"
           size="auto"
           repeat="no-repeat"
           position="center"

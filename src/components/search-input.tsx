@@ -16,7 +16,7 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
       />
 
       <RenderSvg
-        src="url(src/assets/pixel-art/body-32-input.svg)"
+        src="url(src/assets/pixel-art/body/body-32-input.svg)"
         size="auto"
         repeat="repeat"
         position="center"
@@ -31,7 +31,7 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
         />
       </RenderSvg>
       <RenderSvg
-        src="url(src/assets/pixel-art/side-32-input.svg)"
+        src="url(src/assets/pixel-art/input-side-32.svg)"
         size="auto"
         repeat="no-repeat"
         position="center"
