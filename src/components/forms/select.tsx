@@ -67,7 +67,7 @@ export const Select = ({
         return (
           <div
             key={optionProps.value || index}
-            className="group px-4 py-2 h-10 flex flex-row items-center gap-x-2 cursor-pointer"
+            className="group px-4 py-2 h-10 flex flex-row items-center cursor-pointer hover:bg-neutral-900"
             onClick={() =>
               handleSelect(
                 optionProps.value,
@@ -80,7 +80,7 @@ export const Select = ({
               size="auto"
               repeat="no-repeat"
               position="center"
-              className="size-8 group-hover:block hidden"
+              className="size-8 group-hover:block hidden animate-pulse"
               transform="rotate(180deg)"
             />
             <p className="text-md group-hover:text-neutral-100 text-neutral-400">
@@ -93,7 +93,7 @@ export const Select = ({
       return (
         <div
           key={index}
-          className="group px-4 py-2 h-10 flex flex-row items-center gap-x-2 cursor-pointer"
+          className="group px-4 py-2 h-10 flex flex-row items-center gap-x-1 cursor-pointer"
           onClick={() =>
             handleSelect(option?.toString() || "", option?.toString() || "")
           }
@@ -103,7 +103,7 @@ export const Select = ({
             size="auto"
             repeat="no-repeat"
             position="center"
-            className="size-8 group-hover:block hidden"
+            className="size-8 group-hover:block hidden animate-pulse"
             transform="rotate(180deg)"
           />
           <p className="text-md group-hover:text-neutral-100 text-neutral-400">

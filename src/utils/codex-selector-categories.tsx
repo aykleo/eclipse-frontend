@@ -21,7 +21,7 @@ export const categoryIcons = [
     ),
     icon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-all-24.svg)`}
+        src={`url(src/assets/pixel-art/buttons/btn-all.svg)`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -42,7 +42,7 @@ export const categoryIcons = [
     ),
     icon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-endurance-24.svg)`}
+        src={`url(src/assets/pixel-art/buttons/btn-endurance.svg)`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -63,7 +63,7 @@ export const categoryIcons = [
     ),
     icon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-movement-24.svg)`}
+        src={`url(src/assets/pixel-art/buttons/btn-movement.svg)`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -84,7 +84,7 @@ export const categoryIcons = [
     ),
     icon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-plyometrics-24.svg)`}
+        src={`url(src/assets/pixel-art/buttons/btn-plyometrics.svg)`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -105,7 +105,7 @@ export const categoryIcons = [
     ),
     icon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-strength-24.svg)`}
+        src={`url(src/assets/pixel-art/buttons/btn-strength.svg)`}
         size="auto"
         repeat="no-repeat"
         position="center"
