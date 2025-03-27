@@ -13,6 +13,7 @@ interface RenderSvgProps {
   role?: string;
   children?: React.ReactNode;
   transform?: string;
+  key?: string | number;
   onClick?: () => void;
 }
 
@@ -28,11 +29,13 @@ export const RenderSvg = React.forwardRef<HTMLDivElement, RenderSvgProps>(
       children,
       transform,
       onClick,
+      key,
     },
     ref
   ) => {
     return (
       <div
+        {...(key && { key })}
         onClick={onClick}
         role={role}
         ref={ref}

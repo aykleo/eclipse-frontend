@@ -26,7 +26,7 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
           type="search"
           required
           placeholder="Search"
-          className="input-clean w-full h-full py-2"
+          className="clean w-full h-full py-2"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </RenderSvg>

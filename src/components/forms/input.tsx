@@ -31,7 +31,7 @@ export const Input = ({
           </label>
         </div>
       )}
-      <div className="h-8 w-full flex opacity-50">
+      <div className="h-8 w-full flex">
         <RenderSvg
           src="url(src/assets/pixel-art/input-side-32.svg)"
           size="auto"
@@ -50,7 +50,7 @@ export const Input = ({
           <input
             type={type}
             placeholder={placeholder}
-            className="input-clean w-full h-full py-2"
+            className="clean w-full h-full py-2"
             name={name}
             defaultValue={defaultValue}
             {...(required && { required: true })}

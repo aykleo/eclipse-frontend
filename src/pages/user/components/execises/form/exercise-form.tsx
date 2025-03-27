@@ -10,6 +10,7 @@ import { StatusToast } from "../../../../../components/status-toast";
 import { ExerciseCard } from "../../../../../components/exercise/exercise-card";
 import { EyeIcon } from "lucide-react";
 import { Input } from "../../../../../components/forms/input";
+import { Select } from "../../../../../components/forms/select";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;
@@ -169,37 +170,32 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                     }
                   }}
                 />
-
-                <div className="gap-y-1 flex flex-col">
-                  <label className="label">
-                    <span className="label-text text-sm">Category</span>
-                  </label>
-                  <select
-                    defaultValue={
-                      exerciseForUpdate
-                        ? exerciseForUpdate.tag.category
-                        : "Select a category"
+                <Select
+                  hasLabel={true}
+                  label="Category"
+                  defaultValue={
+                    exerciseForUpdate
+                      ? exerciseForUpdate.tag.category
+                      : "Select a category"
+                  }
+                  required={true}
+                  name="category"
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                    exerciseTagCategoryRef.current = e.target.value;
+                    if (e.target.value.length > 2) {
+                      setCardRender(!cardRender);
+                    } else {
+                      setCardRender(!cardRender);
                     }
-                    className="select select-error w-full"
-                    name="category"
-                    required
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                      exerciseTagCategoryRef.current = e.target.value;
-                      if (e.target.value.length > 2) {
-                        setCardRender(!cardRender);
-                      } else {
-                        setCardRender(!cardRender);
-                      }
-                    }}
-                  >
-                    <option disabled={true}>Select a category</option>
-                    {Object.values(TagCategory).map((tag) => (
-                      <option key={tag} value={tag}>
-                        {tag.charAt(0) + tag.slice(1).toLowerCase()}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                  }}
+                  placeholder="Select a category"
+                  options={Object.values(TagCategory).map((tag) => (
+                    <option key={tag} value={tag}>
+                      {tag.charAt(0) + tag.slice(1).toLowerCase()}
+                    </option>
+                  ))}
+                />
+
                 <Input
                   hasLabel={true}
                   label="Type"

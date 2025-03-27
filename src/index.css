@@ -13,13 +13,13 @@
   scrollbar-width: none;
 }
 
-.input-clean {
+.clean {
   outline: none;
   border: none;
   ring: 0;
 }
 
-.input-clean:focus {
+.clean:focus {
   outline: none;
   border: none;
   ring: 0;
