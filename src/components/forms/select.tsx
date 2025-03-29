@@ -169,7 +169,7 @@ export const Select = ({
                     size="auto"
                     repeat="repeat"
                     position="center"
-                    className="h-full overflow-auto no-scrollbar mx-[8px] py-2"
+                    className="h-full overflow-auto no-scrollbar mx-[7px] py-2"
                   >
                     {renderOptions()}
                   </RenderSvg>
@@ -178,7 +178,7 @@ export const Select = ({
                     size="auto"
                     repeat="no-repeat"
                     position="center"
-                    className="h-full w-[8px] absolute top-1/2 -translate-y-1/2 left-1"
+                    className="h-full w-[8px] absolute top-1/2 -translate-y-1/2 left-0"
                   />
                   <RenderSvg
                     src="url(src/assets/pixel-art/body/body-side-196.svg)"
