@@ -30,9 +30,9 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
   };
 
   const renderMuscleGroups = (category: string, muscles: string[]) => (
-    <div key={category} className="flex flex-col gap-y-2 pl-8">
+    <div key={category} className="flex flex-col gap-y-2 pl-1">
       <h3 className="text-lg font-bold text-neutral-300">{category}</h3>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-x-2">
         {muscleGroupData
           .filter((muscleGroup) =>
             muscles.includes(muscleGroup.name.toLowerCase())
@@ -48,7 +48,11 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
                 }}
               >
                 <RenderSvg
-                  src="url(src/assets/pixel-art/body-32-input.svg)"
+                  src={`${
+                    !isSelected
+                      ? "url(src/assets/pixel-art/body-32-input.svg)"
+                      : "url(src/assets/pixel-art/body-32-input-red.svg)"
+                  }`}
                   size="auto"
                   repeat="repeat"
                   position="center"
@@ -61,7 +65,7 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
                     isSelected ? "opacity-100" : "opacity-35"
                   }`}
                 >
-                  <span className="text-xs text-center text-white">
+                  <span className="text-xs text-center">
                     {muscleGroup.name
                       .replace(/_/g, " ")
                       .toLowerCase()
@@ -69,18 +73,26 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
                   </span>
 
                   <RenderSvg
-                    src="url(src/assets/pixel-art/input-side-32.svg)"
+                    src={`${
+                      !isSelected
+                        ? "url(src/assets/pixel-art/input-side-32.svg)"
+                        : "url(src/assets/pixel-art/input-side-32-red.svg)"
+                    }`}
                     size="auto"
                     repeat="no-repeat"
                     position="center"
-                    className="size-8 absolute -left-4"
+                    className="size-8 absolute -left-4 transition-all duration-300"
                   />
                   <RenderSvg
-                    src="url(src/assets/pixel-art/input-side-32.svg)"
+                    src={`${
+                      !isSelected
+                        ? "url(src/assets/pixel-art/input-side-32.svg)"
+                        : "url(src/assets/pixel-art/input-side-32-red.svg)"
+                    }`}
                     size="auto"
                     repeat="no-repeat"
                     position="center"
-                    className="h-full w-4 absolute -right-2"
+                    className="h-full w-4 absolute -right-2 transition-all duration-300"
                     transform="rotate(180deg)"
                   />
                 </RenderSvg>
@@ -92,9 +104,9 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
   );
 
   return (
-    <div className="gap-y-1 flex flex-col h-full">
+    <div className="gap-y-1 flex flex-col h-full w-full">
       <label className="label w-full justify-between">
-        <span className="label-text pl-5 text-sm">Secondary movers</span>
+        <span className="label-text text-sm">Secondary movers</span>
       </label>
       {Object.entries(categories).map(([category, muscles]) =>
         renderMuscleGroups(category, muscles)
