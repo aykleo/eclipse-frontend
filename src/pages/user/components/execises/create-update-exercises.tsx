@@ -142,13 +142,6 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
           }, 3000);
           return () => clearTimeout(timeout);
         },
-        onError: (error: Error) => {
-          setStatusText(`${error.message}`);
-          const timeout = setTimeout(() => {
-            setStatusText(null);
-          }, 3000);
-          return () => clearTimeout(timeout);
-        },
       });
 
       const createMutation = useMutation({
@@ -178,17 +171,7 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
           if (formRef && formRef.current) {
             formRef.current.reset();
           }
-          if (setIsCreatingExercise) {
-            setIsCreatingExercise(false);
-          }
           setStatusText("Exercise created successfully");
-          const timeout = setTimeout(() => {
-            setStatusText(null);
-          }, 3000);
-          return () => clearTimeout(timeout);
-        },
-        onError: (error: Error) => {
-          setStatusText(`${error.message}`);
           const timeout = setTimeout(() => {
             setStatusText(null);
           }, 3000);

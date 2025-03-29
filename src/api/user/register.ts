@@ -9,7 +9,7 @@ export const registerUser = async (
 
   try {
     setIsLoading(true);
-    const response = await fetch(
+    await fetch(
       `${
         import.meta.env.VITE_ECLIPSE_DEV_API_URL
       }/register?email=${emailRef}&username=${usernameRef}`,
@@ -18,24 +18,6 @@ export const registerUser = async (
         signal,
       }
     );
-
-    if (!response.ok) {
-      const errorResponse = await response.text();
-
-      const errorJson = JSON.parse(errorResponse);
-
-      if (!errorJson) {
-        return "Error parsing";
-      }
-
-      setStatusText(errorJson.message);
-
-      const timeout = setTimeout(() => {
-        setStatusText(null);
-      }, 2000);
-
-      return () => clearTimeout(timeout);
-    }
 
     setStatusText("Please check your email to validate your account.");
 

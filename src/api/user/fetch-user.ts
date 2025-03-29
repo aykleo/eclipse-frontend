@@ -11,9 +11,6 @@ export const fetchUser = async () => {
         signal,
       }
     );
-    if (!response.ok) {
-      return null;
-    }
 
     const contentType = response.headers.get("content-type");
 
