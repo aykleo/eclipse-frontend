@@ -42,7 +42,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
     return (
       <div className="relative h-12">
         <RenderSvg
-          src="url(src/assets/pixel-art/body/body-side-48.svg)"
+          src="url(src/assets/pixel-art/body/body-side-64.svg)"
           size="15px"
           repeat="no-repeat"
           position="center"
@@ -50,7 +50,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
           className="absolute h-full z-3 w-12 -left-5"
         />
         <RenderSvg
-          src="url(src/assets/pixel-art/body/body-side-48.svg)"
+          src="url(src/assets/pixel-art/body/body-side-64.svg)"
           size="15px"
           repeat="no-repeat"
           position="center"
@@ -60,7 +60,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
         />
 
         <RenderSvg
-          src="url(src/assets/pixel-art/body/body-48.svg)"
+          src="url(src/assets/pixel-art/body/body-64.svg)"
           size="48px"
           repeat="repeat"
           position="center"

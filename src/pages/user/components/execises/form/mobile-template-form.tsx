@@ -6,7 +6,6 @@ import { handleTemplateCreation } from "../../../../../api/templates/template-cr
 import React from "react";
 import { useStatus } from "../../../../../hooks/status/status-context";
 import { MobileTemplateItem } from "../../template/mobile-template-item";
-import { EraserIcon, NotebookPenIcon } from "lucide-react";
 import {
   DndContext,
   closestCenter,
@@ -23,6 +22,7 @@ import {
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
+import { Input } from "../../../../../components/forms/input";
 
 interface MobileTemplateFormProps {
   templateExercises: TemplateExercise[];
@@ -149,11 +149,15 @@ const MobileTemplateForm = React.memo(
           onSubmit={handleSubmit}
           className="relative"
         >
-          <div className={`${showNameInput ? "block" : "hidden"} p-2`}>
-            <input
+          <div
+            className={`${
+              showNameInput ? "block" : "hidden"
+            }  h-22 w-full flex items-center justify-center p-2`}
+          >
+            <Input
               type="text"
               name="templateName"
-              className="input input-bordered w-full bg-transparent"
+              className=""
               placeholder="Template name"
               value={templateName}
               onChange={(e) => setTemplateName(e.target.value)}
@@ -189,54 +193,97 @@ const MobileTemplateForm = React.memo(
             </DndContext>
           )}
 
-          <div
-            className={`${
-              showNameInput ? "bottom-13" : "bottom-23"
-            } flex items-center justify-center absolute left-0 transition-all duration-300`}
+          <RenderSvg
+            src="url(src/assets/pixel-art/body/body-64.svg)"
+            size="48px"
+            repeat="repeat"
+            position="center"
+            className="w-max px-4 left-1/2 translate-x-[-50%] h-12 absolute bottom-24 flex flex-row gap-x-2 items-center justify-evenly"
           >
-            <button
-              type="button"
-              className="btn btn-error py-0.5 px-2 size-max"
-              disabled={isLoading}
-              onClick={toggleNameInput}
-            >
-              <NotebookPenIcon className="size-4 cursor-pointer" />
-            </button>
-          </div>
-          <div
-            className={`${
-              showNameInput ? "bottom-13" : "bottom-23"
-            } transition-all duration-300 flex items-center justify-center pt-2 absolute right-0`}
-          >
-            <button
-              type="submit"
-              className={`${
-                !templateName ||
-                templateExercises.length === 0 ||
-                templateName.length < 5
-                  ? "hidden"
-                  : "block"
-              } btn btn-error py-0.5 px-2 size-max`}
-              disabled={isLoading || templateExercises.length === 0}
-            >
-              {isLoading ? "Creating..." : "Create"}
-            </button>
-          </div>
-          <div
-            className={`-bottom-5 flex items-center justify-center absolute left-0 transition-all duration-300`}
-          >
-            <button
-              type="button"
-              className="btn btn-error py-0.5 px-2 size-max"
-              disabled={isLoading}
-              onClick={(e) => {
-                e.preventDefault();
-                setTemplateExercises([]);
-              }}
-            >
-              <EraserIcon className="size-4 cursor-pointer" />
-            </button>
-          </div>
+            <RenderSvg
+              src="url(src/assets/pixel-art/body/body-side-64.svg)"
+              size="15px"
+              repeat="no-repeat"
+              position="center"
+              role="tablist"
+              className="absolute h-full w-12 -left-5"
+            />
+            <RenderSvg
+              src="url(src/assets/pixel-art/body/body-side-64.svg)"
+              size="15px"
+              repeat="no-repeat"
+              position="center"
+              role="tablist"
+              className="absolute h-full w-12 -right-5"
+              transform="rotate(180deg)"
+            />
+            <div className="flex items-center justify-center">
+              <button
+                type="button"
+                className=""
+                disabled={isLoading}
+                onClick={toggleNameInput}
+              >
+                <RenderSvg
+                  src="url(src/assets/pixel-art/buttons/btn-pen-32.svg)"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="size-8 cursor-pointer"
+                />
+              </button>
+            </div>
+            <div className="flex items-center justify-center">
+              <button
+                type="submit"
+                className={`${
+                  !templateName ||
+                  templateExercises.length === 0 ||
+                  templateName.length < 5
+                    ? "opacity-50"
+                    : "opacity-100"
+                }`}
+                disabled={
+                  isLoading ||
+                  templateExercises.length === 0 ||
+                  templateName.length < 5
+                }
+              >
+                <RenderSvg
+                  src="url(src/assets/pixel-art/buttons/btn-submit.svg)"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="h-8 w-24 cursor-pointer pt-[2px]"
+                >
+                  {isLoading ? "Creating..." : "Create"}
+                </RenderSvg>
+              </button>
+            </div>
+            <div className="flex items-center justify-center">
+              <button
+                type="button"
+                className={`${
+                  isLoading || templateExercises.length === 0
+                    ? "opacity-80"
+                    : "opacity-100"
+                } `}
+                disabled={isLoading || templateExercises.length === 0}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setTemplateExercises([]);
+                }}
+              >
+                <RenderSvg
+                  src="url(src/assets/pixel-art/buttons/btn-eraser-32.svg)"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="size-8 cursor-pointer"
+                />
+              </button>
+            </div>
+          </RenderSvg>
         </form>
       </RenderSvg>
     );
