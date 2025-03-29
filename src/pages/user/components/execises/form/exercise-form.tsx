@@ -13,6 +13,7 @@ import { Input } from "../../../../../components/forms/input";
 import { Select } from "../../../../../components/forms/select";
 import { MuscleGroupSelect } from "../../../../../components/forms/muscle-group-select";
 import { TextArea } from "../../../../../components/forms/text-area";
+import MuscleGroupTree from "./muscle-group-tree";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;
@@ -122,32 +123,33 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   ? "New exercise"
                   : exerciseForUpdate.name}
               </h1>
-              <button
-                className="text-sm cursor-pointer px-1 text-white"
-                onClick={(event) => {
-                  event.preventDefault();
-                  if (exerciseForUpdate) {
-                    setExerciseForUpdate(null);
-                  }
-                  if (isCreatingExercise) {
-                    setIsCreatingExercise(false);
-                  }
-                }}
-              >
-                Close
-              </button>
-              <div
-                onClick={toggleTooltip}
-                className="cursor-pointer md:hidden absolute right-0 -bottom-6"
-              >
-                <EyeIcon className="size-5 text-white transition-all duration-300" />
+              <div className="flex flex-row gap-x-6">
+                <div
+                  onClick={toggleTooltip}
+                  className="cursor-pointer md:hidden"
+                >
+                  <EyeIcon className="size-5 text-white transition-all duration-300" />
+                </div>
+                <button
+                  className="text-sm cursor-pointer px-1 text-white"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    if (exerciseForUpdate) {
+                      setExerciseForUpdate(null);
+                    }
+                    if (isCreatingExercise) {
+                      setIsCreatingExercise(false);
+                    }
+                  }}
+                >
+                  Close
+                </button>
               </div>
             </div>
-            <div className="h-[1px] rounded-full bg-gray-600/25 w-full" />
           </div>
           {isTooltipVisible && (
             <div
-              className="absolute inset-0 z-99 flex items-center cursor-pointer lg:hidden justify-center backdrop-blur-xs bg-neutral-950/50"
+              className="absolute inset-0 z-99 flex items-start pt-16 cursor-pointer lg:hidden justify-center backdrop-blur-xs bg-neutral-950/50"
               onClick={toggleTooltip}
             >
               <ExerciseCard exercise={exercise} />
@@ -258,61 +260,17 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   required
                 />
 
-                <div className="gap-y-1 flex flex-col h-full">
-                  <label className="label w-full justify-between">
-                    <span className="label-text text-sm">Secondary movers</span>
-                  </label>
-
-                  <div className={`text-sm flex flex-wrap gap-2 py-2 `}>
-                    {muscleGroupData &&
-                      muscleGroupData.map(
-                        (muscleGroup: MuscleGroupData, index: number) => {
-                          const isSelected = initialMuscleGroupIds.includes(
-                            muscleGroup.id
-                          );
-
-                          return (
-                            <button
-                              key={index}
-                              disabled={!primaryMuscleGroupId}
-                              className={`${
-                                muscleGroup.id === primaryMuscleGroupId
-                                  ? "hidden"
-                                  : ""
-                              } ${
-                                !primaryMuscleGroupId
-                                  ? "cursor-default"
-                                  : "cursor-pointer"
-                              } flex items-center justify-center py-1 px-2 rounded-xs transition-all duration-300 ${
-                                isSelected
-                                  ? "opacity-100 border border-error text-error"
-                                  : "opacity-35 border border-white"
-                              }`}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleMuscleGroupIds(muscleGroup.id);
-                              }}
-                            >
-                              <span className="text-xs text-center text-white">
-                                {muscleGroup.name
-                                  .replace(/_/g, " ")
-                                  .toLowerCase()
-                                  .replace(/\b\w/g, (char) =>
-                                    char.toUpperCase()
-                                  )}
-                              </span>
-                            </button>
-                          );
-                        }
-                      )}
-                  </div>
-                </div>
+                <MuscleGroupTree
+                  muscleGroupData={muscleGroupData}
+                  initialMuscleGroupIds={initialMuscleGroupIds}
+                  primaryMuscleGroupId={primaryMuscleGroupId}
+                  handleMuscleGroupIds={handleMuscleGroupIds}
+                />
               </div>
             </div>
           </div>
 
           <div className="form-control w-full flex flex-col gap-y-2 h-24 pb-1 justify-end">
-            <div className="h-[1px] rounded-full bg-gray-600/25" />
             <button
               disabled={isLoading}
               className={` btn btn-error  border shadow-none w-full rounded-md`}

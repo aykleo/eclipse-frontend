@@ -17,7 +17,7 @@ export const Input = ({ label, hasLabel, className, ...props }: InputProps) => {
           </label>
         </div>
       )}
-      <div className="h-8 w-full flex">
+      <div className="h-8 w-full flex relative">
         <RenderSvg
           src="url(src/assets/pixel-art/input-side-32.svg)"
           size="auto"
@@ -43,7 +43,7 @@ export const Input = ({ label, hasLabel, className, ...props }: InputProps) => {
           size="auto"
           repeat="no-repeat"
           position="center"
-          className="h-full w-4"
+          className="h-full w-4 absolute right-0"
         />
       </div>
     </div>

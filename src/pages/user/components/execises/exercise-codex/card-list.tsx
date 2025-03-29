@@ -6,6 +6,7 @@ import {
 import { NewExerciseBtn } from "./new-exercise-btn";
 import { CodexPagination } from "./codex-pagination";
 import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
+import { PaperBody } from "../../../../../components/styles/paper-body";
 
 const TemplateCreationList = lazy(
   () => import("../form/desktop-template-creation-list")
@@ -53,42 +54,9 @@ export const CardList = memo(
       <div
         className={`${
           isCreatingExercise || exerciseForUpdate ? "hidden" : ""
-        } flex size-full relative bg-[#252525] mb-10`}
+        } flex size-full relative bg-[#252525]`}
       >
-        <div
-          className="h-full w-4 absolute left-0 bg-black"
-          style={{
-            backgroundImage:
-              "url(src/assets/pixel-art/body/body-side-paper-64.svg)",
-            backgroundRepeat: "repeat-y",
-          }}
-        />
-        <div
-          className="h-[11px] w-1/2 absolute left-1 bottom-0 bg-black"
-          style={{
-            backgroundImage:
-              "url(src/assets/pixel-art/body/body-bottom-paper-48.svg)",
-            backgroundRepeat: "repeat-x",
-          }}
-        />
-
-        <div
-          className="h-full w-4 absolute right-0 bg-black"
-          style={{
-            backgroundImage:
-              "url(src/assets/pixel-art/body/body-side-paper-64.svg)",
-            backgroundRepeat: "repeat-y",
-            transform: "rotateY(180deg)",
-          }}
-        />
-        <div
-          className="h-[11px] w-1/2 absolute right-1 bottom-0 bg-black"
-          style={{
-            backgroundImage:
-              "url(src/assets/pixel-art/body/body-bottom-paper-48.svg)",
-            backgroundRepeat: "repeat-x",
-          }}
-        />
+        <PaperBody />
         <div
           className={`${
             isCreatingTemplate ? "w-full lg:w-3/4" : "w-full"
@@ -169,13 +137,15 @@ export const CardList = memo(
               isCreatingTemplate
                 ? "grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:px-10"
                 : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 "
-            } h-full w-full no-scrollbar grid gap-y-8 px-4 gap-x-3 justify-items-center items-start pb-10 min-h-screen`}
+            } h-full w-full no-scrollbar grid gap-y-2 justify-items-center items-start pb-10 min-h-screen`}
           >
-            <NewExerciseBtn
-              setIsCreatingExercise={setIsCreatingExercise}
-              isCreatingExercise={isCreatingExercise}
-              setExerciseForUpdate={setExerciseForUpdate}
-            />
+            {!isCreatingTemplate && (
+              <NewExerciseBtn
+                setIsCreatingExercise={setIsCreatingExercise}
+                isCreatingExercise={isCreatingExercise}
+                setExerciseForUpdate={setExerciseForUpdate}
+              />
+            )}
 
             {children}
           </div>

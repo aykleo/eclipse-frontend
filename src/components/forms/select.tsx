@@ -141,11 +141,11 @@ export const Select = ({
             size="auto"
             repeat="repeat"
             position="center"
-            className="h-full w-full pl-1"
+            className="h-full w-full"
           >
             <button
               type="button"
-              className={`clean w-full h-full flex flex-row items-center gap-x-2 justify-between text-neutral-300 ${
+              className={`clean w-full h-full flex flex-row items-center pr-5 gap-x-2 justify-between text-neutral-300 ${
                 required && !selectedValue ? "text-error" : ""
               }`}
               onClick={() => setIsOpen(!isOpen)}
@@ -198,7 +198,7 @@ export const Select = ({
             size="auto"
             repeat="no-repeat"
             position="center"
-            className="h-full w-4"
+            className="h-full w-4 absolute right-0"
           />
         </div>
       </div>
