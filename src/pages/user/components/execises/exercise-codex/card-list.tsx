@@ -52,7 +52,7 @@ export const CardList = memo(
       <div
         className={`${
           isCreatingExercise || exerciseForUpdate ? "hidden" : ""
-        } flex size-full relative bg-[#504d4d] mb-10`}
+        } flex size-full relative bg-[#252525] mb-10`}
       >
         <div
           className="h-full w-4 absolute left-0 bg-black"

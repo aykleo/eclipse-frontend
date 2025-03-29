@@ -158,7 +158,7 @@ export const Select = ({
                 size="auto"
                 repeat="no-repeat"
                 position="center"
-                className="size-2 cursor-pointer opacity-70"
+                className="size-2 cursor-pointer"
               />
             </button>
 

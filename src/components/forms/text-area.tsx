@@ -26,14 +26,14 @@ export const TextArea = ({
       )}
       <div className="h-32 w-full flex relative pl-5.5">
         <RenderSvg
-          src="url(src/assets/pixel-art/body/body-side-128.svg)"
+          src="url(src/assets/pixel-art/body/body-void-side-128.svg)"
           size="auto"
           repeat="no-repeat"
           position="start"
           className="w-4 h-full absolute left-3.5"
         />
         <RenderSvg
-          src="url(src/assets/pixel-art/body/body-128-.svg)"
+          src="url(src/assets/pixel-art/body/body-void-128-.svg)"
           size="auto"
           repeat="repeat"
           position="center"
@@ -48,7 +48,7 @@ export const TextArea = ({
           />
         </RenderSvg>
         <RenderSvg
-          src="url(src/assets/pixel-art/body/body-side-128.svg)"
+          src="url(src/assets/pixel-art/body/body-void-side-128.svg)"
           size="auto"
           repeat="no-repeat"
           position="center"

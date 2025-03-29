@@ -100,7 +100,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     }, []);
 
     return (
-      <div className="form-control relative w-full flex flex-col px-2 bg-stone-950 justify-between h-full">
+      <div className="form-control relative w-full flex flex-col px-2 justify-between h-full py-2">
         <form
           action="create_exercise"
           className="size-full flex flex-col"
@@ -108,7 +108,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
           ref={formRef}
         >
           <div className="text-4xl py-2 font-bold flex flex-col gap-y-1 w-full px-2">
-            <div className="flex w-full flex-row items-center justify-between relative opacity-80">
+            <div className="flex w-full flex-row items-center justify-between relative">
               <h1
                 className={`${
                   exerciseForUpdate
@@ -123,7 +123,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   : exerciseForUpdate.name}
               </h1>
               <button
-                className="text-sm cursor-pointer px-1 text-neutral-500 hover:text-error"
+                className="text-sm cursor-pointer px-1 text-white"
                 onClick={(event) => {
                   event.preventDefault();
                   if (exerciseForUpdate) {
@@ -140,7 +140,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                 onClick={toggleTooltip}
                 className="cursor-pointer md:hidden absolute right-0 -bottom-6"
               >
-                <EyeIcon className="size-5 text-gray-400 hover:text-gray-200 transition-all duration-300" />
+                <EyeIcon className="size-5 text-white transition-all duration-300" />
               </div>
             </div>
             <div className="h-[1px] rounded-full bg-gray-600/25 w-full" />
@@ -263,9 +263,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                     <span className="label-text text-sm">Secondary movers</span>
                   </label>
 
-                  <div
-                    className={`text-sm flex flex-wrap gap-2 py-2 opacity-75 `}
-                  >
+                  <div className={`text-sm flex flex-wrap gap-2 py-2 `}>
                     {muscleGroupData &&
                       muscleGroupData.map(
                         (muscleGroup: MuscleGroupData, index: number) => {
