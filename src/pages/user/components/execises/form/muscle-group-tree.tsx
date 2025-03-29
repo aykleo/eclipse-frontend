@@ -48,7 +48,7 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
                 }}
               >
                 <RenderSvg
-                  src="url(src/assets/pixel-art/body/body-void-32.svg)"
+                  src="url(src/assets/pixel-art/body-32-input.svg)"
                   size="auto"
                   repeat="repeat"
                   position="center"
@@ -69,18 +69,18 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
                   </span>
 
                   <RenderSvg
-                    src="url(src/assets/pixel-art/body/body-void-side-32-.svg)"
+                    src="url(src/assets/pixel-art/input-side-32.svg)"
                     size="auto"
                     repeat="no-repeat"
                     position="center"
-                    className="absolute w-[4px] h-full -left-[3px]"
+                    className="size-8 absolute -left-4"
                   />
                   <RenderSvg
-                    src="url(src/assets/pixel-art/body/body-void-side-32-.svg)"
+                    src="url(src/assets/pixel-art/input-side-32.svg)"
                     size="auto"
                     repeat="no-repeat"
                     position="center"
-                    className="absolute w-[4px] h-full -right-[3px]"
+                    className="h-full w-4 absolute -right-2"
                     transform="rotate(180deg)"
                   />
                 </RenderSvg>

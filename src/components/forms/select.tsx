@@ -76,7 +76,7 @@ export const Select = ({
             }
           >
             <RenderSvg
-              src="url(src/assets/pixel-art/general/pointer-8.svg)"
+              src="url(src/assets/pixel-art/icons/pointer-8.svg)"
               size="auto"
               repeat="no-repeat"
               position="center"
@@ -99,7 +99,7 @@ export const Select = ({
           }
         >
           <RenderSvg
-            src="url(src/assets/pixel-art/general/pointer-8.svg)"
+            src="url(src/assets/pixel-art/icons/pointer-8.svg)"
             size="auto"
             repeat="no-repeat"
             position="center"
@@ -121,7 +121,7 @@ export const Select = ({
         ref={dropdownRef}
       >
         {hasLabel && (
-          <div className="w-full pl-5">
+          <div className="w-full">
             <label className="label">
               <span className="label-text text-sm">{label}</span>
             </label>
@@ -133,8 +133,7 @@ export const Select = ({
             size="auto"
             repeat="no-repeat"
             position="start"
-            className="size-8"
-            transform="rotate(180deg)"
+            className="size-8 absolute -left-1"
           />
           <RenderSvg
             src="url(src/assets/pixel-art/body-32-input.svg)"
@@ -145,7 +144,7 @@ export const Select = ({
           >
             <button
               type="button"
-              className={`clean w-full h-full flex flex-row items-center pr-5 gap-x-2 justify-between text-neutral-300 ${
+              className={`clean w-full h-full flex flex-row items-center pr-5 pl-1 gap-x-2 justify-between text-neutral-300 ${
                 required && !selectedValue ? "text-error" : ""
               }`}
               onClick={() => setIsOpen(!isOpen)}
@@ -154,7 +153,7 @@ export const Select = ({
             >
               {selectedValue || placeholder}
               <RenderSvg
-                src="url(src/assets/pixel-art/general/dropdown-indicator-8.svg)"
+                src="url(src/assets/pixel-art/icons/dropdown-indicator-8.svg)"
                 size="auto"
                 repeat="no-repeat"
                 position="center"
@@ -198,7 +197,8 @@ export const Select = ({
             size="auto"
             repeat="no-repeat"
             position="center"
-            className="h-full w-4 absolute right-0"
+            className="h-full w-4 absolute -right-2"
+            transform="rotate(180deg)"
           />
         </div>
       </div>

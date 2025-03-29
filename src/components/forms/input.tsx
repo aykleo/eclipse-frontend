@@ -10,7 +10,7 @@ export const Input = ({ label, hasLabel, className, ...props }: InputProps) => {
   return (
     <div className="gap-y-1 flex flex-col">
       {hasLabel && (
-        <div className="w-full pl-5">
+        <div className="w-full">
           {" "}
           <label className="label">
             <span className="label-text text-sm">{label}</span>
@@ -23,8 +23,7 @@ export const Input = ({ label, hasLabel, className, ...props }: InputProps) => {
           size="auto"
           repeat="no-repeat"
           position="start"
-          className="size-8"
-          transform="rotate(180deg)"
+          className="size-8 absolute -left-1"
         />
         <RenderSvg
           src="url(src/assets/pixel-art/body-32-input.svg)"
@@ -43,7 +42,8 @@ export const Input = ({ label, hasLabel, className, ...props }: InputProps) => {
           size="auto"
           repeat="no-repeat"
           position="center"
-          className="h-full w-4 absolute right-0"
+          className="h-full w-4 absolute -right-2"
+          transform="rotate(180deg)"
         />
       </div>
     </div>

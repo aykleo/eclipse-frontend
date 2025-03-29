@@ -6,13 +6,13 @@ interface SearchInputProps {
 
 export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
   return (
-    <div className="h-8 w-1/2 lg:w-1/3 flex opacity-80">
+    <div className="h-8 w-1/2 lg:w-1/3 px-4 flex opacity-80 relative">
       <RenderSvg
-        src="url(src/assets/pixel-art/search-input-side-32.svg)"
+        src="url(src/assets/pixel-art/input-side-32.svg)"
         size="auto"
         repeat="no-repeat"
         position="start"
-        className="size-8"
+        className="h-full w-4 absolute left-3"
       />
 
       <RenderSvg
@@ -20,13 +20,20 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
         size="auto"
         repeat="repeat"
         position="center"
-        className="h-full w-7/10 sm:w-8/10 pl-1"
+        className="h-full w-full pl-1 flex items-center justify-center flex-row gap-x-2"
       >
+        <RenderSvg
+          src="url(src/assets/pixel-art/icons/search-icon-16.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="size-[16px]"
+        />
         <input
           type="search"
           required
           placeholder="Search"
-          className="clean w-full h-full py-2"
+          className="clean w-full h-full py-2 pr-2"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </RenderSvg>
@@ -35,7 +42,8 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
         size="auto"
         repeat="no-repeat"
         position="center"
-        className="h-full w-4"
+        className="h-full w-4 absolute right-2"
+        transform="rotate(180deg)"
       />
     </div>
   );

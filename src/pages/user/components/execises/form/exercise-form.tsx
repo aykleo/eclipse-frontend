@@ -101,7 +101,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     }, []);
 
     return (
-      <div className="form-control relative w-full flex flex-col px-2 justify-between h-full py-2">
+      <div className="form-control relative w-full flex flex-col px-6 justify-between h-full py-2">
         <form
           action="create_exercise"
           className="size-full flex flex-col"

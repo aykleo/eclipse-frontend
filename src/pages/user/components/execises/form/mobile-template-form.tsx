@@ -122,7 +122,7 @@ const MobileTemplateForm = React.memo(
 
     return (
       <RenderSvg
-        src="url(src/assets/pixel-art/body/body-96-2.svg)"
+        src="url(src/assets/pixel-art/body/body-96.svg)"
         size="auto"
         repeat="repeat"
         position="center"
