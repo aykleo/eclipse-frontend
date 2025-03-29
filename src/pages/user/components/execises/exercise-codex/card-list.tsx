@@ -5,6 +5,7 @@ import {
 } from "../../../../../utils/types/exercise-types";
 import { NewExerciseBtn } from "./new-exercise-btn";
 import { CodexPagination } from "./codex-pagination";
+import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 
 const TemplateCreationList = lazy(
   () => import("../form/desktop-template-creation-list")
@@ -93,20 +94,66 @@ export const CardList = memo(
             isCreatingTemplate ? "w-full lg:w-3/4" : "w-full"
           }  h-full relative`}
         >
-          <div className="w-full lg:w-[calc(100%-1.5rem)] gap-x-2 h-10 relative bg-transparent flex items-end justify-center">
-            {exerciseNumber && currentPage ? (
-              <>
-                {exerciseNumber > 1
-                  ? exerciseNumber +
-                    " exercises were found in page " +
-                    currentPage
-                  : exerciseNumber +
-                    " exercise was found in page " +
-                    currentPage}
-              </>
-            ) : (
-              <>No exercises were found</>
-            )}
+          <div className="w-full lg:w-[calc(100%-1.5rem)] gap-x-2 pt-2 h-14 relative bg-transparent flex items-end justify-center">
+            <div className="w-1/3 h-full relative pt-2.5">
+              <div className="w-full h-[2px] absolute bottom-[13px] bg-[#bfb7b7]" />
+              <RenderSvg
+                src="url(src/assets/pixel-art/white-cross-16.svg)"
+                className="size-full absolute"
+                size="auto"
+                repeat="no-repeat"
+                position="right"
+              />
+              <RenderSvg
+                src="url(src/assets/pixel-art/white-cross-16.svg)"
+                className="size-full absolute"
+                size="auto"
+                repeat="no-repeat"
+                position="left"
+              />
+            </div>
+            <div className="text-center pb-0.5">
+              {exerciseNumber && currentPage ? (
+                <>
+                  {exerciseNumber > 1 ? (
+                    <span>
+                      {exerciseNumber}{" "}
+                      <span className="hidden md:inline">
+                        exercises were found
+                      </span>{" "}
+                      in page {currentPage}
+                    </span>
+                  ) : (
+                    <span>
+                      {exerciseNumber}{" "}
+                      <span className="hidden md:inline">
+                        exercise was found
+                      </span>{" "}
+                      in page {currentPage}
+                    </span>
+                  )}
+                </>
+              ) : (
+                <>No exercises were found</>
+              )}
+            </div>
+            <div className="w-1/3 h-full relative pt-2.5">
+              <div className="w-full h-[2px] absolute bottom-[13px] bg-[#bfb7b7]" />
+              <RenderSvg
+                src="url(src/assets/pixel-art/white-cross-16.svg)"
+                className="size-full absolute"
+                size="auto"
+                repeat="no-repeat"
+                position="left"
+              />
+              <RenderSvg
+                src="url(src/assets/pixel-art/white-cross-16.svg)"
+                className="size-full absolute"
+                size="auto"
+                repeat="no-repeat"
+                position="right"
+              />
+            </div>
           </div>
           {currentPage && totalPages && setCurrentPage && (
             <CodexPagination
