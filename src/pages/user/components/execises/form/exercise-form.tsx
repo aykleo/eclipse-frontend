@@ -8,12 +8,12 @@ import {
 import { getColorClassForTagCategory } from "../../../../../utils/tag-colors";
 import { StatusToast } from "../../../../../components/status-toast";
 import { ExerciseCard } from "../../../../../components/exercise/exercise-card";
-import { EyeIcon } from "lucide-react";
 import { Input } from "../../../../../components/forms/input";
 import { Select } from "../../../../../components/forms/select";
 import { MuscleGroupSelect } from "../../../../../components/forms/muscle-group-select";
 import { TextArea } from "../../../../../components/forms/text-area";
 import MuscleGroupTree from "./muscle-group-tree";
+import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;
@@ -128,10 +128,16 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   onClick={toggleTooltip}
                   className="cursor-pointer md:hidden"
                 >
-                  <EyeIcon className="size-5 text-white transition-all duration-300" />
+                  <RenderSvg
+                    src="url(src/assets/pixel-art/buttons/btn-eye-32.svg)"
+                    size="auto"
+                    repeat="no-repeat"
+                    position="center"
+                    className="size-[32px] transition-all duration-300 opacity-50 hover:opacity-100"
+                  />
                 </div>
                 <button
-                  className="text-sm cursor-pointer px-1 text-white"
+                  className="cursor-pointer"
                   onClick={(event) => {
                     event.preventDefault();
                     if (exerciseForUpdate) {
@@ -142,7 +148,13 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                     }
                   }}
                 >
-                  Close
+                  <RenderSvg
+                    src="url(src/assets/pixel-art/buttons/btn-close.svg)"
+                    size="auto"
+                    repeat="no-repeat"
+                    position="center"
+                    className="size-[32px] transition-all duration-300 opacity-50 hover:opacity-100"
+                  />
                 </button>
               </div>
             </div>
@@ -270,20 +282,29 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
             </div>
           </div>
 
-          <div className="form-control w-full flex flex-col gap-y-2 h-24 pb-1 justify-end">
+          <div className="form-control w-full flex flex-col items-end gap-y-2 h-max py-4 justify-center">
             <button
+              type="submit"
               disabled={isLoading}
-              className={` btn btn-error  border shadow-none w-full rounded-md`}
+              className="w-[96px] cursor-pointer"
             >
-              {isLoading ? (
-                <span className="loading loading-dots loading-md"></span>
-              ) : (
-                <>
-                  {!exerciseForUpdate || exerciseForUpdate === null
-                    ? "Create"
-                    : "Update"}
-                </>
-              )}
+              <RenderSvg
+                src="url(src/assets/pixel-art/buttons/btn-submit.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
+                className="size-full pb-[4px] transition-all duration-300 opacity-75 tracking-wide hover:opacity-100"
+              >
+                {isLoading ? (
+                  <span className="loading loading-dots loading-md"></span>
+                ) : (
+                  <>
+                    {!exerciseForUpdate || exerciseForUpdate === null
+                      ? "Create"
+                      : "Update"}
+                  </>
+                )}
+              </RenderSvg>
             </button>
           </div>
           {statusText && <StatusToast statusText={statusText} />}

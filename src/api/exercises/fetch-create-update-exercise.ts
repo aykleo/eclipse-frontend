@@ -11,18 +11,13 @@ export type ExerciseFormData = {
 
 export const createOrUpdateExercise = async (
   formData: ExerciseFormData,
-  setIsLoading: (isLoading: boolean) => void,
-  setPrimaryMuscleGroupId: (primaryMuscleGroupId: string | "") => void,
-  setMuscleGroupIds: (muscleGroupIds: string[]) => void,
   exerciseForUpdateId?: string
-): Promise<string> => {
+) => {
   const controller = new AbortController();
   const signal = controller.signal;
 
   try {
-    setIsLoading(true);
-
-    const response = await fetch(
+    await fetch(
       `${import.meta.env.VITE_ECLIPSE_DEV_API_URL}/exercise/${
         !exerciseForUpdateId ? "create" : `update/${formData.exerciseId}`
       }`,
@@ -36,27 +31,7 @@ export const createOrUpdateExercise = async (
         body: JSON.stringify(formData),
       }
     );
-
-    if (!response.ok) {
-      const errorResponse = await response.text();
-      const errorJson = JSON.parse(errorResponse);
-
-      if (!errorJson) {
-        setIsLoading(false);
-        throw new Error("Unexpected error");
-      }
-
-      setIsLoading(false);
-      throw new Error(errorJson.message);
-    }
-    setPrimaryMuscleGroupId("");
-    setMuscleGroupIds([]);
-    return exerciseForUpdateId ? "Exercise updated" : "Exercise created";
-  } catch (error: unknown) {
-    console.error(error);
-    throw new Error("Server error. Please try again later.");
   } finally {
     controller.abort();
-    setIsLoading(false);
   }
 };
