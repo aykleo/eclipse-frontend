@@ -217,72 +217,76 @@ const MobileTemplateForm = React.memo(
               className="absolute h-full w-12 -right-5"
               transform="rotate(180deg)"
             />
-            <div className="flex items-center justify-center">
-              <button
-                type="button"
-                className=""
-                disabled={isLoading}
-                onClick={toggleNameInput}
-              >
-                <RenderSvg
-                  src="url(src/assets/pixel-art/buttons/btn-pen-32.svg)"
-                  size="auto"
-                  repeat="no-repeat"
-                  position="center"
-                  className="size-8 cursor-pointer"
-                />
-              </button>
-            </div>
-            <div className="flex items-center justify-center">
-              <button
-                type="submit"
+
+            <button
+              type="button"
+              className=""
+              disabled={isLoading}
+              onClick={toggleNameInput}
+            >
+              <RenderSvg
+                src="url(src/assets/pixel-art/buttons/btn-pen-32.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
                 className={`${
-                  !templateName ||
-                  templateExercises.length === 0 ||
-                  templateName.length < 5
-                    ? "opacity-50"
-                    : "opacity-100"
-                }`}
-                disabled={
-                  isLoading ||
-                  templateExercises.length === 0 ||
-                  templateName.length < 5
-                }
-              >
-                <RenderSvg
-                  src="url(src/assets/pixel-art/buttons/btn-submit.svg)"
-                  size="auto"
-                  repeat="no-repeat"
-                  position="center"
-                  className="h-8 w-24 cursor-pointer pt-[2px]"
-                >
-                  {isLoading ? "Creating..." : "Create"}
-                </RenderSvg>
-              </button>
-            </div>
-            <div className="flex items-center justify-center">
-              <button
-                type="button"
+                  templateName.length < 5 && "animate-pulse"
+                } size-8 cursor-pointer`}
+              />
+            </button>
+
+            <button
+              type="submit"
+              className={`${
+                !templateName ||
+                templateExercises.length === 0 ||
+                templateName.length < 5
+                  ? "opacity-40"
+                  : "opacity-100"
+              }`}
+              disabled={
+                isLoading ||
+                templateExercises.length === 0 ||
+                templateName.length < 5
+              }
+            >
+              <RenderSvg
+                src="url(src/assets/pixel-art/buttons/btn-submit.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
                 className={`${
-                  isLoading || templateExercises.length === 0
-                    ? "opacity-80"
-                    : "opacity-100"
-                } `}
-                disabled={isLoading || templateExercises.length === 0}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setTemplateExercises([]);
-                }}
+                  templateName.length > 5 && templateExercises.length > 0
+                    ? "animate-pulse"
+                    : ""
+                } h-8 w-24 cursor-pointer pt-[2px]`}
               >
-                <RenderSvg
-                  src="url(src/assets/pixel-art/buttons/btn-eraser-32.svg)"
-                  size="auto"
-                  repeat="no-repeat"
-                  position="center"
-                  className="size-8 cursor-pointer"
-                />
-              </button>
-            </div>
+                {isLoading ? "Creating..." : "Create"}
+              </RenderSvg>
+            </button>
+
+            <button
+              type="button"
+              className={`${
+                isLoading || templateExercises.length === 0
+                  ? "opacity-40"
+                  : "opacity-100"
+              } `}
+              disabled={isLoading || templateExercises.length === 0}
+              onClick={(e) => {
+                e.preventDefault();
+                setTemplateExercises([]);
+                setTemplateName("");
+              }}
+            >
+              <RenderSvg
+                src="url(src/assets/pixel-art/buttons/btn-eraser-32.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
+                className="size-8 cursor-pointer"
+              />
+            </button>
           </RenderSvg>
         </form>
       </RenderSvg>
