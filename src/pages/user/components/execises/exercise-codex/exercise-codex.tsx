@@ -16,6 +16,7 @@ import React from "react";
 import { CardCounter } from "./card-counter";
 import { ExerciseCategory } from "../../../../../utils/codex-selector-categories";
 import { CardList } from "./card-list";
+import { ExerciseInfo } from "../../../../../components/exercise/exercise-info";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
@@ -44,7 +45,7 @@ export const ExerciseCodex = React.memo(
       (searchParams.get("category") as ExerciseCategory) || "";
     const { statusText } = useStatus();
     const exerciseName = searchParams.get("exerciseName") || "";
-
+    const [showExerciseInfo, setShowExerciseInfo] = useState<Exercise>();
     const [isCreatingTemplate, setIsCreatingTemplate] = useState(false);
     const [templateExercises, setTemplateExercises] = useState<
       TemplateExercise[]
@@ -198,13 +199,15 @@ export const ExerciseCodex = React.memo(
                       .map((exercise: Exercise) => (
                         <ExerciseCard
                           exerciseForUpdate={exerciseForUpdate}
-                          setExerciseForUpdate={setExerciseForUpdate}
+                          // setExerciseForUpdate={setExerciseForUpdate}
                           exercise={exercise}
-                          setSearchParams={setSearchParams}
+                          // setSearchParams={setSearchParams}
                           isCreatingTemplate={isCreatingTemplate}
                           isCreatingExercise={isCreatingExercise}
                           templateExercises={templateExercises}
                           setTemplateExercises={setTemplateExercises}
+                          setShowExerciseInfo={setShowExerciseInfo}
+                          showExerciseInfo={showExerciseInfo}
                         />
                       ))}
                 </CardList>
@@ -246,7 +249,19 @@ export const ExerciseCodex = React.memo(
           )}
         </ul>
 
-        <DeleteExerciseModal />
+        <DeleteExerciseModal setShowExerciseInfo={setShowExerciseInfo} />
+        {showExerciseInfo && (
+          <ExerciseInfo
+            exercise={showExerciseInfo}
+            setShowExerciseInfo={setShowExerciseInfo}
+            showExerciseInfo={showExerciseInfo}
+            isCreatingExercise={isCreatingExercise}
+            exerciseForUpdate={exerciseForUpdate}
+            setExerciseForUpdate={setExerciseForUpdate}
+            setSearchParams={setSearchParams}
+            isCreatingTemplate={isCreatingTemplate}
+          />
+        )}
       </div>
     );
   }

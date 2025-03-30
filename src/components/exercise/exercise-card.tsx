@@ -6,11 +6,8 @@ import { RenderSvg } from "../pixel-art/render-svg";
 interface ExerciseCardProps {
   exercise: Exercise;
   exerciseForUpdate?: Exercise | null;
-  setExerciseForUpdate?: (exercise: Exercise | null) => void;
-  setSearchParams?: (
-    params: URLSearchParams | ((prev: URLSearchParams) => URLSearchParams),
-    options?: { replace: boolean }
-  ) => void;
+  showExerciseInfo?: Exercise | null;
+  setShowExerciseInfo?: (exercise: Exercise | undefined) => void;
   isCreatingTemplate?: boolean;
   isCreatingExercise?: boolean;
   templateExercises?: TemplateExercise[];
@@ -20,8 +17,8 @@ interface ExerciseCardProps {
 export const ExerciseCard = ({
   exercise,
   exerciseForUpdate,
-  setExerciseForUpdate,
-  setSearchParams,
+  showExerciseInfo,
+  setShowExerciseInfo,
   isCreatingTemplate,
   isCreatingExercise,
   templateExercises,
@@ -41,6 +38,7 @@ export const ExerciseCard = ({
       }
     }
   };
+
   return (
     <>
       <RenderPng
@@ -57,14 +55,16 @@ export const ExerciseCard = ({
           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault();
             e.stopPropagation();
-            console.log(exerciseForUpdate, isCreatingExercise);
+            if (setShowExerciseInfo) {
+              setShowExerciseInfo(exercise);
+            }
           }}
         >
           <RenderPng
             src="src/assets/pixel-art/buttons/btn-info-48.png"
             alt="info-button"
             className={`absolute top-0 right-[-0.5rem] size-[48px] hidden ${
-              !exerciseForUpdate && !isCreatingExercise
+              !exerciseForUpdate && !isCreatingExercise && !showExerciseInfo
                 ? "group-hover:block"
                 : ""
             } cursor-pointer`}
@@ -146,47 +146,6 @@ export const ExerciseCard = ({
             ? exercise.description
             : "There is no description"}
         </div>
-        {/* {setSearchParams && (
-          <button
-            className="cursor-pointer absolute left-[47px] top-[5px] size-6 rounded-full"
-            disabled={
-              exercise.id === exerciseForUpdate?.id || isCreatingTemplate
-            }
-            onClick={async () => {
-              setSearchParams(
-                (prev) => {
-                  prev.set("exerciseToDeleteId", exercise.id);
-                  prev.set("exerciseToDeleteName", exercise.name);
-                  return prev;
-                },
-                { replace: true }
-              );
-              const modal = document.getElementById(
-                "delete_exercise_modal"
-              ) as HTMLDialogElement;
-              modal?.showModal();
-            }}
-          />
-        )}
-        <button
-          className="cursor-pointer absolute top-[5px] size-6 rounded-full"
-          disabled={exercise.id === exerciseForUpdate?.id || isCreatingTemplate}
-        />
-        {setExerciseForUpdate && (
-          <button
-            className="cursor-pointer absolute right-[47px] top-[5px] size-6 rounded-full"
-            disabled={
-              exercise.id === exerciseForUpdate?.id || isCreatingTemplate
-            }
-            onClick={() => {
-              setExerciseForUpdate(exercise);
-
-              if (exercise.id === exerciseForUpdate?.id) {
-                setExerciseForUpdate(null);
-              }
-            }}
-          />
-        )} */}
       </RenderPng>
     </>
   );

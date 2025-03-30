@@ -5,8 +5,13 @@ import { useStatus } from "../../../../hooks/status/status-context";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { handleExerciseDeletion } from "../../../../api/exercises/exercise-deletion";
 import { useSearchParams } from "react-router-dom";
+import { Exercise } from "../../../../utils/types/exercise-types";
 
-export const DeleteExerciseModal = () => {
+export const DeleteExerciseModal = ({
+  setShowExerciseInfo,
+}: {
+  setShowExerciseInfo: (showExerciseInfo: Exercise | undefined) => void;
+}) => {
   const formRef = useRef<HTMLFormElement>(null);
   const { statusText, setStatusText } = useStatus();
   const queryClient = useQueryClient();
@@ -33,6 +38,7 @@ export const DeleteExerciseModal = () => {
         queryKey: ["exerciseByMuscleGroup"],
       });
       setSearchParams({}, { replace: true });
+      setShowExerciseInfo(undefined);
       setStatusText("Exercise deleted successfully");
       const timeout = setTimeout(() => {
         setStatusText(null);
