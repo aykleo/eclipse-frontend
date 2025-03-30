@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { RenderPng } from "../../../../components/pixel-art/render-png";
+import { TextArea } from "../../../../components/forms/text-area";
 
 interface MobileTemplateItemProps {
   exerciseId: string;
@@ -93,10 +94,10 @@ export const MobileTemplateItem = React.memo(
                   ×
                 </div>
               </div>
-              <textarea
+              <TextArea
                 value={notes}
                 onChange={(e) => onUpdateNotes(e.target.value, exerciseId)}
-                className="textarea textarea-bordered bg-transparent w-full"
+                className=""
                 placeholder="Add notes..."
               />
             </div>

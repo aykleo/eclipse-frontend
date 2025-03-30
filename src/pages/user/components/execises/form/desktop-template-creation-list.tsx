@@ -139,7 +139,7 @@ const TemplateCreationList = React.memo(
               placeholder="Template name"
             />
 
-            <div className="flex flex-col gap-2 overflow-y-auto w-[calc(100%-34px)] h-[calc(100%-120px)] no-scrollbar absolute top-14 left-4">
+            <div className="flex flex-col gap-2 pt-2 overflow-y-auto w-[calc(100%-34px)] h-[calc(100%-120px)] no-scrollbar absolute top-14 left-4">
               <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
@@ -171,9 +171,7 @@ const TemplateCreationList = React.memo(
             <div className="absolute bottom-2 w-full h-[44px] flex items-center justify-between px-3">
               <button
                 className={`h-full w-[calc(48*4px)] ${
-                  (exercises && exercises.length === 0) ||
-                  isLoading ||
-                  templateNameRef.current.length < 5
+                  (exercises && exercises.length === 0) || isLoading
                     ? "opacity-80"
                     : "opacity-100"
                 }`}
@@ -184,7 +182,7 @@ const TemplateCreationList = React.memo(
                   size="auto"
                   repeat="no-repeat"
                   position="center"
-                  className="size-full cursor-pointer opacity-85 text-xl font-bold flex items-center justify-center pb-1 transition-opacity duration-200"
+                  className="size-full cursor-pointer text-xl font-bold flex items-center justify-center pb-1"
                 >
                   {isLoading ? "Creating..." : "Create Template"}
                 </RenderSvg>
