@@ -24,8 +24,10 @@ const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
         className={`sticky ${
           !isCreatingTemplate ? "left-2" : "left-2 lg:left-3"
         } z-2 top-1/2 translate-y-1/2 size-8 pb-[2px] ${
-          currentPage === 1 ? "opacity-50 cursor-default" : "cursor-pointer"
-        }`}
+          currentPage === 1
+            ? "brightness-50 cursor-default"
+            : "cursor-pointer brightness-100 hover:brightness-125"
+        } filter  duration-200`}
         onClick={() => {
           if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
@@ -52,9 +54,9 @@ const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
             : "left-[calc(100%-2.5rem)] lg:left-[calc(100%-24rem)]"
         } z-2 top-1/2 translate-y-1/2 size-8 pb-[2px] ${
           currentPage === totalPages
-            ? "opacity-50 cursor-default"
-            : "cursor-pointer"
-        }`}
+            ? "brightness-50 cursor-default"
+            : "cursor-pointer brightness-100 hover:brightness-125"
+        } filter duration-200`}
         onClick={() => {
           if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);

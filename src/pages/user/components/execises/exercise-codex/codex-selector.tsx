@@ -78,9 +78,9 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
                   }
                   className={`${
                     selectedCategory === category.category
-                      ? "opacity-100"
-                      : "opacity-35"
-                  }`}
+                      ? "brightness-100"
+                      : "brightness-50"
+                  } filter duration-200 transition-all hover:brightness-110`}
                 >
                   <div className="lg:hidden cursor-pointer">
                     {category.icon}

@@ -12,6 +12,7 @@ interface ExerciseCardProps {
     options?: { replace: boolean }
   ) => void;
   isCreatingTemplate?: boolean;
+  isCreatingExercise?: boolean;
   templateExercises?: TemplateExercise[];
   setTemplateExercises?: (exercises: TemplateExercise[]) => void;
 }
@@ -22,6 +23,7 @@ export const ExerciseCard = ({
   setExerciseForUpdate,
   setSearchParams,
   isCreatingTemplate,
+  isCreatingExercise,
   templateExercises,
   setTemplateExercises,
 }: ExerciseCardProps) => {
@@ -45,14 +47,30 @@ export const ExerciseCard = ({
         key={exercise.id}
         onClick={handleAddExerciseToTemplate}
         className={`${
-          !isCreatingTemplate
-            ? "cursor-default"
-            : "cursor-pointer hover:scale-105 transition-all duration-300"
-        } flex-col w-[192px] h-[256px] flex items-center justify-center rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300 relative`}
+          !isCreatingTemplate ? "cursor-default" : "cursor-pointer"
+        } flex-col w-[192px] h-[256px] flex items-center group justify-center rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300 relative`}
         src="src/assets/pixel-art/exercise-cards/generic-exercise-card.png"
         alt="exercise-card"
         imgClassName="absolute top-0 left-0 w-full h-full"
       >
+        <button
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log(exerciseForUpdate, isCreatingExercise);
+          }}
+        >
+          <RenderPng
+            src="src/assets/pixel-art/buttons/btn-info-48.png"
+            alt="info-button"
+            className={`absolute top-0 right-[-0.5rem] size-[48px] hidden ${
+              !exerciseForUpdate && !isCreatingExercise
+                ? "group-hover:block"
+                : ""
+            } cursor-pointer`}
+            imgClassName="transition-all filter brightness-75 duration-200 hover:brightness-110"
+          />
+        </button>
         {/* <div
           className={`${
             exercise.exerciseMuscleGroups.length < 2
@@ -79,7 +97,7 @@ export const ExerciseCard = ({
             ))}
         </div> */}
 
-        <div className="flex w-full items-center absolute top-6 justify-center pt-3">
+        <div className="flex overflow-hidden items-center absolute top-6 rounded-full size-max justify-center">
           {exercise.exerciseMuscleGroups
             .filter((muscleGroup) => muscleGroup.isPrimary)
             .map((muscleGroup) => (
@@ -87,7 +105,7 @@ export const ExerciseCard = ({
                 key={muscleGroup.muscleGroup.name}
                 src={`src/assets/pixel-art/muscles/${muscleGroup.muscleGroup.name}.svg`}
                 alt={`${muscleGroup.muscleGroup.name} icon`}
-                className="size-16"
+                className="size-18"
               />
             ))}
         </div>
@@ -104,7 +122,7 @@ export const ExerciseCard = ({
             position="center"
             size="auto"
             repeat="no-repeat"
-            className={` size-7 rounded-lg p-1 absolute top-28`}
+            className="size-7 rounded-lg p-1 absolute top-28"
           />
         )}
 
@@ -128,7 +146,7 @@ export const ExerciseCard = ({
             ? exercise.description
             : "There is no description"}
         </div>
-        {setSearchParams && (
+        {/* {setSearchParams && (
           <button
             className="cursor-pointer absolute left-[47px] top-[5px] size-6 rounded-full"
             disabled={
@@ -168,7 +186,7 @@ export const ExerciseCard = ({
               }
             }}
           />
-        )}
+        )} */}
       </RenderPng>
     </>
   );

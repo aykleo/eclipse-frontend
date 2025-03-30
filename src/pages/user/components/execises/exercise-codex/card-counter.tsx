@@ -27,12 +27,14 @@ export const CardCounter = ({
   return (
     <RenderSvg
       src={getImageSrc(templateExercises.length)}
-      size={`${isCreatingTemplate ? "96px" : "48px"}`}
+      size={`${isCreatingTemplate ? "64px" : "48px"}`}
       repeat="no-repeat"
       position="center"
       className={`${
-        isCreatingTemplate ? "size-24" : "size-12"
-      }  cursor-pointer transition-all duration-300 flex items-center justify-center flex-col relative`}
+        isCreatingTemplate
+          ? "size-[64px] brightness-125  hover:brightness-100"
+          : "size-12 brightness-75  hover:brightness-100"
+      }  cursor-pointer transition-all duration-300 flex items-center justify-center flex-col relative filter`}
     >
       <button
         onClick={() => setIsCreatingTemplate(!isCreatingTemplate)}

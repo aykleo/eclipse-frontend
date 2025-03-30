@@ -202,6 +202,7 @@ export const ExerciseCodex = React.memo(
                           exercise={exercise}
                           setSearchParams={setSearchParams}
                           isCreatingTemplate={isCreatingTemplate}
+                          isCreatingExercise={isCreatingExercise}
                           templateExercises={templateExercises}
                           setTemplateExercises={setTemplateExercises}
                         />

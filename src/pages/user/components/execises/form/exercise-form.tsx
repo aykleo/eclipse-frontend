@@ -133,7 +133,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                     size="auto"
                     repeat="no-repeat"
                     position="center"
-                    className="size-[32px] transition-all duration-300 opacity-50 hover:opacity-100"
+                    className="size-[32px] transition-all duration-200 filter brightness-75 hover:brightness-110"
                   />
                 </div>
                 <button
@@ -153,7 +153,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                     size="auto"
                     repeat="no-repeat"
                     position="center"
-                    className="size-[32px] transition-all duration-300 opacity-50 hover:opacity-100"
+                    className="size-[32px] transition-all duration-200 filter brightness-75 hover:brightness-110"
                   />
                 </button>
               </div>
@@ -164,7 +164,11 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               className="absolute inset-0 z-99 flex items-start pt-16 cursor-pointer lg:hidden justify-center backdrop-blur-xs bg-neutral-950/50"
               onClick={toggleTooltip}
             >
-              <ExerciseCard exercise={exercise} />
+              <ExerciseCard
+                exercise={exercise}
+                isCreatingExercise={isCreatingExercise}
+                exerciseForUpdate={exerciseForUpdate}
+              />
             </div>
           )}
           <div className="flex flex-col gap-y-2 px-1 h-full overflow-y-auto no-scrollbar">
@@ -253,7 +257,11 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               </div>
 
               <div className="hidden md:col-start-2 col-span-1 md:flex size-full items-center justify-center">
-                <ExerciseCard exercise={exercise} />
+                <ExerciseCard
+                  exercise={exercise}
+                  isCreatingExercise={isCreatingExercise}
+                  exerciseForUpdate={exerciseForUpdate}
+                />
               </div>
 
               <div className="gap-y-3 flex flex-col md:col-start-3 col-span-3 md:col-span-1">
@@ -293,7 +301,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                 size="auto"
                 repeat="no-repeat"
                 position="center"
-                className="size-full pb-[4px] transition-all duration-300 opacity-75 tracking-wide hover:opacity-100"
+                className="size-full pb-[4px] tracking-wide flex items-center justify-center filter duration-200 transition-all hover:brightness-125"
               >
                 {isLoading ? (
                   <span className="loading loading-dots loading-md"></span>

@@ -16,7 +16,7 @@ export const TextArea = ({
   ...props
 }: TextAreaProps) => {
   return (
-    <div className="gap-y-1 flex flex-col">
+    <div className="gap-y-1 flex flex-col filter duration-200 transition-all hover:brightness-125 ">
       {hasLabel && (
         <div className="w-full">
           <label className="label">

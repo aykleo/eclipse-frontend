@@ -182,7 +182,7 @@ const TemplateCreationList = React.memo(
                   size="auto"
                   repeat="no-repeat"
                   position="center"
-                  className="size-full cursor-pointer text-xl font-bold flex items-center justify-center pb-1"
+                  className="size-full cursor-pointer text-xl font-bold flex items-center justify-center pb-1 transition-all duration-200 filter brightness-75 hover:brightness-110"
                 >
                   {isLoading ? "Creating..." : "Create Template"}
                 </RenderSvg>
@@ -192,7 +192,7 @@ const TemplateCreationList = React.memo(
                   e.preventDefault();
                   setTemplateExercises([]);
                 }}
-                className="h-full w-[calc(24*4px)] opacity-75 hover:opacity-100 transition-opacity duration-200"
+                className="h-full w-[calc(24*4px)] transition-all duration-200 filter brightness-75 hover:brightness-110"
               >
                 <RenderSvg
                   src="url(src/assets/pixel-art/buttons/btn-erase-template.svg)"

@@ -117,7 +117,7 @@ export const Select = ({
   return (
     <>
       <div
-        className={`gap-y-1 flex flex-col text ${className || ""}`}
+        className={`gap-y-1 flex flex-col text ${className || ""} `}
         ref={dropdownRef}
       >
         {hasLabel && (
