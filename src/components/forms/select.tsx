@@ -129,14 +129,14 @@ export const Select = ({
         )}
         <div className="h-8 w-full flex relative">
           <RenderSvg
-            src="url(src/assets/pixel-art/input-side-32.svg)"
+            src="url(src/assets/pixel-art/body/input-side-32.svg)"
             size="auto"
             repeat="no-repeat"
             position="start"
             className="size-8 absolute -left-1"
           />
           <RenderSvg
-            src="url(src/assets/pixel-art/body-32-input.svg)"
+            src="url(src/assets/pixel-art/body/body-32-input.svg)"
             size="auto"
             repeat="repeat"
             position="center"
@@ -193,7 +193,7 @@ export const Select = ({
             )}
           </RenderSvg>
           <RenderSvg
-            src="url(src/assets/pixel-art/input-side-32.svg)"
+            src="url(src/assets/pixel-art/body/input-side-32.svg)"
             size="auto"
             repeat="no-repeat"
             position="center"

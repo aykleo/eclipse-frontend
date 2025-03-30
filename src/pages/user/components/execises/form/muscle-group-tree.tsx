@@ -50,8 +50,8 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
                 <RenderSvg
                   src={`${
                     !isSelected
-                      ? "url(src/assets/pixel-art/body-32-input.svg)"
-                      : "url(src/assets/pixel-art/body-32-input-red.svg)"
+                      ? "url(src/assets/pixel-art/body/body-32-input.svg)"
+                      : "url(src/assets/pixel-art/body/body-32-input-red.svg)"
                   }`}
                   size="auto"
                   repeat="repeat"
@@ -75,8 +75,8 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
                   <RenderSvg
                     src={`${
                       !isSelected
-                        ? "url(src/assets/pixel-art/input-side-32.svg)"
-                        : "url(src/assets/pixel-art/input-side-32-red.svg)"
+                        ? "url(src/assets/pixel-art/body/input-side-32.svg)"
+                        : "url(src/assets/pixel-art/body/input-side-32-red.svg)"
                     }`}
                     size="auto"
                     repeat="no-repeat"
@@ -86,8 +86,8 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
                   <RenderSvg
                     src={`${
                       !isSelected
-                        ? "url(src/assets/pixel-art/input-side-32.svg)"
-                        : "url(src/assets/pixel-art/input-side-32-red.svg)"
+                        ? "url(src/assets/pixel-art/body/input-side-32.svg)"
+                        : "url(src/assets/pixel-art/body/input-side-32-red.svg)"
                     }`}
                     size="auto"
                     repeat="no-repeat"

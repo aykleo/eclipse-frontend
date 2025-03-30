@@ -152,16 +152,81 @@ export const CardList = memo(
         </div>
 
         {isCreatingTemplate && (
-          <div className="w-1/4 sticky h-[calc(100vh-7rem)] top-28 right-0 hidden lg:block p-2 rounded-l-md rounded-b-none bg-gradient-to-r from-neutral-950 to-red-950/50">
-            <React.Suspense fallback={<div>Loading...</div>}>
-              <TemplateCreationList
-                exercises={templateExercises}
-                onUpdateNotes={onUpdateNotes}
-                onRemoveExercise={onRemoveExercise}
-                setIsCreatingTemplate={setIsCreatingTemplate}
-                setTemplateExercises={setTemplateExercises}
+          <div className="w-1/4 sticky h-[calc(100vh-7rem)] top-28 right-0 hidden lg:block mr-2 mb-3">
+            <div className="w-full h-full p-2 relative">
+              <RenderSvg
+                src="url(src/assets/pixel-art/body/body-top-teste.svg)"
+                size="auto"
+                repeat="repeat"
+                position="center"
+                className="absolute h-[12px] top-0 w-[calc(100%-1rem)]"
               />
-            </React.Suspense>
+              <RenderSvg
+                src="url(src/assets/pixel-art/body/body-top-teste.svg)"
+                size="auto"
+                repeat="repeat"
+                position="center"
+                className="absolute h-[12px] bottom-0 w-[calc(100%-1rem)]"
+                transform="rotate(180deg)"
+              />
+              <RenderSvg
+                src="url(src/assets/pixel-art/body/body-side-teste.svg)"
+                size="auto"
+                repeat="repeat-y"
+                position="center"
+                className="absolute h-[calc(100%-1rem)] left-0 w-[12px]"
+              />
+              <RenderSvg
+                src="url(src/assets/pixel-art/body/body-side-teste.svg)"
+                size="auto"
+                repeat="repeat-y"
+                position="center"
+                className="absolute h-[calc(100%-6px)] right-0 w-[12px]"
+                transform="rotate(180deg)"
+              />
+              <RenderSvg
+                src="url(src/assets/pixel-art/body/body-corner-teste.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
+                className="absolute h-[16px] left-0 top-0 w-[16px]"
+              />
+              <RenderSvg
+                src="url(src/assets/pixel-art/body/body-corner-teste.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
+                className="absolute h-[16px] right-0 top-0 w-[16px]"
+                transform="rotate(90deg)"
+              />
+              <RenderSvg
+                src="url(src/assets/pixel-art/body/body-corner-teste.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
+                className="absolute h-[16px] left-0 bottom-0 w-[16px]"
+                transform="rotate(270deg)"
+              />
+              <RenderSvg
+                src="url(src/assets/pixel-art/body/body-corner-teste.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
+                className="absolute h-[16px] right-0 bottom-0 w-[16px]"
+                transform="rotate(180deg)"
+              />
+              <div className="size-full px-5 py-4 bg-[#870707]">
+                <React.Suspense fallback={<div>Loading...</div>}>
+                  <TemplateCreationList
+                    exercises={templateExercises}
+                    onUpdateNotes={onUpdateNotes}
+                    onRemoveExercise={onRemoveExercise}
+                    setIsCreatingTemplate={setIsCreatingTemplate}
+                    setTemplateExercises={setTemplateExercises}
+                  />
+                </React.Suspense>
+              </div>
+            </div>
           </div>
         )}
       </div>
