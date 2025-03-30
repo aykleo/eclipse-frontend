@@ -154,68 +154,77 @@ export const CardList = memo(
         {isCreatingTemplate && (
           <div className="w-1/4 sticky h-[calc(100vh-7rem)] top-28 right-0 hidden lg:block mr-2 mb-3">
             <div className="w-full h-full p-2 relative">
-              <RenderSvg
-                src="url(src/assets/pixel-art/body/body-top-teste.svg)"
-                size="auto"
-                repeat="repeat"
-                position="center"
-                className="absolute h-[12px] top-0 w-[calc(100%-1rem)]"
-              />
-              <RenderSvg
-                src="url(src/assets/pixel-art/body/body-top-teste.svg)"
-                size="auto"
-                repeat="repeat"
-                position="center"
-                className="absolute h-[12px] bottom-0 w-[calc(100%-1rem)]"
-                transform="rotate(180deg)"
-              />
-              <RenderSvg
-                src="url(src/assets/pixel-art/body/body-side-teste.svg)"
-                size="auto"
-                repeat="repeat-y"
-                position="center"
-                className="absolute h-[calc(100%-1rem)] left-0 w-[12px]"
-              />
-              <RenderSvg
-                src="url(src/assets/pixel-art/body/body-side-teste.svg)"
-                size="auto"
-                repeat="repeat-y"
-                position="center"
-                className="absolute h-[calc(100%-6px)] right-0 w-[12px]"
-                transform="rotate(180deg)"
-              />
-              <RenderSvg
-                src="url(src/assets/pixel-art/body/body-corner-teste.svg)"
-                size="auto"
-                repeat="no-repeat"
-                position="center"
-                className="absolute h-[16px] left-0 top-0 w-[16px]"
-              />
-              <RenderSvg
-                src="url(src/assets/pixel-art/body/body-corner-teste.svg)"
-                size="auto"
-                repeat="no-repeat"
-                position="center"
-                className="absolute h-[16px] right-0 top-0 w-[16px]"
-                transform="rotate(90deg)"
-              />
-              <RenderSvg
-                src="url(src/assets/pixel-art/body/body-corner-teste.svg)"
-                size="auto"
-                repeat="no-repeat"
-                position="center"
-                className="absolute h-[16px] left-0 bottom-0 w-[16px]"
-                transform="rotate(270deg)"
-              />
-              <RenderSvg
-                src="url(src/assets/pixel-art/body/body-corner-teste.svg)"
-                size="auto"
-                repeat="no-repeat"
-                position="center"
-                className="absolute h-[16px] right-0 bottom-0 w-[16px]"
-                transform="rotate(180deg)"
-              />
-              <div className="size-full px-5 py-4 bg-[#870707]">
+              <div className="h-[51px] w-full relative">
+                <RenderSvg
+                  src="url(src/assets/pixel-art/desktop-template-creation/top-left.svg)"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="w-[32px] h-full absolute top-0 left-[-5px]"
+                />
+                <RenderSvg
+                  src="url(src/assets/pixel-art/desktop-template-creation/top-middle.svg)"
+                  size="auto"
+                  repeat="repeat-x"
+                  position="center"
+                  className="w-[95%] right-1/2 translate-x-1/2 h-full absolute"
+                />
+                <RenderSvg
+                  src="url(src/assets/pixel-art/desktop-template-creation/top-right.svg)"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="w-[32px] h-full absolute top-0 right-[-2px]"
+                />
+              </div>
+              <div className="w-full h-[calc(100%-108px)]">
+                <RenderSvg
+                  src="url(src/assets/pixel-art/desktop-template-creation/middle-left.svg)"
+                  size="auto"
+                  repeat="repeat-y"
+                  position="center"
+                  className="w-[32px] h-[calc(100%-120px)] absolute top-[56px] left-[5px]"
+                />
+                <RenderSvg
+                  src="url(src/assets/pixel-art/desktop-template-creation/middle-middle.svg)"
+                  size="auto"
+                  repeat="repeat"
+                  position="center"
+                  className="w-[calc(100%-64px)] right-1/2 translate-x-1/2 h-[calc(100%-122px)] absolute"
+                />
+                <RenderSvg
+                  src="url(src/assets/pixel-art/desktop-template-creation/middle-right.svg)"
+                  size="auto"
+                  repeat="repeat-y"
+                  position="center"
+                  className="w-[32px] h-[calc(100%-120px)] absolute top-[56px] right-[8px]"
+                />
+              </div>
+              <div className="h-[64px] w-full relative">
+                <RenderSvg
+                  src="url(src/assets/pixel-art/desktop-template-creation/bottom-left.svg)"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="w-[32px] h-full absolute bottom-0 left-[-3px]"
+                />
+                <RenderSvg
+                  src="url(src/assets/pixel-art/desktop-template-creation/bottom-middle.svg)"
+                  size="auto"
+                  repeat="repeat-x"
+                  position="center"
+                  className="w-[95%] right-1/2 translate-x-1/2 h-full absolute"
+                />
+                <RenderSvg
+                  src="url(src/assets/pixel-art/desktop-template-creation/bottom-right.svg)"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="w-[32px] h-full absolute bottom-0 right-0"
+                />
+              </div>
+
+              <div className="absolute size-full top-0 right-0">
                 <React.Suspense fallback={<div>Loading...</div>}>
                   <TemplateCreationList
                     exercises={templateExercises}

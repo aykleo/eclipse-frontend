@@ -20,6 +20,7 @@ import { useMutation } from "@tanstack/react-query";
 import { handleTemplateCreation } from "../../../../../api/templates/template-creation";
 import { TemplateFormData } from "../../../../../api/templates/fetch-create-update-template";
 import { useStatus } from "../../../../../hooks/status/status-context";
+import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 
 interface TemplateExercise {
   exerciseId: string;
@@ -113,8 +114,8 @@ const TemplateCreationList = React.memo(
     };
 
     return (
-      <div className="w-full h-full">
-        <div
+      <div className="size-full relative">
+        {/* <div
           onClick={(e) => {
             e.preventDefault();
             setIsCreatingTemplate(false);
@@ -122,7 +123,7 @@ const TemplateCreationList = React.memo(
           className="absolute rounded-l-md h-10 flex items-center justify-center bg-neutral-950 p-1 -left-6 top-0 cursor-pointer"
         >
           <ArrowRightIcon className="size-5" />
-        </div>
+        </div> */}
         <form
           action="create_template"
           onSubmit={handleSubmit}
@@ -134,11 +135,11 @@ const TemplateCreationList = React.memo(
               type="text"
               name="templateName"
               onChange={(e) => (templateNameRef.current = e.target.value)}
-              className="input input-bordered input-sm bg-transparent w-full"
+              className="h-8 pl-3 pt-1 pr-12 font-bold text-xl input-sm bg-transparent w-full absolute top-2 clean"
               placeholder="Template name"
             />
 
-            <div className="flex flex-col gap-2 overflow-y-auto h-full no-scrollbar">
+            <div className="flex flex-col gap-2 overflow-y-auto w-[calc(100%-34px)] h-[calc(100%-120px)] no-scrollbar absolute top-14 left-4">
               <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
@@ -167,12 +168,43 @@ const TemplateCreationList = React.memo(
               </DndContext>
             </div>
 
-            <button
-              className="btn btn-error btn-sm mt-2"
-              disabled={(exercises && exercises.length === 0) || isLoading}
-            >
-              {isLoading ? "Creating..." : "Create Template"}
-            </button>
+            <div className="absolute bottom-2 w-full h-[44px] flex items-center justify-between px-3">
+              <button
+                className={`h-full w-[calc(48*4px)] ${
+                  (exercises && exercises.length === 0) ||
+                  isLoading ||
+                  templateNameRef.current.length < 5
+                    ? "opacity-80"
+                    : "opacity-100"
+                }`}
+                disabled={(exercises && exercises.length === 0) || isLoading}
+              >
+                <RenderSvg
+                  src="url(src/assets/pixel-art/buttons/btn-create-template.svg)"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="size-full cursor-pointer opacity-85 text-xl font-bold flex items-center justify-center pb-1 transition-opacity duration-200"
+                >
+                  {isLoading ? "Creating..." : "Create Template"}
+                </RenderSvg>
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setTemplateExercises([]);
+                }}
+                className="h-full w-[calc(24*4px)] opacity-75 hover:opacity-100 transition-opacity duration-200"
+              >
+                <RenderSvg
+                  src="url(src/assets/pixel-art/buttons/btn-erase-template.svg)"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="size-full cursor-pointer"
+                />
+              </button>
+            </div>
           </div>
         </form>
       </div>
