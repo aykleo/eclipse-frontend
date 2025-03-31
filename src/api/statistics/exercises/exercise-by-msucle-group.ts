@@ -21,11 +21,6 @@ export async function handleExerciseByMuscleGroup(weight: number) {
       }
     );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Unknown error occurred");
-    }
-
     const data = await response.json();
 
     return {

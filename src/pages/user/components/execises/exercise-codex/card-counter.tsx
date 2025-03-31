@@ -1,5 +1,5 @@
-import { DumbbellIcon } from "lucide-react";
 import { TemplateExercise } from "../../../../../utils/types/exercise-types";
+import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 
 interface CardCounterProps {
   isCreatingTemplate: boolean;
@@ -12,34 +12,50 @@ export const CardCounter = ({
   setIsCreatingTemplate,
   templateExercises,
 }: CardCounterProps) => {
-  return (
-    <button
-      onClick={() => setIsCreatingTemplate(!isCreatingTemplate)}
-      className={`${
-        isCreatingTemplate ? "h-20 w-14" : " h-16 w-10"
-      } cursor-pointer flex items-center flex-col relative gap-x-1 border-error bg-gradient-to-br from-neutral-900 to-neutral-950 border rounded-sm`}
-    >
-      <div
-        className={`${
-          isCreatingTemplate ? "-top-4 right-2.5 p-2" : "-top-2 right-2 p-1"
-        } rounded-full bg-neutral-900 border-error  absolute border`}
-      >
-        <DumbbellIcon
-          className={`${isCreatingTemplate ? "size-4" : "size-3"} text-error`}
-        />
-      </div>
+  const getImageSrc = (length: number) => {
+    if (length > 5) {
+      return "url(src/assets/pixel-art/card-counter/card-counter-3.svg)";
+    } else if (length >= 3) {
+      return "url(src/assets/pixel-art/card-counter/card-counter-2.svg)";
+    } else if (length > 0) {
+      return "url(src/assets/pixel-art/card-counter/card-counter-1.svg)";
+    } else {
+      return "url(src/assets/pixel-art/card-counter/card-counter.svg)";
+    }
+  };
 
-      <div
-        className={`${
-          isCreatingTemplate ? "mt-8 w-16 h-6" : "mt-6 w-12 h-5"
-        } text-sm font-medium  border-error bg-neutral-950 border items-center justify-center flex`}
+  return (
+    <RenderSvg
+      src={getImageSrc(templateExercises.length)}
+      size={`${isCreatingTemplate ? "64px" : "48px"}`}
+      repeat="no-repeat"
+      position="center"
+      className={`${
+        isCreatingTemplate
+          ? "size-[64px] brightness-125  hover:brightness-100"
+          : "size-12 brightness-75  hover:brightness-100"
+      }  cursor-pointer transition-all duration-300 flex items-center justify-center flex-col relative filter`}
+    >
+      <button
+        onClick={() => setIsCreatingTemplate(!isCreatingTemplate)}
+        className={`size-8/10 relative rounded-lg cursor-pointer flex items-center justify-center`}
       >
-        {templateExercises.length > 0
-          ? templateExercises.length
-          : isCreatingTemplate
-          ? "0"
-          : "+"}
-      </div>
-    </button>
+        <RenderSvg
+          src="url(src/assets/pixel-art/portrait-32.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className={`${
+            !isCreatingTemplate ? "hidden" : ""
+          } text-lg absolute -top-9 right-0 size-8 text-center flex items-center justify-center`}
+        >
+          {templateExercises.length > 0
+            ? templateExercises.length
+            : isCreatingTemplate
+            ? "0"
+            : ""}
+        </RenderSvg>
+      </button>
+    </RenderSvg>
   );
 };

@@ -22,10 +22,6 @@ export const logIn = async (
       const errorResponse = await response.text();
       const errorJson = JSON.parse(errorResponse);
 
-      if (!errorJson) {
-        return;
-      }
-
       setStatusText(errorJson.message);
 
       const timeout = setTimeout(() => {

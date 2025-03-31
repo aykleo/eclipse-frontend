@@ -14,41 +14,38 @@ export const handleExerciseUpdate = async (
   exerciseForUpdate: Exercise
 ) => {
   setIsLoading(true);
-  if (
-    formData.primaryMuscleGroupId === "Primary mover" ||
-    formData.primaryMuscleGroupId === null ||
-    formData.primaryMuscleGroupId === ""
-  ) {
-    setIsLoading(false);
-    throw new Error("Please select a primary mover");
-  }
 
   try {
     exerciseSchema.parse(formData);
-    const updateExercise = await createOrUpdateExercise(
-      formData,
-      setIsLoading,
-      setPrimaryMuscleGroupId,
-      setMuscleGroupIds,
-      exerciseForUpdate.id
-    );
-
-    return updateExercise;
   } catch (e) {
     if (e instanceof z.ZodError) {
-      const enumError = e.errors.find((error) =>
-        error.message.includes("Invalid enum value")
+      const specificError = e.errors.find((error) =>
+        error.message.includes(
+          "Invalid enum value. Expected 'ENDURANCE' | 'MOVEMENT' | 'PLYOMETRICS' | 'STRENGTH'"
+        )
       );
-      if (enumError) {
+
+      if (specificError) {
         setIsLoading(false);
-
         throw new Error("Please select a valid category from the list.");
+      } else {
+        const errorMessage = e.errors.map((error) => error.message).join(", ");
+        setIsLoading(false);
+        throw new Error(errorMessage);
       }
-      setIsLoading(false);
-
-      throw new Error("Please fill in all fields.");
     }
-  } finally {
-    setIsLoading(false);
   }
+
+  await createOrUpdateExercise(formData, exerciseForUpdate.id)
+    .then((updatedExercise) => {
+      setPrimaryMuscleGroupId("");
+      setMuscleGroupIds([]);
+      return updatedExercise;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
 };

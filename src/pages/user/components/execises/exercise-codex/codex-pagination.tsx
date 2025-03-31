@@ -1,52 +1,78 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import React from "react";
+import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 
 interface CodexPaginationProps {
   currentPage: number;
   totalPages: number;
   setCurrentPage: (page: number) => void;
+  isCreatingTemplate: boolean;
 }
 
 const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
   currentPage,
   totalPages,
   setCurrentPage,
+  isCreatingTemplate,
 }) => {
   return (
     <>
-      <button
-        className="absolute -left-1 -bottom-2.5 size-max p-2 rounded-full bg-neutral-950 border-b border-b-neutral-600/50 text-white flex items-center justify-center cursor-pointer"
+      <RenderSvg
+        src="url(src/assets/pixel-art/buttons/btn-32.svg)"
+        size="auto"
+        repeat="no-repeat"
+        position="start"
+        className={`sticky ${
+          !isCreatingTemplate ? "left-2" : "left-2 lg:left-3"
+        } z-1 top-1/2 translate-y-1/2 size-8 pb-[2px] ${
+          currentPage === 1
+            ? "brightness-50 cursor-default"
+            : "cursor-pointer brightness-100 hover:brightness-125"
+        } filter  duration-200`}
         onClick={() => {
           if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
           }
         }}
-        disabled={currentPage === 1}
       >
-        <ChevronLeftIcon className="size-4 " />
-      </button>
-      <span
-        style={{
-          clipPath:
-            "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)",
-        }}
-        className="bg-gradient-to-b from-neutral-950 via-neutral-800 to-neutral-950 text-white flex items-center justify-center size-8 cursor-default absolute -bottom-2.5"
-      >
-        {currentPage}
-      </span>
-      <button
-        className="absolute -right-1 -bottom-2.5 size-max p-2 rounded-full bg-neutral-950 border-b border-b-neutral-600/50 text-white flex items-center justify-center cursor-pointer"
+        <RenderSvg
+          src="url(src/assets/pixel-art/buttons/btn-next-32.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="size-full"
+          transform="rotate(180deg)"
+        />
+      </RenderSvg>
+      <RenderSvg
+        src="url(src/assets/pixel-art/buttons/btn-32.svg)"
+        size="auto"
+        repeat="no-repeat"
+        position="start"
+        className={`sticky ${
+          !isCreatingTemplate
+            ? "left-[calc(100%-2.5rem)]"
+            : "left-[calc(100%-2.5rem)] lg:left-[calc(100%-24rem)]"
+        } z-1 top-1/2 translate-y-1/2 size-8 pb-[2px] ${
+          currentPage === totalPages
+            ? "brightness-50 cursor-default"
+            : "cursor-pointer brightness-100 hover:brightness-125"
+        } filter duration-200`}
         onClick={() => {
           if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
           }
         }}
-        disabled={currentPage === totalPages}
       >
-        <ChevronRightIcon className="size-4 " />
-      </button>
+        <RenderSvg
+          src="url(src/assets/pixel-art/buttons/btn-next-32.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="size-full"
+        />
+      </RenderSvg>
     </>
   );
 };
 
-export const CodexPagination = CodexPaginationComponent;
+export const CodexPagination = React.memo(CodexPaginationComponent);

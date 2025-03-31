@@ -8,6 +8,7 @@ import { handleExerciseUpdate } from "../../../../api/exercises/exercise-update"
 import { handleExerciseCreation } from "../../../../api/exercises/exercise-creation";
 import { useStatus } from "../../../../hooks/status/status-context";
 import { useUser } from "../../../../hooks/user/use-context";
+import { PaperBody } from "../../../../components/styles/paper-body";
 
 const ExerciseForm = React.lazy(() => import("./form/exercise-form"));
 
@@ -141,13 +142,6 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
           }, 3000);
           return () => clearTimeout(timeout);
         },
-        onError: (error: Error) => {
-          setStatusText(`${error.message}`);
-          const timeout = setTimeout(() => {
-            setStatusText(null);
-          }, 3000);
-          return () => clearTimeout(timeout);
-        },
       });
 
       const createMutation = useMutation({
@@ -177,17 +171,7 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
           if (formRef && formRef.current) {
             formRef.current.reset();
           }
-          if (setIsCreatingExercise) {
-            setIsCreatingExercise(false);
-          }
           setStatusText("Exercise created successfully");
-          const timeout = setTimeout(() => {
-            setStatusText(null);
-          }, 3000);
-          return () => clearTimeout(timeout);
-        },
-        onError: (error: Error) => {
-          setStatusText(`${error.message}`);
           const timeout = setTimeout(() => {
             setStatusText(null);
           }, 3000);
@@ -228,7 +212,8 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
       };
 
       return (
-        <div className="size-full">
+        <div className="size-full relative bg-[#252525]">
+          <PaperBody />
           <Suspense
             fallback={
               <div className="size-full flex items-center justify-center">

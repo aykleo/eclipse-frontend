@@ -34,18 +34,19 @@ export const handleExerciseCreation = async (
     }
   }
 
-  const createdExercise = await createOrUpdateExercise(
-    formData,
-    setIsLoading,
-    setPrimaryMuscleGroupId,
-    setMuscleGroupIds
-  );
-
-  if (createdExercise) {
-    if (setIsCreatingExercise) {
-      setIsCreatingExercise(false);
-    }
-  }
-  setIsLoading(false);
-  return createdExercise;
+  await createOrUpdateExercise(formData)
+    .then((exercise) => {
+      setPrimaryMuscleGroupId("");
+      setMuscleGroupIds([]);
+      return exercise;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    })
+    .finally(() => {
+      if (setIsCreatingExercise) {
+        setIsCreatingExercise(false);
+      }
+      setIsLoading(false);
+    });
 };

@@ -21,7 +21,7 @@ export const createOrUpdateTemplate = async (
   try {
     setIsLoading(true);
 
-    const response = await fetch(
+    await fetch(
       `${import.meta.env.VITE_ECLIPSE_DEV_API_URL}/workout/${
         !templateForUpdateId
           ? "create-template"
@@ -38,18 +38,6 @@ export const createOrUpdateTemplate = async (
       }
     );
 
-    if (!response.ok) {
-      const errorResponse = await response.text();
-      const errorJson = JSON.parse(errorResponse);
-
-      if (!errorJson) {
-        setIsLoading(false);
-        throw new Error("Unexpected error");
-      }
-
-      setIsLoading(false);
-      throw new Error(errorJson.message);
-    }
     setTemplateExercises([]);
     return templateForUpdateId ? "Template updated" : "Template created";
   } catch (error: unknown) {

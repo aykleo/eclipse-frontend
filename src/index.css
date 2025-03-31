@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Orbitron:wght@400..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&family=Orbitron:wght@400..900&family=Permanent+Marker&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
 
@@ -12,9 +13,22 @@
   scrollbar-width: none;
 }
 
+.clean {
+  outline: none;
+  border: none;
+  ring: 0;
+}
+
+.clean:focus {
+  outline: none;
+  border: none;
+  ring: 0;
+}
+
 @theme {
   --font-orbitron: "Orbitron", serif;
   --font-marker: "Permanent Marker", cursive;
+  --font-pixelify: "Pixelify Sans", cursive;
 }
 
 .text-gradient {

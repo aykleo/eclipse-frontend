@@ -7,7 +7,7 @@ interface StatusToastProps {
 
 export const StatusToast: React.FC<StatusToastProps> = ({ statusText }) => {
   return (
-    <div className="toast toast-top transition-opacity duration-500 bg-transparent w-max z-99">
+    <div className="toast toast-top mt-16 transition-opacity duration-500 bg-transparent w-max z-99">
       <div className="alert flex flex-col p-2 rounded-xs  font-medium h-max border-transparent bg-neutral-100 w-72">
         {statusText.split(",").map((textPart, index) => (
           <span

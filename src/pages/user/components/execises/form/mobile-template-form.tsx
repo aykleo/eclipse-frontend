@@ -5,8 +5,7 @@ import { TemplateFormData } from "../../../../../api/templates/fetch-create-upda
 import { handleTemplateCreation } from "../../../../../api/templates/template-creation";
 import React from "react";
 import { useStatus } from "../../../../../hooks/status/status-context";
-import { TemplateCreationMobilePreview } from "../../template/template-creation-mobile-preview";
-import { EraserIcon, NotebookPenIcon } from "lucide-react";
+import { MobileTemplateItem } from "../../template/mobile-template-item";
 import {
   DndContext,
   closestCenter,
@@ -22,6 +21,8 @@ import {
   horizontalListSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
+import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
+import { Input } from "../../../../../components/forms/input";
 
 interface MobileTemplateFormProps {
   templateExercises: TemplateExercise[];
@@ -120,22 +121,43 @@ const MobileTemplateForm = React.memo(
     };
 
     return (
-      <div
-        className={`${
-          showNameInput ? "bg-neutral-950" : ""
-        } absolute bottom-10 right-0 z-100 lg:hidden w-full bg-gradient-to-r from-neutral-700/25 via-neutral-800 to-neutral-700/25 rounded-xs`}
+      <RenderSvg
+        src="url(src/assets/pixel-art/body/body-96.svg)"
+        size="auto"
+        repeat="repeat"
+        position="center"
+        className="relative w-9/10 p-1 h-24"
       >
+        <RenderSvg
+          src="url(src/assets/pixel-art/body/body-side-96.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="absolute top-0 h-full -left-1.5 w-2"
+        />
+        <RenderSvg
+          src="url(src/assets/pixel-art/body/body-side-96.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="absolute top-0 h-full -right-1.5 w-2"
+          transform="rotate(180deg)"
+        />
         <form
           action="create_template"
           ref={formRef}
           onSubmit={handleSubmit}
           className="relative"
         >
-          <div className={`${showNameInput ? "block" : "hidden"} p-2`}>
-            <input
+          <div
+            className={`${
+              showNameInput ? "block" : "hidden"
+            }  h-22 w-full flex items-center justify-center p-2`}
+          >
+            <Input
               type="text"
               name="templateName"
-              className="input input-bordered w-full bg-transparent"
+              className=""
               placeholder="Template name"
               value={templateName}
               onChange={(e) => setTemplateName(e.target.value)}
@@ -148,13 +170,13 @@ const MobileTemplateForm = React.memo(
               collisionDetection={closestCenter}
               onDragEnd={handleDragEnd}
             >
-              <div className="w-full flex items-center h-24 flex-row gap-x-4 overflow-auto no-scrollbar px-3 py-1.5">
+              <div className="w-full flex items-center h-22  flex-row gap-x-4 overflow-x-auto overflow-y-hidden no-scrollbar px-3 py-2">
                 <SortableContext
                   items={templateExercises.map((e) => e.exerciseId)}
                   strategy={horizontalListSortingStrategy}
                 >
                   {templateExercises.map((exercise, index) => (
-                    <TemplateCreationMobilePreview
+                    <MobileTemplateItem
                       key={exercise.exerciseId}
                       exerciseId={exercise.exerciseId}
                       notes={exercise.notes}
@@ -171,56 +193,103 @@ const MobileTemplateForm = React.memo(
             </DndContext>
           )}
 
-          <div
-            className={`${
-              showNameInput ? "bottom-13" : "bottom-23"
-            } flex items-center justify-center absolute left-0 transition-all duration-300`}
+          <RenderSvg
+            src="url(src/assets/pixel-art/body/body-64.svg)"
+            size="48px"
+            repeat="repeat"
+            position="center"
+            className="w-max px-4 left-1/2 translate-x-[-50%] h-12 absolute bottom-24 flex flex-row gap-x-2 items-center justify-evenly"
           >
+            <RenderSvg
+              src="url(src/assets/pixel-art/body/body-side-64.svg)"
+              size="15px"
+              repeat="no-repeat"
+              position="center"
+              role="tablist"
+              className="absolute h-full w-12 -left-5"
+            />
+            <RenderSvg
+              src="url(src/assets/pixel-art/body/body-side-64.svg)"
+              size="15px"
+              repeat="no-repeat"
+              position="center"
+              role="tablist"
+              className="absolute h-full w-12 -right-5"
+              transform="rotate(180deg)"
+            />
+
             <button
               type="button"
-              className="btn btn-error py-0.5 px-2 size-max"
+              className=""
               disabled={isLoading}
               onClick={toggleNameInput}
             >
-              <NotebookPenIcon className="size-4 cursor-pointer" />
+              <RenderSvg
+                src="url(src/assets/pixel-art/buttons/btn-pen-32.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
+                className={`${
+                  templateName.length < 5 && "animate-pulse"
+                } size-8 cursor-pointer`}
+              />
             </button>
-          </div>
-          <div
-            className={`${
-              showNameInput ? "bottom-13" : "bottom-23"
-            } transition-all duration-300 flex items-center justify-center pt-2 absolute right-0`}
-          >
+
             <button
               type="submit"
               className={`${
                 !templateName ||
                 templateExercises.length === 0 ||
                 templateName.length < 5
-                  ? "hidden"
-                  : "block"
-              } btn btn-error py-0.5 px-2 size-max`}
-              disabled={isLoading || templateExercises.length === 0}
+                  ? "opacity-40"
+                  : "opacity-100"
+              }`}
+              disabled={
+                isLoading ||
+                templateExercises.length === 0 ||
+                templateName.length < 5
+              }
             >
-              {isLoading ? "Creating..." : "Create"}
+              <RenderSvg
+                src="url(src/assets/pixel-art/buttons/btn-submit.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
+                className={`${
+                  templateName.length > 5 && templateExercises.length > 0
+                    ? "animate-pulse"
+                    : ""
+                } h-8 w-24 cursor-pointer pt-[2px]`}
+              >
+                {isLoading ? "Creating..." : "Create"}
+              </RenderSvg>
             </button>
-          </div>
-          <div
-            className={`-bottom-5 flex items-center justify-center absolute left-0 transition-all duration-300`}
-          >
+
             <button
               type="button"
-              className="btn btn-error py-0.5 px-2 size-max"
-              disabled={isLoading}
+              className={`${
+                isLoading || templateExercises.length === 0
+                  ? "opacity-40"
+                  : "opacity-100"
+              } `}
+              disabled={isLoading || templateExercises.length === 0}
               onClick={(e) => {
                 e.preventDefault();
                 setTemplateExercises([]);
+                setTemplateName("");
               }}
             >
-              <EraserIcon className="size-4 cursor-pointer" />
+              <RenderSvg
+                src="url(src/assets/pixel-art/buttons/btn-eraser-32.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
+                className="size-8 cursor-pointer"
+              />
             </button>
-          </div>
+          </RenderSvg>
         </form>
-      </div>
+      </RenderSvg>
     );
   }
 );
