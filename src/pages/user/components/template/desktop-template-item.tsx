@@ -112,7 +112,7 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
           type="button"
           onClick={onRemove}
           aria-label="Remove exercise"
-          className="size-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer transition-all filter brightness-75 duration-200 hover:filter hover:brightness-110"
+          className="size-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer transition-all filter brightness-50 duration-200 hover:filter hover:brightness-110"
         >
           <RenderSvg
             src="url(src/assets/pixel-art/icons/circular-cancel-icon-22.svg)"
