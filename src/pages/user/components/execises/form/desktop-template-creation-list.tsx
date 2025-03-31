@@ -15,7 +15,6 @@ import {
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
 import { DesktopTemplateItem } from "../../template/desktop-template-item";
-import { ArrowRightIcon } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { handleTemplateCreation } from "../../../../../api/templates/template-creation";
 import { TemplateFormData } from "../../../../../api/templates/fetch-create-update-template";
@@ -115,15 +114,28 @@ const TemplateCreationList = React.memo(
 
     return (
       <div className="size-full relative">
-        {/* <div
+        <RenderSvg
+          src="url(src/assets/pixel-art/general/desktop-template-back-attach.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="h-16 w-6 absolute top-10 left-[-6px]"
+        />
+        <button
           onClick={(e) => {
             e.preventDefault();
             setIsCreatingTemplate(false);
           }}
-          className="absolute rounded-l-md h-10 flex items-center justify-center bg-neutral-950 p-1 -left-6 top-0 cursor-pointer"
         >
-          <ArrowRightIcon className="size-5" />
-        </div> */}
+          <RenderSvg
+            src="url(src/assets/pixel-art/icons/right-icon-16.svg)"
+            size="auto"
+            repeat="no-repeat"
+            position="center"
+            className="size-4 absolute top-16 left-[-2px] transition-all duration-200 filter hover:filter hover:brightness-150 cursor-pointer"
+          />
+        </button>
+
         <form
           action="create_template"
           onSubmit={handleSubmit}
