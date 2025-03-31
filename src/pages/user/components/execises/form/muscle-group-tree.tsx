@@ -37,10 +37,11 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
           .filter((muscleGroup) =>
             muscles.includes(muscleGroup.name.toLowerCase())
           )
-          .map((muscleGroup, index) => {
+          .map((muscleGroup) => {
             const isSelected = initialMuscleGroupIds.includes(muscleGroup.id);
             return (
               <button
+                key={muscleGroup.id}
                 disabled={!primaryMuscleGroupId}
                 onClick={(e) => {
                   e.preventDefault();
@@ -56,7 +57,6 @@ const MuscleGroupTree: React.FC<MuscleGroupTreeProps> = ({
                   size="auto"
                   repeat="repeat"
                   position="center"
-                  key={index}
                   className={`${
                     muscleGroup.id === primaryMuscleGroupId ? "hidden" : ""
                   } ${

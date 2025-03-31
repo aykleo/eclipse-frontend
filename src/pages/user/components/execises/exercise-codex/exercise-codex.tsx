@@ -6,7 +6,6 @@ import {
 } from "../../../../../utils/types/exercise-types";
 import { useUser } from "../../../../../hooks/user/use-context";
 import { fetchExercises } from "../../../../../api/exercises/fetch-exercises";
-import { useSearchParams } from "react-router-dom";
 import { useStatus } from "../../../../../hooks/status/status-context";
 import { DeleteExerciseModal } from "../delete-modal";
 import { StatusToast } from "../../../../../components/status-toast";
@@ -16,7 +15,6 @@ import React from "react";
 import { CardCounter } from "./card-counter";
 import { ExerciseCategory } from "../../../../../utils/codex-selector-categories";
 import { CardList } from "./card-list";
-import { ExerciseInfo } from "../../../../../components/exercise/exercise-info";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
@@ -30,23 +28,36 @@ export const ExerciseCodex = React.memo(
     isCreatingExercise,
     exerciseForUpdate,
     setExerciseForUpdate,
+    setShowExerciseInfo,
+    showExerciseInfo,
+    isCreatingTemplate,
+    setIsCreatingTemplate,
+    setSearchParams,
+    searchParams,
   }: {
     setIsCreatingExercise: (isCreatingExercise: boolean) => void;
     isCreatingExercise: boolean;
     exerciseForUpdate: Exercise | null;
     setExerciseForUpdate: (exercise: Exercise | null) => void;
+    setShowExerciseInfo: (exercise: Exercise | undefined) => void;
+    showExerciseInfo: Exercise | undefined;
+    isCreatingTemplate: boolean;
+    setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
+    setSearchParams: (
+      params: URLSearchParams | ((prev: URLSearchParams) => URLSearchParams),
+      options?: { replace?: boolean }
+    ) => void;
+    searchParams: URLSearchParams;
   }) => {
     const { user } = useUser() || {};
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const pageSize = 20;
-    const [searchParams, setSearchParams] = useSearchParams();
     const selectedCategory =
       (searchParams.get("category") as ExerciseCategory) || "";
     const { statusText } = useStatus();
     const exerciseName = searchParams.get("exerciseName") || "";
-    const [showExerciseInfo, setShowExerciseInfo] = useState<Exercise>();
-    const [isCreatingTemplate, setIsCreatingTemplate] = useState(false);
+
     const [templateExercises, setTemplateExercises] = useState<
       TemplateExercise[]
     >([]);
@@ -133,7 +144,7 @@ export const ExerciseCodex = React.memo(
     return (
       <div className="relative w-full h-max flex-col flex items-center gap-y-0.5 bg-transparent justify-start">
         {statusText && <StatusToast statusText={statusText} />}
-        <div className="w-full fixed z-999">
+        <div className="w-full fixed z-49">
           <CodexSelector
             handleTabClick={handleTabClick}
             setSearchParams={setSearchParams}
@@ -144,7 +155,7 @@ export const ExerciseCodex = React.memo(
         <ul className="relative gap-1 mt-12 w-full h-full mb-4 px-1.5">
           <div
             className={`${
-              isCreatingTemplate ? "top-1/3 lg:hidden" : "top-40"
+              isCreatingTemplate ? "top-1/4 lg:hidden" : "top-40"
             } right-2 fixed z-99 ${
               exerciseForUpdate || isCreatingExercise ? "hidden" : ""
             }`}
@@ -156,7 +167,7 @@ export const ExerciseCodex = React.memo(
             />
           </div>
           {isCreatingTemplate && templateExercises && (
-            <div className="fixed bottom-10 right-0 flex justify-center items-center z-100 lg:hidden w-full">
+            <div className="fixed bottom-2 right-0 flex justify-center items-center z-100 lg:hidden w-full">
               <React.Suspense fallback={<div>Loading...</div>}>
                 <MobileTemplateForm
                   templateExercises={templateExercises}
@@ -198,10 +209,9 @@ export const ExerciseCodex = React.memo(
                       )
                       .map((exercise: Exercise) => (
                         <ExerciseCard
+                          key={exercise.id}
                           exerciseForUpdate={exerciseForUpdate}
-                          // setExerciseForUpdate={setExerciseForUpdate}
                           exercise={exercise}
-                          // setSearchParams={setSearchParams}
                           isCreatingTemplate={isCreatingTemplate}
                           isCreatingExercise={isCreatingExercise}
                           templateExercises={templateExercises}
@@ -250,18 +260,6 @@ export const ExerciseCodex = React.memo(
         </ul>
 
         <DeleteExerciseModal setShowExerciseInfo={setShowExerciseInfo} />
-        {showExerciseInfo && (
-          <ExerciseInfo
-            exercise={showExerciseInfo}
-            setShowExerciseInfo={setShowExerciseInfo}
-            showExerciseInfo={showExerciseInfo}
-            isCreatingExercise={isCreatingExercise}
-            exerciseForUpdate={exerciseForUpdate}
-            setExerciseForUpdate={setExerciseForUpdate}
-            setSearchParams={setSearchParams}
-            isCreatingTemplate={isCreatingTemplate}
-          />
-        )}
       </div>
     );
   }

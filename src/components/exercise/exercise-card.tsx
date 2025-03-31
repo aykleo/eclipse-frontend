@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { TemplateExercise } from "../../utils/types/exercise-types";
 import { Exercise } from "../../utils/types/exercise-types";
 import { RenderPng } from "../pixel-art/render-png";
@@ -14,64 +15,75 @@ interface ExerciseCardProps {
   setTemplateExercises?: (exercises: TemplateExercise[]) => void;
 }
 
-export const ExerciseCard = ({
-  exercise,
-  exerciseForUpdate,
-  showExerciseInfo,
-  setShowExerciseInfo,
-  isCreatingTemplate,
-  isCreatingExercise,
-  templateExercises,
-  setTemplateExercises,
-}: ExerciseCardProps) => {
-  const handleAddExerciseToTemplate = () => {
-    if (isCreatingTemplate && setTemplateExercises && templateExercises) {
-      const isExerciseAlreadyAdded = templateExercises.some(
-        (templateExercise) => templateExercise.exerciseId === exercise.id
-      );
+export const ExerciseCard = memo(
+  ({
+    exercise,
+    exerciseForUpdate,
+    showExerciseInfo,
+    setShowExerciseInfo,
+    isCreatingTemplate,
+    isCreatingExercise,
+    templateExercises,
+    setTemplateExercises,
+  }: ExerciseCardProps) => {
+    const handleAddExerciseToTemplate = () => {
+      if (isCreatingTemplate && setTemplateExercises && templateExercises) {
+        const isExerciseAlreadyAdded = templateExercises.some(
+          (templateExercise) => templateExercise.exerciseId === exercise.id
+        );
 
-      if (!isExerciseAlreadyAdded) {
-        setTemplateExercises([
-          ...templateExercises,
-          { exerciseId: exercise.id, notes: "", name: exercise.name },
-        ]);
+        if (!isExerciseAlreadyAdded) {
+          setTemplateExercises([
+            ...templateExercises,
+            { exerciseId: exercise.id, notes: "", name: exercise.name },
+          ]);
+        }
       }
-    }
-  };
+    };
 
-  return (
-    <>
-      <RenderPng
-        key={exercise.id}
-        onClick={handleAddExerciseToTemplate}
-        className={`${
-          !isCreatingTemplate ? "cursor-default" : "cursor-pointer"
-        } flex-col w-[192px] h-[256px] flex items-center group justify-center rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300 relative`}
-        src="src/assets/pixel-art/exercise-cards/generic-exercise-card.png"
-        alt="exercise-card"
-        imgClassName="absolute top-0 left-0 w-full h-full"
-      >
-        <button
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-            e.preventDefault();
-            e.stopPropagation();
-            if (setShowExerciseInfo) {
-              setShowExerciseInfo(exercise);
-            }
-          }}
+    return (
+      <>
+        <RenderPng
+          key={exercise.id}
+          onClick={handleAddExerciseToTemplate}
+          className={`${
+            !isCreatingTemplate ? "cursor-default" : "cursor-pointer"
+          } flex-col w-[192px] h-[256px] flex items-center group justify-center rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300 relative`}
+          src="src/assets/pixel-art/exercise-cards/generic-exercise-card.png"
+          alt="exercise-card"
+          imgClassName="absolute top-0 left-0 w-full h-full"
         >
-          <RenderPng
-            src="src/assets/pixel-art/buttons/btn-info-48.png"
-            alt="info-button"
-            className={`absolute top-0 right-[-0.5rem] size-[48px] hidden ${
-              !exerciseForUpdate && !isCreatingExercise && !showExerciseInfo
-                ? "group-hover:block"
-                : ""
-            } cursor-pointer`}
-            imgClassName="transition-all filter brightness-75 duration-200 hover:brightness-110"
-          />
-        </button>
-        {/* <div
+          <button
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (setShowExerciseInfo) {
+                setShowExerciseInfo(exercise);
+              }
+            }}
+          >
+            <RenderPng
+              src="src/assets/pixel-art/buttons/btn-info-48.png"
+              alt="info-button"
+              className={`absolute top-0 right-[-0.5rem] size-[48px] ${
+                showExerciseInfo ||
+                exerciseForUpdate ||
+                isCreatingExercise ||
+                isCreatingTemplate
+                  ? "hidden"
+                  : "block"
+              } lg:hidden ${
+                !exerciseForUpdate &&
+                !isCreatingExercise &&
+                !showExerciseInfo &&
+                !isCreatingTemplate
+                  ? "lg:group-hover:block"
+                  : ""
+              } cursor-pointer`}
+              imgClassName="transition-all filter brightness-75 duration-200 hover:brightness-110"
+            />
+          </button>
+          {/* <div
           className={`${
             exercise.exerciseMuscleGroups.length < 2
               ? "hidden"
@@ -97,36 +109,36 @@ export const ExerciseCard = ({
             ))}
         </div> */}
 
-        <div className="flex overflow-hidden items-center absolute top-6 rounded-full size-max justify-center">
-          {exercise.exerciseMuscleGroups
-            .filter((muscleGroup) => muscleGroup.isPrimary)
-            .map((muscleGroup) => (
-              <img
-                key={muscleGroup.muscleGroup.name}
-                src={`src/assets/pixel-art/muscles/${muscleGroup.muscleGroup.name}.svg`}
-                alt={`${muscleGroup.muscleGroup.name} icon`}
-                className="size-18"
-              />
-            ))}
-        </div>
-
-        <span className="w-[170px] h-[32px] justify-center px-2.5 absolute top-31.5">
-          <div className="size-full pt-1.5 truncate text-center">
-            {exercise.name ? <>{exercise.name}</> : "No name"}
+          <div className="flex overflow-hidden items-center absolute top-6 rounded-full size-max justify-center">
+            {exercise.exerciseMuscleGroups
+              .filter((muscleGroup) => muscleGroup.isPrimary)
+              .map((muscleGroup) => (
+                <img
+                  key={muscleGroup.muscleGroup.id}
+                  src={`src/assets/pixel-art/muscles/${muscleGroup.muscleGroup.name}.svg`}
+                  alt={`${muscleGroup.muscleGroup.name} icon`}
+                  className="size-18"
+                />
+              ))}
           </div>
-        </span>
 
-        {exercise.tag.category && (
-          <RenderSvg
-            src={`url(src/assets/pixel-art/exercise-cards/category-indicator-${exercise.tag.category}.svg)`}
-            position="center"
-            size="auto"
-            repeat="no-repeat"
-            className="size-7 rounded-lg p-1 absolute top-28"
-          />
-        )}
+          <span className="w-[170px] h-[32px] justify-center px-2.5 absolute top-31.5">
+            <div className="size-full pt-1.5 truncate text-center">
+              {exercise.name ? <>{exercise.name}</> : "No name"}
+            </div>
+          </span>
 
-        {/* <span className={`w-full px-1`}>
+          {exercise.tag.category && (
+            <RenderSvg
+              src={`url(src/assets/pixel-art/exercise-cards/category-indicator-${exercise.tag.category}.svg)`}
+              position="center"
+              size="auto"
+              repeat="no-repeat"
+              className="size-7 rounded-lg p-1 absolute top-28"
+            />
+          )}
+
+          {/* <span className={`w-full px-1`}>
               <div
                 className={`${
                   exercise.tag.category
@@ -141,12 +153,13 @@ export const ExerciseCard = ({
                 {exercise.tag.name ? exercise.tag.name : "No tag"}
               </div>
             </span> */}
-        <div className="h-[72px] text-xs p-1 absolute w-[156px] break-words bottom-4 overflow-y-auto no-scrollbar">
-          {exercise.description
-            ? exercise.description
-            : "There is no description"}
-        </div>
-      </RenderPng>
-    </>
-  );
-};
+          <div className="h-[72px] text-xs p-1 absolute w-[156px] break-words bottom-4 overflow-y-auto no-scrollbar">
+            {exercise.description
+              ? exercise.description
+              : "There is no description"}
+          </div>
+        </RenderPng>
+      </>
+    );
+  }
+);

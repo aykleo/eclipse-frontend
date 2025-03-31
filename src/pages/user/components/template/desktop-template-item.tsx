@@ -109,9 +109,10 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
         </span>
 
         <button
+          type="button"
           onClick={onRemove}
           aria-label="Remove exercise"
-          className="size-[22px] absolute right-2 top-1/2 -translate-y-1/2 hidden group-hover:block cursor-pointer transition-all filter brightness-75 duration-200 hover:filter hover:brightness-110"
+          className="size-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer transition-all filter brightness-75 duration-200 hover:filter hover:brightness-110"
         >
           <RenderSvg
             src="url(src/assets/pixel-art/icons/circular-cancel-icon-22.svg)"
@@ -122,12 +123,13 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
           />
         </button>
         <button
+          type="button"
           onClick={() => setIsEditing(!isEditing)}
           className={`${
             !notes
               ? "opacity-35 brightness-75 hover:brightness-110 hover:opacity-75"
               : "opacity-100 brightness-100 hover:brightness-125"
-          } size-[22px] absolute right-9 top-1/2 -translate-y-1/2 hidden group-hover:block cursor-pointer transition-all duration-200 filter hover:filter`}
+          } size-[22px] absolute right-9 top-1/2 -translate-y-1/2 cursor-pointer transition-all duration-200 filter hover:filter`}
         >
           <RenderSvg
             src="url(src/assets/pixel-art/icons/circular-notes-icon-22.svg)"
