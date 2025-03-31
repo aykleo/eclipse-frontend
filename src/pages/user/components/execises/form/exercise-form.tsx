@@ -1,4 +1,4 @@
-import React, { RefObject, useState } from "react";
+import React, { RefObject, useEffect, useState } from "react";
 import {
   Exercise,
   MuscleGroupData,
@@ -7,8 +7,13 @@ import {
 } from "../../../../../utils/types/exercise-types";
 import { getColorClassForTagCategory } from "../../../../../utils/tag-colors";
 import { StatusToast } from "../../../../../components/status-toast";
-import { ExerciseCard } from "../exercise-codex/exercise-card";
-import { EyeIcon } from "lucide-react";
+import { ExerciseCard } from "../../../../../components/exercise/exercise-card";
+import { Input } from "../../../../../components/forms/input";
+import { Select } from "../../../../../components/forms/select";
+import { MuscleGroupSelect } from "../../../../../components/forms/muscle-group-select";
+import { TextArea } from "../../../../../components/forms/text-area";
+import MuscleGroupTree from "./muscle-group-tree";
+import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;
@@ -89,15 +94,21 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
       deletedAt: exerciseForUpdate?.deletedAt || undefined,
     };
 
+    useEffect(() => {
+      if (formRef.current) {
+        formRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, []);
+
     return (
-      <div className="form-control relative w-full flex flex-col px-2  rounded-md justify-between h-full">
+      <div className="form-control relative w-full flex flex-col px-6 justify-between h-full py-2">
         <form
           action="create_exercise"
           className="size-full flex flex-col"
           onSubmit={handleSubmit}
           ref={formRef}
         >
-          <div className="text-4xl py-2 font-bold flex flex-col gap-y-1 h-24 w-full px-2">
+          <div className="text-4xl py-2 font-bold flex flex-col gap-y-1 w-full px-2">
             <div className="flex w-full flex-row items-center justify-between relative">
               <h1
                 className={`${
@@ -112,264 +123,196 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   ? "New exercise"
                   : exerciseForUpdate.name}
               </h1>
-              <button
-                className="text-sm cursor-pointer px-1 text-neutral-500 hover:text-error"
-                onClick={(event) => {
-                  event.preventDefault();
-                  if (exerciseForUpdate) {
-                    setExerciseForUpdate(null);
-                  }
-                  if (isCreatingExercise) {
-                    setIsCreatingExercise(false);
-                  }
-                }}
-              >
-                Close
-              </button>
-              <div
-                onClick={toggleTooltip}
-                className="cursor-pointer md:hidden absolute right-0 -bottom-6 z-4"
-              >
-                <EyeIcon className="size-5 text-gray-400 hover:text-gray-200 transition-all duration-300" />
+              <div className="flex flex-row gap-x-6">
+                <div
+                  onClick={toggleTooltip}
+                  className="cursor-pointer md:hidden"
+                >
+                  <RenderSvg
+                    src="url(src/assets/pixel-art/buttons/btn-eye-32.svg)"
+                    size="auto"
+                    repeat="no-repeat"
+                    position="center"
+                    className="size-[32px] transition-all duration-200 filter brightness-75 hover:brightness-110"
+                  />
+                </div>
+                <button
+                  className="cursor-pointer"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    if (exerciseForUpdate) {
+                      setExerciseForUpdate(null);
+                    }
+                    if (isCreatingExercise) {
+                      setIsCreatingExercise(false);
+                    }
+                  }}
+                >
+                  <RenderSvg
+                    src="url(src/assets/pixel-art/buttons/btn-close.svg)"
+                    size="auto"
+                    repeat="no-repeat"
+                    position="center"
+                    className="size-[32px] transition-all duration-200 filter brightness-75 hover:brightness-110"
+                  />
+                </button>
               </div>
             </div>
-            <div className="h-[1px] rounded-full bg-gray-600/25 w-full" />
           </div>
           {isTooltipVisible && (
             <div
-              className="absolute inset-0 z-99 flex items-center cursor-pointer lg:hidden justify-center backdrop-blur-xs bg-neutral-950/50"
+              className="absolute inset-0 z-99 flex items-start pt-16 cursor-pointer lg:hidden justify-center backdrop-blur-xs bg-neutral-950/50"
               onClick={toggleTooltip}
             >
-              <ExerciseCard exercise={exercise} />
+              <ExerciseCard
+                exercise={exercise}
+                isCreatingExercise={isCreatingExercise}
+                exerciseForUpdate={exerciseForUpdate}
+              />
             </div>
           )}
           <div className="flex flex-col gap-y-2 px-1 h-full overflow-y-auto no-scrollbar">
             <div className="grid grid-cols-3 gap-x-6">
               <div className="gap-y-1 flex flex-col col-start-1 col-span-3 md:col-span-1">
-                <div className="gap-y-1 flex flex-col">
-                  <label className="label">
-                    <span className="label-text text-sm">Name</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Name"
-                    className="input input-error w-full"
-                    name="name"
-                    defaultValue={
-                      exerciseForUpdate ? exerciseForUpdate.name : ""
+                <Input
+                  hasLabel={true}
+                  label="Name"
+                  type="text"
+                  placeholder="Name"
+                  name="name"
+                  required
+                  defaultValue={exerciseForUpdate ? exerciseForUpdate.name : ""}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    exerciseNameRef.current = e.target.value;
+                    if (e.target.value.length > 2) {
+                      setCardRender(!cardRender);
+                    } else {
+                      setCardRender(!cardRender);
                     }
-                    required
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      exerciseNameRef.current = e.target.value;
-                      if (e.target.value.length > 2) {
-                        setCardRender(!cardRender);
-                      } else {
-                        setCardRender(!cardRender);
-                      }
-                    }}
-                  />
-                </div>
-                <div className="gap-y-1 flex flex-col">
-                  <label className="label">
-                    <span className="label-text text-sm">Category</span>
-                  </label>
-                  <select
-                    defaultValue={
-                      exerciseForUpdate
-                        ? exerciseForUpdate.tag.category
-                        : "Select a category"
+                  }}
+                />
+                <Select
+                  hasLabel={true}
+                  label="Category"
+                  defaultValue={
+                    exerciseForUpdate
+                      ? exerciseForUpdate.tag.category
+                      : "Select a category"
+                  }
+                  required={true}
+                  name="category"
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                    exerciseTagCategoryRef.current = e.target.value;
+                    if (e.target.value.length > 2) {
+                      setCardRender(!cardRender);
+                    } else {
+                      setCardRender(!cardRender);
                     }
-                    className="select select-error w-full"
-                    name="category"
-                    required
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                      exerciseTagCategoryRef.current = e.target.value;
-                      if (e.target.value.length > 2) {
-                        setCardRender(!cardRender);
-                      } else {
-                        setCardRender(!cardRender);
-                      }
-                    }}
-                  >
-                    <option disabled={true}>Select a category</option>
-                    {Object.values(TagCategory).map((tag) => (
-                      <option key={tag} value={tag}>
-                        {tag.charAt(0) + tag.slice(1).toLowerCase()}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="gap-y-1 flex flex-col">
-                  <label className="label">
-                    <span className="label-text text-sm">Type</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Bodyweight, weighted, cardio, yoga, etc"
-                    className="input input-error w-full "
-                    name="tagName"
-                    defaultValue={
-                      exerciseForUpdate ? exerciseForUpdate.tag.name : ""
-                    }
-                    required
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      exerciseTagNameRef.current = e.target.value;
-                      if (e.target.value.length > 2) {
-                        setCardRender(!cardRender);
-                      } else {
-                        setCardRender(!cardRender);
-                      }
-                    }}
-                  />
-                </div>
+                  }}
+                  placeholder="Select a category"
+                  options={Object.values(TagCategory).map((tag) => (
+                    <option key={tag} value={tag}>
+                      {tag.charAt(0) + tag.slice(1).toLowerCase()}
+                    </option>
+                  ))}
+                />
 
-                <div className="gap-y-1 flex flex-col h-full">
-                  <label className="label">
-                    <span className="label-text text-sm">
-                      Optional description
-                    </span>
-                  </label>
-                  <fieldset className="fieldset">
-                    <textarea
-                      className="textarea textarea-error w-full h-full min-h-32"
-                      placeholder="..."
-                      defaultValue={
-                        exerciseForUpdate ? exerciseForUpdate.description : ""
-                      }
-                      name="description"
-                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                        exerciseDescriptionRef.current = e.target.value;
-                        if (e.target.value.length >= 5) {
-                          setCardRender(!cardRender);
-                        } else {
-                          setCardRender(!cardRender);
-                        }
-                      }}
-                    />
-                  </fieldset>
-                </div>
+                <Input
+                  hasLabel={true}
+                  label="Type"
+                  type="text"
+                  placeholder="Bodyweight, weighted, cardio, yoga, etc"
+                  name="tagName"
+                  defaultValue={
+                    exerciseForUpdate ? exerciseForUpdate.tag.name : ""
+                  }
+                  required
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    exerciseTagNameRef.current = e.target.value;
+                    if (e.target.value.length > 2) {
+                      setCardRender(!cardRender);
+                    } else {
+                      setCardRender(!cardRender);
+                    }
+                  }}
+                />
+
+                <TextArea
+                  hasLabel={true}
+                  label="Description"
+                  name="description"
+                  placeholder="..."
+                  defaultValue={
+                    exerciseForUpdate ? exerciseForUpdate.description : ""
+                  }
+                  onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                    exerciseDescriptionRef.current = e.target.value;
+                    if (e.target.value.length >= 5) {
+                      setCardRender(!cardRender);
+                    } else {
+                      setCardRender(!cardRender);
+                    }
+                  }}
+                />
               </div>
 
               <div className="hidden md:col-start-2 col-span-1 md:flex size-full items-center justify-center">
-                <ExerciseCard exercise={exercise} />
+                <ExerciseCard
+                  exercise={exercise}
+                  isCreatingExercise={isCreatingExercise}
+                  exerciseForUpdate={exerciseForUpdate}
+                />
               </div>
 
               <div className="gap-y-3 flex flex-col md:col-start-3 col-span-3 md:col-span-1">
-                <div>
-                  <label className="label">
-                    <span className="label-text text-sm">Main muscle</span>
-                  </label>
-                  <select
-                    defaultValue={
-                      exerciseForUpdate
-                        ? exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup.name
-                            .replace(/_/g, " ")
-                            .toLowerCase()
-                            .replace(/\b\w/g, (char: string) =>
-                              char.toUpperCase()
-                            )
-                        : "Primary mover"
-                    }
-                    className="select select-error w-full"
-                    onChange={handlePrimaryMuscleGroup}
-                    name="primaryMuscleGroupId"
-                    required
-                  >
-                    {exerciseForUpdate ? (
-                      <option disabled={true} className="hidden">
-                        {exerciseForUpdate.exerciseMuscleGroups[0].muscleGroup.name
-                          .replace(/_/g, " ")
-                          .toLowerCase()
-                          .replace(/\b\w/g, (char: string) =>
-                            char.toUpperCase()
-                          )}
-                      </option>
-                    ) : (
-                      <></>
-                    )}
-                    <option disabled={true}>Primary mover</option>
-                    {muscleGroupData &&
-                      muscleGroupData.map((muscleGroup: MuscleGroupData) => (
-                        <option key={muscleGroup.id} value={muscleGroup.id}>
-                          {muscleGroup.name
-                            .replace(/_/g, " ")
-                            .toLowerCase()
-                            .replace(/\b\w/g, (char) => char.toUpperCase())}
-                        </option>
-                      ))}
-                  </select>
-                </div>
+                <MuscleGroupSelect
+                  label="Main muscle"
+                  muscleGroupData={muscleGroupData}
+                  defaultValue={
+                    exerciseForUpdate?.exerciseMuscleGroups[0].muscleGroup.name
+                      .replace(/_/g, " ")
+                      .toLowerCase()
+                      .replace(/\b\w/g, (char) => char.toUpperCase()) ||
+                    "Primary mover"
+                  }
+                  onChange={handlePrimaryMuscleGroup}
+                  name="primaryMuscleGroupId"
+                  required
+                />
 
-                <div className="gap-y-1 flex flex-col h-full">
-                  <label className="label w-full justify-between">
-                    <span className="label-text text-sm">Secondary movers</span>
-                  </label>
-
-                  <div
-                    className={`text-sm flex flex-wrap gap-2 py-2 opacity-75 `}
-                  >
-                    {muscleGroupData &&
-                      muscleGroupData.map(
-                        (muscleGroup: MuscleGroupData, index: number) => {
-                          const isSelected = initialMuscleGroupIds.includes(
-                            muscleGroup.id
-                          );
-
-                          return (
-                            <button
-                              key={index}
-                              disabled={!primaryMuscleGroupId}
-                              className={`${
-                                muscleGroup.id === primaryMuscleGroupId
-                                  ? "hidden"
-                                  : ""
-                              } ${
-                                !primaryMuscleGroupId
-                                  ? "cursor-default"
-                                  : "cursor-pointer"
-                              } flex items-center justify-center py-1 px-2 rounded-xs transition-all duration-300 ${
-                                isSelected
-                                  ? "opacity-100 border border-error text-error"
-                                  : "opacity-35 border border-white"
-                              }`}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleMuscleGroupIds(muscleGroup.id);
-                              }}
-                            >
-                              <span className="text-xs text-center text-white">
-                                {muscleGroup.name
-                                  .replace(/_/g, " ")
-                                  .toLowerCase()
-                                  .replace(/\b\w/g, (char) =>
-                                    char.toUpperCase()
-                                  )}
-                              </span>
-                            </button>
-                          );
-                        }
-                      )}
-                  </div>
-                </div>
+                <MuscleGroupTree
+                  muscleGroupData={muscleGroupData}
+                  initialMuscleGroupIds={initialMuscleGroupIds}
+                  primaryMuscleGroupId={primaryMuscleGroupId}
+                  handleMuscleGroupIds={handleMuscleGroupIds}
+                />
               </div>
             </div>
           </div>
 
-          <div className="form-control w-full flex flex-col gap-y-2 h-24 pb-1 justify-end">
-            <div className="h-[1px] rounded-full bg-gray-600/25" />
+          <div className="form-control w-full flex flex-col items-end gap-y-2 h-max py-4 justify-center">
             <button
+              type="submit"
               disabled={isLoading}
-              className={` btn btn-error  border shadow-none w-full rounded-md`}
+              className="w-[96px] cursor-pointer"
             >
-              {isLoading ? (
-                <span className="loading loading-dots loading-md"></span>
-              ) : (
-                <>
-                  {!exerciseForUpdate || exerciseForUpdate === null
-                    ? "Create"
-                    : "Update"}
-                </>
-              )}
+              <RenderSvg
+                src="url(src/assets/pixel-art/buttons/btn-submit.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
+                className="size-full pb-[4px] tracking-wide flex items-center justify-center filter duration-200 transition-all hover:brightness-125"
+              >
+                {isLoading ? (
+                  <span className="loading loading-dots loading-md"></span>
+                ) : (
+                  <>
+                    {!exerciseForUpdate || exerciseForUpdate === null
+                      ? "Create"
+                      : "Update"}
+                  </>
+                )}
+              </RenderSvg>
             </button>
           </div>
           {statusText && <StatusToast statusText={statusText} />}

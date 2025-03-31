@@ -35,16 +35,7 @@ export async function fetchExercises(
       }
     );
 
-    console.log(exerciseName);
-    if (!response.ok) {
-      console.log("Server error. Please try again later.");
-    }
-
     const data = await response.json();
-
-    if (!data || !data.exercises) {
-      return { exercises: [], totalPages: 0 };
-    }
 
     return { exercises: data.exercises, totalPages: data.totalPages };
   } catch (error) {

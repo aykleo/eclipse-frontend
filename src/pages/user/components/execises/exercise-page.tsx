@@ -1,25 +1,49 @@
 import { useState } from "react";
 import { Exercise } from "../../../../utils/types/exercise-types";
 import { ExerciseCodex } from "./exercise-codex/exercise-codex";
+import { useSearchParams } from "react-router-dom";
+import { ExerciseInfo } from "../../../../components/exercise/exercise-info";
 
 export const ExercisePage = () => {
   const [isCreatingExercise, setIsCreatingExercise] = useState(false);
   const [exerciseForUpdate, setExerciseForUpdate] = useState<Exercise | null>(
     null
   );
+  const [showExerciseInfo, setShowExerciseInfo] = useState<
+    Exercise | undefined
+  >(undefined);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [isCreatingTemplate, setIsCreatingTemplate] = useState(false);
 
   return (
-    <div className="size-full h-screen pb-4 px-1.5 self-start py-4">
-      <div className="mt-16 h-[calc(100vh-7rem)] size-screen relative rounded-lg">
-        <div className="h-full w-full flex flex-col rounded-lg bg-gradient-to-r from-neutral-950 via-neutral-800 to-zinc-950">
-          <ExerciseCodex
-            isCreatingExercise={isCreatingExercise}
-            setIsCreatingExercise={setIsCreatingExercise}
-            exerciseForUpdate={exerciseForUpdate}
-            setExerciseForUpdate={setExerciseForUpdate}
-          />
-        </div>
+    <div className="size-full self-start">
+      <div className="h-full size-screen relative pt-16">
+        <ExerciseCodex
+          isCreatingExercise={isCreatingExercise}
+          setIsCreatingExercise={setIsCreatingExercise}
+          exerciseForUpdate={exerciseForUpdate}
+          setExerciseForUpdate={setExerciseForUpdate}
+          showExerciseInfo={showExerciseInfo}
+          setShowExerciseInfo={setShowExerciseInfo}
+          isCreatingTemplate={isCreatingTemplate}
+          setIsCreatingTemplate={setIsCreatingTemplate}
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+        />
+        {/* <ExerciseStatistics /> */}
       </div>
+      {showExerciseInfo && (
+        <ExerciseInfo
+          exercise={showExerciseInfo}
+          setShowExerciseInfo={setShowExerciseInfo}
+          showExerciseInfo={showExerciseInfo}
+          isCreatingExercise={isCreatingExercise}
+          exerciseForUpdate={exerciseForUpdate}
+          setExerciseForUpdate={setExerciseForUpdate}
+          setSearchParams={setSearchParams}
+          isCreatingTemplate={isCreatingTemplate}
+        />
+      )}
     </div>
   );
 };

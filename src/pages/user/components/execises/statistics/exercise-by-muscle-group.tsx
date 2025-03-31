@@ -172,7 +172,7 @@ export default function ExerciseByMuscleGroup() {
   }, [exerciseByMuscleGroupData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className="flex items-center p-2 justify-center h-96 lg:h-full w-full">
+    <div className="flex items-center p-2 justify-center h-96 lg:h-108">
       {isLoading ? (
         <div className="flex items-center justify-center h-full w-full">
           <span className="loading loading-dots loading-xl"></span>
