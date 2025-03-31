@@ -41,7 +41,7 @@ export const CardCounter = ({
         className={`size-8/10 relative rounded-lg cursor-pointer flex items-center justify-center`}
       >
         <RenderSvg
-          src="url(src/assets/pixel-art/portrait-32.svg)"
+          src="url(src/assets/pixel-art/card-counter/card-counter-counter-32.svg)"
           size="auto"
           repeat="no-repeat"
           position="center"

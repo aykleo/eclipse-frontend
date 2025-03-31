@@ -66,14 +66,14 @@ export const CardList = memo(
             <div className="w-1/3 h-full relative pt-2.5">
               <div className="w-full h-[2px] absolute bottom-[13px] bg-[#bfb7b7]" />
               <RenderSvg
-                src="url(src/assets/pixel-art/white-cross-16.svg)"
+                src="url(src/assets/pixel-art/general/white-cross-16.svg)"
                 className="size-full absolute"
                 size="auto"
                 repeat="no-repeat"
                 position="right"
               />
               <RenderSvg
-                src="url(src/assets/pixel-art/white-cross-16.svg)"
+                src="url(src/assets/pixel-art/general/white-cross-16.svg)"
                 className="size-full absolute"
                 size="auto"
                 repeat="no-repeat"
@@ -108,14 +108,14 @@ export const CardList = memo(
             <div className="w-1/3 h-full relative pt-2.5">
               <div className="w-full h-[2px] absolute bottom-[13px] bg-[#bfb7b7]" />
               <RenderSvg
-                src="url(src/assets/pixel-art/white-cross-16.svg)"
+                src="url(src/assets/pixel-art/general/white-cross-16.svg)"
                 className="size-full absolute"
                 size="auto"
                 repeat="no-repeat"
                 position="left"
               />
               <RenderSvg
-                src="url(src/assets/pixel-art/white-cross-16.svg)"
+                src="url(src/assets/pixel-art/general/white-cross-16.svg)"
                 className="size-full absolute"
                 size="auto"
                 repeat="no-repeat"
