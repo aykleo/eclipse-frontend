@@ -136,7 +136,7 @@ const TemplateCreationList = React.memo(
               name="templateName"
               onChange={(e) => (templateNameRef.current = e.target.value)}
               className="h-8 pl-3 pt-1 pr-12 font-bold text-xl input-sm bg-transparent w-full absolute top-2 clean"
-              placeholder="Template name"
+              placeholder="Workout name"
             />
 
             <div className="flex flex-col gap-2 pt-2 overflow-y-auto w-[calc(100%-34px)] h-[calc(100%-120px)] no-scrollbar absolute top-14 left-4">
@@ -184,7 +184,7 @@ const TemplateCreationList = React.memo(
                   position="center"
                   className="size-full cursor-pointer text-xl font-bold flex items-center justify-center pb-1 transition-all duration-200 filter brightness-75 hover:brightness-110"
                 >
-                  {isLoading ? "Creating..." : "Create Template"}
+                  {isLoading ? "Creating..." : "Create Workout"}
                 </RenderSvg>
               </button>
               <button

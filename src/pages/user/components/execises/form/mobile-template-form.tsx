@@ -158,7 +158,7 @@ const MobileTemplateForm = React.memo(
               type="text"
               name="templateName"
               className=""
-              placeholder="Template name"
+              placeholder="Workout name"
               value={templateName}
               onChange={(e) => setTemplateName(e.target.value)}
             />

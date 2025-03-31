@@ -234,7 +234,7 @@ export const ExerciseInfo = ({
                 </ul>
               </div>
               <div>
-                <strong>Sub category</strong>
+                <strong>Type</strong>
                 <ul className="list-disc list-inside ml-2">
                   <li>{exercise.tag.name}</li>
                 </ul>
