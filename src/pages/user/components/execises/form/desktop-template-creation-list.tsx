@@ -115,6 +115,28 @@ const TemplateCreationList = React.memo(
     return (
       <div className="size-full relative">
         <RenderSvg
+          src="url(src/assets/pixel-art/general/desktop-template-details-attach.svg)"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="h-16 w-8 absolute top-0.5 right-[6px]"
+        />
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setIsCreatingTemplate(false);
+          }}
+        >
+          <RenderSvg
+            src="url(src/assets/pixel-art/icons/right-icon-16.svg)"
+            size="auto"
+            repeat="no-repeat"
+            position="center"
+            transform="rotate(90deg)"
+            className="size-4 absolute top-6 right-[14px] transition-all duration-200 filter hover:filter hover:brightness-150 cursor-pointer"
+          />
+        </button>
+        <RenderSvg
           src="url(src/assets/pixel-art/general/desktop-template-back-attach.svg)"
           size="auto"
           repeat="no-repeat"
@@ -147,7 +169,7 @@ const TemplateCreationList = React.memo(
               type="text"
               name="templateName"
               onChange={(e) => (templateNameRef.current = e.target.value)}
-              className="h-8 pl-3 pt-1 pr-12 font-bold text-xl input-sm bg-transparent w-full absolute top-2 clean"
+              className="h-8 pl-3 pt-1 font-bold text-xl input-sm bg-transparent w-10/12 absolute top-2 clean"
               placeholder="Workout name"
             />
 

@@ -65,7 +65,7 @@ export const ExerciseCard = memo(
             <RenderPng
               src="src/assets/pixel-art/buttons/btn-info-48.png"
               alt="info-button"
-              className={`absolute top-0 right-[-0.5rem] size-[48px] ${
+              className={`absolute top-0 right-[-0.5rem] size-[36px] ${
                 showExerciseInfo ||
                 exerciseForUpdate ||
                 isCreatingExercise ||
