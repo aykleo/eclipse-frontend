@@ -1,4 +1,4 @@
-import React, { lazy, memo } from "react";
+import React, { lazy, memo, RefObject } from "react";
 import {
   Exercise,
   TemplateExercise,
@@ -25,6 +25,7 @@ interface CardListProps {
     React.SetStateAction<TemplateExercise[]>
   >;
   showExerciseInfoById: (exerciseId: string) => void;
+  templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>;
   exerciseNumber?: number;
   currentPage?: number;
   children?: React.ReactNode;
@@ -50,6 +51,7 @@ export const CardList = memo(
     children,
     totalPages,
     setCurrentPage,
+    templateExercisesHashTable,
   }: CardListProps) => {
     return (
       <div
@@ -160,44 +162,44 @@ export const CardList = memo(
                   size="auto"
                   repeat="no-repeat"
                   position="center"
-                  className="w-[32px] h-full absolute top-0 left-[-5px]"
+                  className="w-[32px] h-full absolute top-0 left-[-5px] filter brightness-75"
                 />
                 <RenderSvg
                   src="url(src/assets/pixel-art/desktop-template-creation/top-middle.svg)"
                   size="auto"
                   repeat="repeat-x"
                   position="center"
-                  className="w-[95%] right-1/2 translate-x-1/2 h-full absolute"
+                  className="w-[95%] right-1/2 translate-x-1/2 h-full absolute filter brightness-75"
                 />
                 <RenderSvg
                   src="url(src/assets/pixel-art/desktop-template-creation/top-right.svg)"
                   size="auto"
                   repeat="no-repeat"
                   position="center"
-                  className="w-[32px] h-full absolute top-0 right-[-2px]"
+                  className="w-[32px] h-full absolute top-0 right-[-2px] filter brightness-75"
                 />
               </div>
-              <div className="w-full h-[calc(100%-108px)]">
+              <div className="w-full h-[calc(100%-108px)] ">
                 <RenderSvg
                   src="url(src/assets/pixel-art/desktop-template-creation/middle-left.svg)"
                   size="auto"
                   repeat="repeat-y"
                   position="center"
-                  className="w-[32px] h-[calc(100%-120px)] absolute top-[56px] left-[5px]"
+                  className="w-[32px] h-[calc(100%-120px)] absolute top-[56px] left-[5px] filter brightness-75"
                 />
                 <RenderSvg
                   src="url(src/assets/pixel-art/desktop-template-creation/middle-middle.svg)"
                   size="auto"
                   repeat="repeat"
                   position="center"
-                  className="w-[calc(100%-64px)] right-1/2 translate-x-1/2 h-[calc(100%-122px)] absolute"
+                  className="w-[calc(100%-64px)] right-1/2 translate-x-1/2 h-[calc(100%-122px)] absolute filter brightness-75"
                 />
                 <RenderSvg
                   src="url(src/assets/pixel-art/desktop-template-creation/middle-right.svg)"
                   size="auto"
                   repeat="repeat-y"
                   position="center"
-                  className="w-[32px] h-[calc(100%-120px)] absolute top-[56px] right-[8px]"
+                  className="w-[32px] h-[calc(100%-120px)] absolute top-[56px] right-[8px] filter brightness-75"
                 />
               </div>
               <div className="h-[64px] w-full relative">
@@ -206,21 +208,21 @@ export const CardList = memo(
                   size="auto"
                   repeat="no-repeat"
                   position="center"
-                  className="w-[32px] h-full absolute bottom-0 left-[-3px]"
+                  className="w-[32px] h-full absolute bottom-0 left-[-3px] filter brightness-75"
                 />
                 <RenderSvg
                   src="url(src/assets/pixel-art/desktop-template-creation/bottom-middle.svg)"
                   size="auto"
                   repeat="repeat-x"
                   position="center"
-                  className="w-[95%] right-1/2 translate-x-1/2 h-full absolute"
+                  className="w-[95%] right-1/2 translate-x-1/2 h-full absolute filter brightness-75"
                 />
                 <RenderSvg
                   src="url(src/assets/pixel-art/desktop-template-creation/bottom-right.svg)"
                   size="auto"
                   repeat="no-repeat"
                   position="center"
-                  className="w-[32px] h-full absolute bottom-0 right-0"
+                  className="w-[32px] h-full absolute bottom-0 right-0 filter brightness-75"
                 />
               </div>
 
@@ -233,6 +235,7 @@ export const CardList = memo(
                     showExerciseInfoById={showExerciseInfoById}
                     setIsCreatingTemplate={setIsCreatingTemplate}
                     setTemplateExercises={setTemplateExercises}
+                    templateExercisesHashTable={templateExercisesHashTable}
                   />
                 </React.Suspense>
               </div>

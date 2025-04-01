@@ -133,13 +133,15 @@ export const ExerciseCodex = React.memo(
 
     const onRemoveExercise = useCallback(
       (exerciseId: string) => {
-        if (templateExercises) {
+        if (exerciseId === "all") {
+          setTemplateExercises([]);
+          templateExercisesHashTable.current = {};
+        } else if (templateExercises) {
           setTemplateExercises(
             templateExercises.filter(
               (exercise) => exercise.exerciseId !== exerciseId
             )
           );
-
           delete templateExercisesHashTable.current[exerciseId];
         }
       },
@@ -229,6 +231,7 @@ export const ExerciseCodex = React.memo(
                   setIsCreatingTemplate={setIsCreatingTemplate}
                   setTemplateExercises={setTemplateExercises}
                   showExerciseInfoById={showExerciseInfoById}
+                  templateExercisesHashTable={templateExercisesHashTable}
                 >
                   {exerciseData.exercises &&
                     exerciseData.exercises
@@ -297,6 +300,7 @@ export const ExerciseCodex = React.memo(
               setIsCreatingTemplate={setIsCreatingTemplate}
               setTemplateExercises={setTemplateExercises}
               showExerciseInfoById={showExerciseInfoById}
+              templateExercisesHashTable={templateExercisesHashTable}
             />
           )}
           {isCreatingExercise && !exerciseForUpdate && (

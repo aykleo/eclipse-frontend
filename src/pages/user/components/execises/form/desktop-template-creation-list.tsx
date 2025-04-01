@@ -1,4 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, {
+  RefObject,
+  useCallback,
+  useRef,
+  useState,
+  useEffect,
+} from "react";
 import {
   DndContext,
   closestCenter,
@@ -20,6 +26,14 @@ import { handleTemplateCreation } from "../../../../../api/templates/template-cr
 import { TemplateFormData } from "../../../../../api/templates/fetch-create-update-template";
 import { useStatus } from "../../../../../hooks/status/status-context";
 import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
+import {
+  Exercise,
+  TagCategory,
+} from "../../../../../utils/types/exercise-types";
+import {
+  getColorBackgroundForTagCategory,
+  getColorClassForTagCategory,
+} from "../../../../../utils/tag-colors";
 
 interface TemplateExercise {
   exerciseId: string;
@@ -36,7 +50,16 @@ interface TemplateCreationListProps {
     React.SetStateAction<TemplateExercise[]>
   >;
   showExerciseInfoById: (exerciseId: string) => void;
+  templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>;
 }
+
+type CategoryCounts = {
+  "": number;
+  ENDURANCE: number;
+  MOVEMENT: number;
+  PLYOMETRICS: number;
+  STRENGTH: number;
+};
 
 const TemplateCreationList = React.memo(
   ({
@@ -46,11 +69,47 @@ const TemplateCreationList = React.memo(
     setIsCreatingTemplate,
     setTemplateExercises,
     showExerciseInfoById,
+    templateExercisesHashTable,
   }: TemplateCreationListProps) => {
     const templateNameRef = useRef<string>("");
     const [isLoading, setIsLoading] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const { setStatusText } = useStatus();
+    const [categoryCounts, setCategoryCounts] = useState<CategoryCounts>({
+      "": 0,
+      ENDURANCE: 0,
+      MOVEMENT: 0,
+      PLYOMETRICS: 0,
+      STRENGTH: 0,
+    });
+    const [isOpen, setIsOpen] = useState(false);
+
+    const countCategories = (
+      templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>
+    ) => {
+      const counts: CategoryCounts = {
+        "": 0,
+        ENDURANCE: 0,
+        MOVEMENT: 0,
+        PLYOMETRICS: 0,
+        STRENGTH: 0,
+      };
+
+      Object.values(templateExercisesHashTable.current).forEach((exercise) => {
+        const category = exercise.tag.category as keyof CategoryCounts;
+        if (counts[category] !== undefined) {
+          counts[category]++;
+        }
+        counts[""]++;
+      });
+
+      setCategoryCounts(counts);
+    };
+
+    useEffect(() => {
+      countCategories(templateExercisesHashTable);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [exercises]);
 
     const sensors = useSensors(
       useSensor(PointerSensor),
@@ -59,7 +118,7 @@ const TemplateCreationList = React.memo(
       })
     );
 
-    const handleDragEnd = (event: DragEndEvent) => {
+    const handleDragEnd = useCallback((event: DragEndEvent) => {
       const { active, over } = event;
 
       if (over && active.id !== over.id) {
@@ -74,7 +133,7 @@ const TemplateCreationList = React.memo(
           setTemplateExercises(arrayMove(exercises, oldIndex, newIndex));
         }
       }
-    };
+    }, []);
 
     const createTemplateMutation = useMutation({
       mutationFn: async (formData: TemplateFormData) => {
@@ -126,7 +185,7 @@ const TemplateCreationList = React.memo(
         <button
           onClick={(e) => {
             e.preventDefault();
-            setIsCreatingTemplate(false);
+            setIsOpen(!isOpen);
           }}
         >
           <RenderSvg
@@ -134,7 +193,7 @@ const TemplateCreationList = React.memo(
             size="auto"
             repeat="no-repeat"
             position="center"
-            transform="rotate(90deg)"
+            transform={!isOpen ? "rotate(90deg)" : "rotate(270deg)"}
             className="size-4 absolute top-6 right-[14px] transition-all duration-200 filter hover:filter hover:brightness-150 cursor-pointer"
           />
         </button>
@@ -176,33 +235,122 @@ const TemplateCreationList = React.memo(
             />
 
             <div className="flex flex-col gap-2 pt-2 overflow-y-auto w-[calc(100%-34px)] h-[calc(100%-120px)] no-scrollbar absolute top-14 left-4">
-              <DndContext
-                sensors={sensors}
-                collisionDetection={closestCenter}
-                onDragEnd={handleDragEnd}
-              >
-                <SortableContext
-                  items={exercises.map((e) => e.exerciseId)}
-                  strategy={verticalListSortingStrategy}
-                >
-                  {exercises &&
-                    exercises.length > 0 &&
-                    exercises.map((exercise, index) => (
-                      <DesktopTemplateItem
-                        key={exercise.exerciseId}
-                        exerciseId={exercise.exerciseId}
-                        notes={exercise.notes}
-                        exerciseName={exercise.name}
-                        exerciseOrder={index + 1}
-                        onUpdateNotes={(notes) =>
-                          onUpdateNotes(exercise.exerciseId, notes)
-                        }
-                        onRemove={() => onRemoveExercise(exercise.exerciseId)}
-                        showExerciseInfoById={showExerciseInfoById}
-                      />
-                    ))}
-                </SortableContext>
-              </DndContext>
+              {isOpen ? (
+                <div className="flex flex-col size-full">
+                  <div className="flex flex-col size-full items-center gap-4 p-4">
+                    <div className="flex text-lg font-bold flex-row items-center justify-between w-full">
+                      <span>Exercises in the workout</span>
+                      <div>{categoryCounts[""]}</div>
+                    </div>
+                    <div className="flex gap-4 flex-row w-full h-full justify-between">
+                      {Object.entries(categoryCounts).map(
+                        ([category, count]) =>
+                          category !== "" && (
+                            <div
+                              key={category}
+                              className="flex flex-col items-center w-full"
+                            >
+                              <div className="w-8 bg-neutral-950 h-[calc(100%-16px)] mb-2 flex flex-col justify-end px-1 pb-0.5 relative">
+                                {count > 0 && (
+                                  <div
+                                    className={`${getColorClassForTagCategory(
+                                      category as TagCategory
+                                    )} text-lg font-bold w-full text-center mb-2`}
+                                  >
+                                    {count}
+                                  </div>
+                                )}
+                                <RenderSvg
+                                  src={`url(src/assets/pixel-art/body/body-chart-top-8.svg)`}
+                                  size="auto"
+                                  repeat="no-repeat"
+                                  position="center"
+                                  className="h-2 w-8 absolute top-[-8px] left-0"
+                                />
+                                <RenderSvg
+                                  src={`url(src/assets/pixel-art/body/body-chart-top-8.svg)`}
+                                  size="auto"
+                                  repeat="no-repeat"
+                                  position="center"
+                                  className="h-2 w-8 absolute bottom-[-8px] left-0"
+                                  transform="rotate(180deg)"
+                                />
+                                <div
+                                  className={`${getColorBackgroundForTagCategory(
+                                    category as TagCategory
+                                  )} h-full w-full text-black relative`}
+                                  style={{
+                                    height:
+                                      count > 0
+                                        ? `${
+                                            (count / categoryCounts[""]) * 100
+                                          }%`
+                                        : "5px",
+                                  }}
+                                >
+                                  <RenderSvg
+                                    src={`url(src/assets/pixel-art/body/body-chart-top-${category}-8.svg)`}
+                                    size="28px"
+                                    repeat="no-repeat"
+                                    position="center"
+                                    className="h-2 w-7 absolute top-[-7px] left-[-2px]"
+                                  />
+                                  <RenderSvg
+                                    src={`url(src/assets/pixel-art/body/body-chart-top-${category}-8.svg)`}
+                                    size="28px"
+                                    repeat="no-repeat"
+                                    position="center"
+                                    className="h-2 w-7 absolute bottom-[-7px] left-[-2px]"
+                                    transform="rotate(180deg)"
+                                  />
+                                </div>
+                              </div>
+                              <RenderSvg
+                                src={`url(src/assets/pixel-art/buttons/btn-${category.toLowerCase()}.svg)`}
+                                size="auto"
+                                repeat="no-repeat"
+                                position="center"
+                                className="h-8 w-8"
+                              />
+                            </div>
+                          )
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragEnd={handleDragEnd}
+                  >
+                    <SortableContext
+                      items={exercises.map((e) => e.exerciseId)}
+                      strategy={verticalListSortingStrategy}
+                    >
+                      {exercises &&
+                        exercises.length > 0 &&
+                        exercises.map((exercise, index) => (
+                          <DesktopTemplateItem
+                            key={exercise.exerciseId}
+                            exerciseId={exercise.exerciseId}
+                            notes={exercise.notes}
+                            exerciseName={exercise.name}
+                            exerciseOrder={index + 1}
+                            onUpdateNotes={(notes) =>
+                              onUpdateNotes(exercise.exerciseId, notes)
+                            }
+                            onRemove={() =>
+                              onRemoveExercise(exercise.exerciseId)
+                            }
+                            showExerciseInfoById={showExerciseInfoById}
+                          />
+                        ))}
+                    </SortableContext>
+                  </DndContext>
+                </>
+              )}
             </div>
 
             <div className="absolute bottom-2 w-full h-[44px] flex items-center justify-between px-3">
@@ -227,7 +375,7 @@ const TemplateCreationList = React.memo(
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  setTemplateExercises([]);
+                  onRemoveExercise("all");
                 }}
                 className="h-full w-[calc(24*4px)] transition-all duration-200 filter brightness-75 hover:brightness-110"
               >
