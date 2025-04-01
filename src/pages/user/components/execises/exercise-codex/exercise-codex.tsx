@@ -139,7 +139,20 @@ export const ExerciseCodex = React.memo(
       },
       [templateExercises, setTemplateExercises]
     );
+    const handleAddExerciseToTemplate = (exercise: Exercise) => {
+      if (isCreatingTemplate && setTemplateExercises && templateExercises) {
+        const isExerciseAlreadyAdded = templateExercises.some(
+          (templateExercise) => templateExercise.exerciseId === exercise.id
+        );
 
+        if (!isExerciseAlreadyAdded) {
+          setTemplateExercises([
+            ...templateExercises,
+            { exerciseId: exercise.id, notes: "", name: exercise.name },
+          ]);
+        }
+      }
+    };
     return (
       <div className="relative w-full h-max flex-col flex items-center gap-y-0.5 bg-transparent justify-start">
         {statusText && <StatusToast statusText={statusText} />}
@@ -208,6 +221,7 @@ export const ExerciseCodex = React.memo(
                       )
                       .map((exercise: Exercise) => (
                         <div
+                          onClick={() => handleAddExerciseToTemplate(exercise)}
                           key={exercise.id}
                           className={`${
                             !isCreatingTemplate
@@ -240,12 +254,7 @@ export const ExerciseCodex = React.memo(
                               imgClassName="transition-all filter brightness-75 duration-200 hover:brightness-110"
                             />
                           </button>
-                          <ExerciseCard
-                            exercise={exercise}
-                            isCreatingTemplate={isCreatingTemplate}
-                            templateExercises={templateExercises}
-                            setTemplateExercises={setTemplateExercises}
-                          />
+                          <ExerciseCard exercise={exercise} />
                         </div>
                       ))}
                 </CardList>
