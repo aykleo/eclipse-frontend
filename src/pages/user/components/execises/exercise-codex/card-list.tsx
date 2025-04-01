@@ -25,6 +25,7 @@ interface CardListProps {
   setTemplateExercises: React.Dispatch<
     React.SetStateAction<TemplateExercise[]>
   >;
+  showExerciseInfoById: (exerciseId: string) => void;
   exerciseNumber?: number;
   currentPage?: number;
   children?: React.ReactNode;
@@ -44,6 +45,7 @@ export const CardList = memo(
     onRemoveExercise,
     setIsCreatingTemplate,
     setTemplateExercises,
+    showExerciseInfoById,
     exerciseNumber,
     currentPage,
     children,
@@ -230,6 +232,7 @@ export const CardList = memo(
                     exercises={templateExercises}
                     onUpdateNotes={onUpdateNotes}
                     onRemoveExercise={onRemoveExercise}
+                    showExerciseInfoById={showExerciseInfoById}
                     setIsCreatingTemplate={setIsCreatingTemplate}
                     setTemplateExercises={setTemplateExercises}
                   />

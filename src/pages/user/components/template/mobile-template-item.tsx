@@ -11,6 +11,7 @@ interface MobileTemplateItemProps {
   exerciseOrder: number;
   onUpdateNotes: (exerciseId: string, notes: string) => void;
   onRemoveExercise: (exerciseId: string) => void;
+  showExerciseInfoById: (exerciseId: string) => void;
 }
 
 export const MobileTemplateItem = React.memo(
@@ -21,6 +22,7 @@ export const MobileTemplateItem = React.memo(
     exerciseOrder,
     onUpdateNotes,
     onRemoveExercise,
+    showExerciseInfoById,
   }: MobileTemplateItemProps) => {
     const ref = useRef<HTMLDivElement>(null);
     const [showNotes, setShowNotes] = useState(false);
@@ -126,7 +128,10 @@ export const MobileTemplateItem = React.memo(
             {...listeners}
             className="absolute right-0 top-[34px] h-[22px] w-[14px] text-xs px-1 text-center cursor-grab active:cursor-grabbing transition-colors"
           />
-
+          <div
+            className="border size-4 absolute bottom-0 right-0"
+            onClick={() => showExerciseInfoById(exerciseId)}
+          />
           <div
             onClick={handleRemove}
             className="absolute top-[0px] left-[0px] border cursor-pointer rounded-full size-[22px]"

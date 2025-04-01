@@ -35,6 +35,7 @@ interface TemplateCreationListProps {
   setTemplateExercises: React.Dispatch<
     React.SetStateAction<TemplateExercise[]>
   >;
+  showExerciseInfoById: (exerciseId: string) => void;
 }
 
 const TemplateCreationList = React.memo(
@@ -44,6 +45,7 @@ const TemplateCreationList = React.memo(
     onRemoveExercise,
     setIsCreatingTemplate,
     setTemplateExercises,
+    showExerciseInfoById,
   }: TemplateCreationListProps) => {
     const templateNameRef = useRef<string>("");
     const [isLoading, setIsLoading] = useState(false);
@@ -196,6 +198,7 @@ const TemplateCreationList = React.memo(
                           onUpdateNotes(exercise.exerciseId, notes)
                         }
                         onRemove={() => onRemoveExercise(exercise.exerciseId)}
+                        showExerciseInfoById={showExerciseInfoById}
                       />
                     ))}
                 </SortableContext>

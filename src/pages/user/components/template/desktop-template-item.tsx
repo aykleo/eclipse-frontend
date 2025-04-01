@@ -11,6 +11,7 @@ interface DesktopTemplateItemProps {
   exerciseOrder: number;
   onUpdateNotes: (exerciseId: string, notes: string) => void;
   onRemove: () => void;
+  showExerciseInfoById: (exerciseId: string) => void;
 }
 
 export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
@@ -20,6 +21,7 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
   exerciseOrder,
   onUpdateNotes,
   onRemove,
+  showExerciseInfoById,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -80,6 +82,16 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
         position="center"
         className="h-full w-[32px] absolute top-0 right-0"
       />
+      <button
+        type="button"
+        className="absolute size-8 border z-4 left-1/2 rounded-full"
+        onClick={() => {
+          console.log("exerciseId", exerciseId);
+          showExerciseInfoById(exerciseId);
+        }}
+      >
+        aaa
+      </button>
       <div className="flex justify-between items-center absolute top-0 left-0 w-full h-full">
         <div
           {...attributes}

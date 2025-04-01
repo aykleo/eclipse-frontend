@@ -32,6 +32,7 @@ interface MobileTemplateFormProps {
   onUpdateNotes: (exerciseId: string, notes: string) => void;
   onRemoveExercise: (exerciseId: string) => void;
   setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
+  showExerciseInfoById: (exerciseId: string) => void;
 }
 
 const MobileTemplateForm = React.memo(
@@ -41,6 +42,7 @@ const MobileTemplateForm = React.memo(
     onUpdateNotes,
     onRemoveExercise,
     setIsCreatingTemplate,
+    showExerciseInfoById,
   }: MobileTemplateFormProps) => {
     const [templateName, setTemplateName] = useState<string>("");
     const [showNameInput, setShowNameInput] = useState<boolean>(false);
@@ -186,6 +188,7 @@ const MobileTemplateForm = React.memo(
                         onUpdateNotes(exercise.exerciseId, notes)
                       }
                       onRemoveExercise={onRemoveExercise}
+                      showExerciseInfoById={showExerciseInfoById}
                     />
                   ))}
                 </SortableContext>

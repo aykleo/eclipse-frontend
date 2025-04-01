@@ -1,4 +1,4 @@
-import { lazy, useCallback, useEffect, useState } from "react";
+import { lazy, useCallback, useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   Exercise,
@@ -56,10 +56,11 @@ export const ExerciseCodex = React.memo(
       (searchParams.get("category") as ExerciseCategory) || "";
     const { statusText } = useStatus();
     const exerciseName = searchParams.get("exerciseName") || "";
-
     const [templateExercises, setTemplateExercises] = useState<
       TemplateExercise[]
     >([]);
+
+    const templateExercisesHashTable = useRef<{ [key: string]: Exercise }>({});
 
     const { data: exerciseData, isLoading } = useQuery({
       queryKey: [
@@ -135,10 +136,14 @@ export const ExerciseCodex = React.memo(
               (exercise) => exercise.exerciseId !== exerciseId
             )
           );
+
+          delete templateExercisesHashTable.current[exerciseId];
         }
       },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       [templateExercises, setTemplateExercises]
     );
+
     const handleAddExerciseToTemplate = (exercise: Exercise) => {
       if (isCreatingTemplate && setTemplateExercises && templateExercises) {
         const isExerciseAlreadyAdded = templateExercises.some(
@@ -150,9 +155,19 @@ export const ExerciseCodex = React.memo(
             ...templateExercises,
             { exerciseId: exercise.id, notes: "", name: exercise.name },
           ]);
+
+          templateExercisesHashTable.current[exercise.id] = exercise;
         }
       }
     };
+
+    const showExerciseInfoById = (exerciseId: string) => {
+      const exercise = templateExercisesHashTable.current[exerciseId];
+      if (exercise && setShowExerciseInfo) {
+        setShowExerciseInfo(exercise);
+      }
+    };
+
     return (
       <div className="relative w-full h-max flex-col flex items-center gap-y-0.5 bg-transparent justify-start">
         {statusText && <StatusToast statusText={statusText} />}
@@ -187,6 +202,7 @@ export const ExerciseCodex = React.memo(
                   onUpdateNotes={onUpdateNotes}
                   onRemoveExercise={onRemoveExercise}
                   setIsCreatingTemplate={setIsCreatingTemplate}
+                  showExerciseInfoById={showExerciseInfoById}
                 />
               </React.Suspense>
             </div>
@@ -209,6 +225,7 @@ export const ExerciseCodex = React.memo(
                   onRemoveExercise={onRemoveExercise}
                   setIsCreatingTemplate={setIsCreatingTemplate}
                   setTemplateExercises={setTemplateExercises}
+                  showExerciseInfoById={showExerciseInfoById}
                 >
                   {exerciseData.exercises &&
                     exerciseData.exercises
@@ -276,6 +293,7 @@ export const ExerciseCodex = React.memo(
               onRemoveExercise={onRemoveExercise}
               setIsCreatingTemplate={setIsCreatingTemplate}
               setTemplateExercises={setTemplateExercises}
+              showExerciseInfoById={showExerciseInfoById}
             />
           )}
           {isCreatingExercise && !exerciseForUpdate && (
