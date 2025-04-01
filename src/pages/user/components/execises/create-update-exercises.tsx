@@ -8,7 +8,6 @@ import { handleExerciseUpdate } from "../../../../api/exercises/exercise-update"
 import { handleExerciseCreation } from "../../../../api/exercises/exercise-creation";
 import { useStatus } from "../../../../hooks/status/status-context";
 import { useUser } from "../../../../hooks/user/use-context";
-import { PaperBody } from "../../../../components/styles/paper-body";
 
 const ExerciseForm = React.lazy(() => import("./form/exercise-form"));
 
@@ -213,7 +212,6 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
 
       return (
         <div className="size-full relative bg-[#252525]">
-          <PaperBody />
           <Suspense
             fallback={
               <div className="size-full flex items-center justify-center">

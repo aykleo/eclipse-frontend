@@ -6,7 +6,6 @@ import {
 import { NewExerciseBtn } from "./new-exercise-btn";
 import { CodexPagination } from "./codex-pagination";
 import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
-import { PaperBody } from "../../../../../components/styles/paper-body";
 
 const TemplateCreationList = lazy(
   () => import("../form/desktop-template-creation-list")
@@ -58,7 +57,6 @@ export const CardList = memo(
           isCreatingExercise || exerciseForUpdate ? "hidden" : ""
         } flex size-full relative bg-[#252525]`}
       >
-        <PaperBody />
         <div
           className={`${
             isCreatingTemplate ? "w-full lg:w-3/4" : "w-full"
@@ -226,7 +224,7 @@ export const CardList = memo(
                 />
               </div>
 
-              <div className="absolute size-full top-0 right-0">
+              <div className="absolute size-full top-0 right-0 flex justify-center items-center">
                 <React.Suspense fallback={<div>Loading...</div>}>
                   <TemplateCreationList
                     exercises={templateExercises}
