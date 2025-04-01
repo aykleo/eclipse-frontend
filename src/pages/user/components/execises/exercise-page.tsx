@@ -23,7 +23,6 @@ export const ExercisePage = () => {
           setIsCreatingExercise={setIsCreatingExercise}
           exerciseForUpdate={exerciseForUpdate}
           setExerciseForUpdate={setExerciseForUpdate}
-          showExerciseInfo={showExerciseInfo}
           setShowExerciseInfo={setShowExerciseInfo}
           isCreatingTemplate={isCreatingTemplate}
           setIsCreatingTemplate={setIsCreatingTemplate}
@@ -37,7 +36,6 @@ export const ExercisePage = () => {
           exercise={showExerciseInfo}
           setShowExerciseInfo={setShowExerciseInfo}
           showExerciseInfo={showExerciseInfo}
-          isCreatingExercise={isCreatingExercise}
           exerciseForUpdate={exerciseForUpdate}
           setExerciseForUpdate={setExerciseForUpdate}
           setSearchParams={setSearchParams}

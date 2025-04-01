@@ -6,11 +6,7 @@ import { RenderSvg } from "../pixel-art/render-svg";
 
 interface ExerciseCardProps {
   exercise: Exercise;
-  exerciseForUpdate?: Exercise | null;
-  showExerciseInfo?: Exercise | null;
-  setShowExerciseInfo?: (exercise: Exercise | undefined) => void;
   isCreatingTemplate?: boolean;
-  isCreatingExercise?: boolean;
   templateExercises?: TemplateExercise[];
   setTemplateExercises?: (exercises: TemplateExercise[]) => void;
 }
@@ -18,11 +14,7 @@ interface ExerciseCardProps {
 export const ExerciseCard = memo(
   ({
     exercise,
-    exerciseForUpdate,
-    showExerciseInfo,
-    setShowExerciseInfo,
     isCreatingTemplate,
-    isCreatingExercise,
     templateExercises,
     setTemplateExercises,
   }: ExerciseCardProps) => {
@@ -44,71 +36,12 @@ export const ExerciseCard = memo(
     return (
       <>
         <RenderPng
-          key={exercise.id}
           onClick={handleAddExerciseToTemplate}
-          className={`${
-            !isCreatingTemplate ? "cursor-default" : "cursor-pointer"
-          } flex-col w-[192px] h-[256px] flex items-center group justify-center rounded-md flex-grow-0 flex-shrink-0 transition-all duration-300 relative`}
+          className={`flex-col w-[192px] h-[256px] flex items-center group justify-center transition-all duration-300 relative`}
           src="src/assets/pixel-art/exercise-cards/generic-exercise-card.png"
           alt="exercise-card"
-          imgClassName="absolute top-0 left-0 w-full h-full"
+          imgClassName="w-full h-full"
         >
-          <button
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              e.preventDefault();
-              e.stopPropagation();
-              if (setShowExerciseInfo) {
-                setShowExerciseInfo(exercise);
-              }
-            }}
-          >
-            <RenderPng
-              src="src/assets/pixel-art/buttons/btn-info-48.png"
-              alt="info-button"
-              className={`absolute top-0 right-[-0.5rem] size-[36px] ${
-                showExerciseInfo ||
-                exerciseForUpdate ||
-                isCreatingExercise ||
-                isCreatingTemplate
-                  ? "hidden"
-                  : "block"
-              } lg:hidden ${
-                !exerciseForUpdate &&
-                !isCreatingExercise &&
-                !showExerciseInfo &&
-                !isCreatingTemplate
-                  ? "lg:group-hover:block"
-                  : ""
-              } cursor-pointer`}
-              imgClassName="transition-all filter brightness-75 duration-200 hover:brightness-110"
-            />
-          </button>
-          {/* <div
-          className={`${
-            exercise.exerciseMuscleGroups.length < 2
-              ? "hidden"
-              : "absolute left-1 -top-5 flex flex-row gap-x-0.5"
-          }`}
-        >
-          {exercise.exerciseMuscleGroups
-            .filter((muscleGroup) => !muscleGroup.isPrimary)
-            .map((muscleGroup) => (
-              <div
-                key={muscleGroup.muscleGroup.name}
-                className={`${getColorBackgroundForTagCategory(
-                  exercise.tag.category
-                )} rounded-md rounded-b-none p-[1.5px] tooltip tooltip-bottom cursor-help`}
-                data-tip={muscleGroup.muscleGroup.name.replace(/_/g, " ")}
-              >
-                <img
-                  src={`src/assets/icons/muscle-group/${muscleGroup.muscleGroup.name}.png`}
-                  alt={`${muscleGroup.muscleGroup.name} icon`}
-                  className={`size-5  rounded-md rounded-b-none`}
-                />
-              </div>
-            ))}
-        </div> */}
-
           <div className="flex overflow-hidden items-center absolute top-6 rounded-full size-max justify-center">
             {exercise.exerciseMuscleGroups
               .filter((muscleGroup) => muscleGroup.isPrimary)
@@ -138,21 +71,6 @@ export const ExerciseCard = memo(
             />
           )}
 
-          {/* <span className={`w-full px-1`}>
-              <div
-                className={`${
-                  exercise.tag.category
-                    ? getColorBackgroundForTagCategory(exercise.tag.category)
-                    : "bg-neutral-700"
-                } w-full truncate text-center px-3 text-xs lg:text-sm`}
-                style={{
-                  clipPath:
-                    "polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%)",
-                }}
-              >
-                {exercise.tag.name ? exercise.tag.name : "No tag"}
-              </div>
-            </span> */}
           <div className="h-[72px] text-xs p-1 absolute w-[156px] break-words bottom-4 overflow-y-auto no-scrollbar">
             {exercise.description
               ? exercise.description

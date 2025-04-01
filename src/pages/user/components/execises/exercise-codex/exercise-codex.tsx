@@ -15,6 +15,7 @@ import React from "react";
 import { CardCounter } from "./card-counter";
 import { ExerciseCategory } from "../../../../../utils/codex-selector-categories";
 import { CardList } from "./card-list";
+import { RenderPng } from "../../../../../components/pixel-art/render-png";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
@@ -29,7 +30,6 @@ export const ExerciseCodex = React.memo(
     exerciseForUpdate,
     setExerciseForUpdate,
     setShowExerciseInfo,
-    showExerciseInfo,
     isCreatingTemplate,
     setIsCreatingTemplate,
     setSearchParams,
@@ -40,7 +40,6 @@ export const ExerciseCodex = React.memo(
     exerciseForUpdate: Exercise | null;
     setExerciseForUpdate: (exercise: Exercise | null) => void;
     setShowExerciseInfo: (exercise: Exercise | undefined) => void;
-    showExerciseInfo: Exercise | undefined;
     isCreatingTemplate: boolean;
     setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
     setSearchParams: (
@@ -208,17 +207,46 @@ export const ExerciseCodex = React.memo(
                           )
                       )
                       .map((exercise: Exercise) => (
-                        <ExerciseCard
+                        <div
                           key={exercise.id}
-                          exerciseForUpdate={exerciseForUpdate}
-                          exercise={exercise}
-                          isCreatingTemplate={isCreatingTemplate}
-                          isCreatingExercise={isCreatingExercise}
-                          templateExercises={templateExercises}
-                          setTemplateExercises={setTemplateExercises}
-                          setShowExerciseInfo={setShowExerciseInfo}
-                          showExerciseInfo={showExerciseInfo}
-                        />
+                          className={`${
+                            !isCreatingTemplate
+                              ? "cursor-default"
+                              : "cursor-pointer"
+                          } size-max flex-grow-0 group flex-shrink-0 relative`}
+                        >
+                          <button
+                            className="size-max z-1 absolute top-0 right-[-0.5rem]"
+                            onClick={(
+                              e: React.MouseEvent<HTMLButtonElement>
+                            ) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              if (setShowExerciseInfo) {
+                                setShowExerciseInfo(exercise);
+                              }
+                            }}
+                          >
+                            <RenderPng
+                              src="src/assets/pixel-art/buttons/btn-info-48.png"
+                              alt="info-button"
+                              className={`size-[36px] ${
+                                isCreatingTemplate ? "hidden" : "block"
+                              } lg:hidden ${
+                                !isCreatingTemplate
+                                  ? "lg:group-hover:block"
+                                  : ""
+                              } cursor-pointer`}
+                              imgClassName="transition-all filter brightness-75 duration-200 hover:brightness-110"
+                            />
+                          </button>
+                          <ExerciseCard
+                            exercise={exercise}
+                            isCreatingTemplate={isCreatingTemplate}
+                            templateExercises={templateExercises}
+                            setTemplateExercises={setTemplateExercises}
+                          />
+                        </div>
                       ))}
                 </CardList>
               ) : (

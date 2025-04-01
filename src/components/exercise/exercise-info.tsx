@@ -6,7 +6,6 @@ import { RenderSvg } from "../pixel-art/render-svg";
 interface ExerciseInfoProps {
   exercise: Exercise;
   setShowExerciseInfo: (showExerciseInfo: Exercise | undefined) => void;
-  isCreatingExercise: boolean | undefined;
   isCreatingTemplate: boolean | undefined;
   exerciseForUpdate: Exercise | null | undefined;
   showExerciseInfo: Exercise | undefined;
@@ -20,7 +19,6 @@ interface ExerciseInfoProps {
 export const ExerciseInfo = ({
   exercise,
   setShowExerciseInfo,
-  isCreatingExercise,
   exerciseForUpdate,
   showExerciseInfo,
   setExerciseForUpdate,
@@ -80,13 +78,7 @@ export const ExerciseInfo = ({
           ref={exerciseCardRef}
           className="w-full md:w-max flex md:flex-col items-center justify-center pt-8 gap-x-2 gap-y-4"
         >
-          <ExerciseCard
-            exercise={exercise}
-            isCreatingExercise={isCreatingExercise}
-            exerciseForUpdate={exerciseForUpdate}
-            setShowExerciseInfo={setShowExerciseInfo}
-            showExerciseInfo={showExerciseInfo}
-          />
+          <ExerciseCard exercise={showExerciseInfo!} />
           <div className="flex flex-col md:flex-row gap-4">
             {setSearchParams && !isCreatingTemplate && (
               <button
