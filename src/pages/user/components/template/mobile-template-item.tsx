@@ -3,6 +3,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { RenderPng } from "../../../../components/pixel-art/render-png";
 import { TextArea } from "../../../../components/forms/text-area";
+import { RenderSvg } from "../../../../components/pixel-art/render-svg";
 
 interface MobileTemplateItemProps {
   exerciseId: string;
@@ -111,12 +112,12 @@ export const MobileTemplateItem = React.memo(
             {exerciseOrder}
           </span>
 
-          <div className="truncate absolute top-[18px] left-[16px] w-[74px] h-4 text-center">
+          <div className="truncate absolute top-[9px] left-[16px] w-[74px] h-4 text-center">
             {exerciseName}
           </div>
 
           <span
-            className={`h-[14px] w-[80px] absolute top-[40px] right-3 text-xs px-1 text-center ${
+            className={`h-[14px] w-[80px] absolute top-8 right-3 text-xs px-1 text-center ${
               notes ? "text-warning" : "text-gray-500"
             }`}
           >
@@ -126,20 +127,60 @@ export const MobileTemplateItem = React.memo(
           <div
             {...attributes}
             {...listeners}
-            className="absolute right-0 top-[34px] h-[22px] w-[14px] text-xs px-1 text-center cursor-grab active:cursor-grabbing transition-colors"
-          />
-          <div
-            className="border size-4 absolute bottom-0 right-0"
+            className="absolute left-[-10px] top-[4px] size-10 text-xs px-1 text-center cursor-grab active:cursor-grabbing transition-colors"
+          >
+            <RenderSvg
+              src="url(src/assets/pixel-art/icons/grab-icon-32.svg)"
+              size="auto"
+              repeat="no-repeat"
+              position="center"
+              className="size-full"
+              transform="rotate(90deg)"
+            />
+          </div>
+          <button
+            type="button"
             onClick={() => showExerciseInfoById(exerciseId)}
-          />
-          <div
+            className="size-[22px] absolute left-1/2 -translate-x-1/2 bottom-0 cursor-pointer transition-all filter brightness-100 duration-200 hover:filter hover:brightness-110"
+          >
+            <RenderSvg
+              src="url(src/assets/pixel-art/icons/circular-info-icon-22.svg)"
+              size="auto"
+              repeat="no-repeat"
+              position="center"
+              className="size-full"
+            />
+          </button>
+          <button
+            type="button"
             onClick={handleRemove}
-            className="absolute top-[0px] left-[0px] border cursor-pointer rounded-full size-[22px]"
-          />
-          <div
+            className="absolute bottom-0 right-0 cursor-pointer size-[22px] transition-all filter brightness-75 duration-200 hover:filter hover:brightness-110"
+          >
+            <RenderSvg
+              src="url(src/assets/pixel-art/icons/circular-cancel-icon-22.svg)"
+              size="auto"
+              repeat="no-repeat"
+              position="center"
+              className="size-full"
+            />
+          </button>
+          <button
+            type="button"
             onClick={handleNotesToggle}
-            className="absolute bottom-[0px] border left-[0px] cursor-pointer rounded-full size-[22px]"
-          />
+            className={`absolute bottom-[0px] left-[0px] cursor-pointer size-[22px] transition-all filter ${
+              !notes
+                ? "brightness-50 hover:brightness-110 hover:opacity-75"
+                : "brightness-100 hover:brightness-125"
+            }`}
+          >
+            <RenderSvg
+              src="url(src/assets/pixel-art/icons/circular-notes-icon-22.svg)"
+              size="auto"
+              repeat="no-repeat"
+              position="center"
+              className="size-full"
+            />
+          </button>
         </>
       </RenderPng>
     );

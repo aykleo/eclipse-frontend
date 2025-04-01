@@ -24,6 +24,7 @@ export const ExercisePage = () => {
           exerciseForUpdate={exerciseForUpdate}
           setExerciseForUpdate={setExerciseForUpdate}
           setShowExerciseInfo={setShowExerciseInfo}
+          showExerciseInfo={showExerciseInfo}
           isCreatingTemplate={isCreatingTemplate}
           setIsCreatingTemplate={setIsCreatingTemplate}
           searchParams={searchParams}

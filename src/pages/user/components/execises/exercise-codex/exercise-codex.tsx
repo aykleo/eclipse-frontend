@@ -20,8 +20,23 @@ import { RenderPng } from "../../../../../components/pixel-art/render-png";
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
 );
-
 const MobileTemplateForm = lazy(() => import("../form/mobile-template-form"));
+
+interface ExerciseCodexProps {
+  setIsCreatingExercise: (isCreatingExercise: boolean) => void;
+  isCreatingExercise: boolean;
+  exerciseForUpdate: Exercise | null;
+  setExerciseForUpdate: (exercise: Exercise | null) => void;
+  setShowExerciseInfo: (exercise: Exercise | undefined) => void;
+  showExerciseInfo: Exercise | undefined;
+  isCreatingTemplate: boolean;
+  setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
+  setSearchParams: (
+    params: URLSearchParams | ((prev: URLSearchParams) => URLSearchParams),
+    options?: { replace?: boolean }
+  ) => void;
+  searchParams: URLSearchParams;
+}
 
 export const ExerciseCodex = React.memo(
   ({
@@ -30,24 +45,12 @@ export const ExerciseCodex = React.memo(
     exerciseForUpdate,
     setExerciseForUpdate,
     setShowExerciseInfo,
+    showExerciseInfo,
     isCreatingTemplate,
     setIsCreatingTemplate,
     setSearchParams,
     searchParams,
-  }: {
-    setIsCreatingExercise: (isCreatingExercise: boolean) => void;
-    isCreatingExercise: boolean;
-    exerciseForUpdate: Exercise | null;
-    setExerciseForUpdate: (exercise: Exercise | null) => void;
-    setShowExerciseInfo: (exercise: Exercise | undefined) => void;
-    isCreatingTemplate: boolean;
-    setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
-    setSearchParams: (
-      params: URLSearchParams | ((prev: URLSearchParams) => URLSearchParams),
-      options?: { replace?: boolean }
-    ) => void;
-    searchParams: URLSearchParams;
-  }) => {
+  }: ExerciseCodexProps) => {
     const { user } = useUser() || {};
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -193,7 +196,7 @@ export const ExerciseCodex = React.memo(
               templateExercises={templateExercises}
             />
           </div>
-          {isCreatingTemplate && templateExercises && (
+          {isCreatingTemplate && templateExercises && !showExerciseInfo && (
             <div className="fixed bottom-2 right-0 flex justify-center items-center z-100 lg:hidden w-full">
               <React.Suspense fallback={<div>Loading...</div>}>
                 <MobileTemplateForm

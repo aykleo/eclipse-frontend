@@ -82,16 +82,7 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
         position="center"
         className="h-full w-[32px] absolute top-0 right-0"
       />
-      <button
-        type="button"
-        className="absolute size-8 border z-4 left-1/2 rounded-full"
-        onClick={() => {
-          console.log("exerciseId", exerciseId);
-          showExerciseInfoById(exerciseId);
-        }}
-      >
-        aaa
-      </button>
+
       <div className="flex justify-between items-center absolute top-0 left-0 w-full h-full">
         <div
           {...attributes}
@@ -145,6 +136,20 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
         >
           <RenderSvg
             src="url(src/assets/pixel-art/icons/circular-notes-icon-22.svg)"
+            size="auto"
+            repeat="no-repeat"
+            position="center"
+            className="size-full"
+          />
+        </button>
+
+        <button
+          type="button"
+          onClick={() => showExerciseInfoById(exerciseId)}
+          className="size-[22px] absolute right-16 top-1/2 -translate-y-1/2 cursor-pointer transition-all filter brightness-50 duration-200 hover:filter hover:brightness-110"
+        >
+          <RenderSvg
+            src="url(src/assets/pixel-art/icons/circular-info-icon-22.svg)"
             size="auto"
             repeat="no-repeat"
             position="center"
