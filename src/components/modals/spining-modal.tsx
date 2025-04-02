@@ -1,19 +1,16 @@
 import React from "react";
 import { SpinSlowStyle } from "../styles/spin-slow-style";
-import { StatusToast } from "../status-toast";
 
 export const SpiningModal = ({
   children,
   id,
   formRef,
   handleSubmit,
-  statusText,
 }: {
   children: React.ReactNode;
   id: string;
   formRef: React.RefObject<HTMLFormElement>;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  statusText: string;
 }) => {
   return (
     <>
@@ -37,7 +34,7 @@ export const SpiningModal = ({
             </form>
           </div>
         </div>
-        {statusText && <StatusToast statusText={statusText} />}
+
         <form
           method="dialog"
           className="modal-backdrop inset-0 absolute backdrop-blur-xs opacity-80"

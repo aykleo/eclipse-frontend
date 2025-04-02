@@ -9,7 +9,7 @@ import { useStatus } from "../../../../hooks/status/status-context";
 export const LogInModal = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const emailRef = useRef<string | null>(null);
-  const { statusText, setStatusText } = useStatus();
+  const { setStatusText } = useStatus();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -41,7 +41,6 @@ export const LogInModal = () => {
       id="login_modal"
       formRef={formRef as React.RefObject<HTMLFormElement>}
       handleSubmit={handleSubmit}
-      statusText={statusText ?? ""}
     >
       <p className="text-gray-300 text-3xl font-bold">Welcome back</p>
 

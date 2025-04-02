@@ -41,7 +41,7 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
       const exerciseTagCategoryRef = useRef<string | null>(
         exerciseForUpdate ? exerciseForUpdate.tag.category : null
       );
-      const { statusText, setStatusText } = useStatus();
+      const { setStatusText } = useStatus();
       const [isLoading, setIsLoading] = useState(false);
       const [primaryMuscleGroupId, setPrimaryMuscleGroupId] = useState<
         string | null
@@ -176,6 +176,13 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
           }, 3000);
           return () => clearTimeout(timeout);
         },
+        onError: (error: Error) => {
+          setStatusText(`${error.message}`);
+          const timeout = setTimeout(() => {
+            setStatusText(null);
+          }, 3000);
+          return () => clearTimeout(timeout);
+        },
       });
 
       const handleSubmit = async (event: React.FormEvent) => {
@@ -225,7 +232,6 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
               primaryMuscleGroupId={primaryMuscleGroupId}
               muscleGroupIds={muscleGroupIds}
               isLoading={isLoading}
-              statusText={statusText}
               handleSubmit={handleSubmit}
               handlePrimaryMuscleGroup={handlePrimaryMuscleGroup}
               handleMuscleGroupIds={handleMuscleGroupIds}

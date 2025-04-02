@@ -6,7 +6,6 @@ import {
   MuscleGroupName,
 } from "../../../../../utils/types/exercise-types";
 import { getColorClassForTagCategory } from "../../../../../utils/tag-colors";
-import { StatusToast } from "../../../../../components/status-toast";
 import { ExerciseCard } from "../../../../../components/exercise/exercise-card";
 import { Input } from "../../../../../components/forms/input";
 import { Select } from "../../../../../components/forms/select";
@@ -21,7 +20,7 @@ interface ExerciseFormProps {
   primaryMuscleGroupId: string | null;
   muscleGroupIds: string[];
   isLoading: boolean;
-  statusText: string | null;
+
   handleSubmit: (event: React.FormEvent) => void;
   handlePrimaryMuscleGroup: (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -44,7 +43,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     primaryMuscleGroupId,
     muscleGroupIds,
     isLoading,
-    statusText,
+
     handleSubmit,
     handlePrimaryMuscleGroup,
     handleMuscleGroupIds,
@@ -307,7 +306,6 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               </RenderSvg>
             </button>
           </div>
-          {statusText && <StatusToast statusText={statusText} />}
         </form>
       </div>
     );

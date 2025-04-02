@@ -6,9 +6,7 @@ import {
 } from "../../../../../utils/types/exercise-types";
 import { useUser } from "../../../../../hooks/user/use-context";
 import { fetchExercises } from "../../../../../api/exercises/fetch-exercises";
-import { useStatus } from "../../../../../hooks/status/status-context";
 import { DeleteExerciseModal } from "../delete-modal";
-import { StatusToast } from "../../../../../components/status-toast";
 import { ExerciseCard } from "../../../../../components/exercise/exercise-card";
 import { CodexSelector } from "./codex-selector";
 import React from "react";
@@ -57,7 +55,6 @@ export const ExerciseCodex = React.memo(
     const pageSize = 20;
     const selectedCategory =
       (searchParams.get("category") as ExerciseCategory) || "";
-    const { statusText } = useStatus();
     const exerciseName = searchParams.get("exerciseName") || "";
     const [templateExercises, setTemplateExercises] = useState<
       TemplateExercise[]
@@ -175,7 +172,6 @@ export const ExerciseCodex = React.memo(
 
     return (
       <div className="relative w-full h-max flex-col flex items-center gap-y-0.5 bg-transparent justify-start">
-        {statusText && <StatusToast statusText={statusText} />}
         <div className="w-full fixed z-49">
           <CodexSelector
             handleTabClick={handleTabClick}
