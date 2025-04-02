@@ -145,7 +145,7 @@ const TemplateCreationList = React.memo(
       },
       onSuccess: () => {
         templateNameRef.current = "";
-        setTemplateExercises([]);
+        onRemoveExercise("all");
         if (formRef.current) {
           formRef.current.reset();
         }

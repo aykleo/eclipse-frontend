@@ -105,7 +105,7 @@ const MobileTemplateForm = React.memo(
       },
       onSuccess: () => {
         setTemplateName("");
-        setTemplateExercises([]);
+        onRemoveExercise("all");
         setShowNameInput(false);
         if (formRef.current) {
           formRef.current.reset();
