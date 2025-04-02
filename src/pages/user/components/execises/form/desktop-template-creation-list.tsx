@@ -53,7 +53,7 @@ interface TemplateCreationListProps {
   templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>;
 }
 
-type CategoryCounts = {
+export type CategoryCounts = {
   "": number;
   ENDURANCE: number;
   MOVEMENT: number;

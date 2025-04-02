@@ -1,4 +1,4 @@
-import React, { lazy, memo, RefObject } from "react";
+import React, { lazy, RefObject } from "react";
 import {
   Exercise,
   TemplateExercise,
@@ -33,7 +33,7 @@ interface CardListProps {
   setCurrentPage?: (page: number) => void;
 }
 
-export const CardList = memo(
+export const CardList = React.memo(
   ({
     exerciseForUpdate,
     setExerciseForUpdate,
@@ -104,7 +104,12 @@ export const CardList = memo(
                   )}
                 </>
               ) : (
-                <>No exercises were found</>
+                <>
+                  <span className="hidden md:inline">
+                    No exercises were found
+                  </span>
+                  <span className="inline md:hidden">No exercises</span>
+                </>
               )}
             </div>
             <div className="w-1/3 h-full relative pt-2.5">

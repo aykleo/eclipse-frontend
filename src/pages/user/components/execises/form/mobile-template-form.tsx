@@ -1,5 +1,8 @@
-import { useRef, useState } from "react";
-import { TemplateExercise } from "../../../../../utils/types/exercise-types";
+import { RefObject, useEffect, useRef, useState } from "react";
+import {
+  Exercise,
+  TemplateExercise,
+} from "../../../../../utils/types/exercise-types";
 import { useMutation } from "@tanstack/react-query";
 import { TemplateFormData } from "../../../../../api/templates/fetch-create-update-template";
 import { handleTemplateCreation } from "../../../../../api/templates/template-creation";
@@ -23,6 +26,12 @@ import {
 } from "@dnd-kit/sortable";
 import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 import { Input } from "../../../../../components/forms/input";
+import { CategoryCounts } from "./desktop-template-creation-list";
+import {
+  getColorClassForTagCategory,
+  getColorBackgroundForTagCategory,
+} from "../../../../../utils/tag-colors";
+import { TagCategory } from "../../../../../utils/types/exercise-types";
 
 interface MobileTemplateFormProps {
   templateExercises: TemplateExercise[];
@@ -33,6 +42,7 @@ interface MobileTemplateFormProps {
   onRemoveExercise: (exerciseId: string) => void;
   setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
   showExerciseInfoById: (exerciseId: string) => void;
+  templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>;
 }
 
 const MobileTemplateForm = React.memo(
@@ -43,12 +53,21 @@ const MobileTemplateForm = React.memo(
     onRemoveExercise,
     setIsCreatingTemplate,
     showExerciseInfoById,
+    templateExercisesHashTable,
   }: MobileTemplateFormProps) => {
     const [templateName, setTemplateName] = useState<string>("");
     const [showNameInput, setShowNameInput] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [templateInfo, setTemplateInfo] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null);
     const { setStatusText } = useStatus();
+    const [categoryCounts, setCategoryCounts] = useState<CategoryCounts>({
+      "": 0,
+      ENDURANCE: 0,
+      MOVEMENT: 0,
+      PLYOMETRICS: 0,
+      STRENGTH: 0,
+    });
 
     const sensors = useSensors(
       useSensor(PointerSensor),
@@ -119,8 +138,43 @@ const MobileTemplateForm = React.memo(
     const toggleNameInput = (e: React.MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
+      setTemplateInfo(false);
       setShowNameInput((prev) => !prev);
     };
+
+    const toggleTemplateInfo = (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setShowNameInput(false);
+      setTemplateInfo((prev) => !prev);
+    };
+
+    const countCategories = (
+      templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>
+    ) => {
+      const counts: CategoryCounts = {
+        "": 0,
+        ENDURANCE: 0,
+        MOVEMENT: 0,
+        PLYOMETRICS: 0,
+        STRENGTH: 0,
+      };
+
+      Object.values(templateExercisesHashTable.current).forEach((exercise) => {
+        const category = exercise.tag.category as keyof CategoryCounts;
+        if (counts[category] !== undefined) {
+          counts[category]++;
+        }
+        counts[""]++;
+      });
+
+      setCategoryCounts(counts);
+    };
+
+    useEffect(() => {
+      countCategories(templateExercisesHashTable);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [templateExercises]);
 
     return (
       <RenderSvg
@@ -166,7 +220,86 @@ const MobileTemplateForm = React.memo(
             />
           </div>
 
-          {!showNameInput && (
+          <div
+            className={`${
+              templateInfo ? "block" : "hidden"
+            }  h-22 w-full  grid grid-cols-2`}
+          >
+            {Object.entries(categoryCounts).map(
+              ([category, count]) =>
+                category !== "" && (
+                  <div
+                    key={category}
+                    className="flex flex-row items-center w-full"
+                  >
+                    <RenderSvg
+                      src={`url(src/assets/pixel-art/buttons/btn-${category.toLowerCase()}.svg)`}
+                      size="auto"
+                      repeat="no-repeat"
+                      position="center"
+                      className="h-8 w-8"
+                    />
+                    <div className="w-[calc(80%-16px)] bg-neutral-950 h-6 ml-2 flex flex-row items-center py-[4px] justify-start pl-0.5 relative">
+                      <RenderSvg
+                        src={`url(src/assets/pixel-art/body/body-chart-top-8.svg)`}
+                        size="24px"
+                        repeat="no-repeat"
+                        position="center"
+                        className="h-2 w-6 absolute top-[8px] right-[-15px]"
+                        transform="rotate(90deg)"
+                      />
+                      <RenderSvg
+                        src={`url(src/assets/pixel-art/body/body-chart-top-8.svg)`}
+                        size="24px"
+                        repeat="no-repeat"
+                        position="center"
+                        className="h-2 w-6 absolute top-[8px] left-[-15px]"
+                        transform="rotate(270deg)"
+                      />
+                      <div
+                        className={`${getColorBackgroundForTagCategory(
+                          category as TagCategory
+                        )} h-full w-full text-black relative`}
+                        style={{
+                          width:
+                            count > 0
+                              ? `${(count / categoryCounts[""]) * 100}%`
+                              : "5px",
+                        }}
+                      >
+                        <RenderSvg
+                          src={`url(src/assets/pixel-art/body/body-chart-top-${category}-8.svg)`}
+                          size="18px"
+                          repeat="no-repeat"
+                          position="center"
+                          className="h-2 w-5 absolute top-[4px] left-[-13px]"
+                          transform="rotate(270deg)"
+                        />
+                        <RenderSvg
+                          src={`url(src/assets/pixel-art/body/body-chart-top-${category}-8.svg)`}
+                          size="18px"
+                          repeat="no-repeat"
+                          position="center"
+                          className="h-2 w-5 absolute top-[4px] right-[-13px]"
+                          transform="rotate(90deg)"
+                        />
+                      </div>
+                      {count > 0 && (
+                        <div
+                          className={`${getColorClassForTagCategory(
+                            category as TagCategory
+                          )} text-sm font-bold text-center ml-2`}
+                        >
+                          {count}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )
+            )}
+          </div>
+
+          {!showNameInput && !templateInfo && (
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
@@ -208,7 +341,6 @@ const MobileTemplateForm = React.memo(
               size="15px"
               repeat="no-repeat"
               position="center"
-              role="tablist"
               className="absolute h-full w-12 -left-5"
             />
             <RenderSvg
@@ -216,7 +348,6 @@ const MobileTemplateForm = React.memo(
               size="15px"
               repeat="no-repeat"
               position="center"
-              role="tablist"
               className="absolute h-full w-12 -right-5"
               transform="rotate(180deg)"
             />
@@ -239,14 +370,22 @@ const MobileTemplateForm = React.memo(
             </button>
 
             <button
+              type="button"
+              className="filter brightness-75"
+              disabled={isLoading}
+              onClick={toggleTemplateInfo}
+            >
+              <RenderSvg
+                src="url(src/assets/pixel-art/buttons/btn-chart.32.svg)"
+                size="auto"
+                repeat="no-repeat"
+                position="center"
+                className="size-8 cursor-pointer"
+              />
+            </button>
+
+            <button
               type="submit"
-              className={`${
-                !templateName ||
-                templateExercises.length === 0 ||
-                templateName.length < 5
-                  ? "opacity-40"
-                  : "opacity-100"
-              }`}
               disabled={
                 isLoading ||
                 templateExercises.length === 0 ||
@@ -258,11 +397,11 @@ const MobileTemplateForm = React.memo(
                 size="auto"
                 repeat="no-repeat"
                 position="center"
-                className={`${
+                className={`filter ${
                   templateName.length > 5 && templateExercises.length > 0
-                    ? "animate-pulse"
-                    : ""
-                } h-8 w-24 cursor-pointer pt-[2px]`}
+                    ? "brightness-100"
+                    : "brightness-50"
+                } h-8 w-24 flex items-center justify-center cursor-pointer pb-0.5`}
               >
                 {isLoading ? "Creating..." : "Create"}
               </RenderSvg>
@@ -270,15 +409,15 @@ const MobileTemplateForm = React.memo(
 
             <button
               type="button"
-              className={`${
+              className={`filter ${
                 isLoading || templateExercises.length === 0
-                  ? "opacity-40"
-                  : "opacity-100"
+                  ? "brightness-50"
+                  : "brightness-100"
               } `}
               disabled={isLoading || templateExercises.length === 0}
               onClick={(e) => {
                 e.preventDefault();
-                setTemplateExercises([]);
+                onRemoveExercise("all");
                 setTemplateName("");
               }}
             >

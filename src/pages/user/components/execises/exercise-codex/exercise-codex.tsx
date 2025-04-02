@@ -208,6 +208,7 @@ export const ExerciseCodex = React.memo(
                   onRemoveExercise={onRemoveExercise}
                   setIsCreatingTemplate={setIsCreatingTemplate}
                   showExerciseInfoById={showExerciseInfoById}
+                  templateExercisesHashTable={templateExercisesHashTable}
                 />
               </React.Suspense>
             </div>
