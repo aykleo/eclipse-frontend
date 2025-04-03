@@ -34,9 +34,7 @@ export const ExerciseCodex = React.memo(
     const { user } = useUser() || {};
     const {
       isCreatingExercise,
-      setIsCreatingExercise,
       exerciseForUpdate,
-      setExerciseForUpdate,
       showExerciseInfo,
       setShowExerciseInfo,
       isCreatingTemplate,
@@ -278,21 +276,8 @@ export const ExerciseCodex = React.memo(
               templateExercisesHashTable={templateExercisesHashTable}
             />
           )}
-          {isCreatingExercise && !exerciseForUpdate && (
-            <CreateOrUpdateExercises
-              setIsCreatingExercise={setIsCreatingExercise}
-              setExerciseForUpdate={setExerciseForUpdate}
-              exerciseForUpdate={exerciseForUpdate}
-              isCreatingExercise={isCreatingExercise}
-            />
-          )}
-          {exerciseForUpdate && (
-            <CreateOrUpdateExercises
-              exerciseForUpdate={exerciseForUpdate}
-              setExerciseForUpdate={setExerciseForUpdate}
-              isCreatingExercise={isCreatingExercise}
-              setIsCreatingExercise={setIsCreatingExercise}
-            />
+          {(isCreatingExercise || exerciseForUpdate) && (
+            <CreateOrUpdateExercises />
           )}
         </ul>
 
