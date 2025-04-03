@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Exercise } from "../../../../utils/types/exercise-types";
 import { ExerciseCodex } from "./exercise-codex/exercise-codex";
 import { useSearchParams } from "react-router-dom";
 import { ExerciseInfo } from "../../../../components/exercise/exercise-info";
 
-export const ExercisePage = () => {
+export const ExercisePage = memo(() => {
   const [isCreatingExercise, setIsCreatingExercise] = useState(false);
   const [exerciseForUpdate, setExerciseForUpdate] = useState<Exercise | null>(
     null
@@ -45,4 +45,4 @@ export const ExercisePage = () => {
       )}
     </div>
   );
-};
+});

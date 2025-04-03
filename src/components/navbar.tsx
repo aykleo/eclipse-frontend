@@ -3,12 +3,26 @@ import AnimatedGradientBorderBtn from "./gradient/animated-gradient-border-btn";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { AnimateTextGradient } from "./modals/animate-text-gradient";
 import { logOutUser } from "../api/user/log-out-user";
-import GradientBorderBtn from "./gradient/gradient-btn";
 import { useNavBar } from "../hooks/navbar-choices/navbar-context";
+import { useSearchParams } from "react-router-dom";
 
 export const Navbar = () => {
   const { user, setUser } = useUser() || {};
-  const { setNavBarChoices } = useNavBar();
+  const { navbarChoices, setNavBarChoices } = useNavBar();
+  const [, setSearchParams] = useSearchParams();
+
+  const handleTabChange = (tab: "exercises" | "workouts" | "statistics") => {
+    setNavBarChoices(tab);
+
+    setSearchParams(
+      (prev) => {
+        const newParams = new URLSearchParams(prev);
+        newParams.set("tab", tab);
+        return newParams;
+      },
+      { replace: true }
+    );
+  };
 
   const handleSignOut = async () => {
     if (!setUser) {
@@ -34,13 +48,28 @@ export const Navbar = () => {
         </AnimatedGradientBorderBtn>
         {user ? (
           <div className="hidden md:flex flex-row gap-x-1 md:gap-x-6 lg:gap-x-10 text-red-400">
-            <button onClick={() => setNavBarChoices("exercises")}>
+            <button
+              onClick={() => handleTabChange("exercises")}
+              className={
+                navbarChoices === "exercises" ? "text-red-600 font-bold" : ""
+              }
+            >
               Exercises
             </button>
-            <button onClick={() => setNavBarChoices("workouts")}>
+            <button
+              onClick={() => handleTabChange("workouts")}
+              className={
+                navbarChoices === "workouts" ? "text-red-600 font-bold" : ""
+              }
+            >
               Workouts
             </button>
-            <button onClick={() => setNavBarChoices("statistics")}>
+            <button
+              onClick={() => handleTabChange("statistics")}
+              className={
+                navbarChoices === "statistics" ? "text-red-600 font-bold" : ""
+              }
+            >
               Statistics
             </button>
           </div>
@@ -78,18 +107,18 @@ export const Navbar = () => {
             <li>
               <button
                 className="md:hidden"
-                onClick={() => setNavBarChoices("exercises")}
+                onClick={() => handleTabChange("exercises")}
               >
                 Exercises
               </button>
               <button
-                onClick={() => setNavBarChoices("workouts")}
+                onClick={() => handleTabChange("workouts")}
                 className="md:hidden"
               >
                 Workouts
               </button>
               <button
-                onClick={() => setNavBarChoices("statistics")}
+                onClick={() => handleTabChange("statistics")}
                 className="md:hidden"
               >
                 Statistics

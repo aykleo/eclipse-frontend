@@ -6,7 +6,6 @@ import {
 } from "./fetch-create-update-exercise";
 import { Exercise } from "../../utils/types/exercise-types";
 
-// Define a result type to return instead of throwing errors
 export type ExerciseUpdateResult = {
   success: boolean;
   data?: ReturnType<typeof createOrUpdateExercise> extends Promise<infer T>

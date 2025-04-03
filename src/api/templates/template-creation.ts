@@ -6,10 +6,18 @@ import {
 
 import { templateSchema } from "../../lib/validation/template-schema";
 
+export type TemplateCreationResult = {
+  success: boolean;
+  data?: ReturnType<typeof createOrUpdateTemplate> extends Promise<infer T>
+    ? T
+    : never;
+  error?: string;
+};
+
 export const handleTemplateCreation = async (
   formData: TemplateFormData,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
-) => {
+): Promise<TemplateCreationResult> => {
   setIsLoading(true);
 
   try {
@@ -17,20 +25,33 @@ export const handleTemplateCreation = async (
   } catch (e) {
     if (e instanceof z.ZodError) {
       const errorMessage = e.errors.map((error) => error.message).join(", ");
-      throw new Error(errorMessage);
+      setIsLoading(false);
+      return {
+        success: false,
+        error: errorMessage,
+      };
     }
-  } finally {
+
     setIsLoading(false);
+    return {
+      success: false,
+      error: e instanceof Error ? e.message : "An unknown error occurred",
+    };
   }
 
-  await createOrUpdateTemplate(formData)
-    .then((template) => {
-      return template;
-    })
-    .catch(() => {
-      throw new Error("Server error. Please try again later.");
-    })
-    .finally(() => {
-      setIsLoading(false);
-    });
+  try {
+    const template = await createOrUpdateTemplate(formData);
+    setIsLoading(false);
+    return {
+      success: true,
+      data: template,
+    };
+  } catch (error) {
+    setIsLoading(false);
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "Failed to create template",
+    };
+  }
 };

@@ -22,7 +22,10 @@ import {
 } from "@dnd-kit/sortable";
 import { DesktopTemplateItem } from "../../template/desktop-template-item";
 import { useMutation } from "@tanstack/react-query";
-import { handleTemplateCreation } from "../../../../../api/templates/template-creation";
+import {
+  handleTemplateCreation,
+  TemplateCreationResult,
+} from "../../../../../api/templates/template-creation";
 import { TemplateFormData } from "../../../../../api/templates/fetch-create-update-template";
 import { useStatus } from "../../../../../hooks/status/status-context";
 import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
@@ -139,15 +142,20 @@ const TemplateCreationList = React.memo(
       mutationFn: async (formData: TemplateFormData) => {
         return await handleTemplateCreation(formData, setIsLoading);
       },
-      onSuccess: () => {
+      onSuccess: (response: TemplateCreationResult) => {
+        if (!response.success) {
+          setStatusText(`${response.error}`);
+          const timeout = setTimeout(() => {
+            setStatusText(null);
+          }, 3000);
+          return () => clearTimeout(timeout);
+        }
         templateNameRef.current = "";
         onRemoveExercise("all");
         if (formRef.current) {
           formRef.current.reset();
         }
-      },
-      onError: (error: Error) => {
-        setStatusText(`${error.message}`);
+        setStatusText("Workout created successfully");
         const timeout = setTimeout(() => {
           setStatusText(null);
         }, 3000);
@@ -224,7 +232,7 @@ const TemplateCreationList = React.memo(
           <div className="flex flex-col gap-y-2 justify-between h-full w-full">
             <input
               type="text"
-              name="templateName"
+              name="name"
               onChange={(e) => (templateNameRef.current = e.target.value)}
               className="h-8 pl-3 pt-1 font-bold text-xl input-sm bg-transparent w-10/12 absolute top-2 clean"
               placeholder="Workout name"

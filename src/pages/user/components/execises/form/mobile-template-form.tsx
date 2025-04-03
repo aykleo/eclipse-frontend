@@ -5,7 +5,10 @@ import {
 } from "../../../../../utils/types/exercise-types";
 import { useMutation } from "@tanstack/react-query";
 import { TemplateFormData } from "../../../../../api/templates/fetch-create-update-template";
-import { handleTemplateCreation } from "../../../../../api/templates/template-creation";
+import {
+  handleTemplateCreation,
+  TemplateCreationResult,
+} from "../../../../../api/templates/template-creation";
 import React from "react";
 import { useStatus } from "../../../../../hooks/status/status-context";
 import { MobileTemplateItem } from "../../template/mobile-template-item";
@@ -99,16 +102,21 @@ const MobileTemplateForm = React.memo(
       mutationFn: async (formData: TemplateFormData) => {
         return await handleTemplateCreation(formData, setIsLoading);
       },
-      onSuccess: () => {
+      onSuccess: (response: TemplateCreationResult) => {
+        if (!response.success) {
+          setStatusText(`${response.error}`);
+          const timeout = setTimeout(() => {
+            setStatusText(null);
+          }, 3000);
+          return () => clearTimeout(timeout);
+        }
         setTemplateName("");
         onRemoveExercise("all");
         setShowNameInput(false);
         if (formRef.current) {
           formRef.current.reset();
         }
-      },
-      onError: (error: Error) => {
-        setStatusText(`${error.message}`);
+        setStatusText("Workout created successfully");
         const timeout = setTimeout(() => {
           setStatusText(null);
         }, 3000);
@@ -127,8 +135,10 @@ const MobileTemplateForm = React.memo(
         })),
       };
 
-      await createTemplateMutation.mutateAsync(formData);
-      setIsCreatingTemplate(false);
+      const result = await createTemplateMutation.mutateAsync(formData);
+      if (result.success) {
+        setIsCreatingTemplate(false);
+      }
     };
 
     const toggleNameInput = (e: React.MouseEvent) => {
@@ -208,7 +218,7 @@ const MobileTemplateForm = React.memo(
           >
             <Input
               type="text"
-              name="templateName"
+              name="name"
               className=""
               placeholder="Workout name"
               value={templateName}
@@ -382,11 +392,7 @@ const MobileTemplateForm = React.memo(
 
             <button
               type="submit"
-              disabled={
-                isLoading ||
-                templateExercises.length === 0 ||
-                templateName.length < 5
-              }
+              disabled={isLoading || templateExercises.length === 0}
             >
               <RenderSvg
                 src="url(src/assets/pixel-art/buttons/btn-submit.svg)"

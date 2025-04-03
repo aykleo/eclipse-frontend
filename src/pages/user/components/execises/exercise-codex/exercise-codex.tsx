@@ -93,16 +93,18 @@ export const ExerciseCodex = React.memo(
         if (category) {
           setSearchParams(
             (prev) => {
-              prev.set("category", category);
-              return prev;
+              const newParams = new URLSearchParams(prev);
+              newParams.set("category", category);
+              return newParams;
             },
             { replace: true }
           );
         } else {
           setSearchParams(
             (prev) => {
-              prev.delete("category");
-              return prev;
+              const newParams = new URLSearchParams(prev);
+              newParams.delete("category");
+              return newParams;
             },
             { replace: true }
           );
