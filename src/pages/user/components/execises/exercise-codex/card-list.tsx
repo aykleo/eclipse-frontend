@@ -6,21 +6,16 @@ import {
 import { NewExerciseBtn } from "./new-exercise-btn";
 import { CodexPagination } from "./codex-pagination";
 import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
+import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
 
 const TemplateCreationList = lazy(
   () => import("../form/desktop-template-creation-list")
 );
 
 interface CardListProps {
-  exerciseForUpdate: Exercise | null;
-  setExerciseForUpdate: (exercise: Exercise | null) => void;
-  isCreatingExercise: boolean;
-  setIsCreatingExercise: (isCreatingExercise: boolean) => void;
-  isCreatingTemplate: boolean;
   templateExercises: TemplateExercise[];
   onUpdateNotes: (exerciseId: string, notes: string) => void;
   onRemoveExercise: (exerciseId: string) => void;
-  setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
   setTemplateExercises: React.Dispatch<
     React.SetStateAction<TemplateExercise[]>
   >;
@@ -35,15 +30,9 @@ interface CardListProps {
 
 export const CardList = React.memo(
   ({
-    exerciseForUpdate,
-    setExerciseForUpdate,
-    isCreatingExercise,
-    setIsCreatingExercise,
-    isCreatingTemplate,
     templateExercises,
     onUpdateNotes,
     onRemoveExercise,
-    setIsCreatingTemplate,
     setTemplateExercises,
     showExerciseInfoById,
     exerciseNumber,
@@ -53,6 +42,9 @@ export const CardList = React.memo(
     setCurrentPage,
     templateExercisesHashTable,
   }: CardListProps) => {
+    const { isCreatingExercise, exerciseForUpdate, isCreatingTemplate } =
+      useExerciseState();
+
     return (
       <div
         className={`${
@@ -135,7 +127,6 @@ export const CardList = React.memo(
               currentPage={currentPage}
               totalPages={totalPages}
               setCurrentPage={setCurrentPage}
-              isCreatingTemplate={isCreatingTemplate}
             />
           )}
 
@@ -146,13 +137,7 @@ export const CardList = React.memo(
                 : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 "
             } h-full w-full no-scrollbar grid gap-y-2 justify-items-center items-start pb-10 min-h-screen`}
           >
-            {!isCreatingTemplate && (
-              <NewExerciseBtn
-                setIsCreatingExercise={setIsCreatingExercise}
-                isCreatingExercise={isCreatingExercise}
-                setExerciseForUpdate={setExerciseForUpdate}
-              />
-            )}
+            {!isCreatingTemplate && <NewExerciseBtn />}
 
             {children}
           </div>
@@ -238,7 +223,6 @@ export const CardList = React.memo(
                     onUpdateNotes={onUpdateNotes}
                     onRemoveExercise={onRemoveExercise}
                     showExerciseInfoById={showExerciseInfoById}
-                    setIsCreatingTemplate={setIsCreatingTemplate}
                     setTemplateExercises={setTemplateExercises}
                     templateExercisesHashTable={templateExercisesHashTable}
                   />

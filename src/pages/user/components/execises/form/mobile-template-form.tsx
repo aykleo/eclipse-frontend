@@ -35,7 +35,7 @@ import {
   getColorBackgroundForTagCategory,
 } from "../../../../../utils/tag-colors";
 import { TagCategory } from "../../../../../utils/types/exercise-types";
-
+import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
 interface MobileTemplateFormProps {
   templateExercises: TemplateExercise[];
   setTemplateExercises: React.Dispatch<
@@ -43,7 +43,6 @@ interface MobileTemplateFormProps {
   >;
   onUpdateNotes: (exerciseId: string, notes: string) => void;
   onRemoveExercise: (exerciseId: string) => void;
-  setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
   showExerciseInfoById: (exerciseId: string) => void;
   templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>;
 }
@@ -54,7 +53,7 @@ const MobileTemplateForm = React.memo(
     setTemplateExercises,
     onUpdateNotes,
     onRemoveExercise,
-    setIsCreatingTemplate,
+
     showExerciseInfoById,
     templateExercisesHashTable,
   }: MobileTemplateFormProps) => {
@@ -64,6 +63,7 @@ const MobileTemplateForm = React.memo(
     const [templateInfo, setTemplateInfo] = useState<boolean>(false);
     const formRef = useRef<HTMLFormElement>(null);
     const { setStatusText } = useStatus();
+    const { setIsCreatingTemplate } = useExerciseState();
     const [categoryCounts, setCategoryCounts] = useState<CategoryCounts>({
       "": 0,
       ENDURANCE: 0,
@@ -321,6 +321,7 @@ const MobileTemplateForm = React.memo(
                       key={exercise.exerciseId}
                       exerciseId={exercise.exerciseId}
                       notes={exercise.notes}
+                      //@ts-expect-error - TODO: fix this
                       exerciseName={exercise.name}
                       exerciseOrder={index + 1}
                       onUpdateNotes={(notes) =>

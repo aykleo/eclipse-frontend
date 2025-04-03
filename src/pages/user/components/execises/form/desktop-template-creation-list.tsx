@@ -32,23 +32,19 @@ import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 import {
   Exercise,
   TagCategory,
+  TemplateExercise,
 } from "../../../../../utils/types/exercise-types";
 import {
   getColorBackgroundForTagCategory,
   getColorClassForTagCategory,
 } from "../../../../../utils/tag-colors";
-
-interface TemplateExercise {
-  exerciseId: string;
-  notes: string;
-  name: string;
-}
+import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
 
 interface TemplateCreationListProps {
   exercises: TemplateExercise[];
   onUpdateNotes: (exerciseId: string, notes: string) => void;
   onRemoveExercise: (exerciseId: string) => void;
-  setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
+
   setTemplateExercises: React.Dispatch<
     React.SetStateAction<TemplateExercise[]>
   >;
@@ -69,7 +65,7 @@ const TemplateCreationList = React.memo(
     exercises,
     onUpdateNotes,
     onRemoveExercise,
-    setIsCreatingTemplate,
+
     setTemplateExercises,
     showExerciseInfoById,
     templateExercisesHashTable,
@@ -78,6 +74,8 @@ const TemplateCreationList = React.memo(
     const [isLoading, setIsLoading] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const { setStatusText } = useStatus();
+    const { setIsCreatingTemplate } = useExerciseState();
+
     const [categoryCounts, setCategoryCounts] = useState<CategoryCounts>({
       "": 0,
       ENDURANCE: 0,
@@ -343,6 +341,7 @@ const TemplateCreationList = React.memo(
                             key={exercise.exerciseId}
                             exerciseId={exercise.exerciseId}
                             notes={exercise.notes}
+                            //@ts-expect-error - TODO: fix this
                             exerciseName={exercise.name}
                             exerciseOrder={index + 1}
                             onUpdateNotes={(notes) =>

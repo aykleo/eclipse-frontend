@@ -40,7 +40,6 @@ export const ExerciseCodex = React.memo(
       showExerciseInfo,
       setShowExerciseInfo,
       isCreatingTemplate,
-      setIsCreatingTemplate,
     } = useExerciseState();
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -194,7 +193,6 @@ export const ExerciseCodex = React.memo(
                   setTemplateExercises={setTemplateExercises}
                   onUpdateNotes={onUpdateNotes}
                   onRemoveExercise={onRemoveExercise}
-                  setIsCreatingTemplate={setIsCreatingTemplate}
                   showExerciseInfoById={showExerciseInfoById}
                   templateExercisesHashTable={templateExercisesHashTable}
                 />
@@ -209,15 +207,9 @@ export const ExerciseCodex = React.memo(
                   totalPages={totalPages}
                   exerciseNumber={exerciseData.exercises.length}
                   currentPage={currentPage}
-                  exerciseForUpdate={exerciseForUpdate}
-                  setIsCreatingExercise={setIsCreatingExercise}
-                  isCreatingExercise={isCreatingExercise}
-                  setExerciseForUpdate={setExerciseForUpdate}
-                  isCreatingTemplate={isCreatingTemplate}
                   templateExercises={templateExercises}
                   onUpdateNotes={onUpdateNotes}
                   onRemoveExercise={onRemoveExercise}
-                  setIsCreatingTemplate={setIsCreatingTemplate}
                   setTemplateExercises={setTemplateExercises}
                   showExerciseInfoById={showExerciseInfoById}
                   templateExercisesHashTable={templateExercisesHashTable}
@@ -278,15 +270,9 @@ export const ExerciseCodex = React.memo(
             <CardList
               exerciseNumber={exerciseData?.exercises.length}
               currentPage={currentPage}
-              exerciseForUpdate={exerciseForUpdate}
-              setIsCreatingExercise={setIsCreatingExercise}
-              isCreatingExercise={isCreatingExercise}
-              setExerciseForUpdate={setExerciseForUpdate}
-              isCreatingTemplate={isCreatingTemplate}
               templateExercises={templateExercises}
               onUpdateNotes={onUpdateNotes}
               onRemoveExercise={onRemoveExercise}
-              setIsCreatingTemplate={setIsCreatingTemplate}
               setTemplateExercises={setTemplateExercises}
               showExerciseInfoById={showExerciseInfoById}
               templateExercisesHashTable={templateExercisesHashTable}

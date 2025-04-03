@@ -1,19 +1,20 @@
 import React from "react";
 import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
+import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
 
 interface CodexPaginationProps {
   currentPage: number;
   totalPages: number;
   setCurrentPage: (page: number) => void;
-  isCreatingTemplate: boolean;
 }
 
 const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
   currentPage,
   totalPages,
   setCurrentPage,
-  isCreatingTemplate,
 }) => {
+  const { isCreatingTemplate } = useExerciseState();
+
   return (
     <>
       <RenderSvg
