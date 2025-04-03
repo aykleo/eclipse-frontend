@@ -14,6 +14,7 @@ export const LogInModal = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setIsLoading(true);
 
     if (formRef.current) {
       const formData = {
@@ -32,7 +33,24 @@ export const LogInModal = () => {
         }
       }
 
-      logIn(emailRef.current, setIsLoading, setStatusText);
+      logIn(emailRef.current, setStatusText)
+        .then(() => {
+          setStatusText("Sign in link sent to your email");
+          const timeout = setTimeout(() => {
+            setStatusText(null);
+          }, 1000);
+          return () => clearTimeout(timeout);
+        })
+        .catch(() => {
+          setStatusText("Server error. Please try again later.");
+          const timeout = setTimeout(() => {
+            setStatusText(null);
+          }, 1000);
+          return () => clearTimeout(timeout);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   };
 

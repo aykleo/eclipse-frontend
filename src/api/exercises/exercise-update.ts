@@ -6,13 +6,20 @@ import {
 } from "./fetch-create-update-exercise";
 import { Exercise } from "../../utils/types/exercise-types";
 
+// Define a result type to return instead of throwing errors
+export type ExerciseUpdateResult = {
+  success: boolean;
+  data?: ReturnType<typeof createOrUpdateExercise> extends Promise<infer T>
+    ? T
+    : never;
+  error?: string;
+};
+
 export const handleExerciseUpdate = async (
   formData: ExerciseFormData,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setPrimaryMuscleGroupId: React.Dispatch<React.SetStateAction<string | null>>,
-  setMuscleGroupIds: React.Dispatch<React.SetStateAction<string[]>>,
   exerciseForUpdate: Exercise
-) => {
+): Promise<ExerciseUpdateResult> => {
   setIsLoading(true);
 
   try {
@@ -27,25 +34,43 @@ export const handleExerciseUpdate = async (
 
       if (specificError) {
         setIsLoading(false);
-        throw new Error("Please select a valid category from the list.");
+        return {
+          success: false,
+          error: "Please select a valid category from the list.",
+        };
       } else {
         const errorMessage = e.errors.map((error) => error.message).join(", ");
         setIsLoading(false);
-        throw new Error(errorMessage);
+        return {
+          success: false,
+          error: errorMessage,
+        };
       }
     }
+
+    setIsLoading(false);
+    return {
+      success: false,
+      error: e instanceof Error ? e.message : "An unknown error occurred",
+    };
   }
 
-  await createOrUpdateExercise(formData, exerciseForUpdate.id)
-    .then((updatedExercise) => {
-      setPrimaryMuscleGroupId("");
-      setMuscleGroupIds([]);
-      return updatedExercise;
-    })
-    .catch((error) => {
-      throw new Error(error);
-    })
-    .finally(() => {
-      setIsLoading(false);
-    });
+  try {
+    const updatedExercise = await createOrUpdateExercise(
+      formData,
+      exerciseForUpdate.id
+    );
+    setIsLoading(false);
+    return {
+      success: true,
+      data: updatedExercise,
+    };
+  } catch (error) {
+    setIsLoading(false);
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "Failed to update exercise",
+    };
+  }
 };

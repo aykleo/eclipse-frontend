@@ -4,13 +4,19 @@ import {
   createOrUpdateExercise,
   ExerciseFormData,
 } from "./fetch-create-update-exercise";
+
+export type ExerciseCreationResult = {
+  success: boolean;
+  data?: ReturnType<typeof createOrUpdateExercise> extends Promise<infer T>
+    ? T
+    : never;
+  error?: string;
+};
+
 export const handleExerciseCreation = async (
   formData: ExerciseFormData,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setPrimaryMuscleGroupId: React.Dispatch<React.SetStateAction<string | null>>,
-  setMuscleGroupIds: React.Dispatch<React.SetStateAction<string[]>>,
-  setIsCreatingExercise?: (isCreatingExercise: boolean) => void
-) => {
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+): Promise<ExerciseCreationResult> => {
   setIsLoading(true);
 
   try {
@@ -25,28 +31,40 @@ export const handleExerciseCreation = async (
 
       if (specificError) {
         setIsLoading(false);
-        throw new Error("Please select a valid category from the list.");
+        return {
+          success: false,
+          error: "Please select a valid category from the list.",
+        };
       } else {
         const errorMessage = e.errors.map((error) => error.message).join(", ");
         setIsLoading(false);
-        throw new Error(errorMessage);
+        return {
+          success: false,
+          error: errorMessage,
+        };
       }
     }
+
+    setIsLoading(false);
+    return {
+      success: false,
+      error: e instanceof Error ? e.message : "An unknown error occurred",
+    };
   }
 
-  await createOrUpdateExercise(formData)
-    .then((exercise) => {
-      setPrimaryMuscleGroupId("");
-      setMuscleGroupIds([]);
-      return exercise;
-    })
-    .catch((error) => {
-      throw new Error(error);
-    })
-    .finally(() => {
-      if (setIsCreatingExercise) {
-        setIsCreatingExercise(false);
-      }
-      setIsLoading(false);
-    });
+  try {
+    const exercise = await createOrUpdateExercise(formData);
+    setIsLoading(false);
+    return {
+      success: true,
+      data: exercise,
+    };
+  } catch (error) {
+    setIsLoading(false);
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "Failed to create exercise",
+    };
+  }
 };

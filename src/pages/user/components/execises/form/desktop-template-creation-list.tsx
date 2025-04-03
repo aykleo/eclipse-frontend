@@ -137,11 +137,7 @@ const TemplateCreationList = React.memo(
 
     const createTemplateMutation = useMutation({
       mutationFn: async (formData: TemplateFormData) => {
-        return await handleTemplateCreation(
-          formData,
-          setIsLoading,
-          setTemplateExercises
-        );
+        return await handleTemplateCreation(formData, setIsLoading);
       },
       onSuccess: () => {
         templateNameRef.current = "";

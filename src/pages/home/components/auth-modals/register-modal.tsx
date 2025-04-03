@@ -10,11 +10,12 @@ export const RegisterModal = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const usernameRef = useRef<string | null>(null);
   const emailRef = useRef<string | null>(null);
-  const { statusText, setStatusText } = useStatus();
+  const { setStatusText } = useStatus();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setIsLoading(true);
 
     if (formRef.current) {
       const formData = {
@@ -37,9 +38,28 @@ export const RegisterModal = () => {
       registerUser(
         emailRef.current,
         usernameRef.current,
-        setIsLoading,
+
         setStatusText
-      );
+      )
+        .then(() => {
+          setStatusText("Please check your email to validate your account.");
+          const timeout = setTimeout(() => {
+            setStatusText(null);
+          }, 1000);
+
+          return () => clearTimeout(timeout);
+        })
+        .catch(() => {
+          setStatusText("Server error. Please try again later.");
+          const timeout = setTimeout(() => {
+            setStatusText(null);
+          }, 1000);
+
+          return () => clearTimeout(timeout);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
   };
 
@@ -48,7 +68,6 @@ export const RegisterModal = () => {
       id="register_modal"
       formRef={formRef as React.RefObject<HTMLFormElement>}
       handleSubmit={handleSubmit}
-      statusText={statusText ?? ""}
     >
       <h1 className="text-5xl font-marker text-red-400">ECLIPSE</h1>
       <div className="flex flex-col w-full">

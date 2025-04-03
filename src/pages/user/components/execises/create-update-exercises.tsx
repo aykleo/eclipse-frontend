@@ -4,8 +4,14 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { Exercise } from "../../../../utils/types/exercise-types";
 import { fetchMuscleGroups } from "../../../../api/exercises/fetch-muscle-groups";
 import { ExerciseFormData } from "../../../../api/exercises/fetch-create-update-exercise";
-import { handleExerciseUpdate } from "../../../../api/exercises/exercise-update";
-import { handleExerciseCreation } from "../../../../api/exercises/exercise-creation";
+import {
+  handleExerciseUpdate,
+  ExerciseUpdateResult,
+} from "../../../../api/exercises/exercise-update";
+import {
+  handleExerciseCreation,
+  ExerciseCreationResult,
+} from "../../../../api/exercises/exercise-creation";
 import { useStatus } from "../../../../hooks/status/status-context";
 import { useUser } from "../../../../hooks/user/use-context";
 
@@ -110,12 +116,19 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
           return await handleExerciseUpdate(
             formData,
             setIsLoading,
-            setPrimaryMuscleGroupId,
-            setMuscleGroupIds,
             exerciseForUpdate
           );
         },
-        onSuccess: () => {
+        onSuccess: (result: ExerciseUpdateResult | null) => {
+          if (!result || !result.success) {
+            const errorMessage = result?.error || "Failed to update exercise";
+            setStatusText(errorMessage);
+            const timeout = setTimeout(() => {
+              setStatusText(null);
+            }, 3000);
+            return () => clearTimeout(timeout);
+          }
+
           queryClient.invalidateQueries({
             queryKey: ["exercises"],
           });
@@ -135,6 +148,8 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
           if (setExerciseForUpdate) {
             setExerciseForUpdate(null);
           }
+          setPrimaryMuscleGroupId("");
+          setMuscleGroupIds([]);
           setStatusText("Exercise updated successfully");
           const timeout = setTimeout(() => {
             setStatusText(null);
@@ -145,15 +160,17 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
 
       const createMutation = useMutation({
         mutationFn: async (formData: ExerciseFormData) => {
-          return await handleExerciseCreation(
-            formData,
-            setIsLoading,
-            setPrimaryMuscleGroupId,
-            setMuscleGroupIds,
-            setIsCreatingExercise
-          );
+          return await handleExerciseCreation(formData, setIsLoading);
         },
-        onSuccess: () => {
+        onSuccess: (result: ExerciseCreationResult) => {
+          if (!result.success) {
+            setStatusText(result.error || "Failed to create exercise");
+            const timeout = setTimeout(() => {
+              setStatusText(null);
+            }, 3000);
+            return () => clearTimeout(timeout);
+          }
+
           queryClient.invalidateQueries({
             queryKey: ["exercises"],
           });
@@ -170,14 +187,12 @@ const CreateOrUpdateExercises: React.FC<CreateOrUpdateExercisesProps> =
           if (formRef && formRef.current) {
             formRef.current.reset();
           }
+          if (setIsCreatingExercise) {
+            setIsCreatingExercise(false);
+          }
+          setPrimaryMuscleGroupId("");
+          setMuscleGroupIds([]);
           setStatusText("Exercise created successfully");
-          const timeout = setTimeout(() => {
-            setStatusText(null);
-          }, 3000);
-          return () => clearTimeout(timeout);
-        },
-        onError: (error: Error) => {
-          setStatusText(`${error.message}`);
           const timeout = setTimeout(() => {
             setStatusText(null);
           }, 3000);

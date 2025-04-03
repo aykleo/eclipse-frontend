@@ -3,13 +3,12 @@ import {
   TemplateFormData,
   createOrUpdateTemplate,
 } from "./fetch-create-update-template";
-import { TemplateExercise } from "../../utils/types/exercise-types";
+
 import { templateSchema } from "../../lib/validation/template-schema";
 
 export const handleTemplateCreation = async (
   formData: TemplateFormData,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setTemplateExercises: React.Dispatch<React.SetStateAction<TemplateExercise[]>>
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   setIsLoading(true);
 
@@ -18,17 +17,20 @@ export const handleTemplateCreation = async (
   } catch (e) {
     if (e instanceof z.ZodError) {
       const errorMessage = e.errors.map((error) => error.message).join(", ");
-      setIsLoading(false);
       throw new Error(errorMessage);
     }
+  } finally {
+    setIsLoading(false);
   }
 
-  const createdTemplate = await createOrUpdateTemplate(
-    formData,
-    setIsLoading,
-    setTemplateExercises
-  );
-
-  setIsLoading(false);
-  return createdTemplate;
+  await createOrUpdateTemplate(formData)
+    .then((template) => {
+      return template;
+    })
+    .catch(() => {
+      throw new Error("Server error. Please try again later.");
+    })
+    .finally(() => {
+      setIsLoading(false);
+    });
 };
