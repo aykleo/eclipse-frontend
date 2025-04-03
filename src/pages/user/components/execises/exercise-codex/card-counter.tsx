@@ -1,17 +1,14 @@
 import { TemplateExercise } from "../../../../../utils/types/exercise-types";
 import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
+import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
 
 interface CardCounterProps {
-  isCreatingTemplate: boolean;
-  setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
   templateExercises: TemplateExercise[];
 }
 
-export const CardCounter = ({
-  isCreatingTemplate,
-  setIsCreatingTemplate,
-  templateExercises,
-}: CardCounterProps) => {
+export const CardCounter = ({ templateExercises }: CardCounterProps) => {
+  const { isCreatingTemplate, setIsCreatingTemplate } = useExerciseState();
+
   const getImageSrc = (length: number) => {
     if (length > 5) {
       return "url(src/assets/pixel-art/card-counter/card-counter-3.svg)";

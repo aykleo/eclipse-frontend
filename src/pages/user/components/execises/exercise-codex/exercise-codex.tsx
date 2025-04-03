@@ -14,6 +14,7 @@ import { CardCounter } from "./card-counter";
 import { ExerciseCategory } from "../../../../../utils/codex-selector-categories";
 import { CardList } from "./card-list";
 import { RenderPng } from "../../../../../components/pixel-art/render-png";
+import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
@@ -21,14 +22,6 @@ const CreateOrUpdateExercises = lazy(
 const MobileTemplateForm = lazy(() => import("../form/mobile-template-form"));
 
 interface ExerciseCodexProps {
-  setIsCreatingExercise: (isCreatingExercise: boolean) => void;
-  isCreatingExercise: boolean;
-  exerciseForUpdate: Exercise | null;
-  setExerciseForUpdate: (exercise: Exercise | null) => void;
-  setShowExerciseInfo: (exercise: Exercise | undefined) => void;
-  showExerciseInfo: Exercise | undefined;
-  isCreatingTemplate: boolean;
-  setIsCreatingTemplate: (isCreatingTemplate: boolean) => void;
   setSearchParams: (
     params: URLSearchParams | ((prev: URLSearchParams) => URLSearchParams),
     options?: { replace?: boolean }
@@ -37,19 +30,19 @@ interface ExerciseCodexProps {
 }
 
 export const ExerciseCodex = React.memo(
-  ({
-    setIsCreatingExercise,
-    isCreatingExercise,
-    exerciseForUpdate,
-    setExerciseForUpdate,
-    setShowExerciseInfo,
-    showExerciseInfo,
-    isCreatingTemplate,
-    setIsCreatingTemplate,
-    setSearchParams,
-    searchParams,
-  }: ExerciseCodexProps) => {
+  ({ setSearchParams, searchParams }: ExerciseCodexProps) => {
     const { user } = useUser() || {};
+    const {
+      isCreatingExercise,
+      setIsCreatingExercise,
+      exerciseForUpdate,
+      setExerciseForUpdate,
+      showExerciseInfo,
+      setShowExerciseInfo,
+      isCreatingTemplate,
+      setIsCreatingTemplate,
+    } = useExerciseState();
+
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const pageSize = 20;
@@ -157,6 +150,7 @@ export const ExerciseCodex = React.memo(
         if (!isExerciseAlreadyAdded) {
           setTemplateExercises([
             ...templateExercises,
+            //@ts-expect-error - TODO: fix this
             { exerciseId: exercise.id, notes: "", name: exercise.name },
           ]);
 
@@ -190,11 +184,7 @@ export const ExerciseCodex = React.memo(
               exerciseForUpdate || isCreatingExercise ? "hidden" : ""
             }`}
           >
-            <CardCounter
-              isCreatingTemplate={isCreatingTemplate}
-              setIsCreatingTemplate={setIsCreatingTemplate}
-              templateExercises={templateExercises}
-            />
+            <CardCounter templateExercises={templateExercises} />
           </div>
           {isCreatingTemplate && templateExercises && !showExerciseInfo && (
             <div className="fixed bottom-2 right-0 flex justify-center items-center z-100 lg:hidden w-full">

@@ -121,22 +121,25 @@ const TemplateCreationList = React.memo(
       })
     );
 
-    const handleDragEnd = useCallback((event: DragEndEvent) => {
-      const { active, over } = event;
+    const handleDragEnd = useCallback(
+      (event: DragEndEvent) => {
+        const { active, over } = event;
 
-      if (over && active.id !== over.id) {
-        const oldIndex = exercises.findIndex(
-          (exercise) => exercise.exerciseId === active.id
-        );
-        const newIndex = exercises.findIndex(
-          (exercise) => exercise.exerciseId === over.id
-        );
+        if (over && active.id !== over.id) {
+          const oldIndex = exercises.findIndex(
+            (exercise) => exercise.exerciseId === active.id
+          );
+          const newIndex = exercises.findIndex(
+            (exercise) => exercise.exerciseId === over.id
+          );
 
-        if (oldIndex !== -1 && newIndex !== -1) {
-          setTemplateExercises(arrayMove(exercises, oldIndex, newIndex));
+          if (oldIndex !== -1 && newIndex !== -1) {
+            setTemplateExercises(arrayMove(exercises, oldIndex, newIndex));
+          }
         }
-      }
-    }, []);
+      },
+      [exercises, setTemplateExercises]
+    );
 
     const createTemplateMutation = useMutation({
       mutationFn: async (formData: TemplateFormData) => {
