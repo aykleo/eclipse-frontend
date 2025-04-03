@@ -4,11 +4,7 @@ import React, { useRef } from "react";
 
 export const NewExerciseBtn = React.memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const {
-    setIsCreatingExercise,
-
-    setExerciseForUpdate,
-  } = useExerciseState();
+  const { setIsCreatingExercise, setExerciseForUpdate } = useExerciseState();
 
   return (
     <RenderPng

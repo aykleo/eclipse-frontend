@@ -5,15 +5,12 @@ import { useStatus } from "../../../../hooks/status/status-context";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { handleExerciseDeletion } from "../../../../api/exercises/exercise-deletion";
 import { useSearchParams } from "react-router-dom";
-import { Exercise } from "../../../../utils/types/exercise-types";
+import { useExerciseState } from "../../../../hooks/exercises/exercise-context";
 
-export const DeleteExerciseModal = ({
-  setShowExerciseInfo,
-}: {
-  setShowExerciseInfo: (showExerciseInfo: Exercise | undefined) => void;
-}) => {
+export const DeleteExerciseModal = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  const { statusText, setStatusText } = useStatus();
+  const { setStatusText } = useStatus();
+  const { setShowExerciseInfo } = useExerciseState();
   const queryClient = useQueryClient();
   const [searchParams, setSearchParams] = useSearchParams();
   const selectedExerciseIdForDeletion =
@@ -68,7 +65,6 @@ export const DeleteExerciseModal = ({
           ) as HTMLDialogElement;
           modal?.close();
         }}
-        statusText={statusText ?? ""}
       >
         <div className="flex flex-col w-full text-lg">
           <h2 className="text-gray-200 font-medium">

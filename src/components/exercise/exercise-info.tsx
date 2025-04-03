@@ -2,16 +2,11 @@ import { useEffect, useRef, memo } from "react";
 import { ExerciseCard } from "./exercise-card";
 import { RenderSvg } from "../pixel-art/render-svg";
 import { useExerciseState } from "../../hooks/exercises/exercise-context";
+import { useSearchParams } from "react-router-dom";
 
-interface ExerciseInfoProps {
-  setSearchParams?: (
-    params: URLSearchParams | ((prev: URLSearchParams) => URLSearchParams),
-    options?: { replace: boolean }
-  ) => void;
-}
-
-export const ExerciseInfo = ({ setSearchParams }: ExerciseInfoProps) => {
+export const ExerciseInfo = () => {
   const exerciseCardRef = useRef<HTMLDivElement>(null);
+  const [, setSearchParams] = useSearchParams();
   const {
     exerciseForUpdate,
     setExerciseForUpdate,

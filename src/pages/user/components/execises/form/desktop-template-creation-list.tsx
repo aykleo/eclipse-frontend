@@ -65,7 +65,6 @@ const TemplateCreationList = React.memo(
     exercises,
     onUpdateNotes,
     onRemoveExercise,
-
     setTemplateExercises,
     showExerciseInfoById,
     templateExercisesHashTable,

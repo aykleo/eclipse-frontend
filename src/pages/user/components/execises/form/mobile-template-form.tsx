@@ -53,7 +53,6 @@ const MobileTemplateForm = React.memo(
     setTemplateExercises,
     onUpdateNotes,
     onRemoveExercise,
-
     showExerciseInfoById,
     templateExercisesHashTable,
   }: MobileTemplateFormProps) => {
