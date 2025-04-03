@@ -1,6 +1,6 @@
 import { RenderPng } from "../../../../../components/pixel-art/render-png";
 import { Exercise } from "../../../../../utils/types/exercise-types";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 interface NewExerciseBtnProps {
   setIsCreatingExercise: (isCreatingExercise: boolean) => void;
@@ -11,15 +11,6 @@ interface NewExerciseBtnProps {
 export const NewExerciseBtn = React.memo(
   ({ setIsCreatingExercise, setExerciseForUpdate }: NewExerciseBtnProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-      if (containerRef.current) {
-        containerRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }
-    }, [containerRef]);
 
     return (
       <RenderPng

@@ -16,8 +16,8 @@ export const ExercisePage = memo(() => {
   const [isCreatingTemplate, setIsCreatingTemplate] = useState(false);
 
   return (
-    <div className="size-full self-start">
-      <div className="h-full size-screen relative pt-16">
+    <div className="size-full self-start pt-16">
+      <div className="relative ">
         <ExerciseCodex
           isCreatingExercise={isCreatingExercise}
           setIsCreatingExercise={setIsCreatingExercise}

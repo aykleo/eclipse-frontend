@@ -18,7 +18,7 @@ export async function fetchTemplates(
     const response = await fetch(
       `${import.meta.env.VITE_ECLIPSE_DEV_API_URL}/user/${
         user?.id
-      }/exercises?${queryParams.toString()}`,
+      }/workout/templates?${queryParams.toString()}`,
       {
         method: "GET",
         headers: {
@@ -30,8 +30,8 @@ export async function fetchTemplates(
     );
 
     const data = await response.json();
-
-    return { templates: data.templates, totalPages: data.totalPages };
+    console.log(data);
+    return { templates: data.workoutTemplates, totalPages: data.totalPages };
   } catch (error) {
     console.error("Error fetching templates:", error);
     return { templates: [], totalPages: 0 };

@@ -28,12 +28,13 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
     useEffect(() => {
       setSearchParams(
         (prev) => {
+          const newParams = new URLSearchParams(prev);
           if (debouncedSearchTerm) {
-            prev.set("exerciseName", debouncedSearchTerm);
+            newParams.set("exerciseName", debouncedSearchTerm);
           } else {
-            prev.delete("exerciseName");
+            newParams.delete("exerciseName");
           }
-          return prev;
+          return newParams;
         },
         { replace: true }
       );

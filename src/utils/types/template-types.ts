@@ -1,7 +1,7 @@
-import { Exercise } from "./exercise-types";
+import { TemplateExercise } from "./exercise-types";
 
 export type Template = {
   id: string;
   name: string;
-  exercise: Exercise[];
+  exercises: TemplateExercise[];
 };

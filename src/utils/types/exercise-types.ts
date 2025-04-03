@@ -60,9 +60,10 @@ export type ExerciseMuscleGroup = {
 };
 
 export interface TemplateExercise {
+  exercise: Exercise;
   exerciseId: string;
   notes: string;
-  name: string;
+  order: number;
 }
 
 export type WorkoutExercise = {
