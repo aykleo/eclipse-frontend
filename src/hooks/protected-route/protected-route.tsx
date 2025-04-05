@@ -11,14 +11,14 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { user } = useUser();
 
   useEffect(() => {
-    if (user === undefined) {
-      navigate("/", { replace: true });
-    }
-
-    if (!user) {
+    if (user === null) {
       navigate("/", { replace: true });
     }
   }, [user, navigate]);
+
+  if (user === undefined) {
+    return null;
+  }
 
   return <>{children}</>;
 };
