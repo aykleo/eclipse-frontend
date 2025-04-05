@@ -12,7 +12,7 @@ export const ExerciseCard = memo(({ exercise }: ExerciseCardProps) => {
     <>
       <RenderPng
         className={`flex-col w-[192px] h-[256px] flex items-center group justify-center transition-all duration-300 relative`}
-        src="src/assets/pixel-art/exercise-cards/generic-exercise-card.png"
+        src="exercise-cards/generic-exercise-card.png"
         alt="exercise-card"
         imgClassName="w-full h-full"
       >

@@ -23,7 +23,11 @@ export const RenderPng = ({
 }: RenderPngProps) => {
   return (
     <div onClick={onClick} className={className} ref={ref} style={style}>
-      <img src={src} alt={alt} className={imgClassName} />
+      <img
+        src={`/src/assets/pixel-art/${src}`}
+        alt={alt}
+        className={imgClassName}
+      />
       {children}
     </div>
   );

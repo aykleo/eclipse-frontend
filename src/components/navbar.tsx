@@ -8,21 +8,7 @@ import { useSearchParams } from "react-router-dom";
 
 export const Navbar = () => {
   const { user, setUser } = useUser() || {};
-  const { navbarChoices, setNavBarChoices } = useNavBar();
-  const [, setSearchParams] = useSearchParams();
-
-  const handleTabChange = (tab: "exercises" | "workouts" | "statistics") => {
-    setNavBarChoices(tab);
-
-    setSearchParams(
-      (prev) => {
-        const newParams = new URLSearchParams(prev);
-        newParams.set("tab", tab);
-        return newParams;
-      },
-      { replace: true }
-    );
-  };
+  const { navbarChoices } = useNavBar();
 
   const handleSignOut = async () => {
     if (!setUser) {
@@ -49,7 +35,9 @@ export const Navbar = () => {
         {user ? (
           <div className="hidden md:flex flex-row gap-x-1 md:gap-x-6 lg:gap-x-10 text-red-400">
             <button
-              onClick={() => handleTabChange("exercises")}
+              onClick={() =>
+                (window.location.href = `/${user.username}/exercises`)
+              }
               className={
                 navbarChoices === "exercises" ? "text-red-600 font-bold" : ""
               }
@@ -57,7 +45,9 @@ export const Navbar = () => {
               Exercises
             </button>
             <button
-              onClick={() => handleTabChange("workouts")}
+              onClick={() =>
+                (window.location.href = `/${user.username}/workouts`)
+              }
               className={
                 navbarChoices === "workouts" ? "text-red-600 font-bold" : ""
               }
@@ -65,7 +55,9 @@ export const Navbar = () => {
               Workouts
             </button>
             <button
-              onClick={() => handleTabChange("statistics")}
+              onClick={() =>
+                (window.location.href = `/${user.username}/statistics`)
+              }
               className={
                 navbarChoices === "statistics" ? "text-red-600 font-bold" : ""
               }

@@ -13,7 +13,7 @@ export default function HomePage() {
   useEffect(() => {
     if (user) {
       if (user && user.username === user.username) {
-        navigate(`/${user.username}`);
+        navigate(`/${user.username}/exercises`);
       } else {
         navigate(`/`);
       }

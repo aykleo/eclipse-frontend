@@ -14,7 +14,7 @@ export const NewExerciseBtn = React.memo(() => {
         setExerciseForUpdate(null);
       }}
       className={`w-[192px] h-[256px] relative cursor-pointer flex items-center justify-center flex-grow-0 flex-shrink-0 font-bold opacity-50 hover:opacity-100`}
-      src="src/assets/pixel-art/exercise-cards/new-exercise-card.png"
+      src="exercise-cards/new-exercise-card.png"
       alt="new-exercise-card"
       imgClassName="absolute top-0 left-0 w-full h-full"
     >

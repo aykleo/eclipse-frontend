@@ -234,7 +234,7 @@ export const ExerciseCodex = React.memo(() => {
                           }}
                         >
                           <RenderPng
-                            src="src/assets/pixel-art/buttons/btn-info-48.png"
+                            src="buttons/btn-info-48.png"
                             alt="info-button"
                             className={`size-[36px] ${
                               isCreatingTemplate ? "hidden" : "block"

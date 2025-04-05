@@ -79,7 +79,7 @@ export const MobileTemplateItem = React.memo(
       <RenderPng
         style={style}
         ref={setRefs}
-        src="/src/assets/pixel-art/exercise-cards/card-preview-mobile.png"
+        src="exercise-cards/card-preview-mobile.png"
         alt="Template creation mobile preview"
         className={`flex h-[80px] min-w-[104px] max-w-[104px] text-xs ${
           isDragging ? "opacity-50 z-50" : ""
