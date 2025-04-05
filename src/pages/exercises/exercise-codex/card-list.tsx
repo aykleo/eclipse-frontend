@@ -45,7 +45,7 @@ export const CardList = React.memo(
       <div
         className={`${
           isCreatingExercise || exerciseForUpdate ? "hidden" : ""
-        } flex size-full relative bg-[#252525] pt-16`}
+        } flex size-full relative bg-neutral-800 pt-16`}
       >
         <div
           className={`${

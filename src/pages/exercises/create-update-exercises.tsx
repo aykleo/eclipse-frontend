@@ -220,7 +220,7 @@ const CreateOrUpdateExercises: React.FC = React.memo(() => {
   };
 
   return (
-    <div className="size-full relative bg-[#252525]">
+    <div className="size-full relative bg-neutral-800 mt-16">
       <Suspense
         fallback={
           <div className="size-full flex items-center justify-center">

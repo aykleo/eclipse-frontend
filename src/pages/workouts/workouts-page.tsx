@@ -31,7 +31,7 @@ export const WorkoutsPage = () => {
 
   return (
     <div className="size-full pt-16">
-      <div className="size-screen flex flex-col gap-y-4 border-8 border-red-500 self-start bg-neutral-800 ">
+      <div className="size-screen flex flex-col gap-y-4 border bg-neutral-800">
         <h1 className="text-2xl font-bold text-white">
           {templatesData &&
             templatesData.templates.map((workout: Template) => (
