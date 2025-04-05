@@ -5,3 +5,10 @@ export type Template = {
   name: string;
   exercises: TemplateExercise[];
 };
+
+export type TemplateItem = {
+  exerciseId: string;
+  notes: string;
+  name: string;
+  order?: number;
+};

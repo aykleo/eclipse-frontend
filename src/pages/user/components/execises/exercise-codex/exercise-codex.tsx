@@ -1,9 +1,6 @@
 import { lazy, useCallback, useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import {
-  Exercise,
-  TemplateExercise,
-} from "../../../../../utils/types/exercise-types";
+import { Exercise } from "../../../../../utils/types/exercise-types";
 import { useUser } from "../../../../../hooks/user/use-context";
 import { fetchExercises } from "../../../../../api/exercises/fetch-exercises";
 import { DeleteExerciseModal } from "../delete-modal";
@@ -16,6 +13,7 @@ import { CardList } from "./card-list";
 import { RenderPng } from "../../../../../components/pixel-art/render-png";
 import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
 import { useSearchParams } from "react-router-dom";
+import { TemplateItem } from "../../../../../utils/types/template-types";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
@@ -38,9 +36,9 @@ export const ExerciseCodex = React.memo(() => {
   const selectedCategory =
     (searchParams.get("category") as ExerciseCategory) || "";
   const exerciseName = searchParams.get("exerciseName") || "";
-  const [templateExercises, setTemplateExercises] = useState<
-    TemplateExercise[]
-  >([]);
+  const [templateExercises, setTemplateExercises] = useState<TemplateItem[]>(
+    []
+  );
 
   const templateExercisesHashTable = useRef<{ [key: string]: Exercise }>({});
 
@@ -139,7 +137,7 @@ export const ExerciseCodex = React.memo(() => {
       if (!isExerciseAlreadyAdded) {
         setTemplateExercises([
           ...templateExercises,
-          //@ts-expect-error - TODO: fix this
+
           { exerciseId: exercise.id, notes: "", name: exercise.name },
         ]);
 

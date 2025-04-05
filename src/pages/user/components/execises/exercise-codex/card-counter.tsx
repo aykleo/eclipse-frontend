@@ -1,9 +1,9 @@
-import { TemplateExercise } from "../../../../../utils/types/exercise-types";
 import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
+import { TemplateItem } from "../../../../../utils/types/template-types";
 
 interface CardCounterProps {
-  templateExercises: TemplateExercise[];
+  templateExercises: TemplateItem[];
 }
 
 export const CardCounter = ({ templateExercises }: CardCounterProps) => {

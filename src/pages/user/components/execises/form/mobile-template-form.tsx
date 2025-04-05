@@ -1,8 +1,5 @@
 import { RefObject, useEffect, useRef, useState } from "react";
-import {
-  Exercise,
-  TemplateExercise,
-} from "../../../../../utils/types/exercise-types";
+import { Exercise } from "../../../../../utils/types/exercise-types";
 import { useMutation } from "@tanstack/react-query";
 import { TemplateFormData } from "../../../../../api/templates/fetch-create-update-template";
 import {
@@ -36,11 +33,10 @@ import {
 } from "../../../../../utils/tag-colors";
 import { TagCategory } from "../../../../../utils/types/exercise-types";
 import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
+import { TemplateItem } from "../../../../../utils/types/template-types";
 interface MobileTemplateFormProps {
-  templateExercises: TemplateExercise[];
-  setTemplateExercises: React.Dispatch<
-    React.SetStateAction<TemplateExercise[]>
-  >;
+  templateExercises: TemplateItem[];
+  setTemplateExercises: React.Dispatch<React.SetStateAction<TemplateItem[]>>;
   onUpdateNotes: (exerciseId: string, notes: string) => void;
   onRemoveExercise: (exerciseId: string) => void;
   showExerciseInfoById: (exerciseId: string) => void;
@@ -320,7 +316,6 @@ const MobileTemplateForm = React.memo(
                       key={exercise.exerciseId}
                       exerciseId={exercise.exerciseId}
                       notes={exercise.notes}
-                      //@ts-expect-error - TODO: fix this
                       exerciseName={exercise.name}
                       exerciseOrder={index + 1}
                       onUpdateNotes={(notes) =>

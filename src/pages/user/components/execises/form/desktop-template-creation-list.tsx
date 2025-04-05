@@ -32,22 +32,20 @@ import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 import {
   Exercise,
   TagCategory,
-  TemplateExercise,
 } from "../../../../../utils/types/exercise-types";
 import {
   getColorBackgroundForTagCategory,
   getColorClassForTagCategory,
 } from "../../../../../utils/tag-colors";
 import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
+import { TemplateItem } from "../../../../../utils/types/template-types";
 
 interface TemplateCreationListProps {
-  exercises: TemplateExercise[];
+  exercises: TemplateItem[];
   onUpdateNotes: (exerciseId: string, notes: string) => void;
   onRemoveExercise: (exerciseId: string) => void;
 
-  setTemplateExercises: React.Dispatch<
-    React.SetStateAction<TemplateExercise[]>
-  >;
+  setTemplateExercises: React.Dispatch<React.SetStateAction<TemplateItem[]>>;
   showExerciseInfoById: (exerciseId: string) => void;
   templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>;
 }
@@ -340,7 +338,6 @@ const TemplateCreationList = React.memo(
                             key={exercise.exerciseId}
                             exerciseId={exercise.exerciseId}
                             notes={exercise.notes}
-                            //@ts-expect-error - TODO: fix this
                             exerciseName={exercise.name}
                             exerciseOrder={index + 1}
                             onUpdateNotes={(notes) =>

@@ -1,24 +1,20 @@
 import React, { lazy, RefObject } from "react";
-import {
-  Exercise,
-  TemplateExercise,
-} from "../../../../../utils/types/exercise-types";
+import { Exercise } from "../../../../../utils/types/exercise-types";
 import { NewExerciseBtn } from "./new-exercise-btn";
 import { CodexPagination } from "./codex-pagination";
 import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
 import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
+import { TemplateItem } from "../../../../../utils/types/template-types";
 
 const TemplateCreationList = lazy(
   () => import("../form/desktop-template-creation-list")
 );
 
 interface CardListProps {
-  templateExercises: TemplateExercise[];
+  templateExercises: TemplateItem[];
   onUpdateNotes: (exerciseId: string, notes: string) => void;
   onRemoveExercise: (exerciseId: string) => void;
-  setTemplateExercises: React.Dispatch<
-    React.SetStateAction<TemplateExercise[]>
-  >;
+  setTemplateExercises: React.Dispatch<React.SetStateAction<TemplateItem[]>>;
   showExerciseInfoById: (exerciseId: string) => void;
   templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>;
   exerciseNumber?: number;
