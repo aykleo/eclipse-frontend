@@ -124,7 +124,7 @@ export const ExerciseCodex = React.memo(() => {
         delete templateExercisesHashTable.current[exerciseId];
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [templateExercises, setTemplateExercises]
   );
 

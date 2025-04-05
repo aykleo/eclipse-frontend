@@ -97,7 +97,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
       if (formRef.current) {
         formRef.current.scrollIntoView({ behavior: "smooth" });
       }
-    }, []);
+    }, [formRef]);
 
     return (
       <div className="form-control relative w-full flex flex-col px-6 justify-between h-full py-2">
