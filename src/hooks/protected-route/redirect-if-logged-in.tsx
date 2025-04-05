@@ -14,9 +14,6 @@ export const RedirectIfLoggedIn: React.FC<RedirectIfLoggedInProps> = ({
 
   useEffect(() => {
     if (user && window.location.pathname === "/") {
-      console.log(
-        "RedirectIfLoggedIn: User logged in and at '/', redirecting to /exercises"
-      );
       navigate("/exercises", { replace: true });
     }
   }, [user, navigate]);

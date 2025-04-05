@@ -8,6 +8,10 @@
   display: none;
 }
 
+.text-xxs {
+  font-size: 0.625rem;
+}
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

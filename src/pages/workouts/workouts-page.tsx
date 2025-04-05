@@ -6,12 +6,24 @@ import { fetchTemplates } from "../../api/templates/fetch-templates";
 import { Template } from "../../utils/types/template-types";
 import { TemplateExercise } from "../../utils/types/exercise-types";
 import { ExerciseCard } from "../../components/exercise/exercise-card";
+import { CategoryCounts } from "../../components/statistics/exercises/category-counts-type";
+import { CategoryCounterVertical } from "../../components/statistics/exercises/category-counter-vertical";
+import { RenderPng } from "../../components/pixel-art/render-png";
+import { RenderSvg } from "../../components/pixel-art/render-svg";
 
 export const WorkoutsPage = () => {
   const { user } = useUser() || {};
   const [currentPage] = useState(1);
   const [, setTotalPages] = useState(0);
   const pageSize = 10;
+  const defaultCounts: CategoryCounts = {
+    "": 0,
+    ENDURANCE: 0,
+    MOVEMENT: 0,
+    PLYOMETRICS: 0,
+    STRENGTH: 0,
+  };
+
   const { data: templatesData } = useQuery({
     queryKey: ["templates", { user, currentPage, pageSize }],
     queryFn: () => {
@@ -29,16 +41,61 @@ export const WorkoutsPage = () => {
     }
   }, [templatesData]);
 
+  const calculateCategoryCounts = (workout: Template): CategoryCounts => {
+    const counts = { ...defaultCounts };
+
+    if (!workout.exercises) return counts;
+
+    counts[""] = workout.exercises.length;
+
+    workout.exercises.forEach((exerciseItem: TemplateExercise) => {
+      if (
+        exerciseItem.exercise &&
+        exerciseItem.exercise.tag &&
+        exerciseItem.exercise.tag.category
+      ) {
+        const category = exerciseItem.exercise.tag.category;
+        if (category in counts) {
+          counts[category as keyof CategoryCounts] += 1;
+        }
+      }
+    });
+
+    return counts;
+  };
+
   return (
     <div className="size-full pt-16">
-      <div className="size-screen flex flex-col gap-y-4 border bg-neutral-800">
-        <h1 className="text-2xl font-bold text-white">
-          {templatesData &&
-            templatesData.templates.map((workout: Template) => (
-              <div key={workout.id} className="flex flex-col gap-y-4">
+      <div className="size-screen flex flex-col gap-y-1 bg-black py-1">
+        {templatesData &&
+          templatesData.templates.map((workout: Template) => (
+            <div
+              key={workout.id}
+              className="flex flex-col gap-y-2 px-1 bg-neutral-800 py-2 relative"
+            >
+              <RenderSvg
+                src="body/body-t-128.svg"
+                className="absolute top-0 left-0 border w-full h-2"
+                size="auto"
+                repeat="repeat-x"
+                position="center"
+              />
+              <span className="text-2xl font-bold text-white w-full text-center">
                 {workout.name}
-                <div className="flex flex-wrap gap-x-4">
-                  {workout.exercises
+              </span>
+              <div className="flex flex-row justify-between">
+                <RenderPng
+                  src="exercise-cards/card-backs/exercise-card-back-1.png"
+                  alt="card-bg"
+                  className=""
+                />
+                <div className="w-full h-48">
+                  <CategoryCounterVertical
+                    categoryCounts={calculateCategoryCounts(workout)}
+                    hasCount={false}
+                  />
+                </div>
+                {/* {workout.exercises
                     .slice()
                     .sort(
                       (a: TemplateExercise, b: TemplateExercise) =>
@@ -49,11 +106,10 @@ export const WorkoutsPage = () => {
                         {exercise.notes}
                         <ExerciseCard exercise={exercise.exercise} />
                       </div>
-                    ))}
-                </div>
+                    ))} */}
               </div>
-            ))}
-        </h1>
+            </div>
+          ))}
       </div>
     </div>
   );

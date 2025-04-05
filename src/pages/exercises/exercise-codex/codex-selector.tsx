@@ -43,24 +43,6 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
     return (
       <div className="relative h-12">
         <RenderSvg
-          src="body/body-side-64.svg"
-          size="15px"
-          repeat="no-repeat"
-          position="center"
-          role="tablist"
-          className="absolute h-full z-3 w-12 -left-5"
-        />
-        <RenderSvg
-          src="body/body-side-64.svg"
-          size="15px"
-          repeat="no-repeat"
-          position="center"
-          role="tablist"
-          className="absolute h-full z-3 w-12 -right-5"
-          transform="rotate(180deg)"
-        />
-
-        <RenderSvg
           src="body/body-64.svg"
           size="48px"
           repeat="repeat"
@@ -69,7 +51,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
           className="relative flex items-center tabs tabs-box w-full flex-row h-full rounded-none"
         >
           <div className="flex items-center h-full flex-row gap-x-2 lg:gap-x-4 w-1/2 lg:w-2/3 px-1">
-            <div className="gap-x-2 pl-2 flex w-full justify-evenly">
+            <div className="gap-x-2 flex w-full justify-evenly">
               {categoryIcons.map((category, index) => (
                 <a
                   key={index}

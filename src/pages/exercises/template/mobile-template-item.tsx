@@ -112,7 +112,7 @@ export const MobileTemplateItem = React.memo(
             {exerciseOrder}
           </span>
 
-          <div className="truncate absolute top-[9px] left-[16px] w-[74px] h-4 text-center">
+          <div className="truncate text-xxs px-1 absolute top-[12px] left-[16px] w-[74px] h-3 text-center">
             {exerciseName}
           </div>
 

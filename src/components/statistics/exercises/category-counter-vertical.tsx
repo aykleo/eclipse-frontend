@@ -8,18 +8,22 @@ import { CategoryCounts } from "./category-counts-type";
 
 interface CategoryCounterVerticalProps {
   categoryCounts: CategoryCounts;
+  hasCount?: boolean;
 }
 
 export const CategoryCounterVertical = ({
   categoryCounts,
+  hasCount = true,
 }: CategoryCounterVerticalProps) => {
   return (
     <div className="flex flex-col size-full">
       <div className="flex flex-col size-full items-center gap-4 p-4">
-        <div className="flex text-lg font-bold flex-row items-center justify-between w-full">
-          <span>Exercises in the workout</span>
-          <div>{categoryCounts[""]}</div>
-        </div>
+        {hasCount && (
+          <div className="flex text-lg font-bold flex-row items-center justify-between w-full">
+            <span>Exercises in the workout</span>
+            <div>{categoryCounts[""]}</div>
+          </div>
+        )}
         <div className="flex gap-4 flex-row w-full h-full justify-between">
           {Object.entries(categoryCounts).map(
             ([category, count]) =>

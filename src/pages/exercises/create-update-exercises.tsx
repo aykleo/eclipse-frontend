@@ -9,6 +9,7 @@ import { useUser } from "../../hooks/user/use-context";
 import { useStatus } from "../../hooks/status/status-context";
 import { handleExerciseCreation } from "../../api/exercises/exercise-creation";
 import { handleExerciseUpdate } from "../../api/exercises/exercise-update";
+import { RenderSvg } from "../../components/pixel-art/render-svg";
 
 const ExerciseForm = React.lazy(() => import("./form/exercise-form"));
 
@@ -247,6 +248,13 @@ const CreateOrUpdateExercises: React.FC = React.memo(() => {
           exerciseTagCategoryRef={exerciseTagCategoryRef}
         />
       </Suspense>
+      <RenderSvg
+        src="body/body-bot-4.svg"
+        size="auto"
+        repeat="repeat-x"
+        position="center"
+        className="absolute bottom-0 h-1 w-full"
+      />
     </div>
   );
 });

@@ -14,6 +14,7 @@ import { RenderPng } from "../../../components/pixel-art/render-png";
 import { useExerciseState } from "../../../hooks/exercises/exercise-context";
 import { useSearchParams } from "react-router-dom";
 import { TemplateItem } from "../../../utils/types/template-types";
+import { RenderSvg } from "../../../components/pixel-art/render-svg";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
@@ -163,7 +164,7 @@ export const ExerciseCodex = React.memo(() => {
         />
       </div>
 
-      <ul className="relative gap-1 mt-12 w-full h-full mb-4">
+      <ul className="relative gap-1 mt-12 w-full h-full">
         <div
           className={`${
             isCreatingTemplate ? "top-1/4 lg:hidden" : "top-40"
@@ -266,7 +267,13 @@ export const ExerciseCodex = React.memo(() => {
           <CreateOrUpdateExercises />
         )}
       </ul>
-
+      <RenderSvg
+        src="body/body-bot-4.svg"
+        size="auto"
+        repeat="repeat-x"
+        position="center"
+        className="absolute bottom-0 h-1 w-full"
+      />
       <DeleteExerciseModal />
     </div>
   );

@@ -30,7 +30,7 @@ export async function fetchTemplates(
     );
 
     const data = await response.json();
-    console.log(data);
+
     return { templates: data.workoutTemplates, totalPages: data.totalPages };
   } catch (error) {
     console.error("Error fetching templates:", error);

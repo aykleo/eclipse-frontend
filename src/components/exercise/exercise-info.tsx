@@ -16,26 +16,6 @@ export const ExerciseInfo = () => {
   } = useExerciseState();
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.matchMedia("(min-width: 768px)").matches) {
-        document.body.style.overflow = "hidden";
-      } else {
-        document.body.style.overflow = "unset";
-      }
-    };
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-
-      document.body.style.overflow = "unset";
-    };
-  }, []);
-
-  useEffect(() => {
     if (exerciseCardRef.current) {
       exerciseCardRef.current.scrollIntoView({
         behavior: "smooth",
@@ -47,7 +27,7 @@ export const ExerciseInfo = () => {
   return (
     <>
       {showExerciseInfo && (
-        <div className="absolute inset-0 z-99 flex items-center top-16 pt-4 md:pt-20 h-full overflow-hidden justify-center bg-black/90">
+        <div className="absolute inset-0 z-99 flex items-center top-16 pt-4 md:pt-20 h-max justify-center bg-black/90">
           <div
             className="flex flex-col items-start justify-center gap-4 md:flex-row cursor-default h-full w-full relative"
             onClick={(e) => e.stopPropagation()}

@@ -257,24 +257,24 @@ const MobileTemplateForm = React.memo(
 
           <RenderSvg
             src="body/body-64.svg"
-            size="48px"
+            size="auto"
             repeat="repeat"
             position="center"
-            className="w-max px-4 left-1/2 translate-x-[-50%] h-12 absolute bottom-24 flex flex-row gap-x-2 items-center justify-evenly"
+            className="w-max px-4 left-1/2 translate-x-[-50%] h-16 absolute bottom-24 flex flex-row gap-x-2 items-center justify-evenly"
           >
             <RenderSvg
               src="body/body-side-64.svg"
-              size="15px"
+              size="auto"
               repeat="no-repeat"
               position="center"
-              className="absolute h-full w-12 -left-5"
+              className="absolute h-[64px] w-[21px] -left-1"
             />
             <RenderSvg
               src="body/body-side-64.svg"
-              size="15px"
+              size="auto"
               repeat="no-repeat"
               position="center"
-              className="absolute h-full w-12 -right-5"
+              className="absolute h-[64px] w-[21px] -right-1"
               transform="rotate(180deg)"
             />
 
