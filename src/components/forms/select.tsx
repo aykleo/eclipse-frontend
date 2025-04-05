@@ -76,7 +76,7 @@ export const Select = ({
             }
           >
             <RenderSvg
-              src="url(src/assets/pixel-art/icons/pointer-8.svg)"
+              src="icons/pointer-8.svg"
               size="auto"
               repeat="no-repeat"
               position="center"
@@ -99,7 +99,7 @@ export const Select = ({
           }
         >
           <RenderSvg
-            src="url(src/assets/pixel-art/icons/pointer-8.svg)"
+            src="icons/pointer-8.svg"
             size="auto"
             repeat="no-repeat"
             position="center"
@@ -129,14 +129,14 @@ export const Select = ({
         )}
         <div className="h-8 w-full flex relative">
           <RenderSvg
-            src="url(src/assets/pixel-art/body/input-side-32.svg)"
+            src="body/input-side-32.svg"
             size="auto"
             repeat="no-repeat"
             position="start"
             className="size-8 absolute -left-1"
           />
           <RenderSvg
-            src="url(src/assets/pixel-art/body/body-32-input.svg)"
+            src="body/body-32-input.svg"
             size="auto"
             repeat="repeat"
             position="center"
@@ -153,7 +153,7 @@ export const Select = ({
             >
               {selectedValue || placeholder}
               <RenderSvg
-                src="url(src/assets/pixel-art/icons/dropdown-indicator-8.svg)"
+                src="icons/dropdown-indicator-8.svg"
                 size="auto"
                 repeat="no-repeat"
                 position="center"
@@ -165,7 +165,7 @@ export const Select = ({
               <div className="absolute h-49 top-full left-0 w-full mt-1 z-50">
                 <div className="size-full relative">
                   <RenderSvg
-                    src="url(src/assets/pixel-art/body/body-196.svg)"
+                    src="body/body-196.svg"
                     size="auto"
                     repeat="repeat"
                     position="center"
@@ -174,14 +174,14 @@ export const Select = ({
                     {renderOptions()}
                   </RenderSvg>
                   <RenderSvg
-                    src="url(src/assets/pixel-art/body/body-side-196.svg)"
+                    src="body/body-side-196.svg"
                     size="auto"
                     repeat="no-repeat"
                     position="center"
                     className="h-full w-[8px] absolute top-1/2 -translate-y-1/2 left-0"
                   />
                   <RenderSvg
-                    src="url(src/assets/pixel-art/body/body-side-196.svg)"
+                    src="body/body-side-196.svg"
                     size="auto"
                     repeat="no-repeat"
                     position="center"
@@ -193,7 +193,7 @@ export const Select = ({
             )}
           </RenderSvg>
           <RenderSvg
-            src="url(src/assets/pixel-art/body/input-side-32.svg)"
+            src="body/input-side-32.svg"
             size="auto"
             repeat="no-repeat"
             position="center"

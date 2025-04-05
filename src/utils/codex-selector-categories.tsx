@@ -12,7 +12,7 @@ export const categoryIcons = [
     category: "",
     openIcon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-all-open.svg)`}
+        src={`buttons/btn-all-open.svg`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -21,7 +21,7 @@ export const categoryIcons = [
     ),
     icon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-all.svg)`}
+        src={`buttons/btn-all.svg`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -33,7 +33,7 @@ export const categoryIcons = [
     category: "ENDURANCE",
     openIcon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-endurance-open.svg)`}
+        src={`buttons/btn-endurance-open.svg`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -42,7 +42,7 @@ export const categoryIcons = [
     ),
     icon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-endurance.svg)`}
+        src={`buttons/btn-endurance.svg`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -54,7 +54,7 @@ export const categoryIcons = [
     category: "MOVEMENT",
     openIcon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-movement-open.svg)`}
+        src={`buttons/btn-movement-open.svg`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -63,7 +63,7 @@ export const categoryIcons = [
     ),
     icon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-movement.svg)`}
+        src={`buttons/btn-movement.svg`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -75,7 +75,7 @@ export const categoryIcons = [
     category: "PLYOMETRICS",
     openIcon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-plyometrics-open.svg)`}
+        src={`buttons/btn-plyometrics-open.svg`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -84,7 +84,7 @@ export const categoryIcons = [
     ),
     icon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-plyometrics.svg)`}
+        src={`buttons/btn-plyometrics.svg`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -96,7 +96,7 @@ export const categoryIcons = [
     category: "STRENGTH",
     openIcon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-strength-open.svg)`}
+        src={`buttons/btn-strength-open.svg`}
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -105,7 +105,7 @@ export const categoryIcons = [
     ),
     icon: (
       <RenderSvg
-        src={`url(src/assets/pixel-art/buttons/btn-strength.svg)`}
+        src={`buttons/btn-strength.svg`}
         size="auto"
         repeat="no-repeat"
         position="center"

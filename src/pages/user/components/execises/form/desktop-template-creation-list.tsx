@@ -180,7 +180,7 @@ const TemplateCreationList = React.memo(
     return (
       <div className="size-full relative">
         <RenderSvg
-          src="url(src/assets/pixel-art/general/desktop-template-details-attach.svg)"
+          src="general/desktop-template-details-attach.svg"
           size="auto"
           repeat="no-repeat"
           position="center"
@@ -193,7 +193,7 @@ const TemplateCreationList = React.memo(
           }}
         >
           <RenderSvg
-            src="url(src/assets/pixel-art/icons/right-icon-16.svg)"
+            src="icons/right-icon-16.svg"
             size="auto"
             repeat="no-repeat"
             position="center"
@@ -202,7 +202,7 @@ const TemplateCreationList = React.memo(
           />
         </button>
         <RenderSvg
-          src="url(src/assets/pixel-art/general/desktop-template-back-attach.svg)"
+          src="general/desktop-template-back-attach.svg"
           size="auto"
           repeat="no-repeat"
           position="center"
@@ -215,7 +215,7 @@ const TemplateCreationList = React.memo(
           }}
         >
           <RenderSvg
-            src="url(src/assets/pixel-art/icons/right-icon-16.svg)"
+            src="icons/right-icon-16.svg"
             size="auto"
             repeat="no-repeat"
             position="center"
@@ -265,14 +265,14 @@ const TemplateCreationList = React.memo(
                                   </div>
                                 )}
                                 <RenderSvg
-                                  src={`url(src/assets/pixel-art/body/body-chart-top-8.svg)`}
+                                  src={`body/body-chart-top-8.svg`}
                                   size="auto"
                                   repeat="no-repeat"
                                   position="center"
                                   className="h-2 w-8 absolute top-[-8px] left-0"
                                 />
                                 <RenderSvg
-                                  src={`url(src/assets/pixel-art/body/body-chart-top-8.svg)`}
+                                  src={`body/body-chart-top-8.svg`}
                                   size="auto"
                                   repeat="no-repeat"
                                   position="center"
@@ -293,14 +293,14 @@ const TemplateCreationList = React.memo(
                                   }}
                                 >
                                   <RenderSvg
-                                    src={`url(src/assets/pixel-art/body/body-chart-top-${category}-8.svg)`}
+                                    src={`body/body-chart-top-${category}-8.svg`}
                                     size="28px"
                                     repeat="no-repeat"
                                     position="center"
                                     className="h-2 w-7 absolute top-[-7px] left-[-2px]"
                                   />
                                   <RenderSvg
-                                    src={`url(src/assets/pixel-art/body/body-chart-top-${category}-8.svg)`}
+                                    src={`body/body-chart-top-${category}-8.svg`}
                                     size="28px"
                                     repeat="no-repeat"
                                     position="center"
@@ -310,7 +310,7 @@ const TemplateCreationList = React.memo(
                                 </div>
                               </div>
                               <RenderSvg
-                                src={`url(src/assets/pixel-art/buttons/btn-${category.toLowerCase()}.svg)`}
+                                src={`buttons/btn-${category.toLowerCase()}.svg`}
                                 size="auto"
                                 repeat="no-repeat"
                                 position="center"
@@ -368,7 +368,7 @@ const TemplateCreationList = React.memo(
                 disabled={(exercises && exercises.length === 0) || isLoading}
               >
                 <RenderSvg
-                  src="url(src/assets/pixel-art/buttons/btn-create-template.svg)"
+                  src="buttons/btn-create-template.svg"
                   size="auto"
                   repeat="no-repeat"
                   position="center"
@@ -385,7 +385,7 @@ const TemplateCreationList = React.memo(
                 className="h-full w-[calc(24*4px)] transition-all duration-200 filter brightness-75 hover:brightness-110"
               >
                 <RenderSvg
-                  src="url(src/assets/pixel-art/buttons/btn-erase-template.svg)"
+                  src="buttons/btn-erase-template.svg"
                   size="auto"
                   repeat="no-repeat"
                   position="center"

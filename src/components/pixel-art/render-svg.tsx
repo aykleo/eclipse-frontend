@@ -41,7 +41,7 @@ export const RenderSvg = React.forwardRef<HTMLDivElement, RenderSvgProps>(
         ref={ref}
         className={className}
         style={{
-          backgroundImage: src,
+          backgroundImage: `url(/src/assets/pixel-art/${src})`,
           backgroundSize: size,
           backgroundPosition: position,
           backgroundRepeat: repeat,

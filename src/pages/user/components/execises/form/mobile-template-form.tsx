@@ -183,21 +183,21 @@ const MobileTemplateForm = React.memo(
 
     return (
       <RenderSvg
-        src="url(src/assets/pixel-art/body/body-96.svg)"
+        src="body/body-96.svg"
         size="auto"
         repeat="repeat"
         position="center"
         className="relative w-9/10 p-1 h-24"
       >
         <RenderSvg
-          src="url(src/assets/pixel-art/body/body-side-96.svg)"
+          src="body/body-side-96.svg"
           size="auto"
           repeat="no-repeat"
           position="center"
           className="absolute top-0 h-full -left-1.5 w-2"
         />
         <RenderSvg
-          src="url(src/assets/pixel-art/body/body-side-96.svg)"
+          src="body/body-side-96.svg"
           size="auto"
           repeat="no-repeat"
           position="center"
@@ -238,7 +238,7 @@ const MobileTemplateForm = React.memo(
                     className="flex flex-row items-center w-full"
                   >
                     <RenderSvg
-                      src={`url(src/assets/pixel-art/buttons/btn-${category.toLowerCase()}.svg)`}
+                      src={`buttons/btn-${category.toLowerCase()}.svg)`}
                       size="auto"
                       repeat="no-repeat"
                       position="center"
@@ -246,7 +246,7 @@ const MobileTemplateForm = React.memo(
                     />
                     <div className="w-[calc(80%-16px)] bg-neutral-950 h-6 ml-2 flex flex-row items-center py-[4px] justify-start pl-0.5 relative">
                       <RenderSvg
-                        src={`url(src/assets/pixel-art/body/body-chart-top-8.svg)`}
+                        src={`body/body-chart-top-8.svg)`}
                         size="24px"
                         repeat="no-repeat"
                         position="center"
@@ -254,7 +254,7 @@ const MobileTemplateForm = React.memo(
                         transform="rotate(90deg)"
                       />
                       <RenderSvg
-                        src={`url(src/assets/pixel-art/body/body-chart-top-8.svg)`}
+                        src={`body/body-chart-top-8.svg)`}
                         size="24px"
                         repeat="no-repeat"
                         position="center"
@@ -273,7 +273,7 @@ const MobileTemplateForm = React.memo(
                         }}
                       >
                         <RenderSvg
-                          src={`url(src/assets/pixel-art/body/body-chart-top-${category}-8.svg)`}
+                          src={`body/body-chart-top-${category}-8.svg)`}
                           size="18px"
                           repeat="no-repeat"
                           position="center"
@@ -281,7 +281,7 @@ const MobileTemplateForm = React.memo(
                           transform="rotate(270deg)"
                         />
                         <RenderSvg
-                          src={`url(src/assets/pixel-art/body/body-chart-top-${category}-8.svg)`}
+                          src={`body/body-chart-top-${category}-8.svg)`}
                           size="18px"
                           repeat="no-repeat"
                           position="center"
@@ -336,21 +336,21 @@ const MobileTemplateForm = React.memo(
           )}
 
           <RenderSvg
-            src="url(src/assets/pixel-art/body/body-64.svg)"
+            src="body/body-64.svg"
             size="48px"
             repeat="repeat"
             position="center"
             className="w-max px-4 left-1/2 translate-x-[-50%] h-12 absolute bottom-24 flex flex-row gap-x-2 items-center justify-evenly"
           >
             <RenderSvg
-              src="url(src/assets/pixel-art/body/body-side-64.svg)"
+              src="body/body-side-64.svg"
               size="15px"
               repeat="no-repeat"
               position="center"
               className="absolute h-full w-12 -left-5"
             />
             <RenderSvg
-              src="url(src/assets/pixel-art/body/body-side-64.svg)"
+              src="body/body-side-64.svg"
               size="15px"
               repeat="no-repeat"
               position="center"
@@ -365,7 +365,7 @@ const MobileTemplateForm = React.memo(
               onClick={toggleNameInput}
             >
               <RenderSvg
-                src="url(src/assets/pixel-art/buttons/btn-pen-32.svg)"
+                src="buttons/btn-pen-32.svg"
                 size="auto"
                 repeat="no-repeat"
                 position="center"
@@ -382,7 +382,7 @@ const MobileTemplateForm = React.memo(
               onClick={toggleTemplateInfo}
             >
               <RenderSvg
-                src="url(src/assets/pixel-art/buttons/btn-chart.32.svg)"
+                src="buttons/btn-chart.32.svg"
                 size="auto"
                 repeat="no-repeat"
                 position="center"
@@ -395,7 +395,7 @@ const MobileTemplateForm = React.memo(
               disabled={isLoading || templateExercises.length === 0}
             >
               <RenderSvg
-                src="url(src/assets/pixel-art/buttons/btn-submit.svg)"
+                src="buttons/btn-submit.svg"
                 size="auto"
                 repeat="no-repeat"
                 position="center"
@@ -424,7 +424,7 @@ const MobileTemplateForm = React.memo(
               }}
             >
               <RenderSvg
-                src="url(src/assets/pixel-art/buttons/btn-eraser-32.svg)"
+                src="buttons/btn-eraser-32.svg"
                 size="auto"
                 repeat="no-repeat"
                 position="center"

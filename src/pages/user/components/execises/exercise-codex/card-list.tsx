@@ -60,14 +60,14 @@ export const CardList = React.memo(
             <div className="w-1/3 h-full relative pt-2.5">
               <div className="w-full h-[2px] absolute bottom-[13px] bg-[#bfb7b7]" />
               <RenderSvg
-                src="url(src/assets/pixel-art/general/white-cross-16.svg)"
+                src="general/white-cross-16.svg"
                 className="size-full absolute"
                 size="auto"
                 repeat="no-repeat"
                 position="right"
               />
               <RenderSvg
-                src="url(src/assets/pixel-art/general/white-cross-16.svg)"
+                src="general/white-cross-16.svg"
                 className="size-full absolute"
                 size="auto"
                 repeat="no-repeat"
@@ -107,14 +107,14 @@ export const CardList = React.memo(
             <div className="w-1/3 h-full relative pt-2.5">
               <div className="w-full h-[2px] absolute bottom-[13px] bg-[#bfb7b7]" />
               <RenderSvg
-                src="url(src/assets/pixel-art/general/white-cross-16.svg)"
+                src="general/white-cross-16.svg"
                 className="size-full absolute"
                 size="auto"
                 repeat="no-repeat"
                 position="left"
               />
               <RenderSvg
-                src="url(src/assets/pixel-art/general/white-cross-16.svg)"
+                src="general/white-cross-16.svg"
                 className="size-full absolute"
                 size="auto"
                 repeat="no-repeat"
@@ -148,21 +148,21 @@ export const CardList = React.memo(
             <div className="w-full h-full p-2 relative">
               <div className="h-[51px] w-full relative">
                 <RenderSvg
-                  src="url(src/assets/pixel-art/desktop-template-creation/top-left.svg)"
+                  src="desktop-template-creation/top-left.svg"
                   size="auto"
                   repeat="no-repeat"
                   position="center"
                   className="w-[32px] h-full absolute top-0 left-[-5px] filter brightness-75"
                 />
                 <RenderSvg
-                  src="url(src/assets/pixel-art/desktop-template-creation/top-middle.svg)"
+                  src="desktop-template-creation/top-middle.svg"
                   size="auto"
                   repeat="repeat-x"
                   position="center"
                   className="w-[95%] right-1/2 translate-x-1/2 h-full absolute filter brightness-75"
                 />
                 <RenderSvg
-                  src="url(src/assets/pixel-art/desktop-template-creation/top-right.svg)"
+                  src="desktop-template-creation/top-right.svg"
                   size="auto"
                   repeat="no-repeat"
                   position="center"
@@ -171,21 +171,21 @@ export const CardList = React.memo(
               </div>
               <div className="w-full h-[calc(100%-108px)] ">
                 <RenderSvg
-                  src="url(src/assets/pixel-art/desktop-template-creation/middle-left.svg)"
+                  src="desktop-template-creation/middle-left.svg"
                   size="auto"
                   repeat="repeat-y"
                   position="center"
                   className="w-[32px] h-[calc(100%-120px)] absolute top-[56px] left-[5px] filter brightness-75"
                 />
                 <RenderSvg
-                  src="url(src/assets/pixel-art/desktop-template-creation/middle-middle.svg)"
+                  src="desktop-template-creation/middle-middle.svg"
                   size="auto"
                   repeat="repeat"
                   position="center"
                   className="w-[calc(100%-64px)] right-1/2 translate-x-1/2 h-[calc(100%-122px)] absolute filter brightness-75"
                 />
                 <RenderSvg
-                  src="url(src/assets/pixel-art/desktop-template-creation/middle-right.svg)"
+                  src="desktop-template-creation/middle-right.svg"
                   size="auto"
                   repeat="repeat-y"
                   position="center"
@@ -194,21 +194,21 @@ export const CardList = React.memo(
               </div>
               <div className="h-[64px] w-full relative">
                 <RenderSvg
-                  src="url(src/assets/pixel-art/desktop-template-creation/bottom-left.svg)"
+                  src="desktop-template-creation/bottom-left.svg"
                   size="auto"
                   repeat="no-repeat"
                   position="center"
                   className="w-[32px] h-full absolute bottom-0 left-[-3px] filter brightness-75"
                 />
                 <RenderSvg
-                  src="url(src/assets/pixel-art/desktop-template-creation/bottom-middle.svg)"
+                  src="desktop-template-creation/bottom-middle.svg"
                   size="auto"
                   repeat="repeat-x"
                   position="center"
                   className="w-[95%] right-1/2 translate-x-1/2 h-full absolute filter brightness-75"
                 />
                 <RenderSvg
-                  src="url(src/assets/pixel-art/desktop-template-creation/bottom-right.svg)"
+                  src="desktop-template-creation/bottom-right.svg"
                   size="auto"
                   repeat="no-repeat"
                   position="center"

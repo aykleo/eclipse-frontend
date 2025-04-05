@@ -18,7 +18,7 @@ const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
   return (
     <>
       <RenderSvg
-        src="url(src/assets/pixel-art/buttons/btn-32.svg)"
+        src="buttons/btn-32.svg"
         size="auto"
         repeat="no-repeat"
         position="start"
@@ -36,7 +36,7 @@ const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
         }}
       >
         <RenderSvg
-          src="url(src/assets/pixel-art/buttons/btn-next-32.svg)"
+          src="buttons/btn-next-32.svg"
           size="auto"
           repeat="no-repeat"
           position="center"
@@ -45,7 +45,7 @@ const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
         />
       </RenderSvg>
       <RenderSvg
-        src="url(src/assets/pixel-art/buttons/btn-32.svg)"
+        src="buttons/btn-32.svg"
         size="auto"
         repeat="no-repeat"
         position="start"
@@ -65,7 +65,7 @@ const CodexPaginationComponent: React.FC<CodexPaginationProps> = ({
         }}
       >
         <RenderSvg
-          src="url(src/assets/pixel-art/buttons/btn-next-32.svg)"
+          src="buttons/btn-next-32.svg"
           size="auto"
           repeat="no-repeat"
           position="center"

@@ -11,13 +11,13 @@ export const CardCounter = ({ templateExercises }: CardCounterProps) => {
 
   const getImageSrc = (length: number) => {
     if (length > 5) {
-      return "url(src/assets/pixel-art/card-counter/card-counter-3.svg)";
+      return "card-counter/card-counter-3.svg";
     } else if (length >= 3) {
-      return "url(src/assets/pixel-art/card-counter/card-counter-2.svg)";
+      return "card-counter/card-counter-2.svg";
     } else if (length > 0) {
-      return "url(src/assets/pixel-art/card-counter/card-counter-1.svg)";
+      return "card-counter/card-counter-1.svg";
     } else {
-      return "url(src/assets/pixel-art/card-counter/card-counter.svg)";
+      return "card-counter/card-counter.svg";
     }
   };
 
@@ -38,7 +38,7 @@ export const CardCounter = ({ templateExercises }: CardCounterProps) => {
         className={`size-8/10 relative rounded-lg cursor-pointer flex items-center justify-center`}
       >
         <RenderSvg
-          src="url(src/assets/pixel-art/card-counter/card-counter-counter-32.svg)"
+          src="card-counter/card-counter-counter-32.svg"
           size="auto"
           repeat="no-repeat"
           position="center"

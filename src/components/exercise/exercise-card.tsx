@@ -22,7 +22,7 @@ export const ExerciseCard = memo(({ exercise }: ExerciseCardProps) => {
             .map((muscleGroup) => (
               <img
                 key={muscleGroup.muscleGroup.id}
-                src={`src/assets/pixel-art/muscles/${muscleGroup.muscleGroup.name}.svg`}
+                src={`/src/assets/pixel-art/muscles/${muscleGroup.muscleGroup.name}.svg`}
                 alt={`${muscleGroup.muscleGroup.name} icon`}
                 className="size-18"
               />
@@ -37,7 +37,7 @@ export const ExerciseCard = memo(({ exercise }: ExerciseCardProps) => {
 
         {exercise.tag.category && (
           <RenderSvg
-            src={`url(src/assets/pixel-art/exercise-cards/category-indicator-${exercise.tag.category}.svg)`}
+            src={`exercise-cards/category-indicator-${exercise.tag.category}.svg`}
             position="center"
             size="auto"
             repeat="no-repeat"

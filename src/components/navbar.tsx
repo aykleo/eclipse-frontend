@@ -3,12 +3,25 @@ import AnimatedGradientBorderBtn from "./gradient/animated-gradient-border-btn";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { AnimateTextGradient } from "./modals/animate-text-gradient";
 import { logOutUser } from "../api/user/log-out-user";
-import { useNavBar } from "../hooks/navbar-choices/navbar-context";
-import { useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const { user, setUser } = useUser() || {};
-  const { navbarChoices } = useNavBar();
+
+  const routes = [
+    {
+      label: "Exercises",
+      href: `/${user?.username}/exercises`,
+    },
+    {
+      label: "Workouts",
+      href: `/${user?.username}/workouts`,
+    },
+    {
+      label: "Statistics",
+      href: `/${user?.username}/statistics`,
+    },
+  ];
 
   const handleSignOut = async () => {
     if (!setUser) {
@@ -34,36 +47,17 @@ export const Navbar = () => {
         </AnimatedGradientBorderBtn>
         {user ? (
           <div className="hidden md:flex flex-row gap-x-1 md:gap-x-6 lg:gap-x-10 text-red-400">
-            <button
-              onClick={() =>
-                (window.location.href = `/${user.username}/exercises`)
-              }
-              className={
-                navbarChoices === "exercises" ? "text-red-600 font-bold" : ""
-              }
-            >
-              Exercises
-            </button>
-            <button
-              onClick={() =>
-                (window.location.href = `/${user.username}/workouts`)
-              }
-              className={
-                navbarChoices === "workouts" ? "text-red-600 font-bold" : ""
-              }
-            >
-              Workouts
-            </button>
-            <button
-              onClick={() =>
-                (window.location.href = `/${user.username}/statistics`)
-              }
-              className={
-                navbarChoices === "statistics" ? "text-red-600 font-bold" : ""
-              }
-            >
-              Statistics
-            </button>
+            {routes.map((route) => (
+              <Link
+                key={route.label}
+                to={route.href}
+                className={
+                  route.label === "exercises" ? "text-red-600 font-bold" : ""
+                }
+              >
+                {route.label}
+              </Link>
+            ))}
           </div>
         ) : (
           <></>
@@ -97,24 +91,13 @@ export const Navbar = () => {
             className="dropdown-content menu bg-base-300 opacity-100 rounded-box z-1 w-36 p-2 shadow-sm"
           >
             <li>
-              <button
-                className="md:hidden"
-                onClick={() => handleTabChange("exercises")}
-              >
-                Exercises
-              </button>
-              <button
-                onClick={() => handleTabChange("workouts")}
-                className="md:hidden"
-              >
-                Workouts
-              </button>
-              <button
-                onClick={() => handleTabChange("statistics")}
-                className="md:hidden"
-              >
-                Statistics
-              </button>
+              {routes.map((route) => (
+                <Link key={route.label} to={route.href} className="md:hidden">
+                  {route.label}
+                </Link>
+              ))}
+            </li>
+            <li>
               <button onClick={handleSignOut} className="pl-3 py-1 gap-y-1.5">
                 Sign Out
                 <ArrowLeftIcon className="size-4" />

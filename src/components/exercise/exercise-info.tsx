@@ -57,7 +57,7 @@ export const ExerciseInfo = () => {
               onClick={() => setShowExerciseInfo(undefined)}
             >
               <RenderSvg
-                src={`url(src/assets/pixel-art/icons/cancel-icon-16.svg)`}
+                src="icons/cancel-icon-16.svg"
                 size="32px"
                 repeat="no-repeat"
                 className="size-8 cursor-pointer transition-all duration-200 filter brightness-50 hover:brightness-150"
@@ -95,7 +95,7 @@ export const ExerciseInfo = () => {
                     }}
                   >
                     <RenderSvg
-                      src={`url(src/assets/pixel-art/buttons/btn-delete-open.svg)`}
+                      src="buttons/btn-delete-open.svg"
                       size="auto"
                       repeat="no-repeat"
                       className="h-8 w-16 cursor-pointer transition-all duration-200 filter brightness-100 hover:brightness-150"
@@ -119,7 +119,7 @@ export const ExerciseInfo = () => {
                     }}
                   >
                     <RenderSvg
-                      src={`url(src/assets/pixel-art/buttons/btn-update-open.svg)`}
+                      src="buttons/btn-update-open.svg"
                       size="auto"
                       repeat="no-repeat"
                       className="h-8 w-16 cursor-pointer transition-all duration-200 filter brightness-100 hover:brightness-150"
@@ -159,7 +159,7 @@ export const ExerciseInfo = () => {
                                   .toLowerCase()}
                             </li>
                             <RenderSvg
-                              src={`url(src/assets/pixel-art/muscles/${mg.muscleGroup.name}.svg)`}
+                              src={`muscles/${mg.muscleGroup.name}.svg`}
                               size="24px"
                               repeat="no-repeat"
                               className="size-6"
@@ -193,7 +193,7 @@ export const ExerciseInfo = () => {
                                     .toLowerCase()}
                               </li>
                               <RenderSvg
-                                src={`url(src/assets/pixel-art/muscles/${mg.muscleGroup.name}.svg)`}
+                                src={`muscles/${mg.muscleGroup.name}.svg`}
                                 size="24px"
                                 repeat="no-repeat"
                                 className="size-6"

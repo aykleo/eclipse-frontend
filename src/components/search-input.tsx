@@ -8,7 +8,7 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
   return (
     <div className="h-8 w-1/2 lg:w-1/3 px-4 flex filter duration-200 transition-all hover:brightness-125 brightness-75 relative">
       <RenderSvg
-        src="url(src/assets/pixel-art/body/input-side-32.svg)"
+        src="body/input-side-32.svg"
         size="auto"
         repeat="no-repeat"
         position="start"
@@ -16,14 +16,14 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
       />
 
       <RenderSvg
-        src="url(src/assets/pixel-art/body/body-32-input.svg)"
+        src="body/body-32-input.svg"
         size="auto"
         repeat="repeat"
         position="center"
         className="h-full w-full pl-1 flex items-center justify-center flex-row gap-x-2"
       >
         <RenderSvg
-          src="url(src/assets/pixel-art/icons/search-icon-16.svg)"
+          src="icons/search-icon-16.svg"
           size="auto"
           repeat="no-repeat"
           position="center"
@@ -38,7 +38,7 @@ export const SearchInput = ({ setSearchTerm }: SearchInputProps) => {
         />
       </RenderSvg>
       <RenderSvg
-        src="url(src/assets/pixel-art/body/input-side-32.svg)"
+        src="body/input-side-32.svg"
         size="auto"
         repeat="no-repeat"
         position="center"

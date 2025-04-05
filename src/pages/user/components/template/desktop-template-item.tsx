@@ -62,21 +62,21 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
       } touch-none`}
     >
       <RenderSvg
-        src="url(src/assets/pixel-art/desktop-template-creation/template-item-middle.svg)"
+        src="desktop-template-creation/template-item-middle.svg"
         size="auto"
         repeat="repeat-x"
         position="center"
         className="h-13 w-[calc(100%-72px)] absolute left-10 top-0"
       />
       <RenderSvg
-        src="url(src/assets/pixel-art/desktop-template-creation/template-item-left.svg)"
+        src="desktop-template-creation/template-item-left.svg"
         size="auto"
         repeat="no-repeat"
         position="center"
         className="h-full w-[32px] absolute top-0 left-4"
       />
       <RenderSvg
-        src="url(src/assets/pixel-art/desktop-template-creation/template-item-right.svg)"
+        src="desktop-template-creation/template-item-right.svg"
         size="auto"
         repeat="no-repeat"
         position="center"
@@ -90,7 +90,7 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
           className="size-[32px] cursor-grab absolute left-1/2 -translate-x-1/5 top-[-10px]"
         >
           <RenderSvg
-            src="url(src/assets/pixel-art/icons/grab-icon-32.svg)"
+            src="icons/grab-icon-32.svg"
             size="auto"
             repeat="no-repeat"
             position="center"
@@ -99,7 +99,7 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
         </div>
 
         <RenderSvg
-          src="url(src/assets/pixel-art/icons/circular-icon-22.svg)"
+          src="icons/circular-icon-22.svg"
           size="auto"
           repeat="no-repeat"
           position="center"
@@ -118,7 +118,7 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
           className="size-[22px] absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer transition-all filter brightness-50 duration-200 hover:filter hover:brightness-110"
         >
           <RenderSvg
-            src="url(src/assets/pixel-art/icons/circular-cancel-icon-22.svg)"
+            src="icons/circular-cancel-icon-22.svg"
             size="auto"
             repeat="no-repeat"
             position="center"
@@ -135,7 +135,7 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
           } size-[22px] absolute right-9 top-1/2 -translate-y-1/2 cursor-pointer transition-all duration-200 filter hover:filter`}
         >
           <RenderSvg
-            src="url(src/assets/pixel-art/icons/circular-notes-icon-22.svg)"
+            src="icons/circular-notes-icon-22.svg"
             size="auto"
             repeat="no-repeat"
             position="center"
@@ -149,7 +149,7 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
           className="size-[22px] absolute right-16 top-1/2 -translate-y-1/2 cursor-pointer transition-all filter brightness-50 duration-200 hover:filter hover:brightness-110"
         >
           <RenderSvg
-            src="url(src/assets/pixel-art/icons/circular-info-icon-22.svg)"
+            src="icons/circular-info-icon-22.svg"
             size="auto"
             repeat="no-repeat"
             position="center"

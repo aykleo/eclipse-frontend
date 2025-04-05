@@ -128,7 +128,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   className="cursor-pointer md:hidden"
                 >
                   <RenderSvg
-                    src="url(src/assets/pixel-art/buttons/btn-eye-32.svg)"
+                    src="buttons/btn-eye-32.svg"
                     size="auto"
                     repeat="no-repeat"
                     position="center"
@@ -148,7 +148,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                   }}
                 >
                   <RenderSvg
-                    src="url(src/assets/pixel-art/buttons/btn-close.svg)"
+                    src="buttons/btn-close.svg"
                     size="auto"
                     repeat="no-repeat"
                     position="center"
@@ -288,7 +288,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               className="w-[96px] cursor-pointer"
             >
               <RenderSvg
-                src="url(src/assets/pixel-art/buttons/btn-submit.svg)"
+                src="buttons/btn-submit.svg"
                 size="auto"
                 repeat="no-repeat"
                 position="center"

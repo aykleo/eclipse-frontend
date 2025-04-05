@@ -130,7 +130,7 @@ export const MobileTemplateItem = React.memo(
             className="absolute left-[-10px] top-[4px] size-10 text-xs px-1 text-center cursor-grab active:cursor-grabbing transition-colors"
           >
             <RenderSvg
-              src="url(src/assets/pixel-art/icons/grab-icon-32.svg)"
+              src="icons/grab-icon-32.svg"
               size="auto"
               repeat="no-repeat"
               position="center"
@@ -144,7 +144,7 @@ export const MobileTemplateItem = React.memo(
             className="size-[22px] absolute left-1/2 -translate-x-1/2 bottom-0 cursor-pointer transition-all filter brightness-100 duration-200 hover:filter hover:brightness-110"
           >
             <RenderSvg
-              src="url(src/assets/pixel-art/icons/circular-info-icon-22.svg)"
+              src="icons/circular-info-icon-22.svg"
               size="auto"
               repeat="no-repeat"
               position="center"
@@ -157,7 +157,7 @@ export const MobileTemplateItem = React.memo(
             className="absolute bottom-0 right-0 cursor-pointer size-[22px] transition-all filter brightness-75 duration-200 hover:filter hover:brightness-110"
           >
             <RenderSvg
-              src="url(src/assets/pixel-art/icons/circular-cancel-icon-22.svg)"
+              src="icons/circular-cancel-icon-22.svg"
               size="auto"
               repeat="no-repeat"
               position="center"
@@ -174,7 +174,7 @@ export const MobileTemplateItem = React.memo(
             }`}
           >
             <RenderSvg
-              src="url(src/assets/pixel-art/icons/circular-notes-icon-22.svg)"
+              src="icons/circular-notes-icon-22.svg"
               size="auto"
               repeat="no-repeat"
               position="center"
