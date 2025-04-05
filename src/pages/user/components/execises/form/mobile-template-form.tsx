@@ -238,7 +238,7 @@ const MobileTemplateForm = React.memo(
                     className="flex flex-row items-center w-full"
                   >
                     <RenderSvg
-                      src={`buttons/btn-${category.toLowerCase()}.svg)`}
+                      src={`buttons/btn-${category.toLowerCase()}.svg`}
                       size="auto"
                       repeat="no-repeat"
                       position="center"
@@ -246,7 +246,7 @@ const MobileTemplateForm = React.memo(
                     />
                     <div className="w-[calc(80%-16px)] bg-neutral-950 h-6 ml-2 flex flex-row items-center py-[4px] justify-start pl-0.5 relative">
                       <RenderSvg
-                        src={`body/body-chart-top-8.svg)`}
+                        src={`body/body-chart-top-8.svg`}
                         size="24px"
                         repeat="no-repeat"
                         position="center"
@@ -254,7 +254,7 @@ const MobileTemplateForm = React.memo(
                         transform="rotate(90deg)"
                       />
                       <RenderSvg
-                        src={`body/body-chart-top-8.svg)`}
+                        src={`body/body-chart-top-8.svg`}
                         size="24px"
                         repeat="no-repeat"
                         position="center"
@@ -273,7 +273,7 @@ const MobileTemplateForm = React.memo(
                         }}
                       >
                         <RenderSvg
-                          src={`body/body-chart-top-${category}-8.svg)`}
+                          src={`body/body-chart-top-${category}-8.svg`}
                           size="18px"
                           repeat="no-repeat"
                           position="center"
@@ -281,7 +281,7 @@ const MobileTemplateForm = React.memo(
                           transform="rotate(270deg)"
                         />
                         <RenderSvg
-                          src={`body/body-chart-top-${category}-8.svg)`}
+                          src={`body/body-chart-top-${category}-8.svg`}
                           size="18px"
                           repeat="no-repeat"
                           position="center"

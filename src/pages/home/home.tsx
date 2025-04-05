@@ -1,25 +1,9 @@
 import { ArrowRightIcon, WandSparklesIcon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useUser } from "../../hooks/user/use-context";
 import { RegisterModal } from "./components/auth-modals/register-modal";
 import { LogInModal } from "./components/auth-modals/logIn-modal";
 import { AnimateTextGradient } from "../../components/modals/animate-text-gradient";
 
 export default function HomePage() {
-  const navigate = useNavigate();
-  const { user } = useUser() || {};
-
-  useEffect(() => {
-    if (user) {
-      if (user && user.username === user.username) {
-        navigate(`/${user.username}/exercises`);
-      } else {
-        navigate(`/`);
-      }
-    }
-  }, [user, navigate]);
-
   return (
     <>
       <div className="w-full z-1 h-full flex items-center justify-center px-4 flex-col">
