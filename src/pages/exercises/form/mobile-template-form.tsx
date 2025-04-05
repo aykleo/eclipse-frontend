@@ -1,14 +1,14 @@
 import { RefObject, useEffect, useRef, useState } from "react";
-import { Exercise } from "../../../../../utils/types/exercise-types";
+import { Exercise } from "../../../utils/types/exercise-types";
 import { useMutation } from "@tanstack/react-query";
-import { TemplateFormData } from "../../../../../api/templates/fetch-create-update-template";
+import { TemplateFormData } from "../../../api/templates/fetch-create-update-template";
 import {
   handleTemplateCreation,
   TemplateCreationResult,
-} from "../../../../../api/templates/template-creation";
+} from "../../../api/templates/template-creation";
 import React from "react";
-import { useStatus } from "../../../../../hooks/status/status-context";
-import { MobileTemplateItem } from "../../template/mobile-template-item";
+import { useStatus } from "../../../hooks/status/status-context";
+import { MobileTemplateItem } from "../template/mobile-template-item";
 import {
   DndContext,
   closestCenter,
@@ -24,16 +24,16 @@ import {
   horizontalListSortingStrategy,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
-import { Input } from "../../../../../components/forms/input";
+import { RenderSvg } from "../../../components/pixel-art/render-svg";
+import { Input } from "../../../components/forms/input";
 import { CategoryCounts } from "./desktop-template-creation-list";
 import {
   getColorClassForTagCategory,
   getColorBackgroundForTagCategory,
-} from "../../../../../utils/tag-colors";
-import { TagCategory } from "../../../../../utils/types/exercise-types";
-import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
-import { TemplateItem } from "../../../../../utils/types/template-types";
+} from "../../../utils/tag-colors";
+import { TagCategory } from "../../../utils/types/exercise-types";
+import { useExerciseState } from "../../../hooks/exercises/exercise-context";
+import { TemplateItem } from "../../../utils/types/template-types";
 interface MobileTemplateFormProps {
   templateExercises: TemplateItem[];
   setTemplateExercises: React.Dispatch<React.SetStateAction<TemplateItem[]>>;

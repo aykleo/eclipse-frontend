@@ -1,11 +1,11 @@
 import React from "react";
-import { SpiningModal } from "../../../../components/modals/spining-modal";
+import { SpiningModal } from "../../components/modals/spining-modal";
 import { useRef } from "react";
-import { useStatus } from "../../../../hooks/status/status-context";
+import { useStatus } from "../../hooks/status/status-context";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { handleExerciseDeletion } from "../../../../api/exercises/exercise-deletion";
+import { handleExerciseDeletion } from "../../api/exercises/exercise-deletion";
 import { useSearchParams } from "react-router-dom";
-import { useExerciseState } from "../../../../hooks/exercises/exercise-context";
+import { useExerciseState } from "../../hooks/exercises/exercise-context";
 
 export const DeleteExerciseModal = () => {
   const formRef = useRef<HTMLFormElement>(null);

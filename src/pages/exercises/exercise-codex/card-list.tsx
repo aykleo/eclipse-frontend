@@ -1,10 +1,10 @@
 import React, { lazy, RefObject } from "react";
-import { Exercise } from "../../../../../utils/types/exercise-types";
-import { NewExerciseBtn } from "./new-exercise-btn";
+import { TemplateItem } from "../../../utils/types/template-types";
+import { Exercise } from "../../../utils/types/exercise-types";
+import { useExerciseState } from "../../../hooks/exercises/exercise-context";
+import { RenderSvg } from "../../../components/pixel-art/render-svg";
 import { CodexPagination } from "./codex-pagination";
-import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
-import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
-import { TemplateItem } from "../../../../../utils/types/template-types";
+import { NewExerciseBtn } from "./new-exercise-btn";
 
 const TemplateCreationList = lazy(
   () => import("../form/desktop-template-creation-list")
@@ -45,7 +45,7 @@ export const CardList = React.memo(
       <div
         className={`${
           isCreatingExercise || exerciseForUpdate ? "hidden" : ""
-        } flex size-full relative bg-[#252525]`}
+        } flex size-full relative bg-[#252525] pt-16`}
       >
         <div
           className={`${
@@ -131,7 +131,7 @@ export const CardList = React.memo(
               isCreatingTemplate
                 ? "grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:px-10"
                 : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 "
-            } h-full w-full no-scrollbar grid gap-y-2 justify-items-center items-start pb-10 min-h-screen`}
+            } h-full w-full no-scrollbar grid gap-y-2 justify-items-center items-start pb-10 min-h-screen -mt-8`}
           >
             {!isCreatingTemplate && <NewExerciseBtn />}
 

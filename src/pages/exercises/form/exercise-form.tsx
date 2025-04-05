@@ -4,15 +4,15 @@ import {
   MuscleGroupData,
   TagCategory,
   MuscleGroupName,
-} from "../../../../../utils/types/exercise-types";
-import { getColorClassForTagCategory } from "../../../../../utils/tag-colors";
-import { ExerciseCard } from "../../../../../components/exercise/exercise-card";
-import { Input } from "../../../../../components/forms/input";
-import { Select } from "../../../../../components/forms/select";
-import { MuscleGroupSelect } from "../../../../../components/forms/muscle-group-select";
-import { TextArea } from "../../../../../components/forms/text-area";
+} from "../../../utils/types/exercise-types";
+import { getColorClassForTagCategory } from "../../../utils/tag-colors";
+import { ExerciseCard } from "../../../components/exercise/exercise-card";
+import { Input } from "../../../components/forms/input";
+import { Select } from "../../../components/forms/select";
+import { MuscleGroupSelect } from "../../../components/forms/muscle-group-select";
+import { TextArea } from "../../../components/forms/text-area";
 import MuscleGroupTree from "./muscle-group-tree";
-import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
+import { RenderSvg } from "../../../components/pixel-art/render-svg";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;

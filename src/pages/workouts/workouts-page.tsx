@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "../../../../hooks/user/use-context";
-import { useEffect, useState } from "react";
-import { fetchTemplates } from "../../../../api/templates/fetch-templates";
-import { Template } from "../../../../utils/types/template-types";
-import { TemplateExercise } from "../../../../utils/types/exercise-types";
-import { ExerciseCard } from "../../../../components/exercise/exercise-card";
+import { useUser } from "../../hooks/user/use-context";
+import { useEffect } from "react";
+import { useState } from "react";
+import { fetchTemplates } from "../../api/templates/fetch-templates";
+import { Template } from "../../utils/types/template-types";
+import { TemplateExercise } from "../../utils/types/exercise-types";
+import { ExerciseCard } from "../../components/exercise/exercise-card";
 
 export const WorkoutsPage = () => {
   const { user } = useUser() || {};

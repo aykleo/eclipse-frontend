@@ -1,19 +1,14 @@
 import React, { useRef, useState, Suspense, useCallback } from "react";
-
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { fetchMuscleGroups } from "../../../../api/exercises/fetch-muscle-groups";
-import { ExerciseFormData } from "../../../../api/exercises/fetch-create-update-exercise";
-import {
-  handleExerciseUpdate,
-  ExerciseUpdateResult,
-} from "../../../../api/exercises/exercise-update";
-import {
-  handleExerciseCreation,
-  ExerciseCreationResult,
-} from "../../../../api/exercises/exercise-creation";
-import { useStatus } from "../../../../hooks/status/status-context";
-import { useUser } from "../../../../hooks/user/use-context";
-import { useExerciseState } from "../../../../hooks/exercises/exercise-context";
+import { useExerciseState } from "../../hooks/exercises/exercise-context";
+import { ExerciseCreationResult } from "../../api/exercises/exercise-creation";
+import { ExerciseUpdateResult } from "../../api/exercises/exercise-update";
+import { ExerciseFormData } from "../../api/exercises/fetch-create-update-exercise";
+import { fetchMuscleGroups } from "../../api/exercises/fetch-muscle-groups";
+import { useUser } from "../../hooks/user/use-context";
+import { useStatus } from "../../hooks/status/status-context";
+import { handleExerciseCreation } from "../../api/exercises/exercise-creation";
+import { handleExerciseUpdate } from "../../api/exercises/exercise-update";
 
 const ExerciseForm = React.lazy(() => import("./form/exercise-form"));
 

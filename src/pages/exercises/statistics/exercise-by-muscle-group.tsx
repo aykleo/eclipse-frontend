@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { handleExerciseByMuscleGroup } from "../../../../../api/statistics/exercises/exercise-by-msucle-group";
+import { handleExerciseByMuscleGroup } from "../../../api/statistics/exercises/exercise-by-msucle-group";
 import { useLayoutEffect, useRef, useEffect, useState } from "react";
 import * as echarts from "echarts";
 import { useDebounce } from "use-debounce";
 import { useSearchParams } from "react-router-dom";
 import { MessageCircleQuestionIcon } from "lucide-react";
-import { useUser } from "../../../../../hooks/user/use-context";
+import { useUser } from "../../../hooks/user/use-context";
 
 export default function ExerciseByMuscleGroup() {
   const [searchParams, setSearchParams] = useSearchParams();

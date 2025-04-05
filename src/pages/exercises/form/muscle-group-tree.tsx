@@ -1,6 +1,6 @@
 import React from "react";
-import { MuscleGroupData } from "../../../../../utils/types/exercise-types";
-import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
+import { MuscleGroupData } from "../../../utils/types/exercise-types";
+import { RenderSvg } from "../../../components/pixel-art/render-svg";
 
 interface MuscleGroupTreeProps {
   muscleGroupData: MuscleGroupData[];

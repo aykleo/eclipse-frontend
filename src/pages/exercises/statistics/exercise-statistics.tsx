@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { ExerciseByTagBar } from "./exercise-by-tag-bars";
 import { ExerciseByTagPie } from "./exercise-by-tag-pie";
-import { handleExerciseByTag } from "../../../../../api/statistics/exercises/exercise-by-tag";
-import { useUser } from "../../../../../hooks/user/use-context";
-import { isExerciseByTagData } from "../../../../../utils/exercise-by-tag-data";
+import { handleExerciseByTag } from "../../../api/statistics/exercises/exercise-by-tag";
+import { useUser } from "../../../hooks/user/use-context";
+import { isExerciseByTagData } from "../../../utils/exercise-by-tag-data";
 import ExerciseByMuscleGroup from "./exercise-by-muscle-group";
 
 export const ExerciseStatistics = () => {

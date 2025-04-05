@@ -20,25 +20,22 @@ import {
   arrayMove,
   sortableKeyboardCoordinates,
 } from "@dnd-kit/sortable";
-import { DesktopTemplateItem } from "../../template/desktop-template-item";
+import { DesktopTemplateItem } from "../template/desktop-template-item";
 import { useMutation } from "@tanstack/react-query";
 import {
   handleTemplateCreation,
   TemplateCreationResult,
-} from "../../../../../api/templates/template-creation";
-import { TemplateFormData } from "../../../../../api/templates/fetch-create-update-template";
-import { useStatus } from "../../../../../hooks/status/status-context";
-import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
-import {
-  Exercise,
-  TagCategory,
-} from "../../../../../utils/types/exercise-types";
+} from "../../../api/templates/template-creation";
+import { TemplateFormData } from "../../../api/templates/fetch-create-update-template";
+import { useStatus } from "../../../hooks/status/status-context";
+import { RenderSvg } from "../../../components/pixel-art/render-svg";
+import { Exercise, TagCategory } from "../../../utils/types/exercise-types";
 import {
   getColorBackgroundForTagCategory,
   getColorClassForTagCategory,
-} from "../../../../../utils/tag-colors";
-import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
-import { TemplateItem } from "../../../../../utils/types/template-types";
+} from "../../../utils/tag-colors";
+import { useExerciseState } from "../../../hooks/exercises/exercise-context";
+import { TemplateItem } from "../../../utils/types/template-types";
 
 interface TemplateCreationListProps {
   exercises: TemplateItem[];

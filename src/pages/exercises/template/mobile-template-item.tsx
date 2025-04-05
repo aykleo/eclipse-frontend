@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { RenderPng } from "../../../../components/pixel-art/render-png";
-import { TextArea } from "../../../../components/forms/text-area";
-import { RenderSvg } from "../../../../components/pixel-art/render-svg";
+import { RenderPng } from "../../../components/pixel-art/render-png";
+import { TextArea } from "../../../components/forms/text-area";
+import { RenderSvg } from "../../../components/pixel-art/render-svg";
 
 interface MobileTemplateItemProps {
   exerciseId: string;

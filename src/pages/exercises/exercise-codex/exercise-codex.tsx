@@ -1,19 +1,19 @@
 import { lazy, useCallback, useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Exercise } from "../../../../../utils/types/exercise-types";
-import { useUser } from "../../../../../hooks/user/use-context";
-import { fetchExercises } from "../../../../../api/exercises/fetch-exercises";
+import { Exercise } from "../../../utils/types/exercise-types";
+import { useUser } from "../../../hooks/user/use-context";
+import { fetchExercises } from "../../../api/exercises/fetch-exercises";
 import { DeleteExerciseModal } from "../delete-modal";
-import { ExerciseCard } from "../../../../../components/exercise/exercise-card";
+import { ExerciseCard } from "../../../components/exercise/exercise-card";
 import { CodexSelector } from "./codex-selector";
 import React from "react";
 import { CardCounter } from "./card-counter";
-import { ExerciseCategory } from "../../../../../utils/codex-selector-categories";
+import { ExerciseCategory } from "../../../utils/codex-selector-categories";
 import { CardList } from "./card-list";
-import { RenderPng } from "../../../../../components/pixel-art/render-png";
-import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
+import { RenderPng } from "../../../components/pixel-art/render-png";
+import { useExerciseState } from "../../../hooks/exercises/exercise-context";
 import { useSearchParams } from "react-router-dom";
-import { TemplateItem } from "../../../../../utils/types/template-types";
+import { TemplateItem } from "../../../utils/types/template-types";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
@@ -155,7 +155,7 @@ export const ExerciseCodex = React.memo(() => {
 
   return (
     <div className="relative w-full h-max flex-col flex items-center gap-y-0.5 bg-transparent justify-start">
-      <div className="w-full fixed z-49">
+      <div className="w-full fixed z-49 mt-16">
         <CodexSelector
           handleTabClick={handleTabClick}
           setSearchParams={setSearchParams}

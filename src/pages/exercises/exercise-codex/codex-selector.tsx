@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
-import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
+import { RenderSvg } from "../../../components/pixel-art/render-svg";
 import {
   categoryIcons,
   ExerciseCategory,
-} from "../../../../../utils/codex-selector-categories";
-import { SearchInput } from "../../../../../components/search-input";
+} from "../../../utils/codex-selector-categories";
+import { SearchInput } from "../../../components/search-input";
 
 interface CategorySelectorProps {
   handleTabClick: (category: ExerciseCategory) => void;

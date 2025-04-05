@@ -1,5 +1,5 @@
-import { RenderPng } from "../../../../../components/pixel-art/render-png";
-import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
+import { RenderPng } from "../../../components/pixel-art/render-png";
+import { useExerciseState } from "../../../hooks/exercises/exercise-context";
 import React, { useRef } from "react";
 
 export const NewExerciseBtn = React.memo(() => {

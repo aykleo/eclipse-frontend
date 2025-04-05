@@ -1,6 +1,6 @@
-import { RenderSvg } from "../../../../../components/pixel-art/render-svg";
-import { useExerciseState } from "../../../../../hooks/exercises/exercise-context";
-import { TemplateItem } from "../../../../../utils/types/template-types";
+import { RenderSvg } from "../../../components/pixel-art/render-svg";
+import { useExerciseState } from "../../../hooks/exercises/exercise-context";
+import { TemplateItem } from "../../../utils/types/template-types";
 
 interface CardCounterProps {
   templateExercises: TemplateItem[];
