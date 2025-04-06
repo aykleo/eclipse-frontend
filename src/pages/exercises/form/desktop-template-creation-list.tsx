@@ -212,6 +212,7 @@ const TemplateCreationList = React.memo(
       } else {
         const formData = {
           templateId: templateForUpdate.id,
+
           name: templateNameRef.current,
           exercises: exercises.map((exercise) => ({
             exerciseId: exercise.exerciseId,

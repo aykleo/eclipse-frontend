@@ -48,7 +48,6 @@ export const TemplatesCodex = React.memo(
                   <div
                     onClick={() => {
                       setSelectedTemplate(workout);
-                      console.log(workout);
                     }}
                     className="relative w-[192px] md:h-[256px] cursor-pointer hover:scale-105 transition-all duration-300"
                   >

@@ -147,7 +147,6 @@ export const DesktopTemplateItem: React.FC<DesktopTemplateItemProps> = ({
           type="button"
           onClick={() => {
             showExerciseInfoById(exerciseId);
-            console.log("exerciseId", exerciseId);
           }}
           className="size-[22px] absolute right-16 top-1/2 -translate-y-1/2 cursor-pointer transition-all filter brightness-50 duration-200 hover:filter hover:brightness-110"
         >

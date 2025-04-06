@@ -172,7 +172,7 @@ export const ExerciseCodex = React.memo(() => {
 
   const showExerciseInfoById = (exerciseId: string) => {
     const exercise = templateExercisesHashTable.current[exerciseId];
-    console.log("exercise", exercise);
+
     if (exercise && setShowExerciseInfo) {
       setShowExerciseInfo(exercise);
     }
