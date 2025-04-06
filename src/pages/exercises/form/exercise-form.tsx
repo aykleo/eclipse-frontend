@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useState } from "react";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import {
   Exercise,
   MuscleGroupData,
@@ -43,7 +43,6 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
     primaryMuscleGroupId,
     muscleGroupIds,
     isLoading,
-
     handleSubmit,
     handlePrimaryMuscleGroup,
     handleMuscleGroupIds,
@@ -92,12 +91,15 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
       workouts: exerciseForUpdate?.workouts || [],
       deletedAt: exerciseForUpdate?.deletedAt || undefined,
     };
-
+    const h1Ref = useRef<HTMLHeadingElement>(null);
     useEffect(() => {
-      if (formRef.current) {
-        formRef.current.scrollIntoView({ behavior: "smooth" });
+      if (h1Ref.current) {
+        h1Ref.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
       }
-    }, [formRef]);
+    }, [h1Ref]);
 
     return (
       <div className="form-control relative w-full flex flex-col px-6 justify-between h-full py-2">
@@ -110,6 +112,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
           <div className="text-4xl py-2 font-bold flex flex-col gap-y-1 w-full px-2">
             <div className="flex w-full flex-row items-center justify-between relative">
               <h1
+                ref={h1Ref}
                 className={`${
                   exerciseForUpdate
                     ? getColorClassForTagCategory(

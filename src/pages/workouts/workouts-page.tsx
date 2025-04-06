@@ -47,6 +47,7 @@ export const WorkoutsPage = () => {
           currentPage={currentPage}
           totalPages={totalPages}
           setCurrentPage={setCurrentPage}
+          selectedTemplate={selectedTemplate}
         />
       </div>
 
