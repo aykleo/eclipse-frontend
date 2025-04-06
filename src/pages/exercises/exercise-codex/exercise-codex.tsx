@@ -155,7 +155,7 @@ export const ExerciseCodex = React.memo(() => {
   };
 
   return (
-    <div className="relative w-full h-max flex-col flex items-center gap-y-0.5 bg-transparent justify-start">
+    <div className="relative w-full h-max flex-col flex items-center gap-y-0.5 justify-start">
       <div className="w-full fixed z-49 mt-16">
         <CodexSelector
           handleTabClick={handleTabClick}

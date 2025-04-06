@@ -15,7 +15,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { showExerciseInfo } = useExerciseState();
 
   return (
-    <div className="bg-gradient-to-tl bg-black min-h-screen font-pixelify">
+    <div className="bg-black font-pixelify">
       <Navbar />
       {/* Fixed background element */}
       <div className="fixed inset-0 z-0 pointer-events-none">

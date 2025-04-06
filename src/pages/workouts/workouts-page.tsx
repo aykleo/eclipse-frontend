@@ -6,8 +6,10 @@ import { fetchTemplates } from "../../api/templates/fetch-templates";
 import { TemplatesCodex } from "./templates-codex/templates-codex";
 import { useSearchParams } from "react-router-dom";
 import { TemplatesCodexSelector } from "./templates-codex/codex-selector";
+import { useExerciseState } from "../../hooks/exercises/exercise-context";
 
 export const WorkoutsPage = () => {
+  const { showExerciseInfo } = useExerciseState();
   const { user } = useUser() || {};
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -32,7 +34,7 @@ export const WorkoutsPage = () => {
   }, [templatesData]);
 
   return (
-    <div className="size-full mt-16">
+    <div className={`${showExerciseInfo ? "hidden" : ""} size-full mt-16`}>
       <div className="w-full fixed z-49">
         <TemplatesCodexSelector
           setSearchParams={setSearchParams}

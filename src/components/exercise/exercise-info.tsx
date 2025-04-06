@@ -27,7 +27,7 @@ export const ExerciseInfo = () => {
   return (
     <>
       {showExerciseInfo && (
-        <div className="absolute inset-0 z-99 flex items-center top-16 pt-4 md:pt-20 h-max justify-center bg-black">
+        <div className="absolute inset-0 z-99 flex items-center top-16 pt-4 md:pt-20 h-max md:h-full justify-center bg-black/85">
           <div
             className="flex flex-col items-start justify-center gap-4 md:flex-row cursor-default h-full w-full relative"
             onClick={(e) => e.stopPropagation()}
