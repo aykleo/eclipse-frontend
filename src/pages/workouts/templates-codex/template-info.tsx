@@ -82,20 +82,31 @@ const TemplateInfo = React.memo(
             categoryCounts={calculateCategoryCounts(template)}
           />
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-y-4 justify-items-center items-start w-full">
+        <div className="grid grid-cols-2  lg:grid-cols-3 2xl:grid-cols-4 gap-y-4 justify-items-center items-start w-full">
           {template.exercises
             .slice()
             .sort(
               (a: TemplateExercise, b: TemplateExercise) => a.order - b.order
             )
             .map((exercise: TemplateExercise) => (
-              <div key={exercise.exercise.id}>
-                {exercise.order}
-                <ExerciseCard exercise={exercise.exercise} />
+              <div
+                key={exercise.exercise.id}
+                className="flex flex-col md:flex-row gap-2 items-center h-full"
+              >
+                <div className="relative">
+                  <div className="absolute top-0 right-0 size-8 bg-white text-black text-center z-2">
+                    {exercise.order}
+                  </div>
+                  <ExerciseCard exercise={exercise.exercise} />
+                </div>
                 {!exercise.notes ? (
-                  <span>No notes</span>
+                  <span className="text-center md:h-full md:w-52 w-full p-2 h-max overflow-y-auto md:max-h-64 max-h-40">
+                    No notes
+                  </span>
                 ) : (
-                  <span>{exercise.notes}</span>
+                  <span className="text-center md:h-full md:w-52 w-full p-2 h-max overflow-y-auto no-scrollbar md:max-h-64 max-h-40">
+                    {exercise.notes}
+                  </span>
                 )}
               </div>
             ))}
