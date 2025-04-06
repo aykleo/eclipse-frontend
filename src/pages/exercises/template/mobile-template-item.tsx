@@ -99,7 +99,7 @@ export const MobileTemplateItem = React.memo(
               </div>
               <TextArea
                 value={notes}
-                onChange={(e) => onUpdateNotes(exerciseId, e.target.value)}
+                onChange={(e) => onUpdateNotes(e.target.value, exerciseId)}
                 className=""
                 placeholder="Add notes..."
               />

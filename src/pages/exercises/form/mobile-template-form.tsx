@@ -27,9 +27,11 @@ import {
 import { RenderSvg } from "../../../components/pixel-art/render-svg";
 import { Input } from "../../../components/forms/input";
 import { useExerciseState } from "../../../hooks/exercises/exercise-context";
-import { TemplateItem } from "../../../utils/types/template-types";
+import { Template, TemplateItem } from "../../../utils/types/template-types";
 import { CategoryCounterHorizontal } from "../../../components/statistics/exercises/category-counter-horizontal";
 import { CategoryCounts } from "../../../components/statistics/exercises/category-counts-type";
+import { useTemplate } from "../../../hooks/templates/template-context";
+import { handleTemplateUpdate } from "../../../api/templates/template-update";
 interface MobileTemplateFormProps {
   templateExercises: TemplateItem[];
   setTemplateExercises: React.Dispatch<React.SetStateAction<TemplateItem[]>>;
@@ -37,6 +39,7 @@ interface MobileTemplateFormProps {
   onRemoveExercise: (exerciseId: string) => void;
   showExerciseInfoById: (exerciseId: string) => void;
   templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>;
+  templateForUpdate?: Template | null;
 }
 
 const MobileTemplateForm = React.memo(
@@ -47,6 +50,7 @@ const MobileTemplateForm = React.memo(
     onRemoveExercise,
     showExerciseInfoById,
     templateExercisesHashTable,
+    templateForUpdate,
   }: MobileTemplateFormProps) => {
     const [templateName, setTemplateName] = useState<string>("");
     const [showNameInput, setShowNameInput] = useState<boolean>(false);
@@ -55,6 +59,7 @@ const MobileTemplateForm = React.memo(
     const formRef = useRef<HTMLFormElement>(null);
     const { setStatusText } = useStatus();
     const { setIsCreatingTemplate } = useExerciseState();
+    const { setTemplateForUpdate } = useTemplate();
     const [categoryCounts, setCategoryCounts] = useState<CategoryCounts>({
       "": 0,
       ENDURANCE: 0,
@@ -62,6 +67,12 @@ const MobileTemplateForm = React.memo(
       PLYOMETRICS: 0,
       STRENGTH: 0,
     });
+
+    useEffect(() => {
+      if (templateForUpdate) {
+        setTemplateName(templateForUpdate.name);
+      }
+    }, [templateForUpdate]);
 
     const sensors = useSensors(
       useSensor(PointerSensor),
@@ -102,6 +113,7 @@ const MobileTemplateForm = React.memo(
           return () => clearTimeout(timeout);
         }
         setTemplateName("");
+        setIsCreatingTemplate(false);
         onRemoveExercise("all");
         setShowNameInput(false);
         if (formRef.current) {
@@ -115,20 +127,72 @@ const MobileTemplateForm = React.memo(
       },
     });
 
+    const updateTemplateMutation = useMutation({
+      mutationFn: async ({
+        formData,
+        templateForUpdateId,
+      }: {
+        formData: TemplateFormData;
+        templateForUpdateId: string;
+      }) => {
+        return await handleTemplateUpdate(
+          formData,
+          setIsLoading,
+          templateForUpdateId
+        );
+      },
+      onSuccess: (response: TemplateCreationResult) => {
+        if (!response.success) {
+          setStatusText(`${response.error}`);
+          const timeout = setTimeout(() => {
+            setStatusText(null);
+          }, 3000);
+          return () => clearTimeout(timeout);
+        }
+        setTemplateName("");
+        setIsCreatingTemplate(false);
+        onRemoveExercise("all");
+        if (templateForUpdate) {
+          setTemplateForUpdate(null);
+        }
+        if (formRef.current) {
+          formRef.current.reset();
+        }
+        setStatusText(`${templateForUpdate?.name} updated successfully`);
+        const timeout = setTimeout(() => {
+          setStatusText(null);
+        }, 3000);
+        return () => clearTimeout(timeout);
+      },
+    });
+
     const handleSubmit = async (event: React.FormEvent) => {
       event.preventDefault();
 
-      const formData = {
-        name: templateName,
-        exercises: templateExercises.map((exercise) => ({
-          exerciseId: exercise.exerciseId,
-          notes: exercise.notes || "",
-        })),
-      };
+      if (!templateForUpdate) {
+        const formData = {
+          name: templateName,
+          exercises: templateExercises.map((exercise) => ({
+            exerciseId: exercise.exerciseId,
+            notes: exercise.notes || "",
+          })),
+        };
 
-      const result = await createTemplateMutation.mutateAsync(formData);
-      if (result.success) {
-        setIsCreatingTemplate(false);
+        await createTemplateMutation.mutateAsync(formData);
+      } else {
+        const formData = {
+          templateId: templateForUpdate.id,
+          name: templateName,
+          exercises: templateExercises.map((exercise) => ({
+            exerciseId: exercise.exerciseId,
+            notes: exercise.notes || "",
+          })),
+        };
+
+        await updateTemplateMutation.mutateAsync({
+          formData,
+          templateForUpdateId: templateForUpdate.id,
+        });
       }
     };
 
@@ -325,7 +389,9 @@ const MobileTemplateForm = React.memo(
                     : "brightness-50"
                 } h-8 w-24 flex items-center justify-center cursor-pointer pb-0.5`}
               >
-                {isLoading ? "Creating..." : "Create"}
+                {templateForUpdate
+                  ? `${isLoading ? "Updating..." : "Update"}`
+                  : `${isLoading ? "Creating..." : "Create"}`}
               </RenderSvg>
             </button>
 
@@ -341,6 +407,9 @@ const MobileTemplateForm = React.memo(
                 e.preventDefault();
                 onRemoveExercise("all");
                 setTemplateName("");
+                if (templateForUpdate) {
+                  setTemplateForUpdate(null);
+                }
               }}
             >
               <RenderSvg

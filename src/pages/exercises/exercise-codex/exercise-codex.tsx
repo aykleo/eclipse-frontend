@@ -200,14 +200,26 @@ export const ExerciseCodex = React.memo(() => {
         {isCreatingTemplate && templateExercises && !showExerciseInfo && (
           <div className="fixed bottom-2 right-0 flex justify-center items-center z-100 lg:hidden w-full">
             <React.Suspense fallback={<div>Loading...</div>}>
-              <MobileTemplateForm
-                templateExercises={templateExercises}
-                setTemplateExercises={setTemplateExercises}
-                onUpdateNotes={onUpdateNotes}
-                onRemoveExercise={onRemoveExercise}
-                showExerciseInfoById={showExerciseInfoById}
-                templateExercisesHashTable={templateExercisesHashTable}
-              />
+              {!templateForUpdate ? (
+                <MobileTemplateForm
+                  templateExercises={templateExercises}
+                  setTemplateExercises={setTemplateExercises}
+                  onUpdateNotes={onUpdateNotes}
+                  onRemoveExercise={onRemoveExercise}
+                  showExerciseInfoById={showExerciseInfoById}
+                  templateExercisesHashTable={templateExercisesHashTable}
+                />
+              ) : (
+                <MobileTemplateForm
+                  templateExercises={templateExercises}
+                  setTemplateExercises={setTemplateExercises}
+                  onUpdateNotes={onUpdateNotes}
+                  onRemoveExercise={onRemoveExercise}
+                  showExerciseInfoById={showExerciseInfoById}
+                  templateExercisesHashTable={templateExercisesHashTable}
+                  templateForUpdate={templateForUpdate}
+                />
+              )}
             </React.Suspense>
           </div>
         )}

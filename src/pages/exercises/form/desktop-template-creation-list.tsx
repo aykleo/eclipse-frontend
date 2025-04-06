@@ -212,7 +212,6 @@ const TemplateCreationList = React.memo(
       } else {
         const formData = {
           templateId: templateForUpdate.id,
-
           name: templateNameRef.current,
           exercises: exercises.map((exercise) => ({
             exerciseId: exercise.exerciseId,
@@ -344,7 +343,7 @@ const TemplateCreationList = React.memo(
                   className="size-full cursor-pointer text-xl font-bold flex items-center justify-center pb-1 transition-all duration-200 filter brightness-75 hover:brightness-110"
                 >
                   {templateForUpdate
-                    ? `${isLoading ? "Updating..." : "Update"}`
+                    ? `${isLoading ? "Updating..." : "Update Workout"}`
                     : `${isLoading ? "Creating..." : "Create Workout"}`}
                 </RenderSvg>
               </button>
