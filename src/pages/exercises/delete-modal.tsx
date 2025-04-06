@@ -34,6 +34,9 @@ export const DeleteExerciseModal = () => {
       queryClient.invalidateQueries({
         queryKey: ["exerciseByMuscleGroup"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["templates"],
+      });
       setSearchParams({}, { replace: true });
       setShowExerciseInfo(undefined);
       setStatusText("Exercise deleted successfully");

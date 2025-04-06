@@ -5,6 +5,7 @@ import { useStatus } from "./hooks/status/status-context";
 import { StatusToast } from "./components/status-toast";
 import { ExerciseInfo } from "./components/exercise/exercise-info";
 import { useExerciseState } from "./hooks/exercises/exercise-context";
+import { BgEclipseCircle } from "./components/bg-eclipse-circle";
 type LayoutProps = {
   children: React.ReactNode;
 };
@@ -16,8 +17,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="bg-gradient-to-tl bg-black min-h-screen font-pixelify">
       <Navbar />
-      <div className="relative flex items-center justify-center h-full">
-        {/* <BgEclipseCircle /> */}
+      {/* Fixed background element */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <BgEclipseCircle />
+      </div>
+      <div className="relative flex items-center justify-center h-full z-10">
         {children}
       </div>
       {showExerciseInfo && <ExerciseInfo />}

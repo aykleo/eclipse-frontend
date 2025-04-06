@@ -45,14 +45,14 @@ export const CardList = React.memo(
       <div
         className={`${
           isCreatingExercise || exerciseForUpdate ? "hidden" : ""
-        } flex size-full relative bg-neutral-800 pt-16`}
+        } flex size-full relative bg-neutral-950/50 pt-16`}
       >
         <div
           className={`${
             isCreatingTemplate ? "w-full lg:w-3/4" : "w-full"
           }  h-full relative`}
         >
-          <div className="w-full lg:w-[calc(100%-1.5rem)] gap-x-2 pt-2 h-14 relative bg-transparent flex items-end justify-center">
+          <div className="w-full lg:w-[calc(100%-1.5rem)] gap-x-2 pt-2 h-14 relative flex items-end justify-center">
             <div className="w-1/3 h-full relative pt-2.5">
               <div className="w-full h-[2px] absolute bottom-[13px] bg-[#bfb7b7]" />
               <RenderSvg

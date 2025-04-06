@@ -1,7 +1,7 @@
 export const BgEclipseCircle = () => {
   return (
-    <div className="absolute h-full w-full py-10 overflow-hidden flex items-center justify-center">
-      <div className="relative flex opacity-2 h-full">
+    <div className="absolute h-full w-full py-20 overflow-hidden flex items-center justify-center">
+      <div className="relative flex opacity-5 h-full">
         <div className="font-medium text-4xl flex items-center justify-center size-96 rounded-full bg-black shadow-[1px_0px_10px_7px_rgba(255,255,255,1),-6px_-5px_5px_7px_rgba(255,255,255,0.1),0px_0px_50px_10px_rgba(255,0,0,0.8),0px_0px_15px_15px_rgba(255,0,0,1),inset_0px_0px_35px_2px_rgba(255,0,0,0.5)]"></div>
         {/* <>
           <div

@@ -51,10 +51,7 @@ export const TemplatesCodex = ({ templatesData }: TemplatesCodexProps) => {
     <>
       {templatesData &&
         templatesData.templates.map((workout: Template) => (
-          <div
-            key={workout.id}
-            className="flex flex-col gap-y-2 px-1 bg-neutral-800 py-4 relative"
-          >
+          <div key={workout.id} className="px-1 py-4 relative">
             <RenderSvg
               src="body/body-bot-4.svg"
               size="auto"
@@ -71,39 +68,40 @@ export const TemplatesCodex = ({ templatesData }: TemplatesCodexProps) => {
               className="absolute left-0 top-0 h-1 w-full"
               transform="rotate(180deg)"
             />
-            <span className="text-2xl font-bold text-white w-full text-center">
-              {workout.name}
-            </span>
-            <div className="flex flex-row justify-between h-max">
-              <div className="relative w-[192px] md:h-[256px]">
-                <RenderPng
-                  src="exercise-cards/card-backs/exercise-card-back-1.png"
-                  alt="card-bg"
-                  className="-mt-2 absolute top-0 md:top-5"
-                />
-                <RenderPng
-                  src="exercise-cards/card-backs/exercise-card-back-1.png"
-                  alt="card-bg"
-                  className="-mt-2 absolute -top-1 md:top-4"
-                />
-                <RenderPng
-                  src="exercise-cards/card-backs/exercise-card-back-1.png"
-                  alt="card-bg"
-                  className="-mt-2 absolute -top-2 md:top-3"
-                />
-              </div>
-              <div className="w-full h-48 md:hidden">
-                <CategoryCounterVertical
-                  categoryCounts={calculateCategoryCounts(workout)}
-                  hasCount={false}
-                />
-              </div>
-              <div className="hidden w-full md:grid grid-cols-2">
-                <CategoryCounterHorizontal
-                  categoryCounts={calculateCategoryCounts(workout)}
-                />
-              </div>
-              {/* {workout.exercises
+            <div className="size-full hover:bg-neutral-950/60 flex flex-col gap-y-2">
+              <span className="text-2xl font-bold text-white w-full text-center">
+                {workout.name}
+              </span>
+              <div className="flex flex-row justify-between h-max">
+                <div className="relative w-[192px] md:h-[256px]">
+                  <RenderPng
+                    src="exercise-cards/card-backs/exercise-card-back-1.png"
+                    alt="card-bg"
+                    className="-mt-2 absolute top-0 md:top-6"
+                  />
+                  <RenderPng
+                    src="exercise-cards/card-backs/exercise-card-back-1.png"
+                    alt="card-bg"
+                    className="-mt-2 absolute -top-1 md:top-4.5"
+                  />
+                  <RenderPng
+                    src="exercise-cards/card-backs/exercise-card-back-1.png"
+                    alt="card-bg"
+                    className="-mt-2 absolute -top-2 md:top-3"
+                  />
+                </div>
+                <div className="w-full h-48 md:hidden">
+                  <CategoryCounterVertical
+                    categoryCounts={calculateCategoryCounts(workout)}
+                    hasCount={false}
+                  />
+                </div>
+                <div className="hidden w-full md:grid grid-cols-2">
+                  <CategoryCounterHorizontal
+                    categoryCounts={calculateCategoryCounts(workout)}
+                  />
+                </div>
+                {/* {workout.exercises
               .slice()
               .sort(
                 (a: TemplateExercise, b: TemplateExercise) =>
@@ -115,6 +113,7 @@ export const TemplatesCodex = ({ templatesData }: TemplatesCodexProps) => {
                   <ExerciseCard exercise={exercise.exercise} />
                 </div>
               ))} */}
+              </div>
             </div>
           </div>
         ))}

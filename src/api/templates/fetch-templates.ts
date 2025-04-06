@@ -4,7 +4,8 @@ import { User } from "../../utils/types/user-types";
 export async function fetchTemplates(
   currentPage: number,
   pageSize: number,
-  user: User
+  user: User,
+  templateName?: string | ""
 ): Promise<{ templates: Template[]; totalPages: number }> {
   const controller = new AbortController();
   const signal = controller.signal;
@@ -12,6 +13,7 @@ export async function fetchTemplates(
   const queryParams = new URLSearchParams({
     page: currentPage.toString(),
     pageSize: pageSize.toString(),
+    templateName: templateName || "",
   });
 
   try {
