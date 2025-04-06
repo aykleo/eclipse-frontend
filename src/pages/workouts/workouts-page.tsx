@@ -9,9 +9,9 @@ import { TemplatesCodexSelector } from "./templates-codex/codex-selector";
 
 export const WorkoutsPage = () => {
   const { user } = useUser() || {};
-  const [currentPage] = useState(1);
-  const [, setTotalPages] = useState(0);
-  const pageSize = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const pageSize = 6;
   const [searchParams, setSearchParams] = useSearchParams();
   const templateName = searchParams.get("templateName") || "";
   const { data: templatesData } = useQuery({
@@ -34,10 +34,15 @@ export const WorkoutsPage = () => {
   return (
     <div className="size-full mt-16">
       <div className="w-full fixed z-49">
-        <TemplatesCodexSelector setSearchParams={setSearchParams} />
+        <TemplatesCodexSelector
+          setSearchParams={setSearchParams}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
 
-      <div className="size-screen flex flex-col lg:grid lg:grid-cols-2 pt-12 bg-neutral-950/50 py-1">
+      <div className="size-screen flex flex-col lg:grid lg:grid-cols-2 mt-10 bg-neutral-950/50 py-1">
         <TemplatesCodex templatesData={templatesData} />
       </div>
     </div>

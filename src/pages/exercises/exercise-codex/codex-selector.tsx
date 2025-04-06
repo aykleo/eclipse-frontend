@@ -75,7 +75,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
               ))}
             </div>
           </div>
-          <SearchInput setSearchTerm={setSearchTerm} />
+          <SearchInput width="w-1/2 lg:w-1/3" setSearchTerm={setSearchTerm} />
         </RenderSvg>
       </div>
     );
