@@ -6,8 +6,9 @@ import { CategoryCounterVertical } from "../../../components/statistics/exercise
 import { calculateCategoryCounts } from "../../../components/statistics/exercises/category-counts-type";
 import { CategoryCounterHorizontal } from "../../../components/statistics/exercises/category-counter-horizontal";
 import { useTemplate } from "../../../hooks/templates/template-context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useExerciseState } from "../../../hooks/exercises/exercise-context";
+import { DeleteModal } from "../../../components/modals/delete-modal";
 
 interface TemplateInfoProps {
   template: Template;
@@ -20,6 +21,7 @@ const TemplateInfo = React.memo(
     const navigate = useNavigate();
     const { setIsCreatingTemplate } = useExerciseState();
     const { setTemplateForUpdate } = useTemplate();
+    const [, setSearchParams] = useSearchParams();
 
     function updateTemplate() {
       navigate("/exercises");
@@ -37,7 +39,7 @@ const TemplateInfo = React.memo(
     }, [template]);
 
     return (
-      <div className="border size-full">
+      <div className="size-full">
         <div ref={templateRef}>
           {template.name}{" "}
           <div
@@ -49,6 +51,24 @@ const TemplateInfo = React.memo(
           </div>
           <div onClick={updateTemplate} className="text-white text-sm">
             update
+          </div>
+          <div
+            onClick={() => {
+              setSearchParams(
+                (prev) => {
+                  prev.set("templateId", template.id);
+                  prev.set("templateToDeleteName", template.name);
+                  return prev;
+                },
+                { replace: true }
+              );
+              const modal = document.getElementById(
+                "delete_template_modal"
+              ) as HTMLDialogElement;
+              modal?.showModal();
+            }}
+          >
+            delete
           </div>
         </div>
         <div className="w-full h-48 md:hidden">
@@ -80,6 +100,10 @@ const TemplateInfo = React.memo(
               </div>
             ))}
         </div>
+        <DeleteModal
+          type="template"
+          setSelectedTemplate={setSelectedTemplate}
+        />
       </div>
     );
   }

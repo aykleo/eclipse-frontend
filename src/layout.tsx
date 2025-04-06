@@ -6,7 +6,7 @@ import { StatusToast } from "./components/status-toast";
 import { ExerciseInfo } from "./components/exercise/exercise-info";
 import { useExerciseState } from "./hooks/exercises/exercise-context";
 import { BgEclipseCircle } from "./components/bg-eclipse-circle";
-import { DeleteExerciseModal } from "./pages/exercises/delete-modal";
+import { DeleteModal } from "./components/modals/delete-modal";
 type LayoutProps = {
   children: React.ReactNode;
 };
@@ -27,7 +27,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </div>
       {showExerciseInfo && <ExerciseInfo />}
       {statusText && <StatusToast statusText={statusText} />}
-      <DeleteExerciseModal />
+      <DeleteModal type="exercise" />
     </div>
   );
 };
