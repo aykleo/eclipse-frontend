@@ -1,12 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useUser } from "../../hooks/user/use-context";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, lazy, useEffect } from "react";
 import { fetchTemplates } from "../../api/templates/fetch-templates";
 import { TemplatesCodex } from "./templates-codex/templates-codex";
 import { useSearchParams } from "react-router-dom";
 import { TemplatesCodexSelector } from "./templates-codex/codex-selector";
 import { useExerciseState } from "../../hooks/exercises/exercise-context";
+import { Template } from "../../utils/types/template-types";
+
+const TemplateInfo = lazy(() => import("./templates-codex/template-info"));
 
 export const WorkoutsPage = () => {
   const { showExerciseInfo } = useExerciseState();
@@ -33,6 +35,10 @@ export const WorkoutsPage = () => {
     }
   }, [templatesData]);
 
+  const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
+    null
+  );
+
   return (
     <div className={`${showExerciseInfo ? "hidden" : ""} size-full mt-16`}>
       <div className="w-full fixed z-49">
@@ -44,9 +50,21 @@ export const WorkoutsPage = () => {
         />
       </div>
 
-      <div className="size-screen flex flex-col lg:grid lg:grid-cols-2 mt-10 bg-neutral-950/50 py-1">
-        <TemplatesCodex templatesData={templatesData} />
-      </div>
+      {!selectedTemplate ? (
+        <div className="size-screen flex flex-col lg:grid lg:grid-cols-2 mt-10 bg-neutral-950/50 py-1">
+          <TemplatesCodex
+            templatesData={templatesData}
+            setSelectedTemplate={setSelectedTemplate}
+          />
+        </div>
+      ) : (
+        <div className="min-h-screen flex flex-col mt-10 bg-neutral-950/50 py-1">
+          <TemplateInfo
+            template={selectedTemplate}
+            setSelectedTemplate={setSelectedTemplate}
+          />
+        </div>
+      )}
     </div>
   );
 };

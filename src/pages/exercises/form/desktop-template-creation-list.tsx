@@ -31,18 +31,20 @@ import { useStatus } from "../../../hooks/status/status-context";
 import { RenderSvg } from "../../../components/pixel-art/render-svg";
 import { Exercise } from "../../../utils/types/exercise-types";
 import { useExerciseState } from "../../../hooks/exercises/exercise-context";
-import { TemplateItem } from "../../../utils/types/template-types";
+import { Template, TemplateItem } from "../../../utils/types/template-types";
 import { CategoryCounterVertical } from "../../../components/statistics/exercises/category-counter-vertical";
 import { CategoryCounts } from "../../../components/statistics/exercises/category-counts-type";
+import { useTemplate } from "../../../hooks/templates/template-context";
+import { handleTemplateUpdate } from "../../../api/templates/template-update";
 
 interface TemplateCreationListProps {
   exercises: TemplateItem[];
   onUpdateNotes: (exerciseId: string, notes: string) => void;
   onRemoveExercise: (exerciseId: string) => void;
-
   setTemplateExercises: React.Dispatch<React.SetStateAction<TemplateItem[]>>;
   showExerciseInfoById: (exerciseId: string) => void;
   templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>;
+  templateForUpdate?: Template | null;
 }
 
 const TemplateCreationList = React.memo(
@@ -53,12 +55,14 @@ const TemplateCreationList = React.memo(
     setTemplateExercises,
     showExerciseInfoById,
     templateExercisesHashTable,
+    templateForUpdate,
   }: TemplateCreationListProps) => {
     const templateNameRef = useRef<string>("");
     const [isLoading, setIsLoading] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const { setStatusText } = useStatus();
     const { setIsCreatingTemplate } = useExerciseState();
+    const { setTemplateForUpdate } = useTemplate();
 
     const [categoryCounts, setCategoryCounts] = useState<CategoryCounts>({
       "": 0,
@@ -68,6 +72,12 @@ const TemplateCreationList = React.memo(
       STRENGTH: 0,
     });
     const [isOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+      if (templateForUpdate) {
+        templateNameRef.current = templateForUpdate.name;
+      }
+    }, [templateForUpdate]);
 
     const countCategories = (
       templateExercisesHashTable: RefObject<{ [key: string]: Exercise }>
@@ -148,18 +158,72 @@ const TemplateCreationList = React.memo(
       },
     });
 
+    const updateTemplateMutation = useMutation({
+      mutationFn: async ({
+        formData,
+        templateForUpdateId,
+      }: {
+        formData: TemplateFormData;
+        templateForUpdateId: string;
+      }) => {
+        return await handleTemplateUpdate(
+          formData,
+          setIsLoading,
+          templateForUpdateId
+        );
+      },
+      onSuccess: (response: TemplateCreationResult) => {
+        if (!response.success) {
+          setStatusText(`${response.error}`);
+          const timeout = setTimeout(() => {
+            setStatusText(null);
+          }, 3000);
+          return () => clearTimeout(timeout);
+        }
+        templateNameRef.current = "";
+        onRemoveExercise("all");
+        if (templateForUpdate) {
+          setTemplateForUpdate(null);
+        }
+        if (formRef.current) {
+          formRef.current.reset();
+        }
+        setStatusText(`${templateForUpdate?.name} updated successfully`);
+        const timeout = setTimeout(() => {
+          setStatusText(null);
+        }, 3000);
+        return () => clearTimeout(timeout);
+      },
+    });
+
     const handleSubmit = async (event: React.FormEvent) => {
       event.preventDefault();
 
-      const formData = {
-        name: templateNameRef.current,
-        exercises: exercises.map((exercise) => ({
-          exerciseId: exercise.exerciseId,
-          notes: exercise.notes || "",
-        })),
-      };
+      if (!templateForUpdate) {
+        const formData = {
+          name: templateNameRef.current,
+          exercises: exercises.map((exercise) => ({
+            exerciseId: exercise.exerciseId,
+            notes: exercise.notes || "",
+          })),
+        };
 
-      await createTemplateMutation.mutateAsync(formData);
+        await createTemplateMutation.mutateAsync(formData);
+      } else {
+        const formData = {
+          templateId: templateForUpdate.id,
+          name: templateNameRef.current,
+          exercises: exercises.map((exercise) => ({
+            exerciseId: exercise.exerciseId,
+            notes: exercise.notes || "",
+          })),
+        };
+
+        await updateTemplateMutation.mutateAsync({
+          formData,
+          templateForUpdateId: templateForUpdate.id,
+        });
+      }
     };
 
     return (
@@ -219,6 +283,7 @@ const TemplateCreationList = React.memo(
               type="text"
               name="name"
               onChange={(e) => (templateNameRef.current = e.target.value)}
+              defaultValue={templateForUpdate?.name || ""}
               className="h-8 pl-3 pt-1 font-bold text-xl input-sm bg-transparent w-10/12 absolute top-2 clean"
               placeholder="Workout name"
             />
@@ -277,13 +342,18 @@ const TemplateCreationList = React.memo(
                   position="center"
                   className="size-full cursor-pointer text-xl font-bold flex items-center justify-center pb-1 transition-all duration-200 filter brightness-75 hover:brightness-110"
                 >
-                  {isLoading ? "Creating..." : "Create Workout"}
+                  {templateForUpdate
+                    ? `${isLoading ? "Updating..." : "Update"}`
+                    : `${isLoading ? "Creating..." : "Create Workout"}`}
                 </RenderSvg>
               </button>
               <button
                 onClick={(e) => {
                   e.preventDefault();
                   onRemoveExercise("all");
+                  if (templateForUpdate) {
+                    setTemplateForUpdate(null);
+                  }
                 }}
                 className="h-full w-[calc(24*4px)] transition-all duration-200 filter brightness-75 hover:brightness-110"
               >

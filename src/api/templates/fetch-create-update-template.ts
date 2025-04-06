@@ -19,7 +19,7 @@ export const createOrUpdateTemplate = async (
       `${import.meta.env.VITE_ECLIPSE_DEV_API_URL}/workout/${
         !templateForUpdateId
           ? "create-template"
-          : `update-template/${formData.templateId!}`
+          : `update-template/${templateForUpdateId}`
       }`,
       {
         method: !templateForUpdateId ? "POST" : "PUT",

@@ -17,7 +17,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   }, [user, navigate]);
 
   if (user === undefined) {
-    return null;
+    navigate("/", { replace: true });
   }
 
   return <>{children}</>;

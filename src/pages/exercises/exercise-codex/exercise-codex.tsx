@@ -15,6 +15,7 @@ import { useExerciseState } from "../../../hooks/exercises/exercise-context";
 import { useSearchParams } from "react-router-dom";
 import { TemplateItem } from "../../../utils/types/template-types";
 import { RenderSvg } from "../../../components/pixel-art/render-svg";
+import { useTemplate } from "../../../hooks/templates/template-context";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
@@ -40,7 +41,7 @@ export const ExerciseCodex = React.memo(() => {
   const [templateExercises, setTemplateExercises] = useState<TemplateItem[]>(
     []
   );
-
+  const { templateForUpdate } = useTemplate();
   const templateExercisesHashTable = useRef<{ [key: string]: Exercise }>({});
 
   const { data: exerciseData, isLoading } = useQuery({
@@ -147,8 +148,31 @@ export const ExerciseCodex = React.memo(() => {
     }
   };
 
+  useEffect(() => {
+    if (templateForUpdate) {
+      setTemplateExercises([]);
+      templateExercisesHashTable.current = {};
+
+      templateForUpdate.exercises.forEach((exercise) => {
+        const { exercise: exerciseItem, notes } = exercise;
+
+        setTemplateExercises((prev) => [
+          ...prev,
+          {
+            exerciseId: exerciseItem.id,
+            notes: notes || "",
+            name: exerciseItem.name,
+          },
+        ]);
+
+        templateExercisesHashTable.current[exerciseItem.id] = exerciseItem;
+      });
+    }
+  }, [templateForUpdate, setTemplateExercises]);
+
   const showExerciseInfoById = (exerciseId: string) => {
     const exercise = templateExercisesHashTable.current[exerciseId];
+    console.log("exercise", exercise);
     if (exercise && setShowExerciseInfo) {
       setShowExerciseInfo(exercise);
     }

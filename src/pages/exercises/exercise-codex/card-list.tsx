@@ -5,6 +5,7 @@ import { useExerciseState } from "../../../hooks/exercises/exercise-context";
 import { RenderSvg } from "../../../components/pixel-art/render-svg";
 import { CodexPagination } from "./codex-pagination";
 import { NewExerciseBtn } from "./new-exercise-btn";
+import { useTemplate } from "../../../hooks/templates/template-context";
 
 const TemplateCreationList = lazy(
   () => import("../form/desktop-template-creation-list")
@@ -40,6 +41,7 @@ export const CardList = React.memo(
   }: CardListProps) => {
     const { isCreatingExercise, exerciseForUpdate, isCreatingTemplate } =
       useExerciseState();
+    const { templateForUpdate } = useTemplate();
 
     return (
       <div
@@ -130,7 +132,7 @@ export const CardList = React.memo(
             className={`overflow-y-auto ${
               isCreatingTemplate
                 ? "grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:px-10"
-                : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7 "
+                : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7"
             } h-full w-full no-scrollbar grid gap-y-2 justify-items-center items-start pb-10 min-h-screen -mt-8`}
           >
             {!isCreatingTemplate && <NewExerciseBtn />}
@@ -214,14 +216,26 @@ export const CardList = React.memo(
 
               <div className="absolute size-full top-0 right-0 flex justify-center items-center">
                 <React.Suspense fallback={<div>Loading...</div>}>
-                  <TemplateCreationList
-                    exercises={templateExercises}
-                    onUpdateNotes={onUpdateNotes}
-                    onRemoveExercise={onRemoveExercise}
-                    showExerciseInfoById={showExerciseInfoById}
-                    setTemplateExercises={setTemplateExercises}
-                    templateExercisesHashTable={templateExercisesHashTable}
-                  />
+                  {!templateForUpdate ? (
+                    <TemplateCreationList
+                      exercises={templateExercises}
+                      onUpdateNotes={onUpdateNotes}
+                      onRemoveExercise={onRemoveExercise}
+                      showExerciseInfoById={showExerciseInfoById}
+                      setTemplateExercises={setTemplateExercises}
+                      templateExercisesHashTable={templateExercisesHashTable}
+                    />
+                  ) : (
+                    <TemplateCreationList
+                      exercises={templateExercises}
+                      onUpdateNotes={onUpdateNotes}
+                      onRemoveExercise={onRemoveExercise}
+                      showExerciseInfoById={showExerciseInfoById}
+                      setTemplateExercises={setTemplateExercises}
+                      templateExercisesHashTable={templateExercisesHashTable}
+                      templateForUpdate={templateForUpdate}
+                    />
+                  )}
                 </React.Suspense>
               </div>
             </div>
