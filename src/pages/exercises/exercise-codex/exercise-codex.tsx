@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { Exercise } from "../../../utils/types/exercise-types";
 import { useUser } from "../../../hooks/user/use-context";
 import { fetchExercises } from "../../../api/exercises/fetch-exercises";
-import { DeleteExerciseModal } from "../delete-modal";
 import { ExerciseCard } from "../../../components/exercise/exercise-card";
 import { CodexSelector } from "./codex-selector";
 import React from "react";
@@ -298,7 +297,6 @@ export const ExerciseCodex = React.memo(() => {
         position="center"
         className="absolute bottom-0 h-1 w-full"
       />
-      <DeleteExerciseModal />
     </div>
   );
 });
