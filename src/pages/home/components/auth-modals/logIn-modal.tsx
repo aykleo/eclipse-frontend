@@ -1,7 +1,7 @@
 import { z } from "zod";
 import React, { useRef, useState } from "react";
 
-import { SpiningModal } from "../../../../components/modals/general-modal";
+import { GeneralModal } from "../../../../components/modals/general-modal";
 import { loginSchema } from "../../../../lib/validation/auth-schemas";
 import { logIn } from "../../../../api/user/log-in";
 import { useStatus } from "../../../../hooks/status/status-context";
@@ -55,7 +55,7 @@ export const LogInModal = () => {
   };
 
   return (
-    <SpiningModal
+    <GeneralModal
       id="login_modal"
       formRef={formRef as React.RefObject<HTMLFormElement>}
       handleSubmit={handleSubmit}
@@ -102,6 +102,6 @@ export const LogInModal = () => {
           )}
         </button>
       </div>
-    </SpiningModal>
+    </GeneralModal>
   );
 };

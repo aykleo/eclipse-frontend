@@ -36,7 +36,7 @@ export const TemplatesCodex = React.memo(
                       alt="card-pocket"
                       className="absolute top-0 size-full flex items-center justify-center"
                     />
-                    <span className="top-24 md:top-25 pl-4.5 pr-3.5 pt-1 h-8 truncate absolute text-xl font-bold text-neutral-900 w-full text-center">
+                    <span className="top-24 md:top-25 pl-4.5 pr-3.5 md:pl-5 md:pr-4 pt-1 h-8 truncate absolute text-xl font-bold text-neutral-950 w-full text-center">
                       {workout.name}
                     </span>
                   </div>

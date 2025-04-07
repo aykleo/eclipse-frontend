@@ -23,7 +23,7 @@ export const BodyGeneral = ({ children, className }: BodyGeneralProps) => {
         size="auto"
         repeat="repeat-x"
         position="center"
-        className="absolute left-[5px] top-0 h-1 w-[calc(100%-11px)]"
+        className="absolute left-[5px] top-0 h-1 w-[calc(100%-10px)]"
         transform="rotate(180deg)"
       />
       {/* Right border */}
