@@ -16,9 +16,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { showExerciseInfo } = useExerciseState();
 
   return (
-    <div className="bg-black font-pixelify">
+    <div className="bg-black font-pixelify min-h-screen">
       <Navbar />
-      {/* Fixed background element */}
+
       <div className="fixed inset-0 z-0 pointer-events-none">
         <BgEclipseCircle />
       </div>

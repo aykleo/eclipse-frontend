@@ -9,6 +9,7 @@ import { useTemplate } from "../../../hooks/templates/template-context";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useExerciseState } from "../../../hooks/exercises/exercise-context";
 import { DeleteModal } from "../../../components/modals/delete-modal";
+import { RenderSvg } from "../../../components/pixel-art/render-svg";
 
 interface TemplateInfoProps {
   template: Template;
@@ -94,9 +95,15 @@ const TemplateInfo = React.memo(
                 className="flex flex-col md:flex-row gap-2 items-center h-full"
               >
                 <div className="relative">
-                  <div className="absolute top-0 right-0 size-8 bg-white text-black text-center z-2">
+                  <RenderSvg
+                    src="exercise-cards/order-marker-32.svg"
+                    size="auto"
+                    repeat="no-repeat"
+                    position="center"
+                    className="absolute top-0.5 right-0 size-8 z-2 flex items-center justify-center filter brightness-80 text-xl"
+                  >
                     {exercise.order}
-                  </div>
+                  </RenderSvg>
                   <ExerciseCard exercise={exercise.exercise} />
                 </div>
                 {!exercise.notes ? (
