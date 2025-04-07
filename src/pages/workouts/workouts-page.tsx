@@ -11,13 +11,14 @@ import { useTemplate } from "../../hooks/templates/template-context";
 
 const TemplateInfo = lazy(() => import("./templates-codex/template-info"));
 
-export const WorkoutsPage = () => {
+const WorkoutsPage = () => {
   const { showExerciseInfo } = useExerciseState();
   const { user } = useUser() || {};
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const pageSize = 6;
   const [searchParams, setSearchParams] = useSearchParams();
+
   const { selectedTemplate } = useTemplate();
   const templateName = searchParams.get("templateName") || "";
   const { data: templatesData } = useQuery({
@@ -61,3 +62,5 @@ export const WorkoutsPage = () => {
     </div>
   );
 };
+
+export default WorkoutsPage;

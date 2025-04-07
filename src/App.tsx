@@ -2,8 +2,10 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/home/home";
 import { RedirectIfLoggedIn } from "./hooks/protected-route/redirect-if-logged-in";
 import { ProtectedRoute } from "./hooks/protected-route/protected-route";
-import { WorkoutsPage } from "./pages/workouts/workouts-page";
+import { lazy, Suspense } from "react";
 import { ExercisePage } from "./pages/exercises/exercise-page";
+
+const WorkoutsPage = lazy(() => import("./pages/workouts/workouts-page"));
 
 function App() {
   return (
@@ -30,7 +32,9 @@ function App() {
         path="/workouts"
         element={
           <ProtectedRoute>
-            <WorkoutsPage />
+            <Suspense fallback={<div>Loading...</div>}>
+              <WorkoutsPage />
+            </Suspense>
           </ProtectedRoute>
         }
       />

@@ -32,6 +32,8 @@ import { CategoryCounterHorizontal } from "../../../components/statistics/exerci
 import { CategoryCounts } from "../../../components/statistics/exercises/category-counts-type";
 import { useTemplate } from "../../../hooks/templates/template-context";
 import { handleTemplateUpdate } from "../../../api/templates/template-update";
+import { useNavigate } from "react-router-dom";
+
 interface MobileTemplateFormProps {
   templateExercises: TemplateItem[];
   setTemplateExercises: React.Dispatch<React.SetStateAction<TemplateItem[]>>;
@@ -59,7 +61,8 @@ const MobileTemplateForm = React.memo(
     const formRef = useRef<HTMLFormElement>(null);
     const { setStatusText } = useStatus();
     const { setIsCreatingTemplate } = useExerciseState();
-    const { setTemplateForUpdate } = useTemplate();
+    const { setTemplateForUpdate, setSelectedTemplate } = useTemplate();
+    const navigate = useNavigate();
     const [categoryCounts, setCategoryCounts] = useState<CategoryCounts>({
       "": 0,
       ENDURANCE: 0,
@@ -154,6 +157,8 @@ const MobileTemplateForm = React.memo(
         onRemoveExercise("all");
         if (templateForUpdate) {
           setTemplateForUpdate(null);
+          setSelectedTemplate(null);
+          navigate("/workouts");
         }
         if (formRef.current) {
           formRef.current.reset();

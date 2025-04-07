@@ -3,6 +3,7 @@ import { ExerciseCard } from "./exercise-card";
 import { RenderSvg } from "../pixel-art/render-svg";
 import { useExerciseState } from "../../hooks/exercises/exercise-context";
 import { useSearchParams } from "react-router-dom";
+import { useTemplate } from "../../hooks/templates/template-context";
 
 export const ExerciseInfo = () => {
   const exerciseCardRef = useRef<HTMLDivElement>(null);
@@ -14,6 +15,7 @@ export const ExerciseInfo = () => {
     setShowExerciseInfo,
     isCreatingTemplate,
   } = useExerciseState();
+  const { selectedTemplate } = useTemplate();
 
   useEffect(() => {
     if (exerciseCardRef.current) {
@@ -27,7 +29,7 @@ export const ExerciseInfo = () => {
   return (
     <>
       {showExerciseInfo && (
-        <div className="absolute inset-0 z-99 flex items-center top-16 pt-4 md:pt-20 h-max md:h-full justify-center bg-black/85">
+        <div className="absolute inset-0 z-99 flex items-center top-16 pt-4 md:pt-20 h-max md:h-full justify-center bg-black">
           <div
             className="flex flex-col items-start justify-center gap-4 md:flex-row cursor-default h-full w-full relative"
             onClick={(e) => e.stopPropagation()}
@@ -50,63 +52,67 @@ export const ExerciseInfo = () => {
             >
               <ExerciseCard exercise={showExerciseInfo!} />
               <div className="flex flex-col md:flex-row gap-4">
-                {setSearchParams && !isCreatingTemplate && (
-                  <button
-                    disabled={
-                      showExerciseInfo.id === exerciseForUpdate?.id ||
-                      isCreatingTemplate
-                    }
-                    onClick={async () => {
-                      setSearchParams(
-                        (prev) => {
-                          prev.set("exerciseToDeleteId", showExerciseInfo.id);
-                          prev.set(
-                            "exerciseToDeleteName",
-                            showExerciseInfo.name
-                          );
-                          return prev;
-                        },
-                        { replace: true }
-                      );
-                      const modal = document.getElementById(
-                        "delete_exercise_modal"
-                      ) as HTMLDialogElement;
-                      modal?.showModal();
-                    }}
-                  >
-                    <RenderSvg
-                      src="buttons/btn-delete-open.svg"
-                      size="auto"
-                      repeat="no-repeat"
-                      className="h-8 w-16 cursor-pointer transition-all duration-200 filter brightness-100 hover:brightness-150"
-                      position="center"
-                    />
-                  </button>
-                )}
-                {setExerciseForUpdate && !isCreatingTemplate && (
-                  <button
-                    disabled={
-                      showExerciseInfo.id === exerciseForUpdate?.id ||
-                      isCreatingTemplate
-                    }
-                    onClick={() => {
-                      setExerciseForUpdate(showExerciseInfo);
-                      setShowExerciseInfo(undefined);
-
-                      if (showExerciseInfo.id === exerciseForUpdate?.id) {
-                        setExerciseForUpdate(null);
+                {setSearchParams &&
+                  !isCreatingTemplate &&
+                  !selectedTemplate && (
+                    <button
+                      disabled={
+                        showExerciseInfo.id === exerciseForUpdate?.id ||
+                        isCreatingTemplate
                       }
-                    }}
-                  >
-                    <RenderSvg
-                      src="buttons/btn-update-open.svg"
-                      size="auto"
-                      repeat="no-repeat"
-                      className="h-8 w-16 cursor-pointer transition-all duration-200 filter brightness-100 hover:brightness-150"
-                      position="center"
-                    />
-                  </button>
-                )}
+                      onClick={async () => {
+                        setSearchParams(
+                          (prev) => {
+                            prev.set("exerciseToDeleteId", showExerciseInfo.id);
+                            prev.set(
+                              "exerciseToDeleteName",
+                              showExerciseInfo.name
+                            );
+                            return prev;
+                          },
+                          { replace: true }
+                        );
+                        const modal = document.getElementById(
+                          "delete_exercise_modal"
+                        ) as HTMLDialogElement;
+                        modal?.showModal();
+                      }}
+                    >
+                      <RenderSvg
+                        src="buttons/btn-delete-open.svg"
+                        size="auto"
+                        repeat="no-repeat"
+                        className="h-8 w-16 cursor-pointer transition-all duration-200 filter brightness-100 hover:brightness-150"
+                        position="center"
+                      />
+                    </button>
+                  )}
+                {setExerciseForUpdate &&
+                  !isCreatingTemplate &&
+                  !selectedTemplate && (
+                    <button
+                      disabled={
+                        showExerciseInfo.id === exerciseForUpdate?.id ||
+                        isCreatingTemplate
+                      }
+                      onClick={() => {
+                        setExerciseForUpdate(showExerciseInfo);
+                        setShowExerciseInfo(undefined);
+
+                        if (showExerciseInfo.id === exerciseForUpdate?.id) {
+                          setExerciseForUpdate(null);
+                        }
+                      }}
+                    >
+                      <RenderSvg
+                        src="buttons/btn-update-open.svg"
+                        size="auto"
+                        repeat="no-repeat"
+                        className="h-8 w-16 cursor-pointer transition-all duration-200 filter brightness-100 hover:brightness-150"
+                        position="center"
+                      />
+                    </button>
+                  )}
               </div>
             </div>
             <div className="px-10 py-4 size-full md:w-max md:max-w-1/2 md:pt-8 text-white tracking-wide">

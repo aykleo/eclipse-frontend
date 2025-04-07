@@ -18,7 +18,7 @@ interface TemplateInfoProps {
 const TemplateInfo = React.memo(({ template }: TemplateInfoProps) => {
   const templateRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const { setIsCreatingTemplate } = useExerciseState();
+  const { setIsCreatingTemplate, setShowExerciseInfo } = useExerciseState();
   const { setTemplateForUpdate } = useTemplate();
   const [, setSearchParams] = useSearchParams();
   const { setSelectedTemplate } = useTemplate();
@@ -41,7 +41,7 @@ const TemplateInfo = React.memo(({ template }: TemplateInfoProps) => {
   return (
     <div className="size-full">
       <div ref={templateRef}>
-        {template.name}{" "}
+        {template.name}
         <div
           onClick={() => {
             setSelectedTemplate(null);
@@ -101,7 +101,13 @@ const TemplateInfo = React.memo(({ template }: TemplateInfoProps) => {
                 >
                   {index + 1}
                 </RenderSvg>
-                <ExerciseCard exercise={exercise.exercise} />
+                <div
+                  onClick={() => {
+                    setShowExerciseInfo(exercise.exercise);
+                  }}
+                >
+                  <ExerciseCard exercise={exercise.exercise} />
+                </div>
               </div>
               {!exercise.notes ? (
                 <span className="text-center md:h-full md:w-52 w-full p-2 h-max overflow-y-auto md:max-h-64 max-h-40">
