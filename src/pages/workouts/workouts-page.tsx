@@ -52,14 +52,14 @@ export const WorkoutsPage = () => {
       </div>
 
       {!selectedTemplate ? (
-        <div className="size-screen flex flex-col lg:grid lg:grid-cols-2 mt-10 bg-neutral-950/50 py-1">
+        <div className="size-screen flex flex-col lg:grid lg:grid-cols-2 px-2 lg:px-4 mt-10 py-1">
           <TemplatesCodex
             templatesData={templatesData}
             setSelectedTemplate={setSelectedTemplate}
           />
         </div>
       ) : (
-        <div className="min-h-screen flex flex-col mt-10 bg-neutral-950/50 py-1">
+        <div className="min-h-screen flex flex-col mt-10 py-1">
           <TemplateInfo
             template={selectedTemplate}
             setSelectedTemplate={setSelectedTemplate}

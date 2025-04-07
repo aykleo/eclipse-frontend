@@ -1,11 +1,10 @@
 import React from "react";
 import { calculateCategoryCounts } from "../../../components/statistics/exercises/category-counts-type";
-
 import { Template } from "../../../utils/types/template-types";
 import { RenderPng } from "../../../components/pixel-art/render-png";
-import { RenderSvg } from "../../../components/pixel-art/render-svg";
 import { CategoryCounterVertical } from "../../../components/statistics/exercises/category-counter-vertical";
 import { CategoryCounterHorizontal } from "../../../components/statistics/exercises/category-counter-horizontal";
+import { BodyGeneral } from "../../../components/body-general";
 
 interface TemplateData {
   templates: Template[];
@@ -23,61 +22,36 @@ export const TemplatesCodex = React.memo(
       <>
         {templatesData &&
           templatesData.templates.map((workout: Template) => (
-            <div key={workout.id} className="px-1 py-4 relative">
-              <RenderSvg
-                src="body/body-bot-4.svg"
-                size="auto"
-                repeat="repeat-x"
-                position="center"
-                className="absolute left-0 bottom-0 h-1 w-full"
-              />
-
-              <RenderSvg
-                src="body/body-bot-4.svg"
-                size="auto"
-                repeat="repeat-x"
-                position="center"
-                className="absolute left-0 top-0 h-1 w-full"
-                transform="rotate(180deg)"
-              />
-              <div className="size-full hover:bg-neutral-950/60 flex flex-col gap-y-2">
-                <span className="text-2xl font-bold text-white w-full text-center">
-                  {workout.name}
-                </span>
-                <div className="flex flex-row justify-between h-max">
+            <div key={workout.id} className="px-1 py-4">
+              <div className="size-full flex flex-col gap-y-2">
+                <div className="flex flex-row justify-between h-max items-center">
                   <div
                     onClick={() => {
                       setSelectedTemplate(workout);
                     }}
-                    className="relative w-[192px] md:h-[256px] cursor-pointer hover:scale-105 transition-all duration-300"
+                    className="relative w-[256px] h-[192px] cursor-pointer hover:scale-105 transition-all duration-300 z-2"
                   >
                     <RenderPng
-                      src="exercise-cards/card-backs/exercise-card-back-1.png"
-                      alt="card-bg"
-                      className="-mt-2 absolute top-0 md:top-6"
+                      src="exercise-cards/card-pocket-256.png"
+                      alt="card-pocket"
+                      className="absolute top-0 size-full flex items-center justify-center"
                     />
-                    <RenderPng
-                      src="exercise-cards/card-backs/exercise-card-back-1.png"
-                      alt="card-bg"
-                      className="-mt-2 absolute -top-1 md:top-4.5"
-                    />
-                    <RenderPng
-                      src="exercise-cards/card-backs/exercise-card-back-1.png"
-                      alt="card-bg"
-                      className="-mt-2 absolute -top-2 md:top-3"
-                    />
+                    <span className="top-24 md:top-25 pl-4.5 pr-3.5 pt-1 h-8 truncate absolute text-xl font-bold text-neutral-900 w-full text-center">
+                      {workout.name}
+                    </span>
                   </div>
-                  <div className="w-full h-48 md:hidden">
+                  <BodyGeneral className="w-full mt-3 -ml-4 h-36 md:hidden bg-gradient-to-b from-red-950/50 via-red-950/35  to-red-950/50">
                     <CategoryCounterVertical
                       categoryCounts={calculateCategoryCounts(workout)}
                       hasCount={false}
                     />
-                  </div>
-                  <div className="hidden w-full md:grid grid-cols-2">
+                  </BodyGeneral>
+
+                  <BodyGeneral className="pl-4 mt-3 -ml-4 hidden w-full h-36 md:grid grid-cols-2 bg-gradient-to-r from-red-950/50 via-red-950/35 to-red-950/50">
                     <CategoryCounterHorizontal
                       categoryCounts={calculateCategoryCounts(workout)}
                     />
-                  </div>
+                  </BodyGeneral>
                 </div>
               </div>
             </div>
