@@ -5,6 +5,7 @@ import { RenderPng } from "../../../components/pixel-art/render-png";
 import { CategoryCounterVertical } from "../../../components/statistics/exercises/category-counter-vertical";
 import { CategoryCounterHorizontal } from "../../../components/statistics/exercises/category-counter-horizontal";
 import { BodyGeneral } from "../../../components/body-general";
+import { useTemplate } from "../../../hooks/templates/template-context";
 
 interface TemplateData {
   templates: Template[];
@@ -13,11 +14,11 @@ interface TemplateData {
 
 interface TemplatesCodexProps {
   templatesData: TemplateData | undefined;
-  setSelectedTemplate: (template: Template) => void;
 }
 
 export const TemplatesCodex = React.memo(
-  ({ templatesData, setSelectedTemplate }: TemplatesCodexProps) => {
+  ({ templatesData }: TemplatesCodexProps) => {
+    const { setSelectedTemplate } = useTemplate();
     return (
       <>
         {templatesData &&

@@ -5,6 +5,8 @@ import { Template } from "../../utils/types/template-types";
 export interface TemplateContextType {
   templateForUpdate: Template | null;
   setTemplateForUpdate: (template: Template | null) => void;
+  selectedTemplate: Template | null;
+  setSelectedTemplate: (template: Template | null) => void;
 }
 
 export const TemplateContext = createContext<TemplateContextType | undefined>(

@@ -12,10 +12,15 @@ export const TemplateProvider: React.FC<TemplateProviderProps> = ({
   const [templateForUpdate, setTemplateForUpdate] = useState<Template | null>(
     null
   );
+  const [selectedTemplate, setSelectedTemplate] = useState<Template | null>(
+    null
+  );
 
   const value: TemplateContextType = {
     templateForUpdate,
     setTemplateForUpdate,
+    selectedTemplate,
+    setSelectedTemplate,
   };
 
   return (

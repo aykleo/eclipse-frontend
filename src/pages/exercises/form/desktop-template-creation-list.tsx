@@ -36,7 +36,7 @@ import { CategoryCounterVertical } from "../../../components/statistics/exercise
 import { CategoryCounts } from "../../../components/statistics/exercises/category-counts-type";
 import { useTemplate } from "../../../hooks/templates/template-context";
 import { handleTemplateUpdate } from "../../../api/templates/template-update";
-
+import { useNavigate } from "react-router-dom";
 interface TemplateCreationListProps {
   exercises: TemplateItem[];
   onUpdateNotes: (exerciseId: string, notes: string) => void;
@@ -62,7 +62,8 @@ const TemplateCreationList = React.memo(
     const formRef = useRef<HTMLFormElement>(null);
     const { setStatusText } = useStatus();
     const { setIsCreatingTemplate } = useExerciseState();
-    const { setTemplateForUpdate } = useTemplate();
+    const { setTemplateForUpdate, setSelectedTemplate } = useTemplate();
+    const navigate = useNavigate();
 
     const [categoryCounts, setCategoryCounts] = useState<CategoryCounts>({
       "": 0,
@@ -184,6 +185,8 @@ const TemplateCreationList = React.memo(
         onRemoveExercise("all");
         if (templateForUpdate) {
           setTemplateForUpdate(null);
+          setSelectedTemplate(null);
+          navigate("/workouts");
         }
         if (formRef.current) {
           formRef.current.reset();
