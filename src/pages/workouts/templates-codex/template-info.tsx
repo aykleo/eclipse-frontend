@@ -10,6 +10,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useExerciseState } from "../../../hooks/exercises/exercise-context";
 import { DeleteModal } from "../../../components/modals/delete-modal";
 import { RenderSvg } from "../../../components/pixel-art/render-svg";
+import { RenderPng } from "../../../components/pixel-art/render-png";
 
 interface TemplateInfoProps {
   template: Template;
@@ -91,23 +92,34 @@ const TemplateInfo = React.memo(({ template }: TemplateInfoProps) => {
               key={exercise.exercise.id}
               className="flex flex-col md:flex-row gap-2 items-center h-full"
             >
-              <div className="relative">
+              <div className="relative group">
                 <RenderSvg
                   src="exercise-cards/order-marker-32.svg"
                   size="auto"
                   repeat="no-repeat"
                   position="center"
-                  className="absolute top-0.5 right-0 size-8 z-2 flex items-center justify-center filter brightness-80 text-xl"
+                  className="absolute top-0.5 left-0 size-8 z-2 flex items-center justify-center filter brightness-80 text-xl"
                 >
                   {index + 1}
                 </RenderSvg>
-                <div
-                  onClick={() => {
-                    setShowExerciseInfo(exercise.exercise);
+                <button
+                  className="size-max z-1 absolute top-0 right-[-0.5rem]"
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (setShowExerciseInfo) {
+                      setShowExerciseInfo(exercise.exercise);
+                    }
                   }}
                 >
-                  <ExerciseCard exercise={exercise.exercise} />
-                </div>
+                  <RenderPng
+                    src="buttons/btn-info-48.png"
+                    alt="info-button"
+                    className={`size-[36px] block lg:hidden lg:group-hover:block cursor-pointer`}
+                    imgClassName="transition-all filter brightness-75 duration-200 hover:brightness-110"
+                  />
+                </button>
+                <ExerciseCard exercise={exercise.exercise} />
               </div>
               {!exercise.notes ? (
                 <span className="text-center md:h-full md:w-52 w-full p-2 h-max overflow-y-auto md:max-h-64 max-h-40">
