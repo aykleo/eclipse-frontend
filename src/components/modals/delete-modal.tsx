@@ -1,5 +1,5 @@
 import React from "react";
-import { SpiningModal } from "./spining-modal";
+import { GeneralModal } from "./general-modal";
 import { useRef } from "react";
 import { useStatus } from "../../hooks/status/status-context";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -8,6 +8,7 @@ import { useSearchParams } from "react-router-dom";
 import { useExerciseState } from "../../hooks/exercises/exercise-context";
 import { handleTemplateDeletion } from "../../api/templates/template-deletion";
 import { Template } from "../../utils/types/template-types";
+import { RenderSvg } from "../pixel-art/render-svg";
 
 interface DeleteModalProps {
   type: "exercise" | "template";
@@ -99,7 +100,7 @@ export const DeleteModal = ({
 
   return (
     <>
-      <SpiningModal
+      <GeneralModal
         id={`delete_${type}_modal`}
         formRef={formRef as React.RefObject<HTMLFormElement>}
         handleSubmit={async (event) => {
@@ -120,14 +121,25 @@ export const DeleteModal = ({
           <h2 className="text-gray-200 font-medium">
             Are you sure you want to delete
           </h2>
-          <p className="text-gray-300 text-center font-bold">
-            {selectedNameForDeletion} {"?"}
-          </p>
+          <div className="flex flex-row items-center justify-center gap-x-2">
+            <p className="text-red-400 text-center font-bold">
+              {selectedNameForDeletion}
+            </p>
+            <p className="text-gray-200 text-center font-bold">{"?"}</p>
+          </div>
         </div>
 
         <div className="flex flex-row w-full items-center justify-between p-2">
           <div className="form-control">
-            <button className="btn btn-error  hover:text-black">Delete</button>
+            <button>
+              <RenderSvg
+                src="buttons/btn-delete-open.svg"
+                size="auto"
+                repeat="no-repeat"
+                className="h-8 w-16 cursor-pointer transition-opacity duration-200 filter brightness-100 hover:brightness-150"
+                position="center"
+              />
+            </button>
           </div>
           <button
             onClick={(e) => {
@@ -138,12 +150,17 @@ export const DeleteModal = ({
               modal?.close();
               setSearchParams({}, { replace: true });
             }}
-            className="btn btn-outline btn-ghost hover:bg-neutral-950"
           >
-            Cancel
+            <RenderSvg
+              src="buttons/btn-cancel-open.svg"
+              size="auto"
+              repeat="no-repeat"
+              className="h-8 w-16 cursor-pointer transition-opacity duration-200 filter brightness-100 hover:brightness-150"
+              position="center"
+            />
           </button>
         </div>
-      </SpiningModal>
+      </GeneralModal>
     </>
   );
 };

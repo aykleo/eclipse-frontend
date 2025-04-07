@@ -1,7 +1,7 @@
 import { z } from "zod";
 import React, { useRef, useState } from "react";
 
-import { SpiningModal } from "../../../../components/modals/spining-modal";
+import { SpiningModal } from "../../../../components/modals/general-modal";
 import { registerSchema } from "../../../../lib/validation/auth-schemas";
 import { registerUser } from "../../../../api/user/register";
 import { useStatus } from "../../../../hooks/status/status-context";

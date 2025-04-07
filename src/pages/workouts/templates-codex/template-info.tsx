@@ -89,7 +89,7 @@ const TemplateInfo = React.memo(
             .sort(
               (a: TemplateExercise, b: TemplateExercise) => a.order - b.order
             )
-            .map((exercise: TemplateExercise) => (
+            .map((exercise: TemplateExercise, index: number) => (
               <div
                 key={exercise.exercise.id}
                 className="flex flex-col md:flex-row gap-2 items-center h-full"
@@ -102,7 +102,7 @@ const TemplateInfo = React.memo(
                     position="center"
                     className="absolute top-0.5 right-0 size-8 z-2 flex items-center justify-center filter brightness-80 text-xl"
                   >
-                    {exercise.order}
+                    {index + 1}
                   </RenderSvg>
                   <ExerciseCard exercise={exercise.exercise} />
                 </div>
