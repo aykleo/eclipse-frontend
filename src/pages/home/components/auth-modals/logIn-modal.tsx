@@ -25,28 +25,23 @@ export const LogInModal = () => {
         loginSchema.parse(formData);
       } catch (e) {
         if (e instanceof z.ZodError) {
-          setStatusText(e.errors.map((error) => error.message).join(", "));
-          const timeout = setTimeout(() => {
-            setStatusText(null);
-          }, 1000);
-          return () => clearTimeout(timeout);
+          setIsLoading(false);
+          return setStatusText(
+            e.errors.map((error) => error.message).join(", ")
+          );
         }
       }
 
       logIn(emailRef.current, setStatusText)
         .then(() => {
           setStatusText("Sign in link sent to your email");
-          const timeout = setTimeout(() => {
-            setStatusText(null);
-          }, 1000);
-          return () => clearTimeout(timeout);
+          const modal = document.getElementById(
+            "login_modal"
+          ) as HTMLDialogElement;
+          modal?.close();
         })
         .catch(() => {
           setStatusText("Server error. Please try again later.");
-          const timeout = setTimeout(() => {
-            setStatusText(null);
-          }, 1000);
-          return () => clearTimeout(timeout);
         })
         .finally(() => {
           setIsLoading(false);
