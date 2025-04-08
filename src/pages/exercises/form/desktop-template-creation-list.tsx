@@ -141,10 +141,7 @@ const TemplateCreationList = React.memo(
       onSuccess: (response: TemplateCreationResult) => {
         if (!response.success) {
           setStatusText(`${response.error}`);
-          const timeout = setTimeout(() => {
-            setStatusText(null);
-          }, 3000);
-          return () => clearTimeout(timeout);
+          return;
         }
         templateNameRef.current = "";
         onRemoveExercise("all");
@@ -152,10 +149,11 @@ const TemplateCreationList = React.memo(
           formRef.current.reset();
         }
         setStatusText("Workout created successfully");
-        const timeout = setTimeout(() => {
-          setStatusText(null);
-        }, 3000);
-        return () => clearTimeout(timeout);
+      },
+      onError: (error) => {
+        setStatusText(
+          error instanceof Error ? error.message : "An unknown error occurred"
+        );
       },
     });
 
@@ -176,10 +174,7 @@ const TemplateCreationList = React.memo(
       onSuccess: (response: TemplateCreationResult) => {
         if (!response.success) {
           setStatusText(`${response.error}`);
-          const timeout = setTimeout(() => {
-            setStatusText(null);
-          }, 3000);
-          return () => clearTimeout(timeout);
+          return;
         }
         templateNameRef.current = "";
         onRemoveExercise("all");
@@ -192,10 +187,11 @@ const TemplateCreationList = React.memo(
           formRef.current.reset();
         }
         setStatusText(`${templateForUpdate?.name} updated successfully`);
-        const timeout = setTimeout(() => {
-          setStatusText(null);
-        }, 3000);
-        return () => clearTimeout(timeout);
+      },
+      onError: (error) => {
+        setStatusText(
+          error instanceof Error ? error.message : "An unknown error occurred"
+        );
       },
     });
 

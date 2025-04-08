@@ -19,19 +19,13 @@ export const registerUser = async (
     );
 
     setStatusText("Please check your email to validate your account.");
-
-    const timeout = setTimeout(() => {
-      setStatusText(null);
-      const modal = document.getElementById(
-        "register_modal"
-      ) as HTMLDialogElement;
-      modal?.close();
-    }, 3000);
+    const modal = document.getElementById(
+      "register_modal"
+    ) as HTMLDialogElement;
+    modal?.close();
 
     emailRef = null;
     usernameRef = null;
-
-    return () => clearTimeout(timeout);
   } finally {
     controller.abort();
   }

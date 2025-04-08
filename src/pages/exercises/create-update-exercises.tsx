@@ -111,10 +111,7 @@ const CreateOrUpdateExercises: React.FC = React.memo(() => {
       if (!result || !result.success) {
         const errorMessage = result?.error || "Failed to update exercise";
         setStatusText(errorMessage);
-        const timeout = setTimeout(() => {
-          setStatusText(null);
-        }, 3000);
-        return () => clearTimeout(timeout);
+        return;
       }
 
       queryClient.invalidateQueries({
@@ -139,10 +136,11 @@ const CreateOrUpdateExercises: React.FC = React.memo(() => {
       setPrimaryMuscleGroupId("");
       setMuscleGroupIds([]);
       setStatusText("Exercise updated successfully");
-      const timeout = setTimeout(() => {
-        setStatusText(null);
-      }, 3000);
-      return () => clearTimeout(timeout);
+    },
+    onError: (error) => {
+      setStatusText(
+        error instanceof Error ? error.message : "An unknown error occurred"
+      );
     },
   });
 
@@ -153,10 +151,7 @@ const CreateOrUpdateExercises: React.FC = React.memo(() => {
     onSuccess: (result: ExerciseCreationResult) => {
       if (!result.success) {
         setStatusText(result.error || "Failed to create exercise");
-        const timeout = setTimeout(() => {
-          setStatusText(null);
-        }, 3000);
-        return () => clearTimeout(timeout);
+        return;
       }
 
       queryClient.invalidateQueries({
@@ -181,10 +176,11 @@ const CreateOrUpdateExercises: React.FC = React.memo(() => {
       setPrimaryMuscleGroupId("");
       setMuscleGroupIds([]);
       setStatusText("Exercise created successfully");
-      const timeout = setTimeout(() => {
-        setStatusText(null);
-      }, 3000);
-      return () => clearTimeout(timeout);
+    },
+    onError: (error) => {
+      setStatusText(
+        error instanceof Error ? error.message : "An unknown error occurred"
+      );
     },
   });
 

@@ -55,17 +55,9 @@ export const DeleteModal = ({
       setSearchParams({}, { replace: true });
       setShowExerciseInfo(undefined);
       setStatusText("Exercise deleted successfully");
-      const timeout = setTimeout(() => {
-        setStatusText(null);
-      }, 3000);
-      return () => clearTimeout(timeout);
     },
     onError: (error: Error) => {
       setStatusText(`${error.message}`);
-      const timeout = setTimeout(() => {
-        setStatusText(null);
-      }, 3000);
-      return () => clearTimeout(timeout);
     },
   });
 
@@ -84,17 +76,9 @@ export const DeleteModal = ({
       }
       setSearchParams({}, { replace: true });
       setStatusText("Template deleted successfully");
-      const timeout = setTimeout(() => {
-        setStatusText(null);
-      }, 3000);
-      return () => clearTimeout(timeout);
     },
     onError: (error: Error) => {
       setStatusText(`${error.message}`);
-      const timeout = setTimeout(() => {
-        setStatusText(null);
-      }, 3000);
-      return () => clearTimeout(timeout);
     },
   });
 

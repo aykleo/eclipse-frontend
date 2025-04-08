@@ -1,6 +1,5 @@
 export const logIn = async (
   emailRef: string | null,
-
   setStatusText: (statusText: string | null) => void
 ) => {
   const controller = new AbortController();
@@ -18,16 +17,10 @@ export const logIn = async (
     );
 
     setStatusText("Sign in link sent to your email");
-
-    const timeout = setTimeout(() => {
-      setStatusText(null);
-      const modal = document.getElementById("login_modal") as HTMLDialogElement;
-      modal?.close();
-    }, 2000);
+    const modal = document.getElementById("login_modal") as HTMLDialogElement;
+    modal?.close();
 
     emailRef = null;
-
-    return () => clearTimeout(timeout);
   } finally {
     controller.abort();
   }
