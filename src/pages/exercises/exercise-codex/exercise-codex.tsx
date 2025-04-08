@@ -15,6 +15,7 @@ import { useSearchParams } from "react-router-dom";
 import { TemplateItem } from "../../../utils/types/template-types";
 import { RenderSvg } from "../../../components/pixel-art/render-svg";
 import { useTemplate } from "../../../hooks/templates/template-context";
+import { SmallLoadingGif } from "../../../components/small-loading-gif";
 
 const CreateOrUpdateExercises = lazy(
   () => import("../create-update-exercises")
@@ -199,7 +200,13 @@ export const ExerciseCodex = React.memo(() => {
         </div>
         {isCreatingTemplate && templateExercises && !showExerciseInfo && (
           <div className="fixed bottom-2 right-0 flex justify-center items-center z-100 lg:hidden w-full">
-            <React.Suspense fallback={<div>Loading...</div>}>
+            <React.Suspense
+              fallback={
+                <div className="flex pb-12 items-center justify-center">
+                  <SmallLoadingGif />
+                </div>
+              }
+            >
               {!templateForUpdate ? (
                 <MobileTemplateForm
                   templateExercises={templateExercises}

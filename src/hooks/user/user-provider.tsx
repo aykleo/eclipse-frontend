@@ -4,7 +4,7 @@ import { UserContext } from "./use-context";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUser } from "../../api/user/fetch-user";
 import { useNavigate } from "react-router-dom";
-
+import { SmallLoadingGif } from "../../components/small-loading-gif";
 export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null | undefined>(undefined);
   const navigate = useNavigate();
@@ -36,7 +36,11 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }, [data, error, navigate]);
 
   if (isLoading) {
-    return <div>loading</div>;
+    return (
+      <div className="flex items-center justify-center w-screen h-screen overflow-hidden">
+        <SmallLoadingGif />
+      </div>
+    );
   }
 
   return (

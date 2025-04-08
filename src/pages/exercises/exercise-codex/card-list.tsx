@@ -6,6 +6,7 @@ import { RenderSvg } from "../../../components/pixel-art/render-svg";
 import { CodexPagination } from "./codex-pagination";
 import { NewExerciseBtn } from "./new-exercise-btn";
 import { useTemplate } from "../../../hooks/templates/template-context";
+import { SmallLoadingGif } from "../../../components/small-loading-gif";
 
 const TemplateCreationList = lazy(
   () => import("../form/desktop-template-creation-list")
@@ -217,7 +218,7 @@ export const CardList = React.memo(
               </div>
 
               <div className="absolute size-full top-0 right-0 flex justify-center items-center">
-                <React.Suspense fallback={<div>Loading...</div>}>
+                <React.Suspense fallback={<SmallLoadingGif />}>
                   {!templateForUpdate ? (
                     <TemplateCreationList
                       exercises={templateExercises}

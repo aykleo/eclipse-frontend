@@ -4,6 +4,7 @@ import { RedirectIfLoggedIn } from "./hooks/protected-route/redirect-if-logged-i
 import { ProtectedRoute } from "./hooks/protected-route/protected-route";
 import { lazy, Suspense } from "react";
 import { ExercisePage } from "./pages/exercises/exercise-page";
+import { SmallLoadingGif } from "./components/small-loading-gif";
 
 const WorkoutsPage = lazy(() => import("./pages/workouts/workouts-page"));
 
@@ -32,7 +33,13 @@ function App() {
         path="/workouts"
         element={
           <ProtectedRoute>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense
+              fallback={
+                <div className="w-screen h-screen overflow-hidden flex items-center justify-center">
+                  <SmallLoadingGif />
+                </div>
+              }
+            >
               <WorkoutsPage />
             </Suspense>
           </ProtectedRoute>
