@@ -3,20 +3,23 @@ import AnimatedGradientBorderBtn from "./gradient/animated-gradient-border-btn";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { AnimateTextGradient } from "./modals/animate-text-gradient";
 import { logOutUser } from "../api/user/log-out-user";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { routes } from "../routes";
 
 export const Navbar = () => {
-  const { user, setUser } = useUser() || {};
+  const { user, clearUser } = useUser() || {};
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    if (!setUser) {
+    if (!clearUser) {
       return;
     }
     try {
+      clearUser();
+
       await logOutUser();
-      setUser(null);
-      window.location.reload();
+
+      navigate("/");
     } catch (error) {
       console.error("Logout failed:", error);
     }

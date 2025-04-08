@@ -17,6 +17,12 @@ export function UserProvider({ children }: { children: ReactNode }) {
     });
   }
 
+  const clearUser = () => {
+    setUser(null);
+    document.cookie =
+      "loggedIn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  };
+
   const shouldFetchUser = doesCookieExist("loggedIn");
 
   const { data, error, isLoading } = useQuery({
@@ -44,7 +50,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, error }}>
+    <UserContext.Provider value={{ user, setUser, error, clearUser }}>
       {children}
     </UserContext.Provider>
   );

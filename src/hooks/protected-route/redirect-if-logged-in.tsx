@@ -13,7 +13,11 @@ export const RedirectIfLoggedIn: React.FC<RedirectIfLoggedInProps> = ({
   const { user } = useUser();
 
   useEffect(() => {
-    if (user && window.location.pathname === "/") {
+    const hasLoggedInCookie = document.cookie
+      .split("; ")
+      .some((cookie) => cookie.startsWith("loggedIn="));
+
+    if (user && hasLoggedInCookie && window.location.pathname === "/") {
       navigate("/exercises", { replace: true });
     }
   }, [user, navigate]);

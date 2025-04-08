@@ -50,7 +50,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
           repeat="repeat"
           position="center"
           role="tablist"
-          className="relative flex items-center tabs tabs-box w-full flex-row h-full rounded-none"
+          className="relative flex items-center tabs tabs-box w-full flex-row h-full rounded-none px-0"
         >
           {!isCreatingExercise && !exerciseForUpdate ? (
             <>
@@ -86,7 +86,9 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
             </>
           ) : (
             //TODO: Add a gif here
-            <div className="w-full items-center flex justify-center">gif</div>
+            <div className="w-full items-center flex justify-center h-full">
+              gif
+            </div>
           )}
         </RenderSvg>
       </div>
