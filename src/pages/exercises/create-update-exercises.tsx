@@ -10,6 +10,7 @@ import { useStatus } from "../../hooks/status/status-context";
 import { handleExerciseCreation } from "../../api/exercises/exercise-creation";
 import { handleExerciseUpdate } from "../../api/exercises/exercise-update";
 import { RenderSvg } from "../../components/pixel-art/render-svg";
+import { SmallLoadingGif } from "../../components/small-loading-gif";
 
 const ExerciseForm = React.lazy(() => import("./form/exercise-form"));
 
@@ -220,8 +221,8 @@ const CreateOrUpdateExercises: React.FC = React.memo(() => {
     <div className="size-full relative bg-neutral-950/50 mt-16 min-h-screen">
       <Suspense
         fallback={
-          <div className="size-full flex items-center justify-center">
-            <span className="loading loading-dots loading-lg"></span>
+          <div className="h-96 w-full flex items-center justify-center">
+            <SmallLoadingGif />
           </div>
         }
       >

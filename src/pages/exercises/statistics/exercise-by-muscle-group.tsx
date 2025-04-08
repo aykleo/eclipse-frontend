@@ -6,6 +6,7 @@ import { useDebounce } from "use-debounce";
 import { useSearchParams } from "react-router-dom";
 import { MessageCircleQuestionIcon } from "lucide-react";
 import { useUser } from "../../../hooks/user/use-context";
+import { SmallLoadingGif } from "../../../components/small-loading-gif";
 
 export default function ExerciseByMuscleGroup() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -175,7 +176,7 @@ export default function ExerciseByMuscleGroup() {
     <div className="flex items-center p-2 justify-center h-96 lg:h-108">
       {isLoading ? (
         <div className="flex items-center justify-center h-full w-full">
-          <span className="loading loading-dots loading-xl"></span>
+          <SmallLoadingGif />
         </div>
       ) : (
         <div className="relative size-full flex">

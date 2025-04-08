@@ -4,6 +4,7 @@ import { useDebounce } from "use-debounce";
 import { RenderSvg } from "../../../components/pixel-art/render-svg";
 import { SearchInput } from "../../../components/search-input";
 import { Template } from "../../../utils/types/template-types";
+import { SmallLoadingGif } from "../../../components/small-loading-gif";
 
 interface TemplatesCodexSelectorProps {
   currentPage: number;
@@ -116,7 +117,9 @@ export const TemplatesCodexSelector: React.FC<TemplatesCodexSelectorProps> =
               </>
             ) : (
               //TODO: Add a gif here
-              <div className="w-full flex items-center justify-center">gif</div>
+              <div className="w-full flex items-center justify-center">
+                <SmallLoadingGif />
+              </div>
             )}
           </RenderSvg>
         </div>

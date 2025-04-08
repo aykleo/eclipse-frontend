@@ -13,6 +13,7 @@ import { MuscleGroupSelect } from "../../../components/forms/muscle-group-select
 import { TextArea } from "../../../components/forms/text-area";
 import MuscleGroupTree from "./muscle-group-tree";
 import { RenderSvg } from "../../../components/pixel-art/render-svg";
+import { SmallLoadingGif } from "../../../components/small-loading-gif";
 
 interface ExerciseFormProps {
   exerciseForUpdate: Exercise | null;
@@ -123,6 +124,8 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
               >
                 {!exerciseForUpdate || exerciseForUpdate === null
                   ? "New exercise"
+                  : exerciseNameRef.current
+                  ? exerciseNameRef.current
                   : exerciseForUpdate.name}
               </h1>
               <div className="flex flex-row gap-x-6">
@@ -285,29 +288,31 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
           </div>
 
           <div className="form-control w-full flex flex-col items-end gap-y-2 h-max py-4 justify-center">
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-[96px] cursor-pointer"
-            >
-              <RenderSvg
-                src="buttons/btn-submit.svg"
-                size="auto"
-                repeat="no-repeat"
-                position="center"
-                className="size-full pb-[4px] tracking-wide flex items-center justify-center filter duration-200 transition-all hover:brightness-125"
+            {isLoading ? (
+              <div className="flex items-center justify-center">
+                <SmallLoadingGif />
+              </div>
+            ) : (
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-[96px] cursor-pointer"
               >
-                {isLoading ? (
-                  <span className="loading loading-dots loading-md"></span>
-                ) : (
+                <RenderSvg
+                  src="buttons/btn-submit.svg"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="size-full pb-[4px] tracking-wide flex items-center justify-center filter duration-200 transition-all hover:brightness-125"
+                >
                   <>
                     {!exerciseForUpdate || exerciseForUpdate === null
                       ? "Create"
                       : "Update"}
                   </>
-                )}
-              </RenderSvg>
-            </button>
+                </RenderSvg>
+              </button>
+            )}
           </div>
         </form>
       </div>

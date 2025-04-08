@@ -6,6 +6,7 @@ import { registerSchema } from "../../../../lib/validation/auth-schemas";
 import { registerUser } from "../../../../api/user/register";
 import { useStatus } from "../../../../hooks/status/status-context";
 import { Input } from "../../../../components/forms/input";
+import { SmallLoadingGif } from "../../../../components/small-loading-gif";
 
 export const RegisterModal = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -38,6 +39,8 @@ export const RegisterModal = () => {
       registerUser(emailRef.current, usernameRef.current, setStatusText)
         .then(() => {
           setStatusText("Please check your email to validate your account.");
+          usernameRef.current = null;
+          emailRef.current = null;
           const modal = document.getElementById(
             "register_modal"
           ) as HTMLDialogElement;
@@ -58,7 +61,7 @@ export const RegisterModal = () => {
       formRef={formRef as React.RefObject<HTMLFormElement>}
       handleSubmit={handleSubmit}
     >
-      <h1 className="text-5xl font-marker text-red-400">ECLIPSE</h1>
+      <h1 className="text-5xl text-red-400">ECLIPSE</h1>
       <div className="flex flex-col w-full">
         <h2 className="text-2xl font-bold text-gray-200">Welcome!</h2>
         <p className="text-gray-300">Create your account to continue</p>
@@ -88,16 +91,18 @@ export const RegisterModal = () => {
       </div>
 
       <div className="form-control mt-3">
-        <button
-          disabled={isLoading}
-          className={`text-gray-400 btn bg-zinc-900 border  border-gray-600/25 shadow-none w-full rounded-lg`}
-        >
-          {isLoading ? (
-            <span className="loading loading-dots loading-lg"></span>
-          ) : (
-            "Sign Up"
-          )}
-        </button>
+        {isLoading ? (
+          <div className="flex items-center justify-center">
+            <SmallLoadingGif />
+          </div>
+        ) : (
+          <button
+            disabled={isLoading}
+            className={`text-gray-400 btn bg-zinc-900 border  border-gray-600/25 shadow-none w-full rounded-lg`}
+          >
+            Sign Up
+          </button>
+        )}
       </div>
     </GeneralModal>
   );

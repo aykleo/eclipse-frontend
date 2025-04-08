@@ -8,6 +8,7 @@ import {
 } from "../../../utils/codex-selector-categories";
 import { SearchInput } from "../../../components/search-input";
 import { useExerciseState } from "../../../hooks/exercises/exercise-context";
+import { SmallLoadingGif } from "../../../components/small-loading-gif";
 
 interface CategorySelectorProps {
   handleTabClick: (category: ExerciseCategory) => void;
@@ -87,7 +88,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
           ) : (
             //TODO: Add a gif here
             <div className="w-full items-center flex justify-center h-full">
-              gif
+              <SmallLoadingGif />
             </div>
           )}
         </RenderSvg>

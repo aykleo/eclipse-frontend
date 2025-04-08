@@ -2,6 +2,7 @@ import { memo, useLayoutEffect, useRef } from "react";
 
 import * as echarts from "echarts";
 import { ExerciseByTagData } from "../../../utils/exercise-by-tag-data";
+import { SmallLoadingGif } from "../../../components/small-loading-gif";
 
 export const ExerciseByTagPie = memo(
   ({ data, isLoading }: { data: ExerciseByTagData; isLoading: boolean }) => {
@@ -105,7 +106,7 @@ export const ExerciseByTagPie = memo(
       <div className="flex py-3 w-full h-40 lg:h-72 px-2">
         {isLoading ? (
           <div className="flex items-center justify-center h-full w-full">
-            <span className="loading loading-dots loading-xl"></span>
+            <SmallLoadingGif />
           </div>
         ) : (
           <div

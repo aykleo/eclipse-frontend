@@ -5,6 +5,7 @@ import { GeneralModal } from "../../../../components/modals/general-modal";
 import { loginSchema } from "../../../../lib/validation/auth-schemas";
 import { logIn } from "../../../../api/user/log-in";
 import { useStatus } from "../../../../hooks/status/status-context";
+import { SmallLoadingGif } from "../../../../components/small-loading-gif";
 
 export const LogInModal = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -35,6 +36,7 @@ export const LogInModal = () => {
       logIn(emailRef.current, setStatusText)
         .then(() => {
           setStatusText("Sign in link sent to your email");
+          emailRef.current = null;
           const modal = document.getElementById(
             "login_modal"
           ) as HTMLDialogElement;
@@ -73,16 +75,18 @@ export const LogInModal = () => {
       </div>
 
       <div className="form-control mt-3">
-        <button
-          disabled={isLoading}
-          className={`text-gray-400 btn bg-zinc-900 border  border-gray-600/25 shadow-none w-full rounded-lg`}
-        >
-          {isLoading ? (
-            <span className="loading loading-dots loading-lg"></span>
-          ) : (
-            "Sign In"
-          )}
-        </button>
+        {isLoading ? (
+          <div className="flex items-center justify-center">
+            <SmallLoadingGif />
+          </div>
+        ) : (
+          <button
+            disabled={isLoading}
+            className={`text-gray-400 btn bg-zinc-900 border  border-gray-600/25 shadow-none w-full rounded-lg`}
+          >
+            Sign In
+          </button>
+        )}
       </div>
     </GeneralModal>
   );
