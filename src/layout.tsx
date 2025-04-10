@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { showExerciseInfo } = useExerciseState();
 
   return (
-    <div className="bg-black text-slate-500 font-pixelify min-h-screen">
+    <div className="bg-black text-slate-500 font-alagard min-h-screen">
       <Navbar />
 
       <div className="fixed inset-0 z-0 pointer-events-none">

@@ -36,7 +36,7 @@ export const ExerciseCard = memo(({ exercise }: ExerciseCardProps) => {
             ))}
         </div>
 
-        <span className="w-[154px] h-[29px] justify-center px-2 absolute top-31">
+        <span className="w-[130px] h-[29px] justify-center px-[4px] pt-[2px] absolute top-31">
           <div className="size-full truncate text-center">
             {exercise.name ? <>{exercise.name}</> : "No name"}
           </div>

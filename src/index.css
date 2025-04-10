@@ -4,6 +4,21 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@font-face {
+  font-family: "Alagard";
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+  src: local("Alagard"), url("/src/assets/fonts/alagard.ttf") format("truetype");
+}
+
+@theme {
+  --font-orbitron: "Orbitron", serif;
+  --font-marker: "Permanent Marker", cursive;
+  --font-pixelify: "Pixelify Sans", cursive;
+  --font-alagard: "Alagard", monospace;
+}
+
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -36,12 +51,6 @@
   -webkit-box-shadow: 0 0 0px 1000px transparent inset;
   transition: background-color 5000s ease-in-out 0s;
   background-color: transparent !important;
-}
-
-@theme {
-  --font-orbitron: "Orbitron", serif;
-  --font-marker: "Permanent Marker", cursive;
-  --font-pixelify: "Pixelify Sans", cursive;
 }
 
 .text-gradient {
