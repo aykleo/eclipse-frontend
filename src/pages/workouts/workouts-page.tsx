@@ -41,6 +41,7 @@ const WorkoutsPage = () => {
   return (
     <div className={`${showExerciseInfo ? "hidden" : ""} size-full mt-16`}>
       <div className="w-full fixed z-49">
+        <div className="w-full h-2 bg-black backdrop-blur-3xl" />
         <TemplatesCodexSelector
           setSearchParams={setSearchParams}
           currentPage={currentPage}

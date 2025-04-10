@@ -44,10 +44,10 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
     }, [debouncedSearchTerm, setSearchParams]);
 
     return (
-      <div className="relative h-16">
+      <div className="relative h-12">
         <Selector
           role="tablist"
-          className="backdrop-blur-3xl z-99 bg-gradient-to-r from-transparent via-[#252223] to-transparent relative flex items-center tabs w-full flex-row h-full rounded-none px-0"
+          className="backdrop-blur-3xl z-99 bg-gradient-to-r from-transparent via-[#252223] to-transparent relative flex items-center w-full flex-row h-full"
         >
           {!isCreatingExercise && !exerciseForUpdate ? (
             <>

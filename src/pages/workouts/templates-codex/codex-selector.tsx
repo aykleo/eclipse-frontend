@@ -5,7 +5,7 @@ import { RenderSvg } from "../../../components/pixel-art/render-svg";
 import { SearchInput } from "../../../components/search-input";
 import { Template } from "../../../utils/types/template-types";
 import { SmallLoadingGif } from "../../../components/small-loading-gif";
-
+import { Selector } from "../../../components/ui/selector";
 interface TemplatesCodexSelectorProps {
   currentPage: number;
   totalPages: number;
@@ -49,13 +49,7 @@ export const TemplatesCodexSelector: React.FC<TemplatesCodexSelectorProps> =
 
       return (
         <div className="relative h-12">
-          <RenderSvg
-            src="body/body-64.svg"
-            size="48px"
-            repeat="repeat"
-            position="center"
-            className="relative flex items-center w-full flex-row h-full justify-between px-2"
-          >
+          <Selector className="backdrop-blur-3xl z-99 bg-gradient-to-r from-transparent via-[#252223] to-transparent relative flex items-center w-full flex-row h-full ">
             {!selectedTemplate ? (
               <>
                 <SearchInput
@@ -121,7 +115,7 @@ export const TemplatesCodexSelector: React.FC<TemplatesCodexSelectorProps> =
                 <SmallLoadingGif />
               </div>
             )}
-          </RenderSvg>
+          </Selector>
         </div>
       );
     }
