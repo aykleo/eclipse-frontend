@@ -27,7 +27,7 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="fixed z-69 bg-black backdrop-blur-3xl flex items-center px-10 py-4 justify-between h-16 w-full">
+    <div className="fixed z-999 bg-black backdrop-blur-3xl flex items-center px-10 py-4 justify-between h-16 w-full">
       <div className="flex flex-row gap-x-4 md:gap-x-10 lg:gap-x-16">
         <AnimatedGradientBorderBtn
           className="from-red-300 to-red-800"

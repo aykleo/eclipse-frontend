@@ -2,8 +2,7 @@ import { useEffect, useRef, memo } from "react";
 import { ExerciseCard } from "./exercise-card";
 import { RenderSvg } from "../pixel-art/render-svg";
 import { useExerciseState } from "../../hooks/exercises/exercise-context";
-import { useSearchParams } from "react-router-dom";
-import { useTemplate } from "../../hooks/templates/template-context";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 export const ExerciseInfo = () => {
   const exerciseCardRef = useRef<HTMLDivElement>(null);
@@ -15,7 +14,8 @@ export const ExerciseInfo = () => {
     setShowExerciseInfo,
     isCreatingTemplate,
   } = useExerciseState();
-  const { selectedTemplate } = useTemplate();
+
+  const isInWorkoutPage = useLocation().pathname.includes("workout");
 
   useEffect(() => {
     if (exerciseCardRef.current) {
@@ -52,44 +52,42 @@ export const ExerciseInfo = () => {
             >
               <ExerciseCard exercise={showExerciseInfo!} />
               <div className="flex flex-col md:flex-row gap-4">
-                {setSearchParams &&
-                  !isCreatingTemplate &&
-                  !selectedTemplate && (
-                    <button
-                      disabled={
-                        showExerciseInfo.id === exerciseForUpdate?.id ||
-                        isCreatingTemplate
-                      }
-                      onClick={async () => {
-                        setSearchParams(
-                          (prev) => {
-                            prev.set("exerciseToDeleteId", showExerciseInfo.id);
-                            prev.set(
-                              "exerciseToDeleteName",
-                              showExerciseInfo.name
-                            );
-                            return prev;
-                          },
-                          { replace: true }
-                        );
-                        const modal = document.getElementById(
-                          "delete_exercise_modal"
-                        ) as HTMLDialogElement;
-                        modal?.showModal();
-                      }}
-                    >
-                      <RenderSvg
-                        src="buttons/btn-delete-open.svg"
-                        size="auto"
-                        repeat="no-repeat"
-                        className="h-8 w-16 cursor-pointer transition-all duration-200 filter brightness-100 hover:brightness-150"
-                        position="center"
-                      />
-                    </button>
-                  )}
+                {setSearchParams && !isCreatingTemplate && !isInWorkoutPage && (
+                  <button
+                    disabled={
+                      showExerciseInfo.id === exerciseForUpdate?.id ||
+                      isCreatingTemplate
+                    }
+                    onClick={async () => {
+                      setSearchParams(
+                        (prev) => {
+                          prev.set("exerciseToDeleteId", showExerciseInfo.id);
+                          prev.set(
+                            "exerciseToDeleteName",
+                            showExerciseInfo.name
+                          );
+                          return prev;
+                        },
+                        { replace: true }
+                      );
+                      const modal = document.getElementById(
+                        "delete_exercise_modal"
+                      ) as HTMLDialogElement;
+                      modal?.showModal();
+                    }}
+                  >
+                    <RenderSvg
+                      src="buttons/btn-delete-open.svg"
+                      size="auto"
+                      repeat="no-repeat"
+                      className="h-8 w-16 cursor-pointer transition-all duration-200 filter brightness-100 hover:brightness-150"
+                      position="center"
+                    />
+                  </button>
+                )}
                 {setExerciseForUpdate &&
                   !isCreatingTemplate &&
-                  !selectedTemplate && (
+                  !isInWorkoutPage && (
                     <button
                       disabled={
                         showExerciseInfo.id === exerciseForUpdate?.id ||

@@ -46,7 +46,6 @@ const TemplateInfo = React.memo(({ template }: TemplateInfoProps) => {
   const { setStatusText } = useStatus();
 
   useEffect(() => {
-    // Initialize exerciseSets with one empty set for each exercise
     if (startedWorkout) {
       const initialSets: ExerciseSets = {};
       template.exercises.forEach((exercise) => {
