@@ -14,6 +14,9 @@ interface RenderSvgProps {
   children?: React.ReactNode;
   transform?: string;
   onClick?: () => void;
+  maskLeft?: boolean;
+  maskRight?: boolean;
+  maskBothSides?: boolean;
 }
 
 export const RenderSvg = React.forwardRef<HTMLDivElement, RenderSvgProps>(
@@ -28,9 +31,27 @@ export const RenderSvg = React.forwardRef<HTMLDivElement, RenderSvgProps>(
       children,
       transform,
       onClick,
+      maskLeft = false,
+      maskRight = false,
+      maskBothSides = false,
     },
     ref
   ) => {
+    const getMaskImage = () => {
+      if (maskBothSides) {
+        return "linear-gradient(to right, transparent, black 20%, black 80%, transparent 100%)";
+      }
+      if (maskLeft) {
+        return "linear-gradient(to right, transparent, black 20%)";
+      }
+      if (maskRight) {
+        return "linear-gradient(to right, black, black 80%, transparent 100%)";
+      }
+      return undefined;
+    };
+
+    const maskImage = getMaskImage();
+
     return (
       <div
         onClick={onClick}
@@ -44,6 +65,10 @@ export const RenderSvg = React.forwardRef<HTMLDivElement, RenderSvgProps>(
           backgroundRepeat: repeat,
           imageRendering: "pixelated",
           transform: transform,
+          ...(maskImage && {
+            maskImage,
+            WebkitMaskImage: maskImage,
+          }),
         }}
       >
         {children}

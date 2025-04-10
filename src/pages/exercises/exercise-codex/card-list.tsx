@@ -48,7 +48,7 @@ export const CardList = React.memo(
       <div
         className={`${
           isCreatingExercise || exerciseForUpdate ? "hidden" : ""
-        } flex size-full relative bg-neutral-950/50 pt-16`}
+        } flex size-full relative bg-neutral-950/50 pt-20`}
       >
         <div
           className={`${
@@ -134,7 +134,7 @@ export const CardList = React.memo(
               isCreatingTemplate
                 ? "grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 lg:px-10"
                 : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-7"
-            } h-full w-full no-scrollbar grid gap-y-2 justify-items-center items-start pb-10 min-h-screen ${
+            } h-full w-full no-scrollbar grid gap-y-6 justify-items-center items-start pb-10 min-h-screen ${
               !exerciseNumber || exerciseNumber < 1 ? "mt-8" : "-mt-8"
             }`}
           >

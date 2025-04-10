@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
-import { RenderSvg } from "../../../components/pixel-art/render-svg";
 import {
   categoryIcons,
   ExerciseCategory,
@@ -9,6 +8,7 @@ import {
 import { SearchInput } from "../../../components/search-input";
 import { useExerciseState } from "../../../hooks/exercises/exercise-context";
 import { SmallLoadingGif } from "../../../components/small-loading-gif";
+import { Selector } from "../../../components/ui/selector";
 
 interface CategorySelectorProps {
   handleTabClick: (category: ExerciseCategory) => void;
@@ -44,14 +44,10 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
     }, [debouncedSearchTerm, setSearchParams]);
 
     return (
-      <div className="relative h-12">
-        <RenderSvg
-          src="body/body-64.svg"
-          size="48px"
-          repeat="repeat"
-          position="center"
+      <div className="relative h-16">
+        <Selector
           role="tablist"
-          className="relative flex items-center tabs tabs-box w-full flex-row h-full rounded-none px-0"
+          className="backdrop-blur-3xl z-99 bg-gradient-to-r from-transparent via-[#252223] to-transparent relative flex items-center tabs w-full flex-row h-full rounded-none px-0"
         >
           {!isCreatingExercise && !exerciseForUpdate ? (
             <>
@@ -91,7 +87,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
               <SmallLoadingGif />
             </div>
           )}
-        </RenderSvg>
+        </Selector>
       </div>
     );
   }
