@@ -2,12 +2,16 @@ import { memo } from "react";
 import { Exercise } from "../../utils/types/exercise-types";
 import { RenderPng } from "../pixel-art/render-png";
 import { RenderSvg } from "../pixel-art/render-svg";
+import { getColorClassForTagCategory } from "../../utils/tag-colors";
 
 interface ExerciseCardProps {
   exercise: Exercise;
 }
 
 export const ExerciseCard = memo(({ exercise }: ExerciseCardProps) => {
+  const categoryColorClass = getColorClassForTagCategory(exercise.tag.category);
+  const svgColorClass = categoryColorClass.replace("text-", "svg-");
+
   return (
     <>
       <RenderPng
@@ -24,7 +28,7 @@ export const ExerciseCard = memo(({ exercise }: ExerciseCardProps) => {
                 key={muscleGroup.muscleGroup.id}
                 src={`/src/assets/pixel-art/muscles/${muscleGroup.muscleGroup.name}.svg`}
                 alt={`${muscleGroup.muscleGroup.name} icon`}
-                className="size-16 opacity-50"
+                className={`size-16 ${svgColorClass}`}
               />
             ))}
         </div>

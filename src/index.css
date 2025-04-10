@@ -72,3 +72,30 @@
 .animte-gradient {
   animation: "gradient 6s linear infinite";
 }
+
+.svg-blue-500 {
+  filter: sepia(50%) saturate(700%) hue-rotate(170deg) brightness(95%);
+}
+
+.svg-green-500 {
+  filter: sepia(50%) saturate(700%) hue-rotate(70deg) brightness(95%);
+}
+
+.svg-yellow-500 {
+  filter: sepia(50%) saturate(700%) hue-rotate(360deg) brightness(95%);
+}
+
+.svg-red-500 {
+  filter: sepia(50%) saturate(700%) hue-rotate(320deg) brightness(95%);
+}
+
+.svg-gray-500 {
+  filter: sepia(20%) saturate(200%) brightness(95%);
+}
+
+[class*="svg-"] {
+  outline: none;
+}
+[class*="svg-"] * {
+  outline: none;
+}

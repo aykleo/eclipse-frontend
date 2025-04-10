@@ -137,8 +137,6 @@ const TemplateInfo = React.memo(({ template }: TemplateInfoProps) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    // Transform exerciseSets object into the required array format
-    // Maintain the same order as template.exercises
     const setsArray = template.exercises.map((exercise) => {
       const exerciseSetsData = exerciseSets[exercise.exercise.id] || [];
       return exerciseSetsData.map((set) => ({
@@ -368,15 +366,6 @@ const TemplateInfo = React.memo(({ template }: TemplateInfoProps) => {
                   className="flex flex-col md:flex-row gap-2 items-center h-full"
                 >
                   <div className="relative group">
-                    <RenderSvg
-                      src="exercise-cards/order-marker-32.svg"
-                      size="auto"
-                      repeat="no-repeat"
-                      position="center"
-                      className="absolute top-0.5 left-0 size-8 z-2 flex items-center justify-center filter brightness-80 text-xl"
-                    >
-                      {exercise.order}
-                    </RenderSvg>
                     <button
                       className="size-max z-1 absolute top-0 right-[-0.5rem]"
                       onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
@@ -394,7 +383,18 @@ const TemplateInfo = React.memo(({ template }: TemplateInfoProps) => {
                         imgClassName="transition-all filter brightness-75 duration-200 hover:brightness-110"
                       />
                     </button>
-                    <ExerciseCard exercise={exercise.exercise} />
+                    <div className="relative">
+                      <RenderSvg
+                        src="cards/order-marker.svg"
+                        size="auto"
+                        repeat="no-repeat"
+                        position="center"
+                        className="absolute top-24 right-7 size-6 text-slate-300 z-2 flex items-center opacity-40 justify-center text-xxs"
+                      >
+                        {exercise.order}
+                      </RenderSvg>
+                      <ExerciseCard exercise={exercise.exercise} />
+                    </div>
                   </div>
                   {!exercise.notes ? (
                     <span className="text-center md:h-full md:w-52 w-full p-2 h-max overflow-y-auto md:max-h-64 max-h-40">
