@@ -20,16 +20,19 @@ export const ExerciseCard = memo(({ exercise }: ExerciseCardProps) => {
         alt="exercise-card"
         imgClassName="w-full h-full"
       >
-        <div className="flex overflow-hidden items-center absolute top-6 rounded-full size-max justify-center">
+        <div className="flex overflow-hidden items-center absolute top-4 rounded-full size-max justify-center">
           {exercise.exerciseMuscleGroups
             .filter((muscleGroup) => muscleGroup.isPrimary)
             .map((muscleGroup) => (
-              <img
-                key={muscleGroup.muscleGroup.id}
-                src={`/src/assets/pixel-art/muscles/${muscleGroup.muscleGroup.name}.svg`}
-                alt={`${muscleGroup.muscleGroup.name} icon`}
-                className={`size-16 ${svgColorClass}`}
-              />
+              <div key={muscleGroup.muscleGroup.id}>
+                <RenderSvg
+                  src={`muscles/${muscleGroup.muscleGroup.name}.svg`}
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className={`h-[100px] w-[44px] ${svgColorClass}`}
+                />
+              </div>
             ))}
         </div>
 

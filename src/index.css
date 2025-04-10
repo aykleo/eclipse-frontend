@@ -74,19 +74,19 @@
 }
 
 .svg-blue-500 {
-  filter: sepia(50%) saturate(700%) hue-rotate(170deg) brightness(95%);
+  filter: sepia(50%) saturate(250%) hue-rotate(170deg) brightness(95%);
 }
 
 .svg-green-500 {
-  filter: sepia(50%) saturate(700%) hue-rotate(70deg) brightness(95%);
+  filter: sepia(50%) saturate(250%) hue-rotate(70deg) brightness(95%);
 }
 
 .svg-yellow-500 {
-  filter: sepia(50%) saturate(700%) hue-rotate(360deg) brightness(95%);
+  filter: sepia(50%) saturate(250%) hue-rotate(360deg) brightness(95%);
 }
 
 .svg-red-500 {
-  filter: sepia(50%) saturate(700%) hue-rotate(320deg) brightness(95%);
+  filter: sepia(50%) saturate(250%) hue-rotate(320deg) brightness(95%);
 }
 
 .svg-gray-500 {
