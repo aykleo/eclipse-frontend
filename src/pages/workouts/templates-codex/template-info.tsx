@@ -124,6 +124,7 @@ const TemplateInfo = React.memo(({ template }: TemplateInfoProps) => {
         setStatusText(result.error || "Failed to create workout history");
         return;
       }
+      setStartedWorkout(false);
       setStatusText("Workout history created successfully");
     },
     onError: (error) => {
