@@ -11,39 +11,50 @@ export const Input = ({ label, hasLabel, className, ...props }: InputProps) => {
     <div className="gap-y-1 flex w-full flex-col filter duration-200 transition-opacity hover:brightness-125">
       {hasLabel && (
         <div className="w-full">
-          {" "}
           <label className="label">
             <span className="label-text text-sm">{label}</span>
           </label>
         </div>
       )}
-      <div className="h-8 w-full flex relative">
+      <div className="h-8 w-full flex relative border-[1px] border-dark-bronze">
+        {/* Top left corner */}
         <RenderSvg
-          src="body/input-side-32.svg"
+          src="corners/corner-1.svg"
           size="auto"
           repeat="no-repeat"
-          position="start"
-          className="size-8 absolute -left-1"
+          position="center"
+          className="size-[10px] absolute top-[-1px] left-[-1px]"
         />
+        {/* Top right corner */}
         <RenderSvg
-          src="body/body-32-input.svg"
-          size="auto"
-          repeat="repeat"
-          position="center"
-          className="h-full w-full pl-1"
-        >
-          <input
-            className={`clean w-full h-full py-2 ${className || ""}`}
-            {...props}
-          />
-        </RenderSvg>
-        <RenderSvg
-          src="body/input-side-32.svg"
+          src="corners/corner-1.svg"
           size="auto"
           repeat="no-repeat"
           position="center"
-          className="h-full w-4 absolute -right-2"
+          className="size-[10px] absolute top-[-1px] right-[-1px]"
+          transform="rotate(90deg)"
+        />
+        {/* Bottom left corner */}
+        <RenderSvg
+          src="corners/corner-1.svg"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="size-[10px] absolute bottom-[-1px] left-[-1px]"
+          transform="rotate(270deg)"
+        />
+        {/* Bottom right corner */}
+        <RenderSvg
+          src="corners/corner-1.svg"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="size-[10px] absolute bottom-[-1px] right-[-1px]"
           transform="rotate(180deg)"
+        />
+        <input
+          className={`clean w-full border h-full p-2 ${className || ""}`}
+          {...props}
         />
       </div>
     </div>

@@ -57,7 +57,7 @@ export const CardList = React.memo(
         >
           <div className="w-full lg:w-[calc(100%-1.5rem)] gap-x-2 pt-2 h-14 relative flex items-end justify-center">
             <div className="w-1/3 h-full relative pt-2.5">
-              <div className="w-full h-[2px] absolute bottom-[13px] bg-[#bfb7b7]" />
+              <div className="w-full h-[2px] absolute bottom-[13px] bg-light-silver" />
               <RenderSvg
                 src="general/white-cross-16.svg"
                 className="size-full absolute"
@@ -104,7 +104,7 @@ export const CardList = React.memo(
               )}
             </div>
             <div className="w-1/3 h-full relative pt-2.5">
-              <div className="w-full h-[2px] absolute bottom-[13px] bg-[#bfb7b7]" />
+              <div className="w-full h-[2px] absolute bottom-[13px] bg-light-silver" />
               <RenderSvg
                 src="general/white-cross-16.svg"
                 className="size-full absolute"

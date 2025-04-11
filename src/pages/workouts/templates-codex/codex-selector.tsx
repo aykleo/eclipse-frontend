@@ -49,7 +49,7 @@ export const TemplatesCodexSelector: React.FC<TemplatesCodexSelectorProps> =
 
       return (
         <div className="relative h-12">
-          <Selector className="backdrop-blur-3xl z-99 bg-gradient-to-r from-transparent via-[#252223] to-transparent relative flex items-center w-full flex-row h-full ">
+          <Selector className="backdrop-blur-3xl z-99 bg-gradient-to-r from-transparent via-dark-neutral to-transparent relative flex items-center w-full flex-row h-full ">
             {!selectedTemplate ? (
               <>
                 <SearchInput

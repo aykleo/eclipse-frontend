@@ -17,6 +17,16 @@
   --font-marker: "Permanent Marker", cursive;
   --font-pixelify: "Pixelify Sans", cursive;
   --font-alagard: "Alagard", monospace;
+
+  --color-dark-bronze: #4a3c3a;
+  --color-light-bronze: #62504a;
+
+  --color-dark-gold: #8b7563;
+
+  --color-light-silver: #bfb7b7;
+  --color-silver: #62748e;
+
+  --color-dark-neutral: #252223;
 }
 
 .no-scrollbar {

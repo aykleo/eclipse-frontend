@@ -16,9 +16,9 @@ export const categoryIcons = [
         size="auto"
         repeat="no-repeat"
         position="center"
-        className="h-[32px] w-[112px] text-sm text-[#8b7563] px-2 py-[2px]"
+        className="h-[32px] w-[112px] text-sm text-dark-gold px-2 py-[2px]"
       >
-        <div className="flex items-center justify-center h-full w-full bg-[#252223]/20">
+        <div className="flex items-center justify-center h-full w-full bg-dark-neutral/20">
           Exercises
         </div>
       </RenderSvg>
@@ -41,9 +41,9 @@ export const categoryIcons = [
         size="auto"
         repeat="no-repeat"
         position="center"
-        className="h-[32px] w-[112px] text-sm text-[#8b7563] px-2 py-[2px]"
+        className="h-[32px] w-[112px] text-sm text-dark-gold px-2 py-[2px]"
       >
-        <div className="flex items-center justify-center h-full w-full bg-[#252223]/20">
+        <div className="flex items-center justify-center h-full w-full bg-dark-neutral/20">
           Endurance
         </div>
       </RenderSvg>
@@ -66,9 +66,9 @@ export const categoryIcons = [
         size="auto"
         repeat="no-repeat"
         position="center"
-        className="h-[32px] w-[112px] text-sm text-[#8b7563] px-2 py-[2px]"
+        className="h-[32px] w-[112px] text-sm text-dark-gold px-2 py-[2px]"
       >
-        <div className="flex items-center justify-center h-full w-full bg-[#252223]/20">
+        <div className="flex items-center justify-center h-full w-full bg-dark-neutral/20">
           Movement
         </div>
       </RenderSvg>
@@ -91,9 +91,9 @@ export const categoryIcons = [
         size="auto"
         repeat="no-repeat"
         position="center"
-        className="h-[32px] w-[112px] text-sm text-[#8b7563] px-2 py-[2px]"
+        className="h-[32px] w-[112px] text-sm text-dark-gold px-2 py-[2px]"
       >
-        <div className="flex items-center justify-center h-full w-full bg-[#252223]/20">
+        <div className="flex items-center justify-center h-full w-full bg-dark-neutral/20">
           Plyometrics
         </div>
       </RenderSvg>
@@ -116,9 +116,9 @@ export const categoryIcons = [
         size="auto"
         repeat="no-repeat"
         position="center"
-        className="h-[32px] w-[112px] text-sm text-[#8b7563] px-2 py-[2px]"
+        className="h-[32px] w-[112px] text-sm text-dark-gold px-2 py-[2px]"
       >
-        <div className="flex items-center justify-center h-full w-full bg-[#252223]/20">
+        <div className="flex items-center justify-center h-full w-full bg-dark-neutral/20">
           Strength
         </div>
       </RenderSvg>
