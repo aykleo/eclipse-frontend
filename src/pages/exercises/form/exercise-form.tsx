@@ -119,7 +119,7 @@ const ExerciseForm: React.FC<ExerciseFormProps> = React.memo(
                     ? getColorClassForTagCategory(
                         exerciseForUpdate.tag.category
                       )
-                    : "text-gray-300"
+                    : "text-dark-gold"
                 } w-full truncate`}
               >
                 {!exerciseForUpdate || exerciseForUpdate === null

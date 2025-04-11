@@ -67,7 +67,7 @@ export const Select = ({
         return (
           <div
             key={optionProps.value || index}
-            className="group px-4 py-2 h-10 flex flex-row items-center cursor-pointer hover:bg-neutral-900"
+            className="group px-4 py-2 h-10 flex flex-row items-center cursor-pointer hover:bg-gradient-to-r from-transparent via-dark-neutral/25 to-dark-neutral/50"
             onClick={() =>
               handleSelect(
                 optionProps.value,
@@ -76,14 +76,13 @@ export const Select = ({
             }
           >
             <RenderSvg
-              src="icons/pointer-8.svg"
+              src="arrows/arrow-r.svg"
               size="auto"
               repeat="no-repeat"
               position="center"
-              className="size-8 group-hover:block hidden animate-pulse"
-              transform="rotate(180deg)"
+              className="size-3 group-hover:block hidden animate-pulse pr-6"
             />
-            <p className="text-md group-hover:text-neutral-100 text-neutral-400">
+            <p className="text-md text-dark-bronze group-hover:text-dark-gold">
               {optionProps.children}
             </p>
           </div>
@@ -117,7 +116,9 @@ export const Select = ({
   return (
     <>
       <div
-        className={`gap-y-1 flex flex-col text ${className || ""} `}
+        className={`gap-y-1 flex flex-col text ${
+          className || ""
+        } text-dark-gold`}
         ref={dropdownRef}
       >
         {hasLabel && (
@@ -127,79 +128,105 @@ export const Select = ({
             </label>
           </div>
         )}
-        <div className="h-8 w-full flex relative">
+        <div className="h-8 w-full flex form-component">
+          {/* Top left corner */}
           <RenderSvg
-            src="body/input-side-32.svg"
+            src="corners/corner-1.svg"
             size="auto"
             repeat="no-repeat"
-            position="start"
-            className="size-8 absolute -left-1"
+            position="center"
+            className="size-[10px] absolute top-[-1px] left-[-1px]"
           />
+          {/* Top right corner */}
           <RenderSvg
-            src="body/body-32-input.svg"
-            size="auto"
-            repeat="repeat"
-            position="center"
-            className="h-full w-full"
-          >
-            <button
-              type="button"
-              className={`clean w-full h-full flex flex-row items-center pr-5 pl-1 gap-x-2 justify-between text-neutral-300 ${
-                required && !selectedValue ? "text-error" : ""
-              }`}
-              onClick={() => setIsOpen(!isOpen)}
-              disabled={disabled}
-              {...props}
-            >
-              {selectedValue || placeholder}
-              <RenderSvg
-                src="icons/dropdown-indicator-8.svg"
-                size="auto"
-                repeat="no-repeat"
-                position="center"
-                className="size-2 cursor-pointer"
-              />
-            </button>
-
-            {isOpen && (
-              <div className="absolute h-49 top-full left-0 w-full mt-1 z-50">
-                <div className="size-full relative">
-                  <RenderSvg
-                    src="body/body-196.svg"
-                    size="auto"
-                    repeat="repeat"
-                    position="center"
-                    className="h-full overflow-auto no-scrollbar mx-[7px] py-2"
-                  >
-                    {renderOptions()}
-                  </RenderSvg>
-                  <RenderSvg
-                    src="body/body-side-196.svg"
-                    size="auto"
-                    repeat="no-repeat"
-                    position="center"
-                    className="h-full w-[8px] absolute top-1/2 -translate-y-1/2 left-0"
-                  />
-                  <RenderSvg
-                    src="body/body-side-196.svg"
-                    size="auto"
-                    repeat="no-repeat"
-                    position="center"
-                    className="h-full w-[8px] absolute top-1/2 -translate-y-1/2 right-1"
-                    transform="rotate(180deg)"
-                  />
-                </div>
-              </div>
-            )}
-          </RenderSvg>
-          <RenderSvg
-            src="body/input-side-32.svg"
+            src="corners/corner-1.svg"
             size="auto"
             repeat="no-repeat"
             position="center"
-            className="h-full w-4 absolute -right-2"
+            className="size-[10px] absolute top-[-1px] right-[-1px]"
+            transform="rotate(90deg)"
+          />
+          {/* Bottom left corner */}
+          <RenderSvg
+            src="corners/corner-1.svg"
+            size="auto"
+            repeat="no-repeat"
+            position="center"
+            className="size-[10px] absolute bottom-[-1px] left-[-1px]"
+            transform="rotate(270deg)"
+          />
+          {/* Bottom right corner */}
+          <RenderSvg
+            src="corners/corner-1.svg"
+            size="auto"
+            repeat="no-repeat"
+            position="center"
+            className="size-[10px] absolute bottom-[-1px] right-[-1px]"
             transform="rotate(180deg)"
           />
+          <button
+            type="button"
+            className={`clean w-full h-full flex flex-row items-center pr-2 pl-2 gap-x-2 justify-between ${
+              required && !selectedValue ? "text-error" : ""
+            }`}
+            onClick={() => setIsOpen(!isOpen)}
+            disabled={disabled}
+            {...props}
+          >
+            {selectedValue || placeholder}
+            <RenderSvg
+              src={isOpen ? "arrows/arrow-t.svg" : "arrows/arrow-b.svg"}
+              size="auto"
+              repeat="no-repeat"
+              position="center"
+              className="size-3 cursor-pointer"
+            />
+          </button>
+
+          {isOpen && (
+            <div className="absolute h-49 top-full left-0 w-full mt-1 z-2">
+              <div className="size-full form-component bg-neutral-950 ">
+                <div className="overflow-auto no-scrollbar py-2 size-full">
+                  {renderOptions()}
+                </div>
+                {/* Top left corner */}
+                <RenderSvg
+                  src="corners/corner-1.svg"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="size-[10px] absolute top-[-1px] left-[-1px] z-3"
+                />
+                {/* Top right corner */}
+                <RenderSvg
+                  src="corners/corner-1.svg"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="size-[10px] absolute top-[-1px] right-[-1px]"
+                  transform="rotate(90deg)"
+                />
+                {/* Bottom left corner */}
+                <RenderSvg
+                  src="corners/corner-1.svg"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="size-[10px] absolute bottom-[-1px] left-[-1px]"
+                  transform="rotate(270deg)"
+                />
+                {/* Bottom right corner */}
+                <RenderSvg
+                  src="corners/corner-1.svg"
+                  size="auto"
+                  repeat="no-repeat"
+                  position="center"
+                  className="size-[10px] absolute bottom-[-1px] right-[-1px]"
+                  transform="rotate(180deg)"
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

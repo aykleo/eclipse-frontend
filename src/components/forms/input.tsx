@@ -8,7 +8,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = ({ label, hasLabel, className, ...props }: InputProps) => {
   return (
-    <div className="gap-y-1 flex w-full flex-col filter duration-200 transition-opacity hover:brightness-125">
+    <div className="gap-y-1 flex w-full flex-col text-dark-gold filter duration-200 transition-opacity hover:brightness-125">
       {hasLabel && (
         <div className="w-full">
           <label className="label">
@@ -16,7 +16,7 @@ export const Input = ({ label, hasLabel, className, ...props }: InputProps) => {
           </label>
         </div>
       )}
-      <div className="h-8 w-full flex relative border-[1px] border-dark-bronze">
+      <div className="h-8 w-full flex form-component">
         {/* Top left corner */}
         <RenderSvg
           src="corners/corner-1.svg"

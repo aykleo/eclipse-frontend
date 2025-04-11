@@ -63,6 +63,11 @@
   background-color: transparent !important;
 }
 
+.form-component {
+  position: relative;
+  border: 1px solid var(--color-dark-bronze);
+}
+
 .text-gradient {
   background: linear-gradient(
     to right,
