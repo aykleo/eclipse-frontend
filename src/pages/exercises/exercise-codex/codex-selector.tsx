@@ -79,6 +79,7 @@ export const CodexSelector: React.FC<CategorySelectorProps> = React.memo(
               <SearchInput
                 width="w-1/2 lg:w-1/3"
                 setSearchTerm={setSearchTerm}
+                maskRight={true}
               />
             </>
           ) : (

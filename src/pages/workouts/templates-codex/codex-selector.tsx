@@ -51,11 +51,7 @@ export const TemplatesCodexSelector: React.FC<TemplatesCodexSelectorProps> =
         <div className="relative h-12">
           <Selector className="backdrop-blur-3xl z-99 bg-gradient-to-r from-transparent via-dark-neutral to-transparent relative flex items-center w-full flex-row h-full ">
             {!selectedTemplate ? (
-              <>
-                <SearchInput
-                  width="w-1/2 md:w-[75%]"
-                  setSearchTerm={setSearchTerm}
-                />
+              <div className="flex items-center justify-center w-full">
                 <RenderSvg
                   src="buttons/btn-32.svg"
                   size="auto"
@@ -108,7 +104,12 @@ export const TemplatesCodexSelector: React.FC<TemplatesCodexSelectorProps> =
                     className="size-full"
                   />
                 </RenderSvg>
-              </>
+                <SearchInput
+                  width="w-1/2 md:w-[75%]"
+                  setSearchTerm={setSearchTerm}
+                  maskRight={true}
+                />
+              </div>
             ) : (
               //TODO: Add a gif here
               <div className="w-full flex items-center justify-center">
