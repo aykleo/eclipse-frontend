@@ -16,7 +16,7 @@ export const TextArea = ({
   ...props
 }: TextAreaProps) => {
   return (
-    <div className="gap-y-1 flex flex-col filter duration-200 transition-all hover:brightness-125 ">
+    <div className="gap-y-1 flex text-dark-gold flex-col">
       {hasLabel && (
         <div className="w-full">
           <label className="label">
@@ -24,36 +24,48 @@ export const TextArea = ({
           </label>
         </div>
       )}
-      <div className="h-32 w-full flex relative">
+      <div className="h-32 w-full flex form-component">
+        {/* Top left corner */}
         <RenderSvg
-          src="body/body-t-side-128.svg"
+          src="corners/corner-1.svg"
           size="auto"
           repeat="no-repeat"
-          position="start"
-          className="w-[5px] h-full absolute -left-1"
+          position="center"
+          className="size-[10px] absolute top-[-1px] left-[-1px]"
         />
+        {/* Top right corner */}
         <RenderSvg
-          src="body/body-t-128.svg"
-          size="auto"
-          repeat="repeat"
-          position="center"
-          className="h-full w-full pl-1 py-2 mr-0.5 overflow-hidden"
-        >
-          <textarea
-            className={`clean w-full h-28 px-2 resize-none overflow-y-auto no-scrollbar ${
-              className || ""
-            }`}
-            {...props}
-            defaultValue={defaultValue}
-          />
-        </RenderSvg>
-        <RenderSvg
-          src="body/body-t-side-128.svg"
+          src="corners/corner-1.svg"
           size="auto"
           repeat="no-repeat"
           position="center"
-          className="h-full w-[5px]  absolute -right-0"
+          className="size-[10px] absolute top-[-1px] right-[-1px]"
+          transform="rotate(90deg)"
+        />
+        {/* Bottom left corner */}
+        <RenderSvg
+          src="corners/corner-1.svg"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="size-[10px] absolute bottom-[-1px] left-[-1px]"
+          transform="rotate(270deg)"
+        />
+        {/* Bottom right corner */}
+        <RenderSvg
+          src="corners/corner-1.svg"
+          size="auto"
+          repeat="no-repeat"
+          position="center"
+          className="size-[10px] absolute bottom-[-1px] right-[-1px]"
           transform="rotate(180deg)"
+        />
+        <textarea
+          className={`clean w-full h-28 px-2 resize-none overflow-y-auto no-scrollbar ${
+            className || ""
+          }`}
+          {...props}
+          defaultValue={defaultValue}
         />
       </div>
     </div>

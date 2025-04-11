@@ -173,13 +173,15 @@ export const Select = ({
             disabled={disabled}
             {...props}
           >
-            {selectedValue || placeholder}
+            <div className="filter brightness-95">
+              {selectedValue || placeholder}
+            </div>
             <RenderSvg
               src={isOpen ? "arrows/arrow-t.svg" : "arrows/arrow-b.svg"}
               size="auto"
               repeat="no-repeat"
               position="center"
-              className="size-3 cursor-pointer"
+              className="size-3 cursor-pointer transition-discrete duration-100"
             />
           </button>
 
